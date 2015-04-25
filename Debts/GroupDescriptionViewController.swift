@@ -39,15 +39,15 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
                 }
             }
         }
-        
-      /*  var backgroundView = UIView(frame: CGRectZero)
-        self.tableView.tableFooterView = backgroundView
-        self.tableView.backgroundColor = UIColor.clearColor()*/
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureView()
+        
+        var backgroundView = UIView(frame: CGRectZero)
+        self.tableView.tableFooterView = backgroundView
+        self.tableView.backgroundColor = UIColor.clearColor()
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,5 +77,17 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let row = indexPath.row
     }
+    
+    // MARK: Actions
 
+    @IBAction func addTransfer(sender: AnyObject) {
+        if let gr = self.group {
+            var newTransfer = MoneyTransfer(name: "Skipass", creator: gr.creator, money: 82.76)
+            newTransfer.addUsersInTransfers(gr.users)
+            gr.addTransfer(newTransfer);
+        
+            configureView();
+            tableView.reloadData();
+        }
+    }
 }
