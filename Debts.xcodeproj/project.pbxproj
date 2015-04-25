@@ -7,13 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C5FACD71AEB8F0D00E12DF0 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACD61AEB8F0D00E12DF0 /* Groups.swift */; };
+		7C5FACD91AEB8F3400E12DF0 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACD81AEB8F3400E12DF0 /* Group.swift */; };
+		7C5FACDD1AEB901500E12DF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACDC1AEB901500E12DF0 /* User.swift */; };
+		7C5FACDF1AEB90AD00E12DF0 /* MoneyTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACDE1AEB90AD00E12DF0 /* MoneyTransfer.swift */; };
+		7C5FACE11AEB91AB00E12DF0 /* UsersInTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE01AEB91AB00E12DF0 /* UsersInTransfers.swift */; };
 		7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */; };
-		7CD2C7F61ADD47DC00A2096E /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F51ADD47DC00A2096E /* MasterViewController.swift */; };
 		7CD2C7F81ADD47DC00A2096E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F71ADD47DC00A2096E /* DetailViewController.swift */; };
 		7CD2C7FB1ADD47DC00A2096E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F91ADD47DC00A2096E /* Main.storyboard */; };
 		7CD2C7FD1ADD47DC00A2096E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */; };
 		7CD2C8001ADD47DC00A2096E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */; };
 		7CD2C80C1ADD47DC00A2096E /* DebtsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */; };
+		7CDF66661AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */; };
+		7CDF666A1AE8113600FE3E83 /* GroupDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,10 +33,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7C5FACD61AEB8F0D00E12DF0 /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
+		7C5FACD81AEB8F3400E12DF0 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		7C5FACDC1AEB901500E12DF0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7C5FACDE1AEB90AD00E12DF0 /* MoneyTransfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTransfer.swift; sourceTree = "<group>"; };
+		7C5FACE01AEB91AB00E12DF0 /* UsersInTransfers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersInTransfers.swift; sourceTree = "<group>"; };
+		7C5FACE21AEB9AA100E12DF0 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		7CD2C7EE1ADD47DC00A2096E /* Debts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Debts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD2C7F21ADD47DC00A2096E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7CD2C7F51ADD47DC00A2096E /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		7CD2C7F71ADD47DC00A2096E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		7CD2C7FA1ADD47DC00A2096E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -38,6 +49,8 @@
 		7CD2C8051ADD47DC00A2096E /* DebtsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DebtsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD2C80A1ADD47DC00A2096E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtsTests.swift; sourceTree = "<group>"; };
+		7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupOverviewTableViewController.swift; sourceTree = "<group>"; };
+		7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDescriptionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +77,7 @@
 				7CD2C7F01ADD47DC00A2096E /* Debts */,
 				7CD2C8081ADD47DC00A2096E /* DebtsTests */,
 				7CD2C7EF1ADD47DC00A2096E /* Products */,
+				7C5FACE21AEB9AA100E12DF0 /* MyPlayground.playground */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,9 +93,15 @@
 		7CD2C7F01ADD47DC00A2096E /* Debts */ = {
 			isa = PBXGroup;
 			children = (
+				7C5FACDE1AEB90AD00E12DF0 /* MoneyTransfer.swift */,
+				7C5FACE01AEB91AB00E12DF0 /* UsersInTransfers.swift */,
+				7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */,
+				7C5FACD61AEB8F0D00E12DF0 /* Groups.swift */,
+				7C5FACD81AEB8F3400E12DF0 /* Group.swift */,
+				7C5FACDC1AEB901500E12DF0 /* User.swift */,
 				7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */,
-				7CD2C7F51ADD47DC00A2096E /* MasterViewController.swift */,
 				7CD2C7F71ADD47DC00A2096E /* DetailViewController.swift */,
+				7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */,
 				7CD2C7F91ADD47DC00A2096E /* Main.storyboard */,
 				7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */,
 				7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */,
@@ -215,9 +235,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CDF66661AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift in Sources */,
 				7CD2C7F81ADD47DC00A2096E /* DetailViewController.swift in Sources */,
-				7CD2C7F61ADD47DC00A2096E /* MasterViewController.swift in Sources */,
+				7C5FACE11AEB91AB00E12DF0 /* UsersInTransfers.swift in Sources */,
 				7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */,
+				7C5FACDF1AEB90AD00E12DF0 /* MoneyTransfer.swift in Sources */,
+				7C5FACD91AEB8F3400E12DF0 /* Group.swift in Sources */,
+				7C5FACDD1AEB901500E12DF0 /* User.swift in Sources */,
+				7C5FACD71AEB8F0D00E12DF0 /* Groups.swift in Sources */,
+				7CDF666A1AE8113600FE3E83 /* GroupDescriptionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +439,7 @@
 				7CD2C8111ADD47DC00A2096E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7CD2C8121ADD47DC00A2096E /* Build configuration list for PBXNativeTarget "DebtsTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +448,7 @@
 				7CD2C8141ADD47DC00A2096E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
