@@ -14,6 +14,7 @@ class Group: NSObject {
     var users: [User] = []
     var creator: User
     var transfers: [MoneyTransfer] = []
+    var sum = -40 //fixed value for now
     
     init(name: String, users: [User], creator: User) {
         self.name = name
@@ -24,8 +25,7 @@ class Group: NSObject {
     func getUsers() -> String {
         var initials = ""
         for user in self.users {
-            var initial = "\(Array(user.firstname)[0])\(Array(user.lastname)[0])"
-            initials += initial + " "
+            initials += user.getName() + " "
         }
         return initials
     }

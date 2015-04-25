@@ -37,4 +37,8 @@ class User: NSObject {
         self.firstname = first
         self.lastname = last
     }
+    
+    func getName() -> String {
+        return "\(Array(self.firstname)[0])\(Array(self.lastname)[0])"
+    }
 }

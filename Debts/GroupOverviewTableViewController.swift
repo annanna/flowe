@@ -19,7 +19,15 @@ class GroupOverviewTableViewController: UITableViewController {
         println("new data")
         
         var winterurlaub = Group(name: "Winterurlaub", users: [User(rand: 1), User(rand: 2), User(rand: 3)], creator: User(rand: 2))
+        var italiener = MoneyTransfer(name: "Italiener", creator: winterurlaub.creator, money: 57.12)
+        italiener.addUsersInTransfers(winterurlaub.users)
+        winterurlaub.transfers.append(italiener)
+        
+        
         var party = Group(name: "Geburtstagsparty", users: [User(rand:2), User(rand: 5), User(rand: 7)], creator: User(rand: 7))
+        var einkauf = MoneyTransfer(name: "Einkauf", creator: party.users[0], money: 13.50)
+        einkauf.addUsersInTransfers(party.users)
+        party.transfers.append(einkauf)
         
         groups.addGroup(winterurlaub)
         groups.addGroup(party)

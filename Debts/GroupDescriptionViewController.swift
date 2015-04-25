@@ -13,6 +13,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var sumLabel: UILabel!
     
+    @IBOutlet weak var tableView: UITableView!
     var group:Group? {
         didSet {
             self.configureView()
@@ -29,16 +30,19 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             if let userLabel = self.userLabel {
                 userLabel.text = gr.getUsers()
             }
-            var sum = -40
             if let sumLabel = self.sumLabel {
-                sumLabel.text = "\(sum)€"
-                if sum < 0 {
+                sumLabel.text = "\(gr.sum)€"
+                if gr.sum < 0 {
                     sumLabel.textColor = UIColor.redColor()
                 } else {
                     sumLabel.textColor = UIColor.greenColor()
                 }
-            }            
+            }
         }
+        
+      /*  var backgroundView = UIView(frame: CGRectZero)
+        self.tableView.tableFooterView = backgroundView
+        self.tableView.backgroundColor = UIColor.clearColor()*/
     }
 
     override func viewDidLoad() {
@@ -64,12 +68,14 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         let cell = tableView.dequeueReusableCellWithIdentifier(transferCell, forIndexPath: indexPath) as! UITableViewCell
         
         let transfer = group!.transfers[indexPath.row]
-        cell.textLabel?.text = transfer.name
-        
-        
+        cell.textLabel?.text = "\(transfer.userPayed.getName()) hat \(transfer.moneyPayed)€ für \(transfer.name) bezahlt"
         return cell
     }
     
+    // MARK: UITableViewDelegate
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let row = indexPath.row
+    }
 
 }

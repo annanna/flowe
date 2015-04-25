@@ -12,14 +12,32 @@ class MoneyTransfer: NSObject {
     var name = ""
     var timestamp = NSDate()
     var notes = ""
-    var creator: User
+    var userPayed: User
+    var moneyPayed = 0.0
     var imageLink = ""
     var participants: [UsersInTransfers] = []
     
-    init(name: String, notes: String, creator: User, participants: [UsersInTransfers]) {
+    init(name: String, notes: String, creator: User, money: Double, participants: [UsersInTransfers]) {
         self.name = name
         self.notes = notes
-        self.creator = creator
+        self.userPayed = creator
+        self.moneyPayed = money
         self.participants = participants
     }
+    
+    init(name: String, creator: User, money: Double) {
+        self.name = name
+        self.userPayed = creator
+        self.moneyPayed = money
+    }
+
+    func addUsersInTransfers(users: [User]) {
+        var usersInTransfers = []
+        var payment = self.moneyPayed / Double(usersInTransfers.count)
+        for user in users {
+            var trUser = UsersInTransfers(user: user, payment: payment, participation: true)
+            participants.append(trUser)
+        }
+    }
+    
 }

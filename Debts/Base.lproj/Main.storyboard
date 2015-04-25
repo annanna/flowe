@@ -107,15 +107,27 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="transferCell" id="wOc-Pu-cHa">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="transferCell" textLabel="GaW-0N-h02" style="IBUITableViewCellStyleDefault" id="wOc-Pu-cHa">
                                         <rect key="frame" x="0.0" y="22" width="325" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wOc-Pu-cHa" id="ECW-4n-s65">
                                             <rect key="frame" x="0.0" y="0.0" width="325" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GaW-0N-h02">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="qho-IX-jrz" id="oyJ-M6-bPL"/>
+                                    <outlet property="delegate" destination="qho-IX-jrz" id="vTH-51-WuJ"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -124,6 +136,7 @@
                     <connections>
                         <outlet property="groupName" destination="zRv-NW-2IG" id="3Lk-ff-NqY"/>
                         <outlet property="sumLabel" destination="6DB-Bd-jD8" id="f24-G2-cVg"/>
+                        <outlet property="tableView" destination="C6l-gY-3D4" id="htl-Yw-i9h"/>
                         <outlet property="userLabel" destination="dy5-nw-k0J" id="gxf-V7-aRr"/>
                     </connections>
                 </viewController>

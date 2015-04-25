@@ -10,10 +10,10 @@ import UIKit
 
 class UsersInTransfers: NSObject {
     var user: User
-    var paymentAmount = 0
-    var participationAmount = 0
+    var paymentAmount: Double
+    var participationAmount: Bool
     
-    init(user: User, payment: Int, participation: Int) {
+    init(user: User, payment: Double, participation: Bool) {
         self.user = user
         self.paymentAmount = payment
         self.participationAmount = participation
