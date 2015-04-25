@@ -59,13 +59,12 @@ class GroupOverviewTableViewController: UITableViewController {
         return cell
     }
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the specified item to be editable.
         return true
     }
-    */
 
     /*
     // Override to support editing the table view.
@@ -94,14 +93,17 @@ class GroupOverviewTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "groupDetail" {
+            if let indexPath = self.tableView.indexPathForSelectedRow() {
+                let group = groups.groups[indexPath.row] as Group
+                let vc = segue.destinationViewController as! GroupDescriptionViewController
+                vc.group = group
+            }
+        }
     }
-    */
 
 }

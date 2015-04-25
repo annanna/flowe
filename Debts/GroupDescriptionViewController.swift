@@ -8,12 +8,42 @@
 
 import UIKit
 
-class GroupDescriptionViewController: UIViewController {
+class GroupDescriptionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    @IBOutlet weak var groupName: UILabel!
+    @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var sumLabel: UILabel!
+    
+    var group:Group? {
+        didSet {
+            self.configureView()
+        }
+    }
+    let transferCell = "transferCell"
+    
+    func configureView() {
+        if let gr: Group = self.group {
+            if let groupName = self.groupName {
+                groupName.text = gr.name
+
+            }
+            if let userLabel = self.userLabel {
+                userLabel.text = gr.getUsers()
+            }
+            var sum = -40
+            if let sumLabel = self.sumLabel {
+                sumLabel.text = "\(sum)€"
+                if sum < 0 {
+                    sumLabel.textColor = UIColor.redColor()
+                } else {
+                    sumLabel.textColor = UIColor.greenColor()
+                }
+            }            
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.configureView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,15 +51,25 @@ class GroupDescriptionViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    // MARK: UITableViewDataSource
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
     }
-    */
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return group!.transfers.count
+    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(transferCell, forIndexPath: indexPath) as! UITableViewCell
+        
+        let transfer = group!.transfers[indexPath.row]
+        cell.textLabel?.text = transfer.name
+        
+        
+        return cell
+    }
+    
+    
 
 }

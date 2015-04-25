@@ -13,6 +13,7 @@ class Group: NSObject {
     var created = NSDate()
     var users: [User] = []
     var creator: User
+    var transfers: [MoneyTransfer] = []
     
     init(name: String, users: [User], creator: User) {
         self.name = name
