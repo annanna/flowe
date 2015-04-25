@@ -31,8 +31,8 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
                 userLabel.text = gr.getUsers()
             }
             if let sumLabel = self.sumLabel {
-                sumLabel.text = "\(gr.sum)€"
-                if gr.sum < 0 {
+                sumLabel.text = String(format: "%.2f€", gr.total)
+                if gr.total < 0 {
                     sumLabel.textColor = UIColor.redColor()
                 } else {
                     sumLabel.textColor = UIColor.greenColor()
@@ -68,7 +68,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         let cell = tableView.dequeueReusableCellWithIdentifier(transferCell, forIndexPath: indexPath) as! UITableViewCell
         
         let transfer = group!.transfers[indexPath.row]
-        cell.textLabel?.text = "\(transfer.userPayed.getName()) hat \(transfer.moneyPayed)€ für \(transfer.name) bezahlt"
+        cell.textLabel?.text = String(format: "\(transfer.userPayed.getName()) hat %.2f€ für \(transfer.name) bezahlt", transfer.moneyPayed)
         return cell
     }
     

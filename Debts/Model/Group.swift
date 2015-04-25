@@ -14,7 +14,7 @@ class Group: NSObject {
     var users: [User] = []
     var creator: User
     var transfers: [MoneyTransfer] = []
-    var sum = -40 //fixed value for now
+    var total = 0.0
     
     init(name: String, users: [User], creator: User) {
         self.name = name
@@ -28,6 +28,19 @@ class Group: NSObject {
             initials += user.getName() + " "
         }
         return initials
+    }
+    
+    func setTotal() {
+        var total = 0.0
+        for transfer in transfers {
+            total -= transfer.moneyPayed
+        }
+        self.total = total
+    }
+    
+    func addTransfer(transfer: MoneyTransfer) {
+        self.transfers.append(transfer)
+        setTotal()
     }
     
 }
