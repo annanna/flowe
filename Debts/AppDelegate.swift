@@ -12,19 +12,28 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-//    var groups = Groups()
+    var groups = Groups()
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-/*        groups = Groups()
+        groups = Groups()
         println("new data")
         
         var winterurlaub = Group(name: "Winterurlaub", users: [User(rand: 1), User(rand: 2), User(rand: 3)], creator: User(rand: 2))
+        var italiener = MoneyTransfer(name: "Italiener", creator: winterurlaub.creator, money: 57.12)
+        italiener.addUsersInTransfers(winterurlaub.users)
+        winterurlaub.addTransfer(italiener)
+        
+        
         var party = Group(name: "Geburtstagsparty", users: [User(rand:2), User(rand: 5), User(rand: 7)], creator: User(rand: 7))
+        var einkauf = MoneyTransfer(name: "Einkauf", creator: party.users[0], money: 13.50)
+        einkauf.addUsersInTransfers(party.users)
+        party.addTransfer(einkauf)
         
         groups.addGroup(winterurlaub)
-        groups.addGroup(party) */
+        groups.addGroup(party)
+
         
         return true
     }
