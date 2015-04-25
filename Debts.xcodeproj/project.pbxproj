@@ -12,6 +12,7 @@
 		7C5FACED1AEBA39000E12DF0 /* MoneyTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE81AEBA39000E12DF0 /* MoneyTransfer.swift */; };
 		7C5FACEE1AEBA39000E12DF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE91AEBA39000E12DF0 /* User.swift */; };
 		7C5FACEF1AEBA39000E12DF0 /* UsersInTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACEA1AEBA39000E12DF0 /* UsersInTransfers.swift */; };
+		7C5FAD851AEBE4F600E12DF0 /* AddTransferTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FAD841AEBE4F600E12DF0 /* AddTransferTableViewController.swift */; };
 		7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */; };
 		7CD2C7FB1ADD47DC00A2096E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F91ADD47DC00A2096E /* Main.storyboard */; };
 		7CD2C7FD1ADD47DC00A2096E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */; };
@@ -38,6 +39,7 @@
 		7C5FACE81AEBA39000E12DF0 /* MoneyTransfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTransfer.swift; sourceTree = "<group>"; };
 		7C5FACE91AEBA39000E12DF0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7C5FACEA1AEBA39000E12DF0 /* UsersInTransfers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersInTransfers.swift; sourceTree = "<group>"; };
+		7C5FAD841AEBE4F600E12DF0 /* AddTransferTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTransferTableViewController.swift; sourceTree = "<group>"; };
 		7CD2C7EE1ADD47DC00A2096E /* Debts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Debts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD2C7F21ADD47DC00A2096E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */,
 				7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */,
 				7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */,
+				7C5FAD841AEBE4F600E12DF0 /* AddTransferTableViewController.swift */,
 				7CD2C7F91ADD47DC00A2096E /* Main.storyboard */,
 				7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */,
 				7C5FACE51AEBA39000E12DF0 /* Model */,
@@ -242,6 +245,7 @@
 			files = (
 				7CDF66661AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift in Sources */,
 				7C5FACEF1AEBA39000E12DF0 /* UsersInTransfers.swift in Sources */,
+				7C5FAD851AEBE4F600E12DF0 /* AddTransferTableViewController.swift in Sources */,
 				7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */,
 				7C5FACEB1AEBA39000E12DF0 /* Group.swift in Sources */,
 				7C5FACEE1AEBA39000E12DF0 /* User.swift in Sources */,
