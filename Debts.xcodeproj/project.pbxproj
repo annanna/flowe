@@ -20,6 +20,7 @@
 		7CD2C80C1ADD47DC00A2096E /* DebtsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */; };
 		7CDF66661AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */; };
 		7CDF666A1AE8113600FE3E83 /* GroupDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */; };
+		7CF965851AECF62B0020A023 /* TransferDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtsTests.swift; sourceTree = "<group>"; };
 		7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupOverviewTableViewController.swift; sourceTree = "<group>"; };
 		7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDescriptionViewController.swift; sourceTree = "<group>"; };
+		7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferDetailTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */,
 				7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */,
 				7C5FAD841AEBE4F600E12DF0 /* AddTransferTableViewController.swift */,
+				7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */,
 				7CD2C7F91ADD47DC00A2096E /* Main.storyboard */,
 				7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */,
 				7C5FACE51AEBA39000E12DF0 /* Model */,
@@ -252,6 +255,7 @@
 				7C5FACED1AEBA39000E12DF0 /* MoneyTransfer.swift in Sources */,
 				7CDF666A1AE8113600FE3E83 /* GroupDescriptionViewController.swift in Sources */,
 				7C5FACEC1AEBA39000E12DF0 /* Groups.swift in Sources */,
+				7CF965851AECF62B0020A023 /* TransferDetailTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

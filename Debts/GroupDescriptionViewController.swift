@@ -16,6 +16,8 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var tableView: UITableView!
     
     let addTransferIdentifier = "addTransfer"
+    let transferDetailIdentifier = "showTransfer"
+    
     var group:Group? {
         didSet {
             self.configureView()
@@ -95,6 +97,15 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == addTransferIdentifier {
             (segue.destinationViewController as! AddTransferTableViewController).delegate = self
+        } else if segue.identifier == transferDetailIdentifier {
+            if let indexPath = self.tableView.indexPathForSelectedRow() {
+                if let transfer = group?.transfers[indexPath.row] as MoneyTransfer! {
+                    let vc = segue.destinationViewController as! TransferDetailTableViewController
+                    vc.transfer = transfer
+                }
+                
+            }
+            
         }
     }
     

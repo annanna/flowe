@@ -20,10 +20,10 @@
             </objects>
             <point key="canvasLocation" x="-78.933333333333337" y="60.586666666666666"/>
         </scene>
-        <!--GroupList-->
+        <!--Groups-->
         <scene sceneID="VgW-fR-Quf">
             <objects>
-                <tableViewController title="GroupList" id="pGg-6v-bdr" customClass="GroupOverviewTableViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Groups" id="pGg-6v-bdr" customClass="GroupOverviewTableViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" sectionHeaderHeight="22" sectionFooterHeight="22" id="mLL-gJ-YKr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -67,10 +67,10 @@
             </objects>
             <point key="canvasLocation" x="322" y="60"/>
         </scene>
-        <!--GroupDescription-->
+        <!--Group Detail-->
         <scene sceneID="rJB-g0-t5H">
             <objects>
-                <viewController title="GroupDescription" id="qho-IX-jrz" customClass="GroupDescriptionViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Group Detail" id="qho-IX-jrz" customClass="GroupDescriptionViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rhZ-Ta-Xzw"/>
                         <viewControllerLayoutGuide type="bottom" id="Zda-QE-nA9"/>
@@ -117,7 +117,7 @@
                                 <rect key="frame" x="0.0" y="137" width="325" height="359"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="transferCell" textLabel="GaW-0N-h02" style="IBUITableViewCellStyleDefault" id="wOc-Pu-cHa">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="transferCell" textLabel="GaW-0N-h02" style="IBUITableViewCellStyleDefault" id="wOc-Pu-cHa">
                                         <rect key="frame" x="0.0" y="22" width="325" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wOc-Pu-cHa" id="ECW-4n-s65">
@@ -132,6 +132,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="WZo-2K-0ha" kind="push" identifier="showTransfer" id="IDJ-NK-h3I"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -186,10 +189,130 @@
             </objects>
             <point key="canvasLocation" x="742" y="60"/>
         </scene>
-        <!--Add Transfer Table View Controller-->
+        <!--Transfer Detail-->
+        <scene sceneID="m6u-br-j5W">
+            <objects>
+                <tableViewController title="Transfer Detail" id="WZo-2K-0ha" customClass="TransferDetailTableViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Znw-h8-d5I">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection headerTitle="Was?" id="DFH-08-KxD">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="if6-Li-fsr">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="if6-Li-fsr" id="8Uc-Kx-mfF">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EyV-cT-rfo">
+                                                    <rect key="frame" x="35" y="8" width="285" height="31"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Wieviel?" id="VpQ-7p-uCc">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="Iyw-nO-Tc4">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Iyw-nO-Tc4" id="0Wt-CW-GQb">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="€" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eST-li-YKy">
+                                                    <rect key="frame" x="266" y="0.0" width="54" height="49"/>
+                                                    <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="54" id="Nxw-n5-gZZ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYF-2f-fiQ">
+                                                    <rect key="frame" x="35" y="8" width="231" height="31"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="eST-li-YKy" firstAttribute="top" secondItem="0Wt-CW-GQb" secondAttribute="top" id="IU0-Zg-kaq"/>
+                                                <constraint firstAttribute="bottom" secondItem="eST-li-YKy" secondAttribute="bottom" id="trP-3h-ieJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="eST-li-YKy" secondAttribute="trailing" id="wX2-iw-d64"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Wer hat wieviel bezahlt?" id="GNc-jL-jbu">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="72" id="p1h-1m-YPd">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p1h-1m-YPd" id="7IY-y4-sKW">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Für wen wurde bezahlt?" id="tfl-LQ-lNf">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="72" id="d03-RE-nY2">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d03-RE-nY2" id="eoM-tM-cxb">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Notizen" id="6H0-d1-1H5">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="140" id="pZd-yu-hmX">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pZd-yu-hmX" id="K3l-QJ-3HY">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LLo-g4-AJR">
+                                                    <rect key="frame" x="8" y="8" width="304" height="123"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="WZo-2K-0ha" id="qAo-Xm-aYD"/>
+                            <outlet property="delegate" destination="WZo-2K-0ha" id="HBK-ch-Nao"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="q6V-b4-SS6"/>
+                    <connections>
+                        <outlet property="transferAmount" destination="HYF-2f-fiQ" id="UbJ-rG-Hoh"/>
+                        <outlet property="transferName" destination="EyV-cT-rfo" id="mNy-sp-cpO"/>
+                        <outlet property="transferNotes" destination="LLo-g4-AJR" id="wKc-Yk-niH"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WOC-bB-JaQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1176" y="-257"/>
+        </scene>
+        <!--Add Transfer-->
         <scene sceneID="iaj-5P-KLl">
             <objects>
-                <tableViewController id="ACa-rO-S8L" customClass="AddTransferTableViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Add Transfer" id="ACa-rO-S8L" customClass="AddTransferTableViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Pc6-sN-pMq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
