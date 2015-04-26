@@ -13,6 +13,8 @@ class GroupOverviewTableViewController: UITableViewController {
     var groups = Groups()
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
+    @IBOutlet weak var peopleView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,10 +46,13 @@ class GroupOverviewTableViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! GroupOverviewTableViewCell
         let group = groups.groups[indexPath.row] as Group
-        cell.textLabel!.text = group.name
-        cell.detailTextLabel!.text = group.getUsers()
+    /*    cell.textLabel!.text = group.name
+        var sampleBtn = PeopleButton(frame: CGRectMake(0, 0, 50, 50), title: "AN")
+        cell.addSubview(sampleBtn)
+        println(cell.subviews.count)*/
+        cell.loadItem(group.name, users: group.users)
         
         return cell
     }

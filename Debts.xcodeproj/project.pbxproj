@@ -22,6 +22,7 @@
 		7CDF666A1AE8113600FE3E83 /* GroupDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */; };
 		7CF965851AECF62B0020A023 /* TransferDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */; };
 		7CF965891AED11AE0020A023 /* PeopleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF965881AED11AE0020A023 /* PeopleButton.swift */; };
+		7CF965BB1AED23B10020A023 /* GroupOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF965BA1AED23B10020A023 /* GroupOverviewTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDescriptionViewController.swift; sourceTree = "<group>"; };
 		7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferDetailTableViewController.swift; sourceTree = "<group>"; };
 		7CF965881AED11AE0020A023 /* PeopleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleButton.swift; sourceTree = "<group>"; };
+		7CF965BA1AED23B10020A023 /* GroupOverviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupOverviewTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				7C5FAD841AEBE4F600E12DF0 /* AddTransferTableViewController.swift */,
 				7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */,
 				7CF965881AED11AE0020A023 /* PeopleButton.swift */,
+				7CF965BA1AED23B10020A023 /* GroupOverviewTableViewCell.swift */,
 				7CD2C7F91ADD47DC00A2096E /* Main.storyboard */,
 				7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */,
 				7C5FACE51AEBA39000E12DF0 /* Model */,
@@ -257,6 +260,7 @@
 				7C5FACEB1AEBA39000E12DF0 /* Group.swift in Sources */,
 				7C5FACEE1AEBA39000E12DF0 /* User.swift in Sources */,
 				7C5FACED1AEBA39000E12DF0 /* MoneyTransfer.swift in Sources */,
+				7CF965BB1AED23B10020A023 /* GroupOverviewTableViewCell.swift in Sources */,
 				7CDF666A1AE8113600FE3E83 /* GroupDescriptionViewController.swift in Sources */,
 				7C5FACEC1AEBA39000E12DF0 /* Groups.swift in Sources */,
 				7CF965851AECF62B0020A023 /* TransferDetailTableViewController.swift in Sources */,
