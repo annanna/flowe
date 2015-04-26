@@ -21,7 +21,7 @@
 		7CDF66661AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */; };
 		7CDF666A1AE8113600FE3E83 /* GroupDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */; };
 		7CF965851AECF62B0020A023 /* TransferDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */; };
-		7CF965871AED02AA0020A023 /* PeopleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF965861AED02AA0020A023 /* PeopleButton.swift */; };
+		7CF965891AED11AE0020A023 /* PeopleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF965881AED11AE0020A023 /* PeopleButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +54,7 @@
 		7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupOverviewTableViewController.swift; sourceTree = "<group>"; };
 		7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDescriptionViewController.swift; sourceTree = "<group>"; };
 		7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferDetailTableViewController.swift; sourceTree = "<group>"; };
-		7CF965861AED02AA0020A023 /* PeopleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleButton.swift; sourceTree = "<group>"; };
+		7CF965881AED11AE0020A023 /* PeopleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +114,7 @@
 				7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */,
 				7C5FAD841AEBE4F600E12DF0 /* AddTransferTableViewController.swift */,
 				7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */,
-				7CF965861AED02AA0020A023 /* PeopleButton.swift */,
+				7CF965881AED11AE0020A023 /* PeopleButton.swift */,
 				7CD2C7F91ADD47DC00A2096E /* Main.storyboard */,
 				7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */,
 				7C5FACE51AEBA39000E12DF0 /* Model */,
@@ -252,7 +252,7 @@
 				7CDF66661AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift in Sources */,
 				7C5FACEF1AEBA39000E12DF0 /* UsersInTransfers.swift in Sources */,
 				7C5FAD851AEBE4F600E12DF0 /* AddTransferTableViewController.swift in Sources */,
-				7CF965871AED02AA0020A023 /* PeopleButton.swift in Sources */,
+				7CF965891AED11AE0020A023 /* PeopleButton.swift in Sources */,
 				7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */,
 				7C5FACEB1AEBA39000E12DF0 /* Group.swift in Sources */,
 				7C5FACEE1AEBA39000E12DF0 /* User.swift in Sources */,

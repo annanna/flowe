@@ -9,20 +9,15 @@
 import UIKit
 
 class GroupDescriptionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NewTransferDelegate {
-    @IBOutlet weak var groupName: UILabel!
-    @IBOutlet weak var userLabel: UILabel!
-    @IBOutlet weak var sumLabel: UILabel!
     
+    @IBOutlet weak var groupName: UILabel!
+    @IBOutlet weak var sumLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     let addTransferIdentifier = "addTransfer"
     let transferDetailIdentifier = "showTransfer"
     
-    var group:Group? {
-        didSet {
-            self.configureView()
-        }
-    }
+    var group:Group?
     let transferCell = "transferCell"
     
     func configureView() {
@@ -31,8 +26,9 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
                 groupName.text = gr.name
 
             }
-            if let userLabel = self.userLabel {
-                userLabel.text = gr.getUsers()
+            for user in gr.users {
+                    let btn = createBtn(user.getName())
+                    self.view.addSubview(btn)
             }
             if let sumLabel = self.sumLabel {
                 sumLabel.text = String(format: "%.2f€", gr.total)
@@ -109,4 +105,13 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         }
     }
     
+    var btnX:CGFloat = 20;
+    let btnY:CGFloat = 110;
+    let btnSize:CGFloat = 40;
+    func createBtn(title: String) -> PeopleButton {
+        var rect:CGRect = CGRectMake(btnX, btnY, btnSize, btnSize)
+        var btn = PeopleButton(frame: rect, title: title)
+        btnX += btnSize + btnSize/2
+        return btn
+    }
 }

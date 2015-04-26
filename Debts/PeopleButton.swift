@@ -10,18 +10,26 @@ import UIKit
 
 class PeopleButton: UIButton {
 
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
-    */
-    
+
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.backgroundColor = UIColor(red: 192, green: 192, blue: 192, alpha: 0.5)
+    }
+    
+    convenience init(frame: CGRect, title: String) {
+        self.init(frame: frame)
+        self.addCustomBtn(frame, title: title)
+    }
+    
+    func addCustomBtn(f: CGRect, title: String) {
+        self.backgroundColor = UIColor(red: 192, green: 192, blue: 192, alpha: 0.3)
+        self.layer.cornerRadius = f.width/2
         self.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        self.layer.cornerRadius = 20
+        self.frame = f
+        self.setTitle(title, forState: UIControlState.Normal)
+        self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: 15)
+        
     }
 }
