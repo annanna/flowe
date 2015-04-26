@@ -8,12 +8,14 @@
 
 import UIKit
 
-class GroupDescriptionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class GroupDescriptionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NewTransferDelegate {
     @IBOutlet weak var groupName: UILabel!
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var sumLabel: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
+    
+    let addTransferIdentifier = "addTransfer"
     var group:Group? {
         didSet {
             self.configureView()
@@ -80,14 +82,20 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     
     // MARK: Actions
 
-    @IBAction func addTransfer(sender: AnyObject) {
+    func AddNewTransfer(transfer: MoneyTransfer) {
         if let gr = self.group {
-            var newTransfer = MoneyTransfer(name: "Skipass", creator: gr.creator, money: 82.76)
-            newTransfer.addUsersInTransfers(gr.users)
-            gr.addTransfer(newTransfer);
-        
-            configureView();
-            tableView.reloadData();
+            gr.addTransfer(transfer)
+            
+            configureView()
+            tableView.reloadData()
         }
     }
+    
+    // MARK: Navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == addTransferIdentifier {
+            (segue.destinationViewController as! AddTransferTableViewController).delegate = self
+        }
+    }
+    
 }
