@@ -13,6 +13,7 @@ import AddressBook
 class ContactTableViewController: UITableViewController {
 
     let addressBook: SwiftAddressBook? = swiftAddressBook
+    var selectedUsers:[User] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.allowsMultipleSelection = true
@@ -58,10 +59,16 @@ class ContactTableViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "SaveSelectedContact" {
-            if let cell = sender as? UITableViewCell {
-                let indexPath = tableView.indexPathForCell(cell)
+        if segue.identifier == "SaveSelectedContacts" {
+            var users: [User] = []
+            var paths: [NSIndexPath] = tableView.indexPathsForSelectedRows() as! [NSIndexPath]
+            for path in paths {
+                //var cell = tableView.cellForRowAtIndexPath(path)
+                var selectedContact: SwiftAddressBookPerson = addressBook!.allPeople![path.row]
+                var user = User(first: selectedContact.firstName!, last: selectedContact.lastName!)
+                users.append(user)
             }
+            selectedUsers = users
         }
     }
 }

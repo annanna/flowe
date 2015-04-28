@@ -386,23 +386,15 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Wer hat bezahlt?" id="DYO-Pa-qGK">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="tee-YD-Kl1" detailTextLabel="mVv-Rv-yO4" rowHeight="72" style="IBUITableViewCellStyleValue1" id="CPV-0b-Bi7">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="72" id="CPV-0b-Bi7">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CPV-0b-Bi7" id="Jtc-Or-aWl">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Person" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tee-YD-Kl1">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mVv-Rv-yO4">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ep3-V5-OsM">
+                                                    <rect key="frame" x="8" y="0.0" width="279" height="71"/>
+                                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         </tableViewCellContentView>
@@ -478,10 +470,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="payerView" destination="ep3-V5-OsM" id="bvg-6B-zss"/>
                         <outlet property="transferAmount" destination="YLH-uQ-Ic8" id="HzA-9x-1rp"/>
                         <outlet property="transferName" destination="4cK-hN-FW2" id="GxH-n7-Gzs"/>
                         <outlet property="transferNotes" destination="k0C-a6-9EI" id="iS6-x1-skS"/>
-                        <outlet property="whoPayedLabel" destination="mVv-Rv-yO4" id="fCx-9x-1Cf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdX-Gb-1r4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -510,9 +502,16 @@
                             <outlet property="delegate" destination="xyN-ul-6x1" id="btf-ZM-27X"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Choose Contact" id="cUI-97-L9I"/>
+                    <navigationItem key="navigationItem" title="Choose Contact" id="cUI-97-L9I">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="dap-em-TZL">
+                            <connections>
+                                <segue destination="Oh4-4p-f7r" kind="unwind" identifier="SaveSelectedContacts" unwindAction="selectContact:" id="YGw-Gy-KhX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Cq-Y5-hFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Oh4-4p-f7r" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2126" y="470"/>
         </scene>

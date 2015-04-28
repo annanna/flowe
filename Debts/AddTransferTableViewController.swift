@@ -17,11 +17,11 @@ class AddTransferTableViewController: UITableViewController {
     @IBOutlet weak var transferName: UITextField!
     @IBOutlet weak var transferAmount: UITextField!
     @IBOutlet weak var transferNotes: UITextView!
-    @IBOutlet weak var whoPayedLabel: UILabel!
+    @IBOutlet weak var payerView: UIView!
+    
     
     //var delegate:NewTransferDelegate? = nil
     var transfer: MoneyTransfer!
-    var whoPayed:String = "Anna"
      
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,19 @@ class AddTransferTableViewController: UITableViewController {
     
     @IBAction func selectContact(segue:UIStoryboardSegue) {
         if let vc = segue.sourceViewController as? ContactTableViewController {
-            // whoPayed = vc.contact
+            let btnY:CGFloat = 15
+            let btnSize:CGFloat = 40
+            var btnX:CGFloat = 20
+            
+            var users = vc.selectedUsers
+            for user in users {
+                println(user.getName())
+                if let payer = self.payerView {
+                    var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), title: user.getName())
+                    payer.addSubview(btn)
+                    btnX += btnSize + btnSize/2
+                }
+            }
         }
     }
 }
