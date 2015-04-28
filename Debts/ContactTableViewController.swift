@@ -14,6 +14,7 @@ class ContactTableViewController: UITableViewController {
 
     let addressBook: SwiftAddressBook? = swiftAddressBook
     var selectedUsers:[User] = []
+    var mode = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.allowsMultipleSelection = true

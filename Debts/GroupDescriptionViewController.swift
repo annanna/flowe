@@ -10,7 +10,7 @@ import UIKit
 
 class GroupDescriptionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet weak var groupName: UILabel!
+    @IBOutlet weak var peopleView: UIView!
     @IBOutlet weak var sumLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBAction func cancelToGroupDescription(segue: UIStoryboardSegue) {}
@@ -28,13 +28,12 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     
     func configureView() {
         if let gr: Group = self.group {
-            if let groupName = self.groupName {
-                groupName.text = gr.name
-
-            }
-            for user in gr.users {
+            self.title = gr.name
+            if let peopleV = self.peopleView {
+                for user in gr.users {
                     let btn = createBtn(user.getName())
-                    self.view.addSubview(btn)
+                    peopleV.addSubview(btn)
+                }
             }
             if let sumLabel = self.sumLabel {
                 sumLabel.text = String(format: "%.2f€", gr.total)
@@ -89,9 +88,8 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     func AddNewTransfer(transfer: MoneyTransfer) {
         if let gr = self.group {
             gr.addTransfer(transfer)
-            
-            configureView()
-            tableView.reloadData()
+            let indexPath = NSIndexPath(forRow: gr.transfers.count-1, inSection: 0)
+            tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
     }
     
@@ -108,7 +106,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     }
     
     var btnX:CGFloat = 20;
-    let btnY:CGFloat = 110;
+    let btnY:CGFloat = 15;
     let btnSize:CGFloat = 40;
     func createBtn(title: String) -> PeopleButton {
         var rect:CGRect = CGRectMake(btnX, btnY, btnSize, btnSize)

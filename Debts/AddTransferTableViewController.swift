@@ -14,8 +14,10 @@ class AddTransferTableViewController: UITableViewController {
     @IBOutlet weak var transferAmount: UITextField!
     @IBOutlet weak var transferNotes: UITextView!
     @IBOutlet weak var payerView: UIView!
+    @IBOutlet weak var participantView: UIView!
     
     var transfer: MoneyTransfer!
+    var whoPayed: [User] = []
      
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,27 +39,33 @@ class AddTransferTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "SaveTransfer" {
-            transfer = MoneyTransfer(name: transferName.text, creator: User(rand: 1), money: (transferAmount.text as NSString).doubleValue)
-        }
+            transfer = MoneyTransfer(name: transferName.text, creator: whoPayed[0], money: (transferAmount.text as NSString).doubleValue)
+        } else
         if segue.identifier == "WhoPayed" {
             if let vc = segue.destinationViewController as? ContactTableViewController {
-                // vc.selectedContact = contact
+                vc.mode = "WhoPayed"
+            }
+        } else
+        if segue.identifier == "WhoTookPart" {
+            if let vc = segue.destinationViewController as? ContactTableViewController {
+                vc.mode = "WhoPayedFor"
             }
         }
     }
     
     @IBAction func selectContact(segue:UIStoryboardSegue) {
+        println(segue.identifier)
         if let vc = segue.sourceViewController as? ContactTableViewController {
             let btnY:CGFloat = 15
             let btnSize:CGFloat = 40
             var btnX:CGFloat = 20
             
-            var users = vc.selectedUsers
-            for user in users {
-                println(user.getName())
-                if let payer = self.payerView {
+            whoPayed = vc.selectedUsers
+            
+            for user in whoPayed {
+                if let userView = (vc.mode == "WhoPayed" ? self.payerView : self.participantView) {
                     var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), title: user.getName())
-                    payer.addSubview(btn)
+                    userView.addSubview(btn)
                     btnX += btnSize + btnSize/2
                 }
             }
