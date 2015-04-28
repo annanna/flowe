@@ -148,7 +148,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ACa-rO-S8L" kind="modal" identifier="addTransfer" id="gLx-Ms-AIL"/>
+                                    <segue destination="x9x-dH-tCr" kind="modal" identifier="" id="RVM-xF-mLI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -386,18 +386,29 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Wer hat bezahlt?" id="DYO-Pa-qGK">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="72" id="CPV-0b-Bi7">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="tee-YD-Kl1" detailTextLabel="mVv-Rv-yO4" rowHeight="72" style="IBUITableViewCellStyleValue1" id="CPV-0b-Bi7">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CPV-0b-Bi7" id="Jtc-Or-aWl">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ku-Im-S1k">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
-                                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </view>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Person" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tee-YD-Kl1">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mVv-Rv-yO4">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="xyN-ul-6x1" kind="push" identifier="WhoPayed" id="ufi-h9-RjN"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -443,25 +454,7 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZCQ-yn-EJ6" id="K9Q-zf-gIa">
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydE-sX-OpA">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                                    <color key="backgroundColor" red="1" green="0.62558015239999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <state key="normal" title="Save">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="saveAndGoBack:" destination="ACa-rO-S8L" eventType="touchUpInside" id="PuI-9Y-K4L"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
                                             <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstItem="ydE-sX-OpA" firstAttribute="top" secondItem="K9Q-zf-gIa" secondAttribute="top" id="4Hh-Ab-a1Q"/>
-                                                <constraint firstItem="ydE-sX-OpA" firstAttribute="leading" secondItem="K9Q-zf-gIa" secondAttribute="leading" id="Sw3-yi-ekB"/>
-                                                <constraint firstAttribute="bottom" secondItem="ydE-sX-OpA" secondAttribute="bottom" id="i9C-iK-u5M"/>
-                                                <constraint firstAttribute="trailing" secondItem="ydE-sX-OpA" secondAttribute="trailing" id="jMh-Eo-ySk"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -472,15 +465,74 @@
                             <outlet property="delegate" destination="ACa-rO-S8L" id="XaT-Fx-uTL"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Add Transfer" id="E3h-zG-8E0">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="cYZ-JW-DdS">
+                            <connections>
+                                <segue destination="45C-Z7-a1I" kind="unwind" unwindAction="cancelToGroupDescription:" id="FLx-MF-qcy"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="sm1-BN-zKc">
+                            <connections>
+                                <segue destination="45C-Z7-a1I" kind="unwind" identifier="SaveTransfer" unwindAction="saveNewTransfer:" id="slF-2Q-VNd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="transferAmount" destination="YLH-uQ-Ic8" id="HzA-9x-1rp"/>
                         <outlet property="transferName" destination="4cK-hN-FW2" id="GxH-n7-Gzs"/>
                         <outlet property="transferNotes" destination="k0C-a6-9EI" id="iS6-x1-skS"/>
+                        <outlet property="whoPayedLabel" destination="mVv-Rv-yO4" id="fCx-9x-1Cf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdX-Gb-1r4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="45C-Z7-a1I" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1176" y="498"/>
+            <point key="canvasLocation" x="1708" y="470"/>
+        </scene>
+        <!--Choose Contact-->
+        <scene sceneID="Wzq-Cx-wFt">
+            <objects>
+                <tableViewController id="xyN-ul-6x1" customClass="ContactTableViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="soz-gZ-0sx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" id="ibd-gQ-Rof">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ibd-gQ-Rof" id="GtN-iC-o4N">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="xyN-ul-6x1" id="DQI-qS-Khg"/>
+                            <outlet property="delegate" destination="xyN-ul-6x1" id="btf-ZM-27X"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Choose Contact" id="cUI-97-L9I"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Cq-Y5-hFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2126" y="470"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="bkD-LY-wCB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="x9x-dH-tCr" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bWT-O3-Hiw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ACa-rO-S8L" kind="relationship" relationship="rootViewController" id="aPj-Jp-m4k"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e3k-UN-CQd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1176" y="470"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

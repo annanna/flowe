@@ -7,19 +7,22 @@
 //
 
 import UIKit
-protocol NewTransferDelegate {
+
+/*protocol NewTransferDelegate {
     func AddNewTransfer(transfer: MoneyTransfer)
-}
+}*/
 
 class AddTransferTableViewController: UITableViewController {
 
     @IBOutlet weak var transferName: UITextField!
     @IBOutlet weak var transferAmount: UITextField!
     @IBOutlet weak var transferNotes: UITextView!
+    @IBOutlet weak var whoPayedLabel: UILabel!
     
-    var delegate:NewTransferDelegate? = nil
-    
-    
+    //var delegate:NewTransferDelegate? = nil
+    var transfer: MoneyTransfer!
+    var whoPayed:String = "Anna"
+     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -31,12 +34,27 @@ class AddTransferTableViewController: UITableViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
-
-    @IBAction func saveAndGoBack(sender: UIButton) {
-        let t = MoneyTransfer(name: transferName.text, creator: User(rand: 1), money: (transferAmount.text as NSString).doubleValue)
-        if let d = delegate {
-            d.AddNewTransfer(t)
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 {
+            transferName.becomeFirstResponder()
         }
-        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "SaveTransfer" {
+            transfer = MoneyTransfer(name: transferName.text, creator: User(rand: 1), money: (transferAmount.text as NSString).doubleValue)
+        }
+        if segue.identifier == "WhoPayed" {
+            if let vc = segue.destinationViewController as? ContactTableViewController {
+                // vc.selectedContact = contact
+            }
+        }
+    }
+    
+    @IBAction func selectContact(segue:UIStoryboardSegue) {
+        if let vc = segue.sourceViewController as? ContactTableViewController {
+            // whoPayed = vc.contact
+        }
     }
 }

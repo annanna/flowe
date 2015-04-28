@@ -13,6 +13,14 @@
 		7C5FACEE1AEBA39000E12DF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE91AEBA39000E12DF0 /* User.swift */; };
 		7C5FACEF1AEBA39000E12DF0 /* UsersInTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACEA1AEBA39000E12DF0 /* UsersInTransfers.swift */; };
 		7C5FAD851AEBE4F600E12DF0 /* AddTransferTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FAD841AEBE4F600E12DF0 /* AddTransferTableViewController.swift */; };
+		7CCC264F1AED51B200A987A0 /* SwiftAddressBookDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCC26481AED51B200A987A0 /* SwiftAddressBookDataStructures.swift */; };
+		7CCC26501AED51B200A987A0 /* SwiftAddressBookGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCC26491AED51B200A987A0 /* SwiftAddressBookGroup.swift */; };
+		7CCC26511AED51B200A987A0 /* SwiftAddressBookHelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCC264A1AED51B200A987A0 /* SwiftAddressBookHelperMethods.swift */; };
+		7CCC26521AED51B200A987A0 /* SwiftAddressBookPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCC264B1AED51B200A987A0 /* SwiftAddressBookPerson.swift */; };
+		7CCC26531AED51B200A987A0 /* SwiftAddressBookRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCC264C1AED51B200A987A0 /* SwiftAddressBookRecord.swift */; };
+		7CCC26541AED51B200A987A0 /* SwiftAddressBookSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCC264D1AED51B200A987A0 /* SwiftAddressBookSource.swift */; };
+		7CCC26551AED51B200A987A0 /* SwiftAddressBookWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCC264E1AED51B200A987A0 /* SwiftAddressBookWrapper.swift */; };
+		7CCC26571AED58B600A987A0 /* ContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */; };
 		7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */; };
 		7CD2C7FB1ADD47DC00A2096E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F91ADD47DC00A2096E /* Main.storyboard */; };
 		7CD2C7FD1ADD47DC00A2096E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */; };
@@ -43,6 +51,14 @@
 		7C5FACE91AEBA39000E12DF0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7C5FACEA1AEBA39000E12DF0 /* UsersInTransfers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersInTransfers.swift; sourceTree = "<group>"; };
 		7C5FAD841AEBE4F600E12DF0 /* AddTransferTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTransferTableViewController.swift; sourceTree = "<group>"; };
+		7CCC26481AED51B200A987A0 /* SwiftAddressBookDataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAddressBookDataStructures.swift; sourceTree = "<group>"; };
+		7CCC26491AED51B200A987A0 /* SwiftAddressBookGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAddressBookGroup.swift; sourceTree = "<group>"; };
+		7CCC264A1AED51B200A987A0 /* SwiftAddressBookHelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAddressBookHelperMethods.swift; sourceTree = "<group>"; };
+		7CCC264B1AED51B200A987A0 /* SwiftAddressBookPerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAddressBookPerson.swift; sourceTree = "<group>"; };
+		7CCC264C1AED51B200A987A0 /* SwiftAddressBookRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAddressBookRecord.swift; sourceTree = "<group>"; };
+		7CCC264D1AED51B200A987A0 /* SwiftAddressBookSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAddressBookSource.swift; sourceTree = "<group>"; };
+		7CCC264E1AED51B200A987A0 /* SwiftAddressBookWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAddressBookWrapper.swift; sourceTree = "<group>"; };
+		7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewController.swift; sourceTree = "<group>"; };
 		7CD2C7EE1ADD47DC00A2096E /* Debts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Debts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD2C7F21ADD47DC00A2096E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +105,20 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		7CCC26471AED51B200A987A0 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				7CCC26481AED51B200A987A0 /* SwiftAddressBookDataStructures.swift */,
+				7CCC26491AED51B200A987A0 /* SwiftAddressBookGroup.swift */,
+				7CCC264A1AED51B200A987A0 /* SwiftAddressBookHelperMethods.swift */,
+				7CCC264B1AED51B200A987A0 /* SwiftAddressBookPerson.swift */,
+				7CCC264C1AED51B200A987A0 /* SwiftAddressBookRecord.swift */,
+				7CCC264D1AED51B200A987A0 /* SwiftAddressBookSource.swift */,
+				7CCC264E1AED51B200A987A0 /* SwiftAddressBookWrapper.swift */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
 		7CD2C7E51ADD47DC00A2096E = {
 			isa = PBXGroup;
 			children = (
@@ -113,13 +143,15 @@
 			children = (
 				7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */,
 				7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */,
-				7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */,
-				7C5FAD841AEBE4F600E12DF0 /* AddTransferTableViewController.swift */,
-				7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */,
-				7CF965881AED11AE0020A023 /* PeopleButton.swift */,
 				7CF965BA1AED23B10020A023 /* GroupOverviewTableViewCell.swift */,
+				7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */,
+				7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */,
+				7C5FAD841AEBE4F600E12DF0 /* AddTransferTableViewController.swift */,
+				7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */,
+				7CF965881AED11AE0020A023 /* PeopleButton.swift */,
 				7CD2C7F91ADD47DC00A2096E /* Main.storyboard */,
 				7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */,
+				7CCC26471AED51B200A987A0 /* Libs */,
 				7C5FACE51AEBA39000E12DF0 /* Model */,
 				7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */,
 				7CD2C7F11ADD47DC00A2096E /* Supporting Files */,
@@ -254,13 +286,21 @@
 			files = (
 				7CDF66661AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift in Sources */,
 				7C5FACEF1AEBA39000E12DF0 /* UsersInTransfers.swift in Sources */,
+				7CCC26541AED51B200A987A0 /* SwiftAddressBookSource.swift in Sources */,
+				7CCC264F1AED51B200A987A0 /* SwiftAddressBookDataStructures.swift in Sources */,
+				7CCC26511AED51B200A987A0 /* SwiftAddressBookHelperMethods.swift in Sources */,
 				7C5FAD851AEBE4F600E12DF0 /* AddTransferTableViewController.swift in Sources */,
 				7CF965891AED11AE0020A023 /* PeopleButton.swift in Sources */,
 				7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */,
 				7C5FACEB1AEBA39000E12DF0 /* Group.swift in Sources */,
+				7CCC26531AED51B200A987A0 /* SwiftAddressBookRecord.swift in Sources */,
 				7C5FACEE1AEBA39000E12DF0 /* User.swift in Sources */,
 				7C5FACED1AEBA39000E12DF0 /* MoneyTransfer.swift in Sources */,
+				7CCC26571AED58B600A987A0 /* ContactTableViewController.swift in Sources */,
+				7CCC26501AED51B200A987A0 /* SwiftAddressBookGroup.swift in Sources */,
 				7CF965BB1AED23B10020A023 /* GroupOverviewTableViewCell.swift in Sources */,
+				7CCC26551AED51B200A987A0 /* SwiftAddressBookWrapper.swift in Sources */,
+				7CCC26521AED51B200A987A0 /* SwiftAddressBookPerson.swift in Sources */,
 				7CDF666A1AE8113600FE3E83 /* GroupDescriptionViewController.swift in Sources */,
 				7C5FACEC1AEBA39000E12DF0 /* Groups.swift in Sources */,
 				7CF965851AECF62B0020A023 /* TransferDetailTableViewController.swift in Sources */,

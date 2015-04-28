@@ -8,11 +8,17 @@
 
 import UIKit
 
-class GroupDescriptionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NewTransferDelegate {
+class GroupDescriptionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var groupName: UILabel!
     @IBOutlet weak var sumLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBAction func cancelToGroupDescription(segue: UIStoryboardSegue) {}
+    @IBAction func saveNewTransfer(segue: UIStoryboardSegue) {
+        if let addTransferVC = segue.sourceViewController as? AddTransferTableViewController {
+            AddNewTransfer(addTransferVC.transfer)
+        }
+    }
     
     let addTransferIdentifier = "addTransfer"
     let transferDetailIdentifier = "showTransfer"
@@ -91,17 +97,16 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == addTransferIdentifier {
+       /* if segue.identifier == addTransferIdentifier {
             (segue.destinationViewController as! AddTransferTableViewController).delegate = self
-        } else if segue.identifier == transferDetailIdentifier {
+        } else */
+        if segue.identifier == transferDetailIdentifier {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 if let transfer = group?.transfers[indexPath.row] as MoneyTransfer! {
                     let vc = segue.destinationViewController as! TransferDetailTableViewController
                     vc.transfer = transfer
                 }
-                
             }
-            
         }
     }
     
