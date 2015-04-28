@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftAddressBook
 import AddressBook
 
 class ContactTableViewController: UITableViewController {
