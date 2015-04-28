@@ -16,7 +16,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     @IBAction func cancelToGroupDescription(segue: UIStoryboardSegue) {}
     @IBAction func saveNewTransfer(segue: UIStoryboardSegue) {
         if let addTransferVC = segue.sourceViewController as? AddTransferTableViewController {
-            AddNewTransfer(addTransferVC.transfer)
+            addNewTransfer(addTransferVC.transfer)
         }
     }
     
@@ -35,14 +35,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
                     peopleV.addSubview(btn)
                 }
             }
-            if let sumLabel = self.sumLabel {
-                sumLabel.text = String(format: "%.2f€", gr.total)
-                if gr.total < 0 {
-                    sumLabel.textColor = UIColor.redColor()
-                } else {
-                    sumLabel.textColor = UIColor.greenColor()
-                }
-            }
+            updateSumLabel(gr.total)
         }
     }
 
@@ -85,11 +78,12 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     
     // MARK: Actions
 
-    func AddNewTransfer(transfer: MoneyTransfer) {
+    func addNewTransfer(transfer: MoneyTransfer) {
         if let gr = self.group {
             gr.addTransfer(transfer)
             let indexPath = NSIndexPath(forRow: gr.transfers.count-1, inSection: 0)
             tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            updateSumLabel(gr.total)
         }
     }
     
@@ -113,5 +107,16 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         var btn = PeopleButton(frame: rect, title: title)
         btnX += btnSize + btnSize/2
         return btn
+    }
+    
+    func updateSumLabel(total: Double) {
+        if let sumLabel = self.sumLabel {
+            sumLabel.text = String(format: "%.2f€", total)
+            if total < 0 {
+                sumLabel.textColor = UIColor.redColor()
+            } else {
+                sumLabel.textColor = UIColor.greenColor()
+            }
+        }
     }
 }

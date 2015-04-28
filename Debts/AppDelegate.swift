@@ -21,13 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         println("new data")
         
         var winterurlaub = Group(name: "Winterurlaub", users: [User(rand: 1), User(rand: 2), User(rand: 3)], creator: User(rand: 2))
-        var italiener = MoneyTransfer(name: "Italiener", creator: winterurlaub.creator, money: 57.12)
+        var italiener = MoneyTransfer(name: "Italiener", creator: winterurlaub.creator, money: 57.12, notes: "")
         italiener.addUsersInTransfers(winterurlaub.users)
         winterurlaub.addTransfer(italiener)
         
         
         var party = Group(name: "Geburtstagsparty", users: [User(rand:2), User(rand: 5), User(rand: 7)], creator: User(rand: 7))
-        var einkauf = MoneyTransfer(name: "Einkauf", creator: party.users[0], money: 13.50)
+        var einkauf = MoneyTransfer(name: "Einkauf", creator: party.users[0], money: 13.50, notes: "")
         einkauf.addUsersInTransfers(party.users)
         party.addTransfer(einkauf)
         

@@ -25,10 +25,13 @@ class MoneyTransfer: NSObject {
         self.participants = participants
     }
     
-    init(name: String, creator: User, money: Double) {
+    init(name: String, creator: User, money: Double, notes: String?) {
         self.name = name
         self.userPayed = creator
         self.moneyPayed = money
+        if let n = notes {
+            self.notes = n
+        }
     }
 
     func addUsersInTransfers(users: [User]) {
