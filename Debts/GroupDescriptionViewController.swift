@@ -97,9 +97,6 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-       /* if segue.identifier == addTransferIdentifier {
-            (segue.destinationViewController as! AddTransferTableViewController).delegate = self
-        } else */
         if segue.identifier == transferDetailIdentifier {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 if let transfer = group?.transfers[indexPath.row] as MoneyTransfer! {

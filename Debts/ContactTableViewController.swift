@@ -58,12 +58,13 @@ class ContactTableViewController: UITableViewController {
         cell?.accessoryType = .Checkmark        
     }
     
+    // MARK: - Navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "SaveSelectedContacts" {
             var users: [User] = []
             var paths: [NSIndexPath] = tableView.indexPathsForSelectedRows() as! [NSIndexPath]
             for path in paths {
-                //var cell = tableView.cellForRowAtIndexPath(path)
                 var selectedContact: SwiftAddressBookPerson = addressBook!.allPeople![path.row]
                 var user = User(first: selectedContact.firstName!, last: selectedContact.lastName!)
                 users.append(user)

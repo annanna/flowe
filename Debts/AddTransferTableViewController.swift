@@ -8,10 +8,6 @@
 
 import UIKit
 
-/*protocol NewTransferDelegate {
-    func AddNewTransfer(transfer: MoneyTransfer)
-}*/
-
 class AddTransferTableViewController: UITableViewController {
 
     @IBOutlet weak var transferName: UITextField!
@@ -19,8 +15,6 @@ class AddTransferTableViewController: UITableViewController {
     @IBOutlet weak var transferNotes: UITextView!
     @IBOutlet weak var payerView: UIView!
     
-    
-    //var delegate:NewTransferDelegate? = nil
     var transfer: MoneyTransfer!
      
     override func viewDidLoad() {
