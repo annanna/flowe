@@ -15,6 +15,7 @@ class ContactTableViewController: UITableViewController {
     let addressBook: SwiftAddressBook? = swiftAddressBook
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.allowsMultipleSelection = true
 
         let status: ABAuthorizationStatus = SwiftAddressBook.authorizationStatus()
         swiftAddressBook?.requestAccessWithCompletion({(success, error) -> Void in
@@ -47,6 +48,13 @@ class ContactTableViewController: UITableViewController {
         cell.textLabel?.text = "\(person.firstName!) \(person.lastName!)"
         
         return cell
+    }
+    
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        cell?.accessoryType = .Checkmark        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
