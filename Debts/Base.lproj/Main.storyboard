@@ -479,21 +479,46 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Für wen wurde bezahlt?" id="TFa-Ig-Zaj">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="72" id="PFw-MQ-XRb">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="72" id="PFw-MQ-XRb">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PFw-MQ-XRb" id="wHQ-sv-uh2">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6OE-dN-327">
-                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="71"/>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6OE-dN-327">
+                                                    <rect key="frame" x="8" y="0.0" width="274" height="71"/>
+                                                    <subviews>
+                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZY-HC-RcD">
+                                                            <rect key="frame" x="244" y="25" width="22" height="22"/>
+                                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <state key="normal">
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
+                                                    </subviews>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VjN-uJ-Yzl">
+                                                    <rect key="frame" x="290" y="25" width="29" height="22"/>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <state key="normal">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="xyN-ul-6x1" kind="push" identifier="WhoTookPart" id="mLV-qv-Lce"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="VjN-uJ-Yzl" firstAttribute="top" secondItem="wHQ-sv-uh2" secondAttribute="topMargin" constant="17" id="0Rh-1o-pQi"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="VjN-uJ-Yzl" secondAttribute="trailing" constant="-7" id="2Hs-Ec-Fgd"/>
+                                                <constraint firstAttribute="bottom" secondItem="6OE-dN-327" secondAttribute="bottom" id="BN2-FC-dxd"/>
+                                                <constraint firstItem="VjN-uJ-Yzl" firstAttribute="leading" secondItem="6OE-dN-327" secondAttribute="trailing" constant="8" symbolic="YES" id="H92-kh-bED"/>
+                                                <constraint firstItem="6OE-dN-327" firstAttribute="leading" secondItem="wHQ-sv-uh2" secondAttribute="leadingMargin" constant="-7" id="dLG-Nf-clO"/>
+                                                <constraint firstAttribute="trailing" secondItem="6OE-dN-327" secondAttribute="trailing" constant="38" id="f0G-tL-PIN"/>
+                                                <constraint firstItem="6OE-dN-327" firstAttribute="top" secondItem="wHQ-sv-uh2" secondAttribute="top" id="nQk-Ge-BZ8"/>
+                                            </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="xyN-ul-6x1" kind="push" identifier="WhoTookPart" id="AnW-E7-okM"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -711,6 +736,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="IQb-cw-JAx"/>
+        <segue reference="mLV-qv-Lce"/>
     </inferredMetricsTieBreakers>
 </document>

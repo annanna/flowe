@@ -44,16 +44,10 @@ class AddTransferTableViewController: UITableViewController {
             transfer = MoneyTransfer(name: transferName.text, creator: whoPayed[0].user, money: (transferAmount.text as NSString).doubleValue, notes: transferNotes.text)
             transfer.payed = whoPayed
             transfer.participated = whoTookPart
-        } else
-        if segue.identifier == "WhoPayed" {
+        } else if (segue.identifier == "WhoPayed") || (segue.identifier == "WhoTookPart") {
             if let vc = segue.destinationViewController as? ContactTableViewController {
-                vc.mode = "WhoPayed"
+                vc.mode = segue.identifier!
                 vc.transferAmount = (transferAmount.text as NSString).doubleValue
-            }
-        } else
-        if segue.identifier == "WhoTookPart" {
-            if let vc = segue.destinationViewController as? ContactTableViewController {
-                vc.mode = "WhoTookPart"
             }
         }
     }

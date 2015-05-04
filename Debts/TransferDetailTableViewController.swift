@@ -38,6 +38,7 @@ class TransferDetailTableViewController: UITableViewController {
                 for balance in transfer.payed {
                     var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: balance.user)
                     payer.addSubview(btn)
+                    btnX += btnSize + btnSize/2
                 }
             }
             

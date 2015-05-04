@@ -14,7 +14,7 @@ class MoneyTransfer: NSObject {
     var notes = ""
     var creator: User
     var moneyPayed = 0.0
-    var imageLink = ""    
+    var imageLink = ""
     
     var payed: [(user: User, amount:Double)] = []
     var participated: [(user: User, amount:Double)] = []
