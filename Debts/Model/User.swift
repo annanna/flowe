@@ -12,7 +12,7 @@ class User: NSObject {
     var firstname = ""
     var lastname = ""
     var email = ""
-    var imageLink = ""
+    var img: UIImage?
     
     init(first: String, last: String) {
         self.firstname = first

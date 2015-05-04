@@ -35,18 +35,17 @@ class TransferDetailTableViewController: UITableViewController {
             let btnSize:CGFloat = 40
             var btnX:CGFloat = 20
             if let payer = self.payerView {
-                var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), title: transfer.userPayed.getName())
+                var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: transfer.userPayed)
                 payer.addSubview(btn)
             }
             
             if let participants = self.participantView {
                 for user in transfer.participants {
-                    var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), title: user.user.getName())
+                    var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: user.user)
                     participants.addSubview(btn)
                     btnX += btnSize + btnSize/2
                 }
             }
-            
         }
     }
 

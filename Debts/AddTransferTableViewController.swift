@@ -15,6 +15,7 @@ class AddTransferTableViewController: UITableViewController {
     @IBOutlet weak var transferNotes: UITextView!
     @IBOutlet weak var payerView: UIView!
     @IBOutlet weak var participantView: UIView!
+    @IBOutlet weak var payerInfo: UIButton!
     
     var transfer: MoneyTransfer!
     var whoPayed: [User] = []
@@ -68,6 +69,9 @@ class AddTransferTableViewController: UITableViewController {
             if vc.mode == "WhoPayed" {
                 whoPayed = users
                 relevantView = self.payerView
+                if whoPayed.count > 1 {
+                    payerInfo.hidden = false
+                }
             } else if vc.mode == "WhoTookPart" {
                 whoTookPart = users
                 relevantView = self.participantView
@@ -76,11 +80,17 @@ class AddTransferTableViewController: UITableViewController {
             
             for user in users {
                 if let userView = relevantView {
-                    var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), title: user.getName())
+                    var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: user)
+                    btn.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
                     userView.addSubview(btn)
                     btnX += btnSize + btnSize/2
                 }
             }
         }
+    }
+    
+    func buttonAction(sender: PeopleButton!) {
+        println("Button tapped")
+        println(sender.uid.firstname)
     }
 }

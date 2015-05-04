@@ -31,7 +31,7 @@ class GroupOverviewTableViewCell: UITableViewCell {
     func loadItem(title: String, users: [User]) {
         titleLabel.text = title
         for user in users {
-            var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), title: user.getName())
+            var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: user)
             people.addSubview(btn)
             btnX += btnSize + btnSize/2
         }

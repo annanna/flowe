@@ -31,7 +31,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             self.title = gr.name
             if let peopleV = self.peopleView {
                 for user in gr.users {
-                    let btn = createBtn(user.getName())
+                    let btn = createBtn(user)
                     peopleV.addSubview(btn)
                 }
             }
@@ -102,9 +102,9 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     var btnX:CGFloat = 20;
     let btnY:CGFloat = 15;
     let btnSize:CGFloat = 40;
-    func createBtn(title: String) -> PeopleButton {
+    func createBtn(user: User) -> PeopleButton {
         var rect:CGRect = CGRectMake(btnX, btnY, btnSize, btnSize)
-        var btn = PeopleButton(frame: rect, title: title)
+        var btn = PeopleButton(frame: rect, user: user)
         btnX += btnSize + btnSize/2
         return btn
     }

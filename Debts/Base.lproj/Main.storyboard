@@ -430,21 +430,50 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Wer hat bezahlt?" id="DYO-Pa-qGK">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="72" id="CPV-0b-Bi7">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="72" id="CPV-0b-Bi7">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CPV-0b-Bi7" id="Jtc-Or-aWl">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ep3-V5-OsM">
-                                                    <rect key="frame" x="8" y="0.0" width="279" height="71"/>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ep3-V5-OsM">
+                                                    <rect key="frame" x="8" y="0.0" width="274" height="71"/>
+                                                    <subviews>
+                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aL7-sy-0oq">
+                                                            <rect key="frame" x="244" y="25" width="22" height="22"/>
+                                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <state key="normal">
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
+                                                    </subviews>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="aL7-sy-0oq" firstAttribute="top" secondItem="ep3-V5-OsM" secondAttribute="top" constant="25" id="P4H-WU-xNS"/>
+                                                        <constraint firstItem="aL7-sy-0oq" firstAttribute="trailing" secondItem="ep3-V5-OsM" secondAttribute="trailingMargin" id="VQA-ys-Xqr"/>
+                                                    </constraints>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9RL-bm-g9y">
+                                                    <rect key="frame" x="290" y="25" width="29" height="22"/>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <state key="normal">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="xyN-ul-6x1" kind="push" identifier="WhoPayed" id="IQb-cw-JAx"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="ep3-V5-OsM" secondAttribute="trailing" constant="38" id="8od-rW-6yD"/>
+                                                <constraint firstAttribute="bottom" secondItem="ep3-V5-OsM" secondAttribute="bottom" id="MR9-4C-fZH"/>
+                                                <constraint firstItem="9RL-bm-g9y" firstAttribute="leading" secondItem="ep3-V5-OsM" secondAttribute="trailing" constant="8" symbolic="YES" id="cN3-LT-8RR"/>
+                                                <constraint firstItem="ep3-V5-OsM" firstAttribute="top" secondItem="Jtc-Or-aWl" secondAttribute="top" id="nDL-lc-SgO"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9RL-bm-g9y" secondAttribute="trailing" constant="-7" id="onN-qN-B2O"/>
+                                                <constraint firstItem="ep3-V5-OsM" firstAttribute="leading" secondItem="Jtc-Or-aWl" secondAttribute="leadingMargin" constant="-7" id="tkS-Xg-MwN"/>
+                                                <constraint firstItem="9RL-bm-g9y" firstAttribute="top" secondItem="Jtc-Or-aWl" secondAttribute="topMargin" constant="17" id="zWe-vd-2Hu"/>
+                                            </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="xyN-ul-6x1" kind="push" identifier="WhoPayed" id="ufi-h9-RjN"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -515,6 +544,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="participantView" destination="6OE-dN-327" id="3Fv-Uy-9RW"/>
+                        <outlet property="payerInfo" destination="aL7-sy-0oq" id="59W-s1-1AU"/>
                         <outlet property="payerView" destination="ep3-V5-OsM" id="bvg-6B-zss"/>
                         <outlet property="transferAmount" destination="YLH-uQ-Ic8" id="HzA-9x-1rp"/>
                         <outlet property="transferName" destination="4cK-hN-FW2" id="GxH-n7-Gzs"/>
@@ -585,6 +615,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ufi-h9-RjN"/>
+        <segue reference="IQb-cw-JAx"/>
     </inferredMetricsTieBreakers>
 </document>

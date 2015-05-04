@@ -9,6 +9,8 @@
 import UIKit
 
 class PeopleButton: UIButton {
+    
+    var uid: User = User(first: "", last: "")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,18 +20,23 @@ class PeopleButton: UIButton {
         super.init(coder: aDecoder)
     }
     
-    convenience init(frame: CGRect, title: String) {
+    convenience init(frame: CGRect, user: User) {
         self.init(frame: frame)
-        self.addCustomBtn(frame, title: title)
+        self.addCustomBtn(frame, user: user)
     }
     
-    func addCustomBtn(f: CGRect, title: String) {
+    func addCustomBtn(f: CGRect, user: User) {
         self.backgroundColor = UIColor(red: 192, green: 192, blue: 192, alpha: 0.3)
         self.layer.cornerRadius = f.width/2
+        self.clipsToBounds = true;
         self.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         self.frame = f
-        self.setTitle(title, forState: UIControlState.Normal)
-        self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: 15)
-        
+        if let img = user.img {
+            self.setImage(img, forState: UIControlState.Normal)
+        } else {
+            self.setTitle(user.getName(), forState: UIControlState.Normal)
+            self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: 15)
+        }
+        self.uid = user
     }
 }
