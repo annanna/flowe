@@ -66,7 +66,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         let cell = tableView.dequeueReusableCellWithIdentifier(transferCell, forIndexPath: indexPath) as! UITableViewCell
         
         let transfer = group!.transfers[indexPath.row]
-        cell.textLabel?.text = String(format: "\(transfer.userPayed.getName()) hat %.2f€ für \(transfer.name) bezahlt", transfer.moneyPayed)
+        cell.textLabel?.text = String(format: "\(transfer.payed[0].user.getName()) hat %.2f€ für \(transfer.name) bezahlt", transfer.moneyPayed)
         return cell
     }
     

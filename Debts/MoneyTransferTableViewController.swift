@@ -13,6 +13,9 @@ class MoneyTransferTableViewController: UITableViewController {
     var selectedUsers:[User] = []
     var mode = ""
     var amount: Double = 0
+    var sliders: [UISlider] = []
+    var cells: [BalanceTableViewCell] = []
+    var balances: [(user: User, amount:Double)] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,10 +42,18 @@ class MoneyTransferTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("balanceCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("balanceCell", forIndexPath: indexPath) as! BalanceTableViewCell
         var person = selectedUsers[indexPath.row]
-        cell.textLabel?.text = "\(person.firstname) \(person.lastname)"
-
+        cell.nameLabel.text = person.firstname
+        cell.sliderMax.text = "\(amount)€"
+        var part:Double = round(amount / Double(selectedUsers.count) * 100) / 100
+        cell.amountLabel.text = "\(part)€"
+        cell.amountSlider.maximumValue = Float(amount)
+        cell.amountSlider.value = Float(part)
+        cell.amountSlider.addTarget(self, action: "sliderChanged:", forControlEvents: UIControlEvents.ValueChanged)
+        cell.id = indexPath.row
+        sliders.append(cell.amountSlider)
+        cells.append(cell)
         return cell
     }
 
@@ -50,19 +61,31 @@ class MoneyTransferTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        /*if segue.identifier == "SaveSelectedContacts" {
-            var users: [User] = []
-            var paths: [NSIndexPath] = tableView.indexPathsForSelectedRows() as! [NSIndexPath]
-            for path in paths {
-                var selectedContact: SwiftAddressBookPerson = addressBook!.allPeople![path.row]
-                var user = User(first: selectedContact.firstName!, last: selectedContact.lastName!)
-                if selectedContact.hasImageData() {
-                    user.img = selectedContact.image
-                }
-                users.append(user)
+        if segue.identifier == "SaveSelectedContacts" {
+            var i = 0
+            for cell in cells {
+                var val: Double = Double(cell.amountSlider.value)
+                balances += [(user: selectedUsers[i], amount: val)]
+                i++
             }
-            selectedUsers = users
-        }*/
+        }
     }
-
+    
+    func sliderChanged(slider: UISlider!) {
+        var cell: BalanceTableViewCell = slider.superview?.superview as! BalanceTableViewCell
+        var idx = find(cells, cell) as Int!
+        
+        
+        var rest = Float(amount) - slider.value
+        if idx < cells.count-1 {
+            for var i = idx+1; i < cells.count; i++ {
+                cells[i].updateCell(rest / Float(cells.count-1))
+            }
+        }
+    }
+    
+    func getCellForUser(user: User) -> BalanceTableViewCell {
+        let idx = find(selectedUsers, user)
+        return cells[idx!]
+    }
 }

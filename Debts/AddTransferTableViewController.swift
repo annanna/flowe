@@ -18,9 +18,9 @@ class AddTransferTableViewController: UITableViewController {
     @IBOutlet weak var payerInfo: UIButton!
     
     var transfer: MoneyTransfer!
-    var whoPayed: [User] = []
-    var whoTookPart: [User] = []
-     
+    var whoPayed: [(user: User, amount:Double)] = []
+    var whoTookPart: [(user: User, amount:Double)] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -41,8 +41,9 @@ class AddTransferTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "SaveTransfer" {
-            transfer = MoneyTransfer(name: transferName.text, creator: whoPayed[0], money: (transferAmount.text as NSString).doubleValue, notes: transferNotes.text)
-            transfer.addUsersInTransfers(whoTookPart)
+            transfer = MoneyTransfer(name: transferName.text, creator: whoPayed[0].user, money: (transferAmount.text as NSString).doubleValue, notes: transferNotes.text)
+            transfer.payed = whoPayed
+            transfer.participated = whoTookPart
         } else
         if segue.identifier == "WhoPayed" {
             if let vc = segue.destinationViewController as? ContactTableViewController {
@@ -65,23 +66,23 @@ class AddTransferTableViewController: UITableViewController {
             var btnX:CGFloat = 20
             
             var users = vc.selectedUsers
+            var balances = vc.balances
             var relevantView: UIView?
             
             if vc.mode == "WhoPayed" {
-                whoPayed = users
+                whoPayed = balances
                 relevantView = self.payerView
                 if whoPayed.count > 1 {
                     payerInfo.hidden = false
                 }
             } else if vc.mode == "WhoTookPart" {
-                whoTookPart = users
+                whoTookPart = balances
                 relevantView = self.participantView
             }
             
-            
-            for user in users {
+            for b in balances {
                 if let userView = relevantView {
-                    var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: user)
+                    var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: b.user)
                     btn.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
                     userView.addSubview(btn)
                     btnX += btnSize + btnSize/2
