@@ -47,6 +47,7 @@ class AddTransferTableViewController: UITableViewController {
         if segue.identifier == "WhoPayed" {
             if let vc = segue.destinationViewController as? ContactTableViewController {
                 vc.mode = "WhoPayed"
+                vc.transferAmount = (transferAmount.text as NSString).doubleValue
             }
         } else
         if segue.identifier == "WhoTookPart" {
@@ -58,7 +59,7 @@ class AddTransferTableViewController: UITableViewController {
     
     @IBAction func selectContact(segue:UIStoryboardSegue) {
         println(segue.identifier)
-        if let vc = segue.sourceViewController as? ContactTableViewController {
+        if let vc = segue.sourceViewController as? MoneyTransferTableViewController {
             let btnY:CGFloat = 15
             let btnSize:CGFloat = 40
             var btnX:CGFloat = 20

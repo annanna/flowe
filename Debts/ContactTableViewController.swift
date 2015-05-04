@@ -13,8 +13,9 @@ import AddressBook
 class ContactTableViewController: UITableViewController {
 
     let addressBook: SwiftAddressBook? = swiftAddressBook
-    var selectedUsers:[User] = []
     var mode = ""
+    var transferAmount:Double = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.allowsMultipleSelection = true
@@ -62,7 +63,25 @@ class ContactTableViewController: UITableViewController {
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "SaveSelectedContacts" {
+        if segue.identifier == "PeopleSelected" {
+            var users: [User] = []
+            var paths: [NSIndexPath] = tableView.indexPathsForSelectedRows() as! [NSIndexPath]
+            for path in paths {
+                var selectedContact: SwiftAddressBookPerson = addressBook!.allPeople![path.row]
+                var user = User(first: selectedContact.firstName!, last: selectedContact.lastName!)
+                if selectedContact.hasImageData() {
+                    user.img = selectedContact.image
+                }
+                users.append(user)
+            }
+           // selectedUsers = users
+            if let vc = segue.destinationViewController as? MoneyTransferTableViewController {
+                vc.selectedUsers = users
+                vc.mode = mode //is this really necessary?
+                vc.amount = transferAmount
+            }
+        }
+/*        if segue.identifier == "SaveSelectedContacts" {
             var users: [User] = []
             var paths: [NSIndexPath] = tableView.indexPathsForSelectedRows() as! [NSIndexPath]
             for path in paths {
@@ -74,6 +93,6 @@ class ContactTableViewController: UITableViewController {
                 users.append(user)
             }
             selectedUsers = users
-        }
+        } */
     }
 }

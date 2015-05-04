@@ -580,15 +580,48 @@
                     <navigationItem key="navigationItem" title="Choose Contact" id="cUI-97-L9I">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="dap-em-TZL">
                             <connections>
-                                <segue destination="Oh4-4p-f7r" kind="unwind" identifier="SaveSelectedContacts" unwindAction="selectContact:" id="YGw-Gy-KhX"/>
+                                <segue destination="NIW-U5-o9v" kind="push" identifier="PeopleSelected" id="a7l-Bc-f50"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Cq-Y5-hFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Oh4-4p-f7r" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2126" y="470"/>
+            <point key="canvasLocation" x="2190" y="348"/>
+        </scene>
+        <!--MoneyTransfer-->
+        <scene sceneID="pz8-nK-9Gr">
+            <objects>
+                <tableViewController title="MoneyTransfer" id="NIW-U5-o9v" customClass="MoneyTransferTableViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="tuk-SY-V5z">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="balanceCell" id="175-qz-rcr">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="175-qz-rcr" id="Fgo-S8-DYx">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="NIW-U5-o9v" id="2iB-Fu-Lcl"/>
+                            <outlet property="delegate" destination="NIW-U5-o9v" id="4jH-eJ-1Ae"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="100€" id="EHu-yb-sLx">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="yW6-YQ-KfN">
+                            <connections>
+                                <segue destination="zu4-iy-eU1" kind="unwind" unwindAction="selectContact:" id="Xgi-Rx-54A"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eug-gp-jnB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="zu4-iy-eU1" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2190" y="1030"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bkD-LY-wCB">
