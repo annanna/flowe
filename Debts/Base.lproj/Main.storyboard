@@ -180,7 +180,7 @@
         <scene sceneID="iaj-5P-KLl">
             <objects>
                 <tableViewController title="Transfer" id="ACa-rO-S8L" customClass="TransferTableViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Pc6-sN-pMq">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Pc6-sN-pMq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -267,6 +267,9 @@
                                                             <state key="normal">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
+                                                            <connections>
+                                                                <segue destination="NIW-U5-o9v" kind="push" identifier="showPayerInfo" id="JYR-OH-gJs"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -321,15 +324,22 @@
                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6OE-dN-327">
                                                     <rect key="frame" x="8" y="0.0" width="274" height="71"/>
                                                     <subviews>
-                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZY-HC-RcD">
+                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZY-HC-RcD">
                                                             <rect key="frame" x="244" y="25" width="22" height="22"/>
                                                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <state key="normal">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
+                                                            <connections>
+                                                                <segue destination="NIW-U5-o9v" kind="push" identifier="showParticipantInfo" id="vF4-Ig-k52"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="cZY-HC-RcD" firstAttribute="top" secondItem="6OE-dN-327" secondAttribute="top" constant="25" id="Oy5-hV-1tJ"/>
+                                                        <constraint firstItem="cZY-HC-RcD" firstAttribute="trailing" secondItem="6OE-dN-327" secondAttribute="trailingMargin" id="YGl-Cq-cod"/>
+                                                    </constraints>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
@@ -382,6 +392,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="E3h-zG-8E0"/>
                     <connections>
+                        <outlet property="participantInfo" destination="cZY-HC-RcD" id="PF7-GB-OeR"/>
                         <outlet property="participantView" destination="6OE-dN-327" id="3Fv-Uy-9RW"/>
                         <outlet property="payerInfo" destination="aL7-sy-0oq" id="59W-s1-1AU"/>
                         <outlet property="payerView" destination="ep3-V5-OsM" id="bvg-6B-zss"/>
@@ -524,7 +535,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eug-gp-jnB" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="zu4-iy-eU1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2236" y="796"/>
+            <point key="canvasLocation" x="1995" y="824"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bkD-LY-wCB">
@@ -554,6 +565,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="ykI-ma-Wa1"/>
         <segue reference="IQb-cw-JAx"/>
+        <segue reference="JYR-OH-gJs"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
 </document>

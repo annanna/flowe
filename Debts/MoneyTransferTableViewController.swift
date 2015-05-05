@@ -25,6 +25,17 @@ class MoneyTransferTableViewController: UITableViewController {
         var backgroundView = UIView(frame: CGRectZero)
         self.tableView.tableFooterView = backgroundView
         self.tableView.backgroundColor = UIColor.whiteColor()
+        
+        if selectedUsers.count > 0 && balances.count == 0 {
+            // transform to balances -> every person pays equal money
+            var part:Double = round(amount / Double(selectedUsers.count) * 100) / 100
+            for user in selectedUsers {
+                self.balances += [(user:user, amount:part)]
+            }
+        } else {
+            self.tableView.userInteractionEnabled = false
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,54 +54,33 @@ class MoneyTransferTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return selectedUsers.count
+        return balances.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("balanceCell", forIndexPath: indexPath) as! BalanceTableViewCell
-        var person = selectedUsers[indexPath.row]
-        cell.nameLabel.text = person.firstname
-        cell.sliderMax.text = "\(amount)€"
-        var part:Double = round(amount / Double(selectedUsers.count) * 100) / 100
-        cell.amountLabel.text = "\(part)€"
-        cell.amountSlider.maximumValue = Float(amount)
-        cell.amountSlider.value = Float(part)
+        var currentBalance = balances[indexPath.row]
+        cell.nameLabel.text = currentBalance.user.firstname
+        cell.sliderMax.text = "\(self.amount)€"
+        cell.amountLabel.text = "\(currentBalance.amount)€"
+        cell.amountSlider.maximumValue = Float(self.amount)
+        cell.amountSlider.value = Float(currentBalance.amount)
         cell.amountSlider.addTarget(self, action: "sliderChanged:", forControlEvents: UIControlEvents.ValueChanged)
-        cell.id = indexPath.row
-        sliders.append(cell.amountSlider)
         cells.append(cell)
         return cell
-    }
-
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "SaveSelectedContacts" {
-            var i = 0
-            for cell in cells {
-                var val: Double = Double(cell.amountSlider.value)
-                balances += [(user: selectedUsers[i], amount: val)]
-                i++
-            }
-        }
     }
     
     func sliderChanged(slider: UISlider!) {
         var cell: BalanceTableViewCell = slider.superview?.superview as! BalanceTableViewCell
         var idx = find(cells, cell) as Int!
         
-        
+        balances[idx].amount = Double(slider.value)
+
         var rest = Float(amount) - slider.value
         if idx < cells.count-1 {
             for var i = idx+1; i < cells.count; i++ {
                 cells[i].updateCell(rest / Float(cells.count-1))
             }
         }
-    }
-    
-    func getCellForUser(user: User) -> BalanceTableViewCell {
-        let idx = find(selectedUsers, user)
-        return cells[idx!]
     }
 }

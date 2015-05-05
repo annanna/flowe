@@ -16,6 +16,7 @@ class TransferTableViewController: UITableViewController {
     @IBOutlet weak var payerView: UIView!
     @IBOutlet weak var participantView: UIView!
     @IBOutlet weak var payerInfo: UIButton!
+    @IBOutlet weak var participantInfo: UIButton!
     
     var transfer: MoneyTransfer!
     var whoPayed: [(user: User, amount:Double)] = []
@@ -31,7 +32,7 @@ class TransferTableViewController: UITableViewController {
         if let t = transfer {
             loadDataInDetailView(t)
             self.title = "\(transfer.name) Details"
-            self.tableView.userInteractionEnabled = false
+            
             if editingMode {
                 var editBtn: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Done, target: self, action: "enableEditing:")
                 navigationItem.rightBarButtonItem = editBtn
@@ -60,12 +61,15 @@ class TransferTableViewController: UITableViewController {
     func loadDataInDetailView(transfer: MoneyTransfer) {
         if let name = self.transferName {
             name.text = transfer.name
+            name.userInteractionEnabled = false
         }
         if let amount = self.transferAmount {
             amount.text = String(format: "%.2f",transfer.moneyPayed)
+            amount.userInteractionEnabled = false
         }
         if let notes = self.transferNotes {
             notes.text = transfer.notes
+            notes.userInteractionEnabled = false
         }
         if let payer = self.payerView {
             let btnY:CGFloat = 15
@@ -75,6 +79,9 @@ class TransferTableViewController: UITableViewController {
                 var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: balance.user)
                 payer.addSubview(btn)
                 btnX += btnSize + btnSize/2
+            }
+            if transfer.payed.count > 1 {
+                payerInfo.hidden = false
             }
         }
         
@@ -87,6 +94,9 @@ class TransferTableViewController: UITableViewController {
                 var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: balance.user)
                 participants.addSubview(btn)
                 btnX += btnSize + btnSize/2
+            }
+            if transfer.participated.count > 1 {
+                participantInfo.hidden = false
             }
         }
         whoPayed = transfer.payed
@@ -120,6 +130,11 @@ class TransferTableViewController: UITableViewController {
                 vc.mode = segue.identifier!
                 vc.transferAmount = (transferAmount.text as NSString).doubleValue
             }
+        } else if (segue.identifier == "showParticipantInfo") || (segue.identifier == "showPayerInfo") {
+            if let vc = segue.destinationViewController as? MoneyTransferTableViewController {
+                vc.balances = (segue.identifier == "showParticipantInfo") ? whoTookPart : whoPayed
+                vc.amount = (transferAmount.text as NSString).doubleValue
+            }
         }
     }
     
@@ -147,13 +162,15 @@ class TransferTableViewController: UITableViewController {
         if mode == "WhoPayed" {
             whoPayed = balances
             relevantView = self.payerView
+            if balances.count > 1 {
+                payerInfo.hidden = false
+            }
         } else if mode == "WhoTookPart" {
             whoTookPart = balances
             relevantView = self.participantView
-        }
-        
-        if balances.count > 1 {
-            relevantView?.hidden = false
+            if balances.count > 1 {
+                participantInfo.hidden = false
+            }
         }
         
         for b in balances {
