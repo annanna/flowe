@@ -15,7 +15,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var tableView: UITableView!
     @IBAction func cancelToGroupDescription(segue: UIStoryboardSegue) {}
     @IBAction func saveNewTransfer(segue: UIStoryboardSegue) {
-        if let addTransferVC = segue.sourceViewController as? AddTransferTableViewController {
+        if let addTransferVC = segue.sourceViewController as? TransferTableViewController {
             addNewTransfer(addTransferVC.transfer)
         }
     }
@@ -95,7 +95,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         if segue.identifier == transferDetailIdentifier {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 if let transfer = group?.transfers[indexPath.row] as MoneyTransfer! {
-                    let vc = segue.destinationViewController as! TransferDetailTableViewController
+                    let vc = segue.destinationViewController as! TransferTableViewController
                     vc.transfer = transfer
                 }
             }

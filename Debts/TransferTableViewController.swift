@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddTransferTableViewController: UITableViewController {
+class TransferTableViewController: UITableViewController {
 
     @IBOutlet weak var transferName: UITextField!
     @IBOutlet weak var transferAmount: UITextField!
@@ -21,9 +21,76 @@ class AddTransferTableViewController: UITableViewController {
     var whoPayed: [(user: User, amount:Double)] = []
     var whoTookPart: [(user: User, amount:Double)] = []
     
+    var editingMode = true //depends on the user's rights
+    var detail = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+        
+        if let t = transfer {
+            loadDataInDetailView(t)
+            self.title = "\(transfer.name) Details"
+            self.tableView.userInteractionEnabled = false
+            if editingMode {
+                var editBtn: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Done, target: self, action: "enableEditing:")
+                navigationItem.rightBarButtonItem = editBtn
+            }
+        } else {
+            var cancelBtn: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "goBack:")
+            navigationItem.leftBarButtonItem = cancelBtn
+            var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveTransfer:")
+            navigationItem.rightBarButtonItem = saveBtn
+            self.title = "Add Transfer"
+        }
+    }
+    
+    func goBack(cancelBtn: UIBarButtonItem) {
+        self.performSegueWithIdentifier("CancelToGroupDescription", sender: self)
+    }
+    func saveTransfer(saveBtn: UIBarButtonItem) {
+        self.performSegueWithIdentifier("SaveTransfer", sender: self)
+    }
+    func enableEditing(editBtn: UIBarButtonItem) {
+        self.tableView.userInteractionEnabled = true
+        var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveTransfer:")
+        navigationItem.rightBarButtonItem = saveBtn
+    }
+    
+    func loadDataInDetailView(transfer: MoneyTransfer) {
+        if let name = self.transferName {
+            name.text = transfer.name
+        }
+        if let amount = self.transferAmount {
+            amount.text = String(format: "%.2f",transfer.moneyPayed)
+        }
+        if let notes = self.transferNotes {
+            notes.text = transfer.notes
+        }
+        if let payer = self.payerView {
+            let btnY:CGFloat = 15
+            let btnSize:CGFloat = 40
+            var btnX:CGFloat = 20
+            for balance in transfer.payed {
+                var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: balance.user)
+                payer.addSubview(btn)
+                btnX += btnSize + btnSize/2
+            }
+        }
+        
+        if let participants = self.participantView {
+            let btnY:CGFloat = 15
+            let btnSize:CGFloat = 40
+            var btnX:CGFloat = 20
+            
+            for balance in transfer.participated {
+                var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: balance.user)
+                participants.addSubview(btn)
+                btnX += btnSize + btnSize/2
+            }
+        }
+        whoPayed = transfer.payed
+        whoTookPart = transfer.participated
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,6 +98,9 @@ class AddTransferTableViewController: UITableViewController {
     }
     
     override func prefersStatusBarHidden() -> Bool {
+        if let t = transfer {
+            return false
+        }
         return true
     }
     

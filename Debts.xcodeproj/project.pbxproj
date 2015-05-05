@@ -11,7 +11,7 @@
 		7C5FACEC1AEBA39000E12DF0 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE71AEBA39000E12DF0 /* Groups.swift */; };
 		7C5FACED1AEBA39000E12DF0 /* MoneyTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE81AEBA39000E12DF0 /* MoneyTransfer.swift */; };
 		7C5FACEE1AEBA39000E12DF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE91AEBA39000E12DF0 /* User.swift */; };
-		7C5FAD851AEBE4F600E12DF0 /* AddTransferTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FAD841AEBE4F600E12DF0 /* AddTransferTableViewController.swift */; };
+		7C6406401AF8DDC8002AF7C8 /* TransferTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C64063F1AF8DDC8002AF7C8 /* TransferTableViewController.swift */; };
 		7C75F7BF1AF76417000C96D2 /* MoneyTransferTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C75F7BE1AF76417000C96D2 /* MoneyTransferTableViewController.swift */; };
 		7C75F7C11AF76ABA000C96D2 /* BalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C75F7C01AF76ABA000C96D2 /* BalanceTableViewCell.swift */; };
 		7CCC26571AED58B600A987A0 /* ContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */; };
@@ -22,7 +22,6 @@
 		7CD2C80C1ADD47DC00A2096E /* DebtsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */; };
 		7CDF66661AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */; };
 		7CDF666A1AE8113600FE3E83 /* GroupDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */; };
-		7CF965851AECF62B0020A023 /* TransferDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */; };
 		7CF965891AED11AE0020A023 /* PeopleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF965881AED11AE0020A023 /* PeopleButton.swift */; };
 		7CF965BB1AED23B10020A023 /* GroupOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF965BA1AED23B10020A023 /* GroupOverviewTableViewCell.swift */; };
 		F72081AA05177AF860C62D17 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C4B3299A8C9ADF7C64BBF2 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -45,7 +44,7 @@
 		7C5FACE71AEBA39000E12DF0 /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
 		7C5FACE81AEBA39000E12DF0 /* MoneyTransfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTransfer.swift; sourceTree = "<group>"; };
 		7C5FACE91AEBA39000E12DF0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		7C5FAD841AEBE4F600E12DF0 /* AddTransferTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTransferTableViewController.swift; sourceTree = "<group>"; };
+		7C64063F1AF8DDC8002AF7C8 /* TransferTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferTableViewController.swift; sourceTree = "<group>"; };
 		7C75F7BE1AF76417000C96D2 /* MoneyTransferTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTransferTableViewController.swift; sourceTree = "<group>"; };
 		7C75F7C01AF76ABA000C96D2 /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
 		7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewController.swift; sourceTree = "<group>"; };
@@ -60,7 +59,6 @@
 		7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtsTests.swift; sourceTree = "<group>"; };
 		7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupOverviewTableViewController.swift; sourceTree = "<group>"; };
 		7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDescriptionViewController.swift; sourceTree = "<group>"; };
-		7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferDetailTableViewController.swift; sourceTree = "<group>"; };
 		7CF965881AED11AE0020A023 /* PeopleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleButton.swift; sourceTree = "<group>"; };
 		7CF965BA1AED23B10020A023 /* GroupOverviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupOverviewTableViewCell.swift; sourceTree = "<group>"; };
 		9F9B7A755E2834DF1A8129D1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -125,8 +123,7 @@
 				7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */,
 				7CF965BA1AED23B10020A023 /* GroupOverviewTableViewCell.swift */,
 				7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */,
-				7CF965841AECF62B0020A023 /* TransferDetailTableViewController.swift */,
-				7C5FAD841AEBE4F600E12DF0 /* AddTransferTableViewController.swift */,
+				7C64063F1AF8DDC8002AF7C8 /* TransferTableViewController.swift */,
 				7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */,
 				7C75F7BE1AF76417000C96D2 /* MoneyTransferTableViewController.swift */,
 				7CD2C7F91ADD47DC00A2096E /* Main.storyboard */,
@@ -335,7 +332,6 @@
 			files = (
 				7CDF66661AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift in Sources */,
 				7C75F7C11AF76ABA000C96D2 /* BalanceTableViewCell.swift in Sources */,
-				7C5FAD851AEBE4F600E12DF0 /* AddTransferTableViewController.swift in Sources */,
 				7CF965891AED11AE0020A023 /* PeopleButton.swift in Sources */,
 				7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */,
 				7C5FACEB1AEBA39000E12DF0 /* Group.swift in Sources */,
@@ -343,9 +339,9 @@
 				7C5FACED1AEBA39000E12DF0 /* MoneyTransfer.swift in Sources */,
 				7CCC26571AED58B600A987A0 /* ContactTableViewController.swift in Sources */,
 				7CF965BB1AED23B10020A023 /* GroupOverviewTableViewCell.swift in Sources */,
+				7C6406401AF8DDC8002AF7C8 /* TransferTableViewController.swift in Sources */,
 				7CDF666A1AE8113600FE3E83 /* GroupDescriptionViewController.swift in Sources */,
 				7C5FACEC1AEBA39000E12DF0 /* Groups.swift in Sources */,
-				7CF965851AECF62B0020A023 /* TransferDetailTableViewController.swift in Sources */,
 				7C75F7BF1AF76417000C96D2 /* MoneyTransferTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
