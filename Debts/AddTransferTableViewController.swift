@@ -53,41 +53,46 @@ class AddTransferTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func saveOnePerson(segue:UIStoryboardSegue) {
+     if let vc = segue.sourceViewController as? ContactTableViewController {
+
+        var balances = [(user: vc.selectedUsers[0], amount: vc.transferAmount)]
+        evaluateSelectedContacts(balances, mode: vc.mode)
+      }
+    }
+    
     @IBAction func selectContact(segue:UIStoryboardSegue) {
-        println(segue.identifier)
         if let vc = segue.sourceViewController as? MoneyTransferTableViewController {
-            let btnY:CGFloat = 15
-            let btnSize:CGFloat = 40
-            var btnX:CGFloat = 20
-            
-            var users = vc.selectedUsers
-            var balances = vc.balances
-            var relevantView: UIView?
-            
-            if vc.mode == "WhoPayed" {
-                whoPayed = balances
-                relevantView = self.payerView
-                if whoPayed.count > 1 {
-                    payerInfo.hidden = false
-                }
-            } else if vc.mode == "WhoTookPart" {
-                whoTookPart = balances
-                relevantView = self.participantView
-            }
-            
-            for b in balances {
-                if let userView = relevantView {
-                    var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: b.user)
-                    btn.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-                    userView.addSubview(btn)
-                    btnX += btnSize + btnSize/2
-                }
-            }
+            evaluateSelectedContacts(vc.balances, mode: vc.mode)
         }
     }
     
-    func buttonAction(sender: PeopleButton!) {
-        println("Button tapped")
-        println(sender.uid.firstname)
+    func evaluateSelectedContacts(balances:[(user: User, amount:Double)], mode: String) {
+        let btnY:CGFloat = 15
+        let btnSize:CGFloat = 40
+        var btnX:CGFloat = 20
+        
+        var relevantView: UIView?
+        
+        if mode == "WhoPayed" {
+            whoPayed = balances
+            relevantView = self.payerView
+        } else if mode == "WhoTookPart" {
+            whoTookPart = balances
+            relevantView = self.participantView
+        }
+        
+        if balances.count > 1 {
+            relevantView?.hidden = false
+        }
+        
+        for b in balances {
+            if let userView = relevantView {
+                var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: b.user)
+                btn.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+                userView.addSubview(btn)
+                btnX += btnSize + btnSize/2
+            }
+        }
     }
 }

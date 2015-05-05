@@ -568,15 +568,14 @@
                             <outlet property="delegate" destination="xyN-ul-6x1" id="btf-ZM-27X"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Choose Contact" id="cUI-97-L9I">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="dap-em-TZL">
-                            <connections>
-                                <segue destination="NIW-U5-o9v" kind="push" identifier="PeopleSelected" id="a7l-Bc-f50"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Choose Contact" id="cUI-97-L9I"/>
+                    <connections>
+                        <segue destination="NIW-U5-o9v" kind="push" identifier="PeopleSelected" id="Xox-eK-5Im"/>
+                        <segue destination="Dzd-f9-5s6" kind="unwind" identifier="OnePerson" unwindAction="saveOnePerson:" id="tnc-PQ-LzO"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Cq-Y5-hFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Dzd-f9-5s6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2190" y="348"/>
         </scene>

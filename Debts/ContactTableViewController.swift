@@ -15,6 +15,7 @@ class ContactTableViewController: UITableViewController {
     let addressBook: SwiftAddressBook? = swiftAddressBook
     var mode = ""
     var transferAmount:Double = 0
+    var selectedUsers:[User] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,9 @@ class ContactTableViewController: UITableViewController {
                 println("no success")
             }
         })
+        
+        var doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "donePressed:")
+        self.navigationItem.rightBarButtonItem = doneBtn
         
         // hide empty cells
         var backgroundView = UIView(frame: CGRectZero)
@@ -70,35 +74,29 @@ class ContactTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "PeopleSelected" {
-            var users: [User] = []
-            var paths: [NSIndexPath] = tableView.indexPathsForSelectedRows() as! [NSIndexPath]
-            for path in paths {
-                var selectedContact: SwiftAddressBookPerson = addressBook!.allPeople![path.row]
-                var user = User(first: selectedContact.firstName!, last: selectedContact.lastName!)
-                if selectedContact.hasImageData() {
-                    user.img = selectedContact.image
-                }
-                users.append(user)
-            }
-           // selectedUsers = users
             if let vc = segue.destinationViewController as? MoneyTransferTableViewController {
-                vc.selectedUsers = users
+                vc.selectedUsers = selectedUsers
                 vc.mode = mode //is this really necessary?
                 vc.amount = transferAmount
             }
         }
-/*        if segue.identifier == "SaveSelectedContacts" {
-            var users: [User] = []
-            var paths: [NSIndexPath] = tableView.indexPathsForSelectedRows() as! [NSIndexPath]
-            for path in paths {
-                var selectedContact: SwiftAddressBookPerson = addressBook!.allPeople![path.row]
-                var user = User(first: selectedContact.firstName!, last: selectedContact.lastName!)
-                if selectedContact.hasImageData() {
-                    user.img = selectedContact.image
-                }
-                users.append(user)
+    }
+    
+    func donePressed(btn: UIBarButtonItem!) {
+        var paths: [NSIndexPath] = tableView.indexPathsForSelectedRows() as! [NSIndexPath]
+        for path in paths {
+            var selectedContact: SwiftAddressBookPerson = addressBook!.allPeople![path.row]
+            var user = User(first: selectedContact.firstName!, last: selectedContact.lastName!)
+            if selectedContact.hasImageData() {
+                user.img = selectedContact.image
             }
-            selectedUsers = users
-        } */
+            selectedUsers.append(user)
+        }
+        
+        if selectedUsers.count > 1 {
+            self.performSegueWithIdentifier("PeopleSelected", sender: self)
+        } else {
+            self.performSegueWithIdentifier("OnePerson", sender: self)
+        }
     }
 }
