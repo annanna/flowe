@@ -20,7 +20,7 @@ class GroupOverviewTableViewCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        self.titleLabel.textColor = UIColor.darkGrayColor()
         // Configure the view for the selected state
     }
     

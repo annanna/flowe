@@ -20,6 +20,11 @@ class MoneyTransferTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "\(amount) €"
+        
+        // hide empty cells
+        var backgroundView = UIView(frame: CGRectZero)
+        self.tableView.tableFooterView = backgroundView
+        self.tableView.backgroundColor = UIColor.whiteColor()
     }
 
     override func didReceiveMemoryWarning() {

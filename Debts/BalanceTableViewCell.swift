@@ -25,6 +25,8 @@ class BalanceTableViewCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        self.nameLabel.textColor = UIColor.darkGrayColor()
+        self.amountLabel.textColor = UIColor.darkGrayColor()
 
         // Configure the view for the selected state
     }

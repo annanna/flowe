@@ -17,8 +17,9 @@ class GroupOverviewTableViewController: UITableViewController {
     @IBOutlet weak var titleLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        groups = appDelegate.groups    }
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+        groups = appDelegate.groups
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

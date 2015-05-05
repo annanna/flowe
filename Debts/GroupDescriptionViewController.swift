@@ -37,6 +37,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             }
             updateSumLabel(gr.total)
         }
+        // auto height of cells
         self.tableView.estimatedRowHeight = 68.0
         self.tableView.rowHeight = UITableViewAutomaticDimension
     }
@@ -44,7 +45,8 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureView()
-        
+
+        // hide empty cells
         var backgroundView = UIView(frame: CGRectZero)
         self.tableView.tableFooterView = backgroundView
         self.tableView.backgroundColor = UIColor.clearColor()

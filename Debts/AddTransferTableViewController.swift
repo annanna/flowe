@@ -23,6 +23,7 @@ class AddTransferTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGrayColor()]
     }
 
     override func didReceiveMemoryWarning() {

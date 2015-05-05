@@ -28,6 +28,11 @@ class ContactTableViewController: UITableViewController {
                 println("no success")
             }
         })
+        
+        // hide empty cells
+        var backgroundView = UIView(frame: CGRectZero)
+        self.tableView.tableFooterView = backgroundView
+        self.tableView.backgroundColor = UIColor.whiteColor()
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,6 +54,7 @@ class ContactTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("ContactCell", forIndexPath: indexPath) as! UITableViewCell
         var person: SwiftAddressBookPerson = addressBook!.allPeople![indexPath.row]
         cell.textLabel?.text = "\(person.firstName!) \(person.lastName!)"
+        cell.textLabel?.textColor = UIColor.darkGrayColor()
         
         return cell
     }
