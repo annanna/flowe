@@ -37,6 +37,8 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             }
             updateSumLabel(gr.total)
         }
+        self.tableView.estimatedRowHeight = 68.0
+        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     override func viewDidLoad() {

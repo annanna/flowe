@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         var winterurlaub = Group(name: "Winterurlaub", users: [User(rand: 1), User(rand: 2), User(rand: 3)], creator: User(rand: 2))
         var italiener = MoneyTransfer(name: "Italiener", creator: winterurlaub.creator, money: 57.12, notes: "")
-        italiener.payed = [(user: winterurlaub.creator, amount: italiener.moneyPayed)]
+        italiener.payed = [(user: winterurlaub.creator, amount: 50), (user: User(rand: 3), amount: 7.12)]
         italiener.participated = [(user: User(rand: 1), amount: 25.12), (user: User(rand: 3), amount: 32.0)]
         winterurlaub.addTransfer(italiener)
         
