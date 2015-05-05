@@ -65,8 +65,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(transferCell, forIndexPath: indexPath) as! UITableViewCell
         
-        let transfer = group!.transfers[indexPath.row]
-        cell.textLabel?.text = String(format: "\(transfer.payed[0].user.getName()) hat %.2f€ für \(transfer.name) bezahlt", transfer.moneyPayed)
+        cell.textLabel?.text = generateTransferConclusion(group!.transfers[indexPath.row])
         return cell
     }
     
@@ -118,5 +117,30 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
                 sumLabel.textColor = UIColor.greenColor()
             }
         }
+    }
+    
+    func generateTransferConclusion(transfer: MoneyTransfer) -> String {
+        var label = transfer.payed[0].user.firstname
+        var usersLeft = transfer.payed.count-1
+        var count = 1
+        var verb = " hat "
+        
+        var joiner = ""
+        if usersLeft > 0 {
+            joiner = ", "
+            verb = " haben "
+        
+            for (user, amount) in transfer.payed[1...usersLeft] {
+                if count == usersLeft {
+                    joiner = " und "
+                }
+                label += joiner + user.firstname
+                count++
+            }
+        }
+        label += verb
+        
+        label += String(format: "%2.f€ für \(transfer.name) bezahlt", transfer.moneyPayed)
+        return label
     }
 }
