@@ -460,6 +460,9 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="I0l-Iy-B07" id="aoo-3k-QQz"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>

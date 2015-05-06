@@ -38,4 +38,9 @@ class BalanceTableViewCell: UITableViewCell {
         self.amountSlider.value = amount
         self.sliderChanged(self.amountSlider)
     }
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
