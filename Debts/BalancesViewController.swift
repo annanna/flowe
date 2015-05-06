@@ -16,7 +16,6 @@ class BalancesViewController: UIViewController {
     
     var detail = false
     var amount: Double = 0
-    var sliders: [UISlider] = []
     var cells: [BalanceTableViewCell] = []
     var balances: [(user: User, amount:Double)] = []
 
@@ -28,9 +27,7 @@ class BalancesViewController: UIViewController {
         self.balanceTableView.tableFooterView = backgroundView
         self.balanceTableView.backgroundColor = UIColor.whiteColor()
         
-        if let totalAmount = self.totalAmountLabel {
-            totalAmount.text = self.amount.description
-        }
+        self.totalAmountLabel.text = self.amount.description
         
         if !detail {
             // calculate balances -> every person pays equal money
@@ -85,13 +82,26 @@ class BalancesViewController: UIViewController {
         
         balances[idx].amount = Double(slider.value)
         
-        var rest:Float = Float(amount) - slider.value
-        var newAmount:Float = rest / Float(cells.count-1)
-        if idx < cells.count-1 {
-            for var i = idx+1; i < cells.count; i++ {
-                cells[i].updateCell(newAmount)
-                balances[i] = (user:balances[i].user, amount:Double(newAmount))
+        if automaticSliders.on {
+            var rest:Float = Float(amount) - slider.value
+            var newAmount:Float = rest / Float(cells.count-1)
+            if idx < cells.count-1 {
+                for var i = idx+1; i < cells.count; i++ {
+                    cells[i].updateCell(newAmount)
+                    balances[i] = (user:balances[i].user, amount:Double(newAmount))
+                }
             }
+        } else {
+            updateAmountLabel()
         }
+    }
+    
+    func updateAmountLabel() {
+        var total:Double = 0.0
+        for cell in cells {
+            total += Double(cell.amountSlider.value)
+        }
+        self.totalAmountLabel.text = String(format: "%.2f",total)
+        self.amount = total
     }
 }

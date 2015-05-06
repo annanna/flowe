@@ -497,7 +497,13 @@
                             <constraint firstAttribute="trailing" secondItem="DNl-bB-lZo" secondAttribute="trailing" constant="16" id="tJz-ev-KIB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="IDH-zA-egz"/>
+                    <navigationItem key="navigationItem" id="IDH-zA-egz">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="jGU-m2-CEo">
+                            <connections>
+                                <segue destination="eOl-Pv-t0P" kind="unwind" unwindAction="saveBalance:" id="zAw-Ms-bPz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="automaticSliders" destination="DNl-bB-lZo" id="FUx-42-aBW"/>
                         <outlet property="balanceTableView" destination="4ev-k3-78l" id="gjb-F8-gq0"/>
@@ -505,6 +511,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kye-Dq-seo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="eOl-Pv-t0P" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2146" y="60"/>
         </scene>

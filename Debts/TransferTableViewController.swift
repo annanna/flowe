@@ -169,6 +169,7 @@ class TransferTableViewController: UITableViewController {
     }
     @IBAction func saveBalance(segue:UIStoryboardSegue) {
         if let vc = segue.sourceViewController as? BalancesViewController {
+            self.transferAmount.text = String(format: "%.2f",vc.amount)
             if self.lastIdentifier == paymentDetailIdentifier {
                 self.whoPayed = vc.balances
             } else {
