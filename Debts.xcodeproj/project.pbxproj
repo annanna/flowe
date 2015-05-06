@@ -84,6 +84,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C2CE4671AF9EA4C00F95F08 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7CF965BA1AED23B10020A023 /* GroupOverviewTableViewCell.swift */,
+				7CF965881AED11AE0020A023 /* PeopleButton.swift */,
+				7C75F7C01AF76ABA000C96D2 /* BalanceTableViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		7C5FACE51AEBA39000E12DF0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,15 +131,13 @@
 			children = (
 				7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */,
 				7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */,
-				7CF965BA1AED23B10020A023 /* GroupOverviewTableViewCell.swift */,
 				7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */,
 				7C64063F1AF8DDC8002AF7C8 /* TransferTableViewController.swift */,
 				7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */,
 				7C75F7BE1AF76417000C96D2 /* MoneyTransferTableViewController.swift */,
 				7CD2C7F91ADD47DC00A2096E /* Main.storyboard */,
-				7CF965881AED11AE0020A023 /* PeopleButton.swift */,
-				7C75F7C01AF76ABA000C96D2 /* BalanceTableViewCell.swift */,
 				7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */,
+				7C2CE4671AF9EA4C00F95F08 /* View */,
 				7C5FACE51AEBA39000E12DF0 /* Model */,
 				7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */,
 				7CD2C7F11ADD47DC00A2096E /* Supporting Files */,
