@@ -62,7 +62,8 @@ class BalancesViewController: UIViewController {
         var currentBalance = balances[indexPath.row]
         cell.nameLabel.text = currentBalance.user.firstname
         cell.sliderMax.text = "\(self.amount)€"
-        cell.amountLabel.text = "\(currentBalance.amount)€"
+        cell.amountText.text = "\(currentBalance.amount)"
+        cell.amountText.addTarget(self, action: "amountTextEditingEnd:", forControlEvents: UIControlEvents.EditingDidEnd)
         cell.amountSlider.maximumValue = Float(self.amount)
         cell.amountSlider.value = Float(currentBalance.amount)
         cell.amountSlider.addTarget(self, action: "sliderChanged:", forControlEvents: UIControlEvents.ValueChanged)
@@ -94,6 +95,12 @@ class BalancesViewController: UIViewController {
         } else {
             updateAmountLabel()
         }
+    }
+    
+    func amountTextEditingEnd(amountText: UITextField!) {
+        var cell: BalanceTableViewCell = amountText.superview?.superview as! BalanceTableViewCell
+        cell.amountSlider.value = (amountText.text as NSString).floatValue
+        self.sliderChanged(cell.amountSlider)
     }
     
     func updateAmountLabel() {
