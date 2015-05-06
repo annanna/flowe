@@ -492,7 +492,7 @@
                     <navigationItem key="navigationItem" title="TransferAmount" id="EHu-yb-sLx">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="yW6-YQ-KfN">
                             <connections>
-                                <segue destination="zu4-iy-eU1" kind="unwind" identifier="SaveSelectedContacts" unwindAction="selectContact:" id="Xgi-Rx-54A"/>
+                                <segue destination="zu4-iy-eU1" kind="unwind" unwindAction="saveBalance:" id="FCO-bw-aZX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

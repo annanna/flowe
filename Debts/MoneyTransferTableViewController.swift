@@ -10,7 +10,6 @@ import UIKit
 
 class MoneyTransferTableViewController: UITableViewController {
     
-    var mode = ""
     var detail = false
     var amount: Double = 0
     var sliders: [UISlider] = []
@@ -36,26 +35,22 @@ class MoneyTransferTableViewController: UITableViewController {
             }
         } else {
             self.tableView.userInteractionEnabled = false
+            // hide save button
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
         return balances.count
     }
 
@@ -71,6 +66,8 @@ class MoneyTransferTableViewController: UITableViewController {
         cells.append(cell)
         return cell
     }
+    
+    // MARK: Actions
     
     func sliderChanged(slider: UISlider!) {
         var cell: BalanceTableViewCell = slider.superview?.superview as! BalanceTableViewCell
