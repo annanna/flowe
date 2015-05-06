@@ -126,10 +126,14 @@ class TransferTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "SaveTransfer" {
-            var newTransfer = MoneyTransfer(name: transferName.text, creator: User(rand: 1), money: (transferAmount.text as NSString).doubleValue, notes: transferNotes.text)
-            newTransfer.payed = whoPayed
-            newTransfer.participated = whoTookPart
-            self.transfer = newTransfer
+            if let t = self.transfer {
+                // update this transfer
+            } else {
+                var newTransfer = MoneyTransfer(name: transferName.text, creator: User(rand: 1), money: (transferAmount.text as NSString).doubleValue, notes: transferNotes.text)
+                newTransfer.payed = whoPayed
+                newTransfer.participated = whoTookPart
+                self.transfer = newTransfer
+            }
         } else if (segue.identifier == paymentDetailIdentifier) || (segue.identifier == participantDetailIdentifier) {
             if let vc = segue.destinationViewController as? MoneyTransferTableViewController {
                 var balances:[(user: User, amount:Double)]
@@ -157,7 +161,7 @@ class TransferTableViewController: UITableViewController {
         self.performSegueWithIdentifier("SaveTransfer", sender: self)
     }
     func enableEditing(editBtn: UIBarButtonItem) {
-        self.tableView.userInteractionEnabled = true
+        //TODO: enable all labels and buttons and store updated transfer
         var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveTransfer:")
         navigationItem.rightBarButtonItem = saveBtn
     }
