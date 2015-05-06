@@ -185,7 +185,12 @@ class TransferTableViewController: UITableViewController {
     
     @IBAction func selectContact(segue:UIStoryboardSegue) {
         if let vc = segue.sourceViewController as? MoneyTransferTableViewController {
-            evaluateSelectedContacts(vc.balances, mode: vc.mode)
+         //   evaluateSelectedContacts(vc.balances, mode: vc.mode)
+            if vc.mode == "WhoPayed" {
+                self.whoPayed = vc.balances
+            } else {
+                self.whoTookPart = vc.balances
+            }
         }
     }
     

@@ -78,10 +78,12 @@ class MoneyTransferTableViewController: UITableViewController {
         
         balances[idx].amount = Double(slider.value)
 
-        var rest = Float(amount) - slider.value
+        var rest:Float = Float(amount) - slider.value
+        var newAmount:Float = rest / Float(cells.count-1)
         if idx < cells.count-1 {
             for var i = idx+1; i < cells.count; i++ {
-                cells[i].updateCell(rest / Float(cells.count-1))
+                cells[i].updateCell(newAmount)
+                balances[i] = (user:balances[i].user, amount:Double(newAmount))
             }
         }
     }
