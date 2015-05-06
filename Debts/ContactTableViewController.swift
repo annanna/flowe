@@ -75,7 +75,7 @@ class ContactTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "PeopleSelected" {
             if let vc = segue.destinationViewController as? MoneyTransferTableViewController {
-                vc.selectedUsers = selectedUsers
+//                vc.selectedUsers = selectedUsers
                 vc.mode = mode //is this really necessary?
                 vc.amount = transferAmount
             }

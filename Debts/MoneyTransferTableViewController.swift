@@ -10,12 +10,12 @@ import UIKit
 
 class MoneyTransferTableViewController: UITableViewController {
     
-    var selectedUsers:[User] = []
     var mode = ""
     var amount: Double = 0
     var sliders: [UISlider] = []
     var cells: [BalanceTableViewCell] = []
     var balances: [(user: User, amount:Double)] = []
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +26,13 @@ class MoneyTransferTableViewController: UITableViewController {
         self.tableView.tableFooterView = backgroundView
         self.tableView.backgroundColor = UIColor.whiteColor()
         
-        if selectedUsers.count > 0 && balances.count == 0 {
-            // transform to balances -> every person pays equal money
-            var part:Double = round(amount / Double(selectedUsers.count) * 100) / 100
-            for user in selectedUsers {
-                self.balances += [(user:user, amount:part)]
+        if (mode == "WhoPayed") || (mode == "WhoTookPart") {
+            // calculate balances -> every person pays equal money
+            var part:Double = round(amount / Double(balances.count) * 100) / 100
+            var idx = 0
+            for balance in balances {
+                balances[idx] = (user:balance.user, amount:part)
+                idx++
             }
         } else {
             self.tableView.userInteractionEnabled = false

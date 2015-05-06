@@ -161,9 +161,11 @@ class TransferTableViewController: UITableViewController {
             transfer.payed = whoPayed
             transfer.participated = whoTookPart
         } else if (segue.identifier == "WhoPayed") || (segue.identifier == "WhoTookPart") {
-            if let vc = segue.destinationViewController as? ContactTableViewController {
-                vc.mode = segue.identifier!
-                vc.transferAmount = (transferAmount.text as NSString).doubleValue
+            if let vc = segue.destinationViewController as? MoneyTransferTableViewController {
+                vc.mode = segue.identifier! // necessary?
+                updateSelectedUsers()
+                vc.amount = (transferAmount.text as NSString).doubleValue
+                vc.balances = (segue.identifier == "WhoPayed") ? whoPayed : whoTookPart
             }
         } else if (segue.identifier == "showParticipantInfo") || (segue.identifier == "showPayerInfo") {
             if let vc = segue.destinationViewController as? MoneyTransferTableViewController {
@@ -184,6 +186,25 @@ class TransferTableViewController: UITableViewController {
     @IBAction func selectContact(segue:UIStoryboardSegue) {
         if let vc = segue.sourceViewController as? MoneyTransferTableViewController {
             evaluateSelectedContacts(vc.balances, mode: vc.mode)
+        }
+    }
+    
+    func updateSelectedUsers() {
+        if let payer = payerView {
+            var btns:[PeopleButton] = payer.subviews as! [PeopleButton]
+            for btn in btns {
+                if btn.isClicked {
+                    whoPayed += [(user:btn.uid, amount:0.0)]
+                }
+            }
+        }
+        if let participant = participantView {
+            var btns:[PeopleButton] = participant.subviews as! [PeopleButton]
+            for btn in btns {
+                if btn.isClicked {
+                    whoTookPart += [(user: btn.uid, amount:0.0)]
+                }
+            }
         }
     }
     

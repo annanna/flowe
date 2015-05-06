@@ -260,33 +260,17 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ep3-V5-OsM">
                                                     <rect key="frame" x="8" y="0.0" width="274" height="71"/>
-                                                    <subviews>
-                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aL7-sy-0oq">
-                                                            <rect key="frame" x="244" y="25" width="22" height="22"/>
-                                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <state key="normal">
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <connections>
-                                                                <segue destination="NIW-U5-o9v" kind="push" identifier="showPayerInfo" id="JYR-OH-gJs"/>
-                                                            </connections>
-                                                        </button>
-                                                    </subviews>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstItem="aL7-sy-0oq" firstAttribute="top" secondItem="ep3-V5-OsM" secondAttribute="top" constant="25" id="P4H-WU-xNS"/>
-                                                        <constraint firstItem="aL7-sy-0oq" firstAttribute="trailing" secondItem="ep3-V5-OsM" secondAttribute="trailingMargin" id="VQA-ys-Xqr"/>
-                                                    </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9RL-bm-g9y">
-                                                    <rect key="frame" x="290" y="25" width="29" height="22"/>
-                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9RL-bm-g9y">
+                                                    <rect key="frame" x="290" y="25" width="22" height="22"/>
+                                                    <color key="tintColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="0.5" colorSpace="calibratedRGB"/>
                                                     <state key="normal">
-                                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleColor" red="1" green="0.62558015239999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="xyN-ul-6x1" kind="push" identifier="WhoPayed" id="IQb-cw-JAx"/>
+                                                        <segue destination="NIW-U5-o9v" kind="push" identifier="WhoPayed" id="8i3-kn-bqG"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -311,35 +295,19 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PFw-MQ-XRb" id="wHQ-sv-uh2">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VjN-uJ-Yzl">
-                                                    <rect key="frame" x="290" y="25" width="29" height="22"/>
-                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VjN-uJ-Yzl">
+                                                    <rect key="frame" x="290" y="25" width="22" height="22"/>
+                                                    <color key="tintColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="0.5" colorSpace="calibratedRGB"/>
                                                     <state key="normal">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="xyN-ul-6x1" kind="push" identifier="WhoTookPart" id="mLV-qv-Lce"/>
+                                                        <segue destination="NIW-U5-o9v" kind="push" identifier="WhoTookPart" id="T8z-xg-3jn"/>
                                                     </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6OE-dN-327">
                                                     <rect key="frame" x="8" y="0.0" width="274" height="71"/>
-                                                    <subviews>
-                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZY-HC-RcD">
-                                                            <rect key="frame" x="244" y="25" width="22" height="22"/>
-                                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <state key="normal">
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <connections>
-                                                                <segue destination="NIW-U5-o9v" kind="push" identifier="showParticipantInfo" id="vF4-Ig-k52"/>
-                                                            </connections>
-                                                        </button>
-                                                    </subviews>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstItem="cZY-HC-RcD" firstAttribute="top" secondItem="6OE-dN-327" secondAttribute="top" constant="25" id="Oy5-hV-1tJ"/>
-                                                        <constraint firstItem="cZY-HC-RcD" firstAttribute="trailing" secondItem="6OE-dN-327" secondAttribute="trailingMargin" id="YGl-Cq-cod"/>
-                                                    </constraints>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
@@ -392,9 +360,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="E3h-zG-8E0"/>
                     <connections>
-                        <outlet property="participantInfo" destination="cZY-HC-RcD" id="PF7-GB-OeR"/>
                         <outlet property="participantView" destination="6OE-dN-327" id="3Fv-Uy-9RW"/>
-                        <outlet property="payerInfo" destination="aL7-sy-0oq" id="59W-s1-1AU"/>
                         <outlet property="payerView" destination="ep3-V5-OsM" id="bvg-6B-zss"/>
                         <outlet property="transferAmount" destination="YLH-uQ-Ic8" id="HzA-9x-1rp"/>
                         <outlet property="transferName" destination="4cK-hN-FW2" id="GxH-n7-Gzs"/>
@@ -407,33 +373,6 @@
                 <exit id="45C-Z7-a1I" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1697" y="60"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="pl9-cF-ywp">
-            <objects>
-                <viewController id="nT1-c9-abl" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Wgs-wB-Bt1"/>
-                        <viewControllerLayoutGuide type="bottom" id="ofm-MH-af7"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="eMe-H7-oCB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUk-5a-Dv8">
-                                <rect key="frame" x="113" y="152" width="95" height="95"/>
-                                <color key="backgroundColor" red="0.75294117647058822" green="0.75294117647058822" blue="0.75294117647058822" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="AM">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="s5J-0V-O5H" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2236" y="-613"/>
         </scene>
         <!--Choose Contact-->
         <scene sceneID="Wzq-Cx-wFt">
@@ -458,14 +397,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Choose Contact" id="cUI-97-L9I"/>
                     <connections>
-                        <segue destination="NIW-U5-o9v" kind="push" identifier="PeopleSelected" id="Xox-eK-5Im"/>
                         <segue destination="Dzd-f9-5s6" kind="unwind" identifier="OnePerson" unwindAction="saveOnePerson:" id="tnc-PQ-LzO"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Cq-Y5-hFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Dzd-f9-5s6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2236" y="60"/>
+            <point key="canvasLocation" x="1760" y="-992"/>
         </scene>
         <!--MoneyTransfer-->
         <scene sceneID="pz8-nK-9Gr">
@@ -562,7 +500,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eug-gp-jnB" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="zu4-iy-eU1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1995" y="824"/>
+            <point key="canvasLocation" x="2179" y="60"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bkD-LY-wCB">
@@ -590,9 +528,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="mLV-qv-Lce"/>
         <segue reference="aPj-Jp-m4k"/>
-        <segue reference="JYR-OH-gJs"/>
+        <segue reference="T8z-xg-3jn"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
 </document>
