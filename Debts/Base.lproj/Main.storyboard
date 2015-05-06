@@ -94,7 +94,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="x9x-dH-tCr" kind="modal" identifier="" id="RVM-xF-mLI"/>
+                                    <segue destination="x9x-dH-tCr" kind="modal" identifier="addTransfer" id="RVM-xF-mLI"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6DB-Bd-jD8">
@@ -408,6 +408,33 @@
             </objects>
             <point key="canvasLocation" x="1697" y="60"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="pl9-cF-ywp">
+            <objects>
+                <viewController id="nT1-c9-abl" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Wgs-wB-Bt1"/>
+                        <viewControllerLayoutGuide type="bottom" id="ofm-MH-af7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eMe-H7-oCB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUk-5a-Dv8">
+                                <rect key="frame" x="113" y="152" width="95" height="95"/>
+                                <color key="backgroundColor" red="0.75294117647058822" green="0.75294117647058822" blue="0.75294117647058822" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="AM">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s5J-0V-O5H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2236" y="-613"/>
+        </scene>
         <!--Choose Contact-->
         <scene sceneID="Wzq-Cx-wFt">
             <objects>
@@ -563,8 +590,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ykI-ma-Wa1"/>
-        <segue reference="IQb-cw-JAx"/>
+        <segue reference="mLV-qv-Lce"/>
+        <segue reference="aPj-Jp-m4k"/>
         <segue reference="JYR-OH-gJs"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>

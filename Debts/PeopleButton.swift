@@ -10,7 +10,11 @@ import UIKit
 
 class PeopleButton: UIButton {
     
+    let bgColorNormal: UIColor = UIColor(red: 192, green: 192, blue: 192, alpha: 0.3)
+    let bgColorClicked: UIColor = UIColor(red: 192, green: 192, blue: 192, alpha: 0.6)
+    
     var uid: User = User(first: "", last: "")
+    var isClicked: Bool = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,7 +30,7 @@ class PeopleButton: UIButton {
     }
     
     func addCustomBtn(f: CGRect, user: User) {
-        self.backgroundColor = UIColor(red: 192, green: 192, blue: 192, alpha: 0.3)
+        self.backgroundColor = bgColorNormal
         self.layer.cornerRadius = f.width/2
         self.clipsToBounds = true;
         self.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
@@ -38,5 +42,17 @@ class PeopleButton: UIButton {
             self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: 15)
         }
         self.uid = user
+    }
+    
+    func toggleSelection() {
+        if !self.isClicked {
+            self.backgroundColor = bgColorClicked
+            self.layer.borderColor = (UIColor.darkGrayColor()).CGColor
+            self.layer.borderWidth = 0.5
+        } else {
+            self.backgroundColor = bgColorNormal
+            self.layer.borderWidth = 0
+        }
+        self.isClicked = !self.isClicked
     }
 }

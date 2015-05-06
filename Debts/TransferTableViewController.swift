@@ -25,9 +25,13 @@ class TransferTableViewController: UITableViewController {
     var editingMode = true //depends on the user's rights
     var detail = true
     
+    var group:Group!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+        
+        showGroupMembersInViews()
         
         if let t = transfer {
             loadDataInDetailView(t)
@@ -56,6 +60,33 @@ class TransferTableViewController: UITableViewController {
         self.tableView.userInteractionEnabled = true
         var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveTransfer:")
         navigationItem.rightBarButtonItem = saveBtn
+    }
+    
+    func showGroupMembersInViews() {
+        if let payer = self.payerView {
+            let btnY:CGFloat = 15
+            let btnSize:CGFloat = 40
+            var btnX:CGFloat = 20
+            
+            for user in group.users {
+                var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: user)
+                btn.addTarget(self, action: "buttonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+                payer.addSubview(btn)
+                btnX += btnSize + btnSize/2
+            }
+        }
+        if let participants = self.participantView {
+            let btnY:CGFloat = 15
+            let btnSize:CGFloat = 40
+            var btnX:CGFloat = 20
+            
+            for user in group.users {
+                var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: user)
+                btn.addTarget(self, action: "buttonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+                participants.addSubview(btn)
+                btnX += btnSize + btnSize/2
+            }
+        }
     }
     
     func loadDataInDetailView(transfer: MoneyTransfer) {
@@ -103,6 +134,10 @@ class TransferTableViewController: UITableViewController {
         whoTookPart = transfer.participated
     }
 
+    func buttonPressed(btn: PeopleButton) {
+        btn.toggleSelection()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

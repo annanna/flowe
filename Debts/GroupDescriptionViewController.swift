@@ -99,6 +99,13 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
                     vc.transfer = transfer
                 }
             }
+        } else if segue.identifier == addTransferIdentifier {
+            // TransferTableViewController is embedded in UINavigationController because of modal presentation
+            let nav = segue.destinationViewController as! UINavigationController
+            let transferVC = nav.topViewController as! TransferTableViewController
+            if let gr = self.group {
+                transferVC.group = gr
+            }
         }
     }
     
