@@ -16,27 +16,28 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     @IBAction func cancelToGroupDescription(segue: UIStoryboardSegue) {}
     @IBAction func saveNewTransfer(segue: UIStoryboardSegue) {
         if let addTransferVC = segue.sourceViewController as? TransferTableViewController {
-            addNewTransfer(addTransferVC.transfer)
+            if let t = addTransferVC.transfer {
+                addNewTransfer(t)
+            }
         }
     }
     
     let addTransferIdentifier = "addTransfer"
     let transferDetailIdentifier = "showTransfer"
-    
-    var group:Group?
     let transferCell = "transferCell"
     
+    var group:Group!
+    
     func configureView() {
-        if let gr: Group = self.group {
-            self.title = gr.name
-            if let peopleV = self.peopleView {
-                for user in gr.users {
-                    let btn = createBtn(user)
-                    peopleV.addSubview(btn)
-                }
+        self.title = group.name
+        if let peopleV = self.peopleView {
+            for user in group.users {
+                let btn = createBtn(user)
+                peopleV.addSubview(btn)
             }
-            updateSumLabel(gr.total)
         }
+        updateSumLabel(group.total)
+        
         // auto height of cells
         self.tableView.estimatedRowHeight = 68.0
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -64,12 +65,12 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         return 1
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return group!.transfers.count
+        return group.transfers.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(transferCell, forIndexPath: indexPath) as! UITableViewCell
         
-        cell.textLabel?.text = generateTransferConclusion(group!.transfers[indexPath.row])
+        cell.textLabel?.text = generateTransferConclusion(group.transfers[indexPath.row])
         return cell
     }
     
@@ -79,17 +80,6 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         let row = indexPath.row
     }
     
-    // MARK: Actions
-
-    func addNewTransfer(transfer: MoneyTransfer) {
-        if let gr = self.group {
-            gr.addTransfer(transfer)
-            let indexPath = NSIndexPath(forRow: gr.transfers.count-1, inSection: 0)
-            tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            updateSumLabel(gr.total)
-        }
-    }
-    
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == transferDetailIdentifier {
@@ -97,19 +87,24 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
                 if let transfer = group?.transfers[indexPath.row] as MoneyTransfer! {
                     let vc = segue.destinationViewController as! TransferTableViewController
                     vc.transfer = transfer
+                    vc.group = group
                 }
             }
+        } else if segue.identifier == addTransferIdentifier {
+            // TransferTableViewController is embedded in UINavigationController because of modal presentation
+            let nav = segue.destinationViewController as! UINavigationController
+            let transferVC = nav.topViewController as! TransferTableViewController
+            transferVC.group = group
         }
     }
     
-    var btnX:CGFloat = 20;
-    let btnY:CGFloat = 15;
-    let btnSize:CGFloat = 40;
-    func createBtn(user: User) -> PeopleButton {
-        var rect:CGRect = CGRectMake(btnX, btnY, btnSize, btnSize)
-        var btn = PeopleButton(frame: rect, user: user)
-        btnX += btnSize + btnSize/2
-        return btn
+    // MARK: Actions
+    
+    func addNewTransfer(transfer: MoneyTransfer) {
+        group.addTransfer(transfer)
+        let indexPath = NSIndexPath(forRow: group.transfers.count-1, inSection: 0)
+        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        updateSumLabel(group.total)
     }
     
     func updateSumLabel(total: Double) {
@@ -144,7 +139,20 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         }
         label += verb
         
-        label += String(format: "%2.f€ für \(transfer.name) bezahlt", transfer.moneyPayed)
+        label += String(format: "%.2f€ für \(transfer.name) bezahlt", transfer.moneyPayed)
         return label
     }
+    
+    // MARK: PeopleButtons
+    
+    var btnX:CGFloat = 20;
+    let btnY:CGFloat = 15;
+    let btnSize:CGFloat = 40;
+    func createBtn(user: User) -> PeopleButton {
+        var rect:CGRect = CGRectMake(btnX, btnY, btnSize, btnSize)
+        var btn = PeopleButton(frame: rect, user: user)
+        btnX += btnSize + btnSize/2
+        return btn
+    }
+
 }
