@@ -15,8 +15,6 @@ class TransferTableViewController: UITableViewController {
     @IBOutlet weak var transferNotes: UITextView!
     @IBOutlet weak var payerView: UIView!
     @IBOutlet weak var participantView: UIView!
-    @IBOutlet weak var payerInfo: UIButton!
-    @IBOutlet weak var participantInfo: UIButton!
     
     var transfer: MoneyTransfer!
     var whoPayed: [(user: User, amount:Double)] = []
@@ -30,8 +28,6 @@ class TransferTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGrayColor()]
-        
-        showGroupMembersInViews()
         
         if let t = transfer {
             loadDataInDetailView(t)
@@ -47,7 +43,10 @@ class TransferTableViewController: UITableViewController {
             var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveTransfer:")
             navigationItem.rightBarButtonItem = saveBtn
             self.title = "Add Transfer"
+            detail = false
         }
+        
+        showGroupMembersInViews()
     }
     
     func goBack(cancelBtn: UIBarButtonItem) {
@@ -70,7 +69,11 @@ class TransferTableViewController: UITableViewController {
             
             for user in group.users {
                 var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: user)
-                btn.addTarget(self, action: "buttonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+                if !detail {
+                    btn.addTarget(self, action: "buttonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+                } else {
+                    checkForMarking(btn, groupUser: user, balance: whoPayed)
+                }
                 payer.addSubview(btn)
                 btnX += btnSize + btnSize/2
             }
@@ -82,11 +85,25 @@ class TransferTableViewController: UITableViewController {
             
             for user in group.users {
                 var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: user)
-                btn.addTarget(self, action: "buttonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+                if !detail {
+                    btn.addTarget(self, action: "buttonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+                } else {
+                    checkForMarking(btn, groupUser: user, balance: whoTookPart)
+                }
                 participants.addSubview(btn)
                 btnX += btnSize + btnSize/2
+
             }
         }
+    }
+    
+    func checkForMarking(btn: PeopleButton, groupUser: User, balance: [(user: User, amount:Double)]) {
+            for pay in balance {
+                // TODO: proper checking groupUser == pay.user did not work
+                if groupUser.firstname == pay.user.firstname {
+                    btn.toggleSelection()
+                }
+            }
     }
     
     func loadDataInDetailView(transfer: MoneyTransfer) {
@@ -101,34 +118,6 @@ class TransferTableViewController: UITableViewController {
         if let notes = self.transferNotes {
             notes.text = transfer.notes
             notes.userInteractionEnabled = false
-        }
-        if let payer = self.payerView {
-            let btnY:CGFloat = 15
-            let btnSize:CGFloat = 40
-            var btnX:CGFloat = 20
-            for balance in transfer.payed {
-                var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: balance.user)
-                payer.addSubview(btn)
-                btnX += btnSize + btnSize/2
-            }
-            if transfer.payed.count > 1 {
-                payerInfo.hidden = false
-            }
-        }
-        
-        if let participants = self.participantView {
-            let btnY:CGFloat = 15
-            let btnSize:CGFloat = 40
-            var btnX:CGFloat = 20
-            
-            for balance in transfer.participated {
-                var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: balance.user)
-                participants.addSubview(btn)
-                btnX += btnSize + btnSize/2
-            }
-            if transfer.participated.count > 1 {
-                participantInfo.hidden = false
-            }
         }
         whoPayed = transfer.payed
         whoTookPart = transfer.participated
@@ -163,14 +152,12 @@ class TransferTableViewController: UITableViewController {
         } else if (segue.identifier == "WhoPayed") || (segue.identifier == "WhoTookPart") {
             if let vc = segue.destinationViewController as? MoneyTransferTableViewController {
                 vc.mode = segue.identifier! // necessary?
-                updateSelectedUsers()
+                vc.detail = self.detail
+                if !detail {
+                    updateSelectedUsers(segue.identifier!)
+                }
                 vc.amount = (transferAmount.text as NSString).doubleValue
                 vc.balances = (segue.identifier == "WhoPayed") ? whoPayed : whoTookPart
-            }
-        } else if (segue.identifier == "showParticipantInfo") || (segue.identifier == "showPayerInfo") {
-            if let vc = segue.destinationViewController as? MoneyTransferTableViewController {
-                vc.balances = (segue.identifier == "showParticipantInfo") ? whoTookPart : whoPayed
-                vc.amount = (transferAmount.text as NSString).doubleValue
             }
         }
     }
@@ -194,20 +181,25 @@ class TransferTableViewController: UITableViewController {
         }
     }
     
-    func updateSelectedUsers() {
-        if let payer = payerView {
-            var btns:[PeopleButton] = payer.subviews as! [PeopleButton]
-            for btn in btns {
-                if btn.isClicked {
-                    whoPayed += [(user:btn.uid, amount:0.0)]
+    func updateSelectedUsers(identifier: String) {
+        if identifier == "WhoPayed" {
+            if let payer = payerView {
+                whoPayed = []
+                var btns:[PeopleButton] = payer.subviews as! [PeopleButton]
+                for btn in btns {
+                    if btn.isClicked {
+                        whoPayed += [(user:btn.uid, amount:0.0)]
+                    }
                 }
             }
-        }
-        if let participant = participantView {
-            var btns:[PeopleButton] = participant.subviews as! [PeopleButton]
-            for btn in btns {
-                if btn.isClicked {
-                    whoTookPart += [(user: btn.uid, amount:0.0)]
+        } else {
+            if let participant = participantView {
+                whoTookPart = []
+                var btns:[PeopleButton] = participant.subviews as! [PeopleButton]
+                for btn in btns {
+                    if btn.isClicked {
+                        whoTookPart += [(user: btn.uid, amount:0.0)]
+                    }
                 }
             }
         }
@@ -223,15 +215,9 @@ class TransferTableViewController: UITableViewController {
         if mode == "WhoPayed" {
             whoPayed = balances
             relevantView = self.payerView
-            if balances.count > 1 {
-                payerInfo.hidden = false
-            }
         } else if mode == "WhoTookPart" {
             whoTookPart = balances
             relevantView = self.participantView
-            if balances.count > 1 {
-                participantInfo.hidden = false
-            }
         }
         
         for b in balances {

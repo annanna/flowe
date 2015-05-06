@@ -97,6 +97,9 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
                 if let transfer = group?.transfers[indexPath.row] as MoneyTransfer! {
                     let vc = segue.destinationViewController as! TransferTableViewController
                     vc.transfer = transfer
+                    if let gr = self.group {
+                        vc.group = gr
+                    }
                 }
             }
         } else if segue.identifier == addTransferIdentifier {

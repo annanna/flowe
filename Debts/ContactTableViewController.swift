@@ -76,7 +76,7 @@ class ContactTableViewController: UITableViewController {
         if segue.identifier == "PeopleSelected" {
             if let vc = segue.destinationViewController as? MoneyTransferTableViewController {
 //                vc.selectedUsers = selectedUsers
-                vc.mode = mode //is this really necessary?
+//                vc.mode = mode //is this really necessary?
                 vc.amount = transferAmount
             }
         }

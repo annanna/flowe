@@ -11,11 +11,11 @@ import UIKit
 class MoneyTransferTableViewController: UITableViewController {
     
     var mode = ""
+    var detail = false
     var amount: Double = 0
     var sliders: [UISlider] = []
     var cells: [BalanceTableViewCell] = []
     var balances: [(user: User, amount:Double)] = []
-   
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class MoneyTransferTableViewController: UITableViewController {
         self.tableView.tableFooterView = backgroundView
         self.tableView.backgroundColor = UIColor.whiteColor()
         
-        if (mode == "WhoPayed") || (mode == "WhoTookPart") {
+        if !detail {
             // calculate balances -> every person pays equal money
             var part:Double = round(amount / Double(balances.count) * 100) / 100
             var idx = 0
