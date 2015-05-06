@@ -28,7 +28,6 @@ class TransferTableViewController: UITableViewController {
     var whoTookPart: [(user: User, amount:Double)] = []
     
     let editingMode = true //depends on the user's rights
- //   var detail = true
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -125,7 +124,7 @@ class TransferTableViewController: UITableViewController {
     // MARK: Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "SaveTransfer" {
+        if segue.identifier == saveTransferIdentifier {
             if let t = self.transfer {
                 // update this transfer
             } else {
@@ -135,7 +134,7 @@ class TransferTableViewController: UITableViewController {
                 self.transfer = newTransfer
             }
         } else if (segue.identifier == paymentDetailIdentifier) || (segue.identifier == participantDetailIdentifier) {
-            if let vc = segue.destinationViewController as? MoneyTransferTableViewController {
+            if let vc = segue.destinationViewController as? BalancesViewController {
                 var balances:[(user: User, amount:Double)]
                 if let t = transfer {
                     // Transfer Detail
@@ -169,7 +168,7 @@ class TransferTableViewController: UITableViewController {
         btn.toggleSelection()
     }
     @IBAction func saveBalance(segue:UIStoryboardSegue) {
-        if let vc = segue.sourceViewController as? MoneyTransferTableViewController {
+        if let vc = segue.sourceViewController as? BalancesViewController {
             if self.lastIdentifier == paymentDetailIdentifier {
                 self.whoPayed = vc.balances
             } else {

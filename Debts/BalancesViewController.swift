@@ -1,14 +1,18 @@
 //
-//  MoneyTransferTableViewController.swift
+//  BalancesViewController.swift
 //  Debts
 //
-//  Created by Anna on 04.05.15.
+//  Created by Anna on 06.05.15.
 //  Copyright (c) 2015 Anna Muenster. All rights reserved.
 //
 
 import UIKit
 
-class MoneyTransferTableViewController: UITableViewController {
+class BalancesViewController: UIViewController {
+    
+    @IBOutlet weak var totalAmountLabel: UILabel!
+    @IBOutlet weak var automaticSliders: UISwitch!
+    @IBOutlet weak var balanceTableView: UITableView!
     
     var detail = false
     var amount: Double = 0
@@ -18,12 +22,15 @@ class MoneyTransferTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "\(amount) €"
-        
+
         // hide empty cells
         var backgroundView = UIView(frame: CGRectZero)
-        self.tableView.tableFooterView = backgroundView
-        self.tableView.backgroundColor = UIColor.whiteColor()
+        self.balanceTableView.tableFooterView = backgroundView
+        self.balanceTableView.backgroundColor = UIColor.whiteColor()
+        
+        if let totalAmount = self.totalAmountLabel {
+            totalAmount.text = self.amount.description
+        }
         
         if !detail {
             // calculate balances -> every person pays equal money
@@ -34,27 +41,26 @@ class MoneyTransferTableViewController: UITableViewController {
                 idx++
             }
         } else {
-            self.tableView.userInteractionEnabled = false
-            // hide save button
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
+            self.balanceTableView.userInteractionEnabled = false
+            // hide save button and switch
+            self.navigationItem.rightBarButtonItem = nil
+            self.automaticSliders.hidden = true
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return balances.count
     }
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("balanceCell", forIndexPath: indexPath) as! BalanceTableViewCell
         var currentBalance = balances[indexPath.row]
         cell.nameLabel.text = currentBalance.user.firstname
@@ -66,7 +72,11 @@ class MoneyTransferTableViewController: UITableViewController {
         cells.append(cell)
         return cell
     }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 120
+    }
     
+
     // MARK: Actions
     
     func sliderChanged(slider: UISlider!) {
@@ -74,7 +84,7 @@ class MoneyTransferTableViewController: UITableViewController {
         var idx = find(cells, cell) as Int!
         
         balances[idx].amount = Double(slider.value)
-
+        
         var rest:Float = Float(amount) - slider.value
         var newAmount:Float = rest / Float(cells.count-1)
         if idx < cells.count-1 {
