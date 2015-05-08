@@ -24,6 +24,7 @@
 		7CDF666A1AE8113600FE3E83 /* GroupDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */; };
 		7CF965891AED11AE0020A023 /* PeopleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF965881AED11AE0020A023 /* PeopleButton.swift */; };
 		7CF965BB1AED23B10020A023 /* GroupOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF965BA1AED23B10020A023 /* GroupOverviewTableViewCell.swift */; };
+		9519BAE31AFCD5F60024A8F0 /* AddGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9519BAE21AFCD5F60024A8F0 /* AddGroupTableViewController.swift */; };
 		F72081AA05177AF860C62D17 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C4B3299A8C9ADF7C64BBF2 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -47,7 +48,7 @@
 		7C5FACE91AEBA39000E12DF0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7C64063F1AF8DDC8002AF7C8 /* TransferTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferTableViewController.swift; sourceTree = "<group>"; };
 		7C75F7C01AF76ABA000C96D2 /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
-		7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactTableViewController.swift; path = ../ContactTableViewController.swift; sourceTree = "<group>"; };
+		7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewController.swift; sourceTree = "<group>"; };
 		7CD2C7EE1ADD47DC00A2096E /* Debts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Debts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD2C7F21ADD47DC00A2096E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +62,7 @@
 		7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDescriptionViewController.swift; sourceTree = "<group>"; };
 		7CF965881AED11AE0020A023 /* PeopleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleButton.swift; sourceTree = "<group>"; };
 		7CF965BA1AED23B10020A023 /* GroupOverviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupOverviewTableViewCell.swift; sourceTree = "<group>"; };
+		9519BAE21AFCD5F60024A8F0 /* AddGroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroupTableViewController.swift; sourceTree = "<group>"; };
 		9F9B7A755E2834DF1A8129D1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F5FE7BB736248309DBBBCBFB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,7 +99,6 @@
 		7C5FACE51AEBA39000E12DF0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */,
 				7C5FACE71AEBA39000E12DF0 /* Groups.swift */,
 				7C5FACE61AEBA39000E12DF0 /* Group.swift */,
 				7C5FACE91AEBA39000E12DF0 /* User.swift */,
@@ -132,6 +133,8 @@
 			children = (
 				7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */,
 				7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */,
+				9519BAE21AFCD5F60024A8F0 /* AddGroupTableViewController.swift */,
+				7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */,
 				7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */,
 				7C64063F1AF8DDC8002AF7C8 /* TransferTableViewController.swift */,
 				7C2CE4681AFA5EF000F95F08 /* BalancesViewController.swift */,
@@ -339,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CDF66661AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift in Sources */,
+				9519BAE31AFCD5F60024A8F0 /* AddGroupTableViewController.swift in Sources */,
 				7C75F7C11AF76ABA000C96D2 /* BalanceTableViewCell.swift in Sources */,
 				7CF965891AED11AE0020A023 /* PeopleButton.swift in Sources */,
 				7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */,
