@@ -129,11 +129,24 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="New Group" id="Qwn-0g-m8M">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="nt5-ZA-xk2"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="jff-4d-QnU"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="nt5-ZA-xk2">
+                            <connections>
+                                <segue destination="xxr-Ah-JAg" kind="unwind" unwindAction="cancelToGroupOverview:" id="nPy-CB-afD"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="jff-4d-QnU">
+                            <connections>
+                                <segue destination="xxr-Ah-JAg" kind="unwind" unwindAction="saveNewGroup:" id="FQS-m3-2TG"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="groupName" destination="dRa-b1-ifX" id="XGc-EK-aEi"/>
+                        <outlet property="memberView" destination="2wv-Pt-lg1" id="Ssp-30-HZA"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xin-Ve-TOG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="xxr-Ah-JAg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1192" y="-758"/>
         </scene>
@@ -609,11 +622,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Choose Contact" id="cUI-97-L9I">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="f5A-rG-wlD"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="f5A-rG-wlD">
+                            <connections>
+                                <segue destination="Dzd-f9-5s6" kind="unwind" identifier="AddContact" unwindAction="addContacts:" id="8el-Qn-q4A"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="Dzd-f9-5s6" kind="unwind" identifier="OnePerson" unwindAction="saveOnePerson:" id="tnc-PQ-LzO"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Cq-Y5-hFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Dzd-f9-5s6" userLabel="Exit" sceneMemberID="exit"/>

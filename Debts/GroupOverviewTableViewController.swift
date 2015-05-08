@@ -15,6 +15,16 @@ class GroupOverviewTableViewController: UITableViewController {
 
     @IBOutlet weak var peopleView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBAction func cancelToGroupOverview(segue: UIStoryboardSegue) {}
+    @IBAction func saveNewGroup(segue: UIStoryboardSegue) {
+      if let addGroupVC = segue.sourceViewController as? AddGroupTableViewController {
+         if let name =  addGroupVC.groupName {
+            var newGroup = Group(name: name.text, users: addGroupVC.selectedContacts, creator: User(rand: 1))
+            self.addNewGroup(newGroup)
+         }
+      }
+   }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGrayColor()]
@@ -65,5 +75,13 @@ class GroupOverviewTableViewController: UITableViewController {
             }
         }
     }
+   
+   // MARK: - Actions
+   
+   func addNewGroup(group: Group) {
+      groups.addGroup(group)
+      let indexPath = NSIndexPath(forRow: groups.groups.count-1, inSection: 0)
+      tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+   }
 
 }

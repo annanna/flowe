@@ -85,11 +85,6 @@ class ContactTableViewController: UITableViewController {
             }
             selectedUsers.append(user)
         }
-        
-        if selectedUsers.count > 1 {
-            self.performSegueWithIdentifier("PeopleSelected", sender: self)
-        } else {
-            self.performSegueWithIdentifier("OnePerson", sender: self)
-        }
+        self.performSegueWithIdentifier("AddContact", sender: self)
     }
 }
