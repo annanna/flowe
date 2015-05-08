@@ -85,37 +85,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="sectionIndexBackgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="sectionIndexTrackingBackgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
                             <tableViewSection headerTitle="Name" id="gs9-sZ-ZqN">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="saY-p5-StA">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="55" id="saY-p5-StA">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="saY-p5-StA" id="Rxt-Ec-w11">
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Gruppenbezeichnung" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dRa-b1-ifX">
-                                                    <rect key="frame" x="35" y="0.0" width="285" height="43"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
+                                            <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Mitglieder" id="ybg-8u-41L">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="M3p-wj-JPZ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="72" id="M3p-wj-JPZ">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M3p-wj-JPZ" id="4A0-42-nBn">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2wv-Pt-lg1">
-                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2wv-Pt-lg1">
+                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="71"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
+                                            <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="2wv-Pt-lg1" secondAttribute="trailing" id="1lp-YQ-6CT"/>
+                                                <constraint firstItem="2wv-Pt-lg1" firstAttribute="leading" secondItem="4A0-42-nBn" secondAttribute="leading" id="HQh-hA-bc0"/>
+                                                <constraint firstAttribute="bottom" secondItem="2wv-Pt-lg1" secondAttribute="bottom" id="La6-yD-PTX"/>
+                                                <constraint firstItem="2wv-Pt-lg1" firstAttribute="top" secondItem="4A0-42-nBn" secondAttribute="top" id="WMV-a5-uUQ"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <segue destination="xyN-ul-6x1" kind="push" id="1Xc-9m-0jE"/>
                                         </connections>
@@ -141,7 +145,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="groupName" destination="dRa-b1-ifX" id="XGc-EK-aEi"/>
                         <outlet property="memberView" destination="2wv-Pt-lg1" id="Ssp-30-HZA"/>
                     </connections>
                 </tableViewController>
