@@ -29,7 +29,6 @@ class GroupOverviewTableViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGrayColor()]
         self.groups = appDelegate.groups.getGroupsOfUser(GlobalVar.currentUser)
-        println(GlobalVar.currentUser.firstname)
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,9 +76,13 @@ class GroupOverviewTableViewController: UITableViewController {
    // MARK: - Actions
    
    func addNewGroup(group: Group) {
-      appDelegate.groups.addGroup(group)
-      let indexPath = NSIndexPath(forRow: groups.count-1, inSection: 0)
-      tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        groups.append(group)
+        appDelegate.groups.addGroup(group)
+        var rowNum:Int = 1
+        if groups.count > 0 {
+            rowNum = groups.count-1
+        }
+        let indexPath = NSIndexPath(forRow: rowNum, inSection: 0)
+        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
    }
-
 }
