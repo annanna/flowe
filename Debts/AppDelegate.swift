@@ -8,6 +8,10 @@
 
 import UIKit
 
+struct GlobalVar {
+    static var currentUser:User = User(rand: 1)
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

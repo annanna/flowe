@@ -55,15 +55,19 @@ class UserTableViewController: UITableViewController {
         
         return cell
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UITableViewCell
+        var person: SwiftAddressBookPerson = addressBook!.allPeople![indexPath.row]
+        var myUser = User(first: person.firstName!, last: person.lastName!)
+        GlobalVar.currentUser = myUser
+    }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+
     }
-    */
 
 }

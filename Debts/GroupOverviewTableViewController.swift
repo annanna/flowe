@@ -10,7 +10,7 @@ import UIKit
 
 class GroupOverviewTableViewController: UITableViewController {
     
-    var groups = Groups()
+    var groups:[Group] = []
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
     @IBOutlet weak var peopleView: UIView!
@@ -28,7 +28,8 @@ class GroupOverviewTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGrayColor()]
-        groups = appDelegate.groups
+        self.groups = appDelegate.groups.getGroupsOfUser(GlobalVar.currentUser)
+        println(GlobalVar.currentUser.firstname)
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,16 +43,13 @@ class GroupOverviewTableViewController: UITableViewController {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return groups.groups.count
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        return groups.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! GroupOverviewTableViewCell
-        let group = groups.groups[indexPath.row] as Group
+        let group = groups[indexPath.row] as Group
         cell.loadItem(group.name, users: group.users)
         
         return cell
@@ -69,7 +67,7 @@ class GroupOverviewTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "groupDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-                let group = groups.groups[indexPath.row] as Group
+                let group = groups[indexPath.row] as Group
                 let vc = segue.destinationViewController as! GroupDescriptionViewController
                 vc.group = group
             }
@@ -79,8 +77,8 @@ class GroupOverviewTableViewController: UITableViewController {
    // MARK: - Actions
    
    func addNewGroup(group: Group) {
-      groups.addGroup(group)
-      let indexPath = NSIndexPath(forRow: groups.groups.count-1, inSection: 0)
+      appDelegate.groups.addGroup(group)
+      let indexPath = NSIndexPath(forRow: groups.count-1, inSection: 0)
       tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
    }
 
