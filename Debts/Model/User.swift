@@ -9,23 +9,30 @@
 import UIKit
 
 class User: NSObject {
+    var phoneNumber:String //works as primary key for now -> what if changed?
     var firstname = ""
     var lastname = ""
     var email = ""
     var img: UIImage?
     
-    init(first: String, last: String) {
+    init(phone: String) {
+        self.phoneNumber = phone
+    }
+    
+    init(phone: String, first: String, last: String) {
+        self.phoneNumber = phone
         self.firstname = first
         self.lastname = last
     }
     
     init(rand: Int) {
+        var phone = "123456789"
         var first = ""
         var last = ""
         switch rand {
-            case 1: first = "Agatha"; last = "Malibu"
-            case 2: first = "Bob"; last = "Berlin"
-            case 3: first = "Bernd"; last = "Brot"
+            case 1: first = "Kate"; last = "Bell"; phone = "(555) 564-8583"
+            case 2: first = "Daniel"; last = "Higgins"
+            case 3: first = "John"; last = "Appleseed"
             case 4: first = "Dora"; last = "Dresden"
             case 5: first = "Ernst"; last = "Ente"
             case 6: first = "Mama"; last = "Minute"
@@ -34,6 +41,7 @@ class User: NSObject {
             case 9: first = "Trude"; last = "Taube"
             default: first = "Heinz"; last = "Ketchup"
         }
+        self.phoneNumber = phone
         self.firstname = first
         self.lastname = last
     }
@@ -41,4 +49,12 @@ class User: NSObject {
     func getName() -> String {
         return "\(Array(self.firstname)[0])\(Array(self.lastname)[0])"
     }
+    
+    func isSame(user:User) -> Bool {
+        if user.phoneNumber == self.phoneNumber {
+            return true
+        }
+        return false
+    }
+    
 }

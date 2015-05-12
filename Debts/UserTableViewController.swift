@@ -59,7 +59,7 @@ class UserTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UITableViewCell
         var person: SwiftAddressBookPerson = addressBook!.allPeople![indexPath.row]
-        var myUser = User(first: person.firstName!, last: person.lastName!)
+        var myUser = User(phone: person.phoneNumbers![0].value, first: person.firstName!, last: person.lastName!)
         GlobalVar.currentUser = myUser
     }
 

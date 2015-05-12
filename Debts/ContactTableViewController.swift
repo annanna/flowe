@@ -79,7 +79,9 @@ class ContactTableViewController: UITableViewController {
         var paths: [NSIndexPath] = tableView.indexPathsForSelectedRows() as! [NSIndexPath]
         for path in paths {
             var selectedContact: SwiftAddressBookPerson = addressBook!.allPeople![path.row]
-            var user = User(first: selectedContact.firstName!, last: selectedContact.lastName!)
+            var numbers = selectedContact.phoneNumbers!
+            var num = numbers[0].value
+            var user = User(phone: num, first: selectedContact.firstName!, last: selectedContact.lastName!)
             if selectedContact.hasImageData() {
                 user.img = selectedContact.image
             }

@@ -13,7 +13,7 @@ class PeopleButton: UIButton {
     let bgColorNormal: UIColor = UIColor(red: 192, green: 192, blue: 192, alpha: 0.3)
     let bgColorClicked: UIColor = UIColor(red: 192, green: 192, blue: 192, alpha: 0.6)
     
-    var uid: User = User(first: "", last: "")
+    var uid: User = User(phone: "")
     var isClicked: Bool = false
 
     override init(frame: CGRect) {

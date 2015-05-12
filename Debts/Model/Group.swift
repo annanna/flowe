@@ -43,4 +43,12 @@ class Group: NSObject {
         setTotal()
     }
     
+    func hasUser(user:User) -> Bool {
+        for u in users {
+            if u.isSame(user) {
+                return true
+            }
+        }
+        return false
+    }
 }

@@ -114,8 +114,7 @@ class TransferTableViewController: UITableViewController {
     
     func checkForMarking(btn: PeopleButton, groupUser: User, balance: [(user: User, amount:Double)]) {
         for pay in balance {
-            // TODO: proper checking groupUser == pay.user did not work
-            if groupUser.firstname == pay.user.firstname {
+            if groupUser.phoneNumber == pay.user.phoneNumber {
                 btn.toggleSelection()
             }
         }

@@ -19,7 +19,7 @@ class Groups: NSObject {
     func getGroupsOfUser(user: User)->[Group] {
         var userGroups: [Group] = []
         for group in groups {
-            if contains(group.users, user) {
+            if group.hasUser(user) {
                 userGroups.append(group)
             }
         }
