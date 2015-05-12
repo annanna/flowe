@@ -19,7 +19,7 @@ class GroupOverviewTableViewController: UITableViewController {
     @IBAction func saveNewGroup(segue: UIStoryboardSegue) {
       if let addGroupVC = segue.sourceViewController as? AddGroupTableViewController {
          if let name =  addGroupVC.groupName {
-            var newGroup = Group(name: name.text, users: addGroupVC.selectedContacts, creator: User(rand: 1))
+            var newGroup = Group(name: name.text, users: addGroupVC.selectedContacts, creator: GlobalVar.currentUser)
             self.addNewGroup(newGroup)
          }
       }

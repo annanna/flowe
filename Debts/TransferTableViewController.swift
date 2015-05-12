@@ -127,7 +127,7 @@ class TransferTableViewController: UITableViewController {
             if let t = self.transfer {
                 // update this transfer
             } else {
-                var newTransfer = MoneyTransfer(name: transferName.text, creator: User(rand: 1), money: (transferAmount.text as NSString).doubleValue, notes: transferNotes.text)
+                var newTransfer = MoneyTransfer(name: transferName.text, creator: GlobalVar.currentUser, money: (transferAmount.text as NSString).doubleValue, notes: transferNotes.text)
                 newTransfer.payed = whoPayed
                 newTransfer.participated = whoTookPart
                 self.transfer = newTransfer
