@@ -11,7 +11,7 @@ import UIKit
 class GroupDescriptionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var peopleView: UIView!
-    @IBOutlet weak var sumLabel: UILabel!
+    @IBOutlet weak var sumBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBAction func cancelToGroupDescription(segue: UIStoryboardSegue) {}
     @IBAction func saveNewTransfer(segue: UIStoryboardSegue) {
@@ -108,12 +108,12 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     }
     
     func updateSumLabel(total: Double) {
-        if let sumLabel = self.sumLabel {
-            sumLabel.text = String(format: "%.2f€", total)
+        if let sum = self.sumBtn {
+            sum.setTitle(String(format: "%.2f€", total), forState: UIControlState.Normal)
             if total < 0 {
-                sumLabel.textColor = UIColor.redColor()
+                sum.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
             } else {
-                sumLabel.textColor = UIColor.greenColor()
+                sum.setTitleColor(UIColor.greenColor(), forState: UIControlState.Normal)
             }
         }
     }

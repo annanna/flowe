@@ -174,7 +174,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xin-Ve-TOG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="xxr-Ah-JAg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1192" y="-758"/>
+            <point key="canvasLocation" x="1710" y="-824"/>
         </scene>
         <!--Group Detail-->
         <scene sceneID="rJB-g0-t5H">
@@ -188,25 +188,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6DB-Bd-jD8">
-                                <rect key="frame" x="195" y="64" width="125" height="135"/>
-                                <color key="backgroundColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.78431372549019607" alpha="0.28999999999999998" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="135" id="L27-kS-ZZ7"/>
-                                    <constraint firstAttribute="width" constant="125" id="Mzi-SI-hYC"/>
-                                </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="Sum">
-                                        <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" size="28" name="HelveticaNeue"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y6M-h6-wZv">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y6M-h6-wZv">
                                 <rect key="frame" x="0.0" y="64" width="187" height="135"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                             </view>
@@ -240,18 +222,31 @@
                                     <outlet property="delegate" destination="qho-IX-jrz" id="YAZ-wO-fNc"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PfI-qw-6kC">
+                                <rect key="frame" x="195" y="72" width="125" height="127"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="127" id="9ia-n5-f9w"/>
+                                    <constraint firstAttribute="width" constant="125" id="mvZ-43-ipC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <state key="normal" title="Sum">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="sZQ-Rx-wFg" kind="push" id="0Dv-JE-zwJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.89956059727894722" blue="0.71530633223684215" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6DB-Bd-jD8" firstAttribute="bottom" secondItem="y6M-h6-wZv" secondAttribute="bottom" id="Dsh-t6-NPV"/>
+                            <constraint firstItem="PfI-qw-6kC" firstAttribute="top" secondItem="rhZ-Ta-Xzw" secondAttribute="bottom" constant="8" symbolic="YES" id="1Mb-6a-dbX"/>
+                            <constraint firstItem="PfI-qw-6kC" firstAttribute="bottom" secondItem="y6M-h6-wZv" secondAttribute="bottom" id="1cR-Sk-1CX"/>
                             <constraint firstItem="Pif-dm-Y2Y" firstAttribute="bottom" secondItem="Zda-QE-nA9" secondAttribute="top" id="KTI-zC-CME"/>
-                            <constraint firstItem="6DB-Bd-jD8" firstAttribute="leading" secondItem="y6M-h6-wZv" secondAttribute="trailing" constant="8" symbolic="YES" id="PRc-uF-ex4"/>
-                            <constraint firstItem="6DB-Bd-jD8" firstAttribute="top" secondItem="y6M-h6-wZv" secondAttribute="top" id="PW4-Xl-2Ha"/>
-                            <constraint firstItem="6DB-Bd-jD8" firstAttribute="top" secondItem="rhZ-Ta-Xzw" secondAttribute="bottom" id="XO4-nE-cmS"/>
-                            <constraint firstAttribute="trailing" secondItem="6DB-Bd-jD8" secondAttribute="trailing" id="aec-kp-Dod"/>
-                            <constraint firstItem="6DB-Bd-jD8" firstAttribute="trailing" secondItem="Pif-dm-Y2Y" secondAttribute="trailing" id="dae-rA-nJT"/>
-                            <constraint firstItem="Pif-dm-Y2Y" firstAttribute="top" secondItem="6DB-Bd-jD8" secondAttribute="bottom" constant="8" symbolic="YES" id="nfW-bC-WJD"/>
-                            <constraint firstItem="6DB-Bd-jD8" firstAttribute="leading" secondItem="y6M-h6-wZv" secondAttribute="trailing" constant="8" id="rkA-TU-6yK"/>
+                            <constraint firstItem="Pif-dm-Y2Y" firstAttribute="top" secondItem="PfI-qw-6kC" secondAttribute="bottom" constant="8" symbolic="YES" id="bPD-JZ-Fcy"/>
+                            <constraint firstItem="PfI-qw-6kC" firstAttribute="leading" secondItem="y6M-h6-wZv" secondAttribute="trailing" constant="8" symbolic="YES" id="mLX-6A-bWR"/>
+                            <constraint firstAttribute="trailing" secondItem="PfI-qw-6kC" secondAttribute="trailing" id="tsx-dJ-sqd"/>
+                            <constraint firstItem="PfI-qw-6kC" firstAttribute="trailing" secondItem="Pif-dm-Y2Y" secondAttribute="trailing" id="vrb-vl-0HW"/>
                             <constraint firstItem="y6M-h6-wZv" firstAttribute="leading" secondItem="Pif-dm-Y2Y" secondAttribute="leading" id="wgo-lj-0ev"/>
                             <constraint firstItem="y6M-h6-wZv" firstAttribute="leading" secondItem="Kz6-4H-qHt" secondAttribute="leading" id="ybh-pd-EAE"/>
                         </constraints>
@@ -266,7 +261,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="peopleView" destination="y6M-h6-wZv" id="Kt5-kl-rU9"/>
-                        <outlet property="sumLabel" destination="6DB-Bd-jD8" id="f24-G2-cVg"/>
+                        <outlet property="sumBtn" destination="PfI-qw-6kC" id="vfk-QO-VHz"/>
                         <outlet property="tableView" destination="Pif-dm-Y2Y" id="XMU-8C-oml"/>
                     </connections>
                 </viewController>
@@ -658,7 +653,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Cq-Y5-hFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Dzd-f9-5s6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1628" y="-918"/>
+            <point key="canvasLocation" x="2146" y="-984"/>
+        </scene>
+        <!--Finance View Controller-->
+        <scene sceneID="Hjw-Ua-k1X">
+            <objects>
+                <viewController id="sZQ-Rx-wFg" customClass="FinanceViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aGB-It-JtK"/>
+                        <viewControllerLayoutGuide type="bottom" id="R7N-fM-HEg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EUv-yd-4Kd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nq1-2x-AOa">
+                                <rect key="frame" x="0.0" y="64" width="320" height="136"/>
+                                <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7no-L0-2mz">
+                                <rect key="frame" x="0.0" y="200" width="320" height="368"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nq1-2x-AOa" firstAttribute="leading" secondItem="EUv-yd-4Kd" secondAttribute="leading" id="AeS-EQ-8nU"/>
+                            <constraint firstAttribute="trailing" secondItem="nq1-2x-AOa" secondAttribute="trailing" id="FKL-Gt-doe"/>
+                            <constraint firstItem="7no-L0-2mz" firstAttribute="bottom" secondItem="R7N-fM-HEg" secondAttribute="top" id="G4e-02-YOW"/>
+                            <constraint firstItem="nq1-2x-AOa" firstAttribute="top" secondItem="aGB-It-JtK" secondAttribute="bottom" id="Ge3-2z-tjg"/>
+                            <constraint firstItem="7no-L0-2mz" firstAttribute="top" secondItem="nq1-2x-AOa" secondAttribute="bottom" id="QiV-3O-YHY"/>
+                            <constraint firstAttribute="bottom" secondItem="nq1-2x-AOa" secondAttribute="bottom" constant="368" id="fzd-tD-OCw"/>
+                            <constraint firstItem="nq1-2x-AOa" firstAttribute="trailing" secondItem="7no-L0-2mz" secondAttribute="trailing" id="mJb-fP-NGB"/>
+                            <constraint firstItem="nq1-2x-AOa" firstAttribute="leading" secondItem="7no-L0-2mz" secondAttribute="leading" id="yLl-rO-CSs"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="eQZ-Tw-LUq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4LU-Dg-MVf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1274" y="760"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bkD-LY-wCB">
@@ -695,7 +729,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f6Z-NJ-lqr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="756" y="-604"/>
+            <point key="canvasLocation" x="1274" y="-670"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Qsg-Kh-NB0">
@@ -722,7 +756,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="aPj-Jp-m4k"/>
+        <segue reference="ykI-ma-Wa1"/>
         <segue reference="W5L-gZ-Yfl"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>

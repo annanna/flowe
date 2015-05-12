@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7C0FCAAB1B02275400B0AF95 /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0FCAAA1B02275400B0AF95 /* UserTableViewController.swift */; };
 		7C2CE4691AFA5EF000F95F08 /* BalancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2CE4681AFA5EF000F95F08 /* BalancesViewController.swift */; };
+		7C5E32421B02712900EF9620 /* FinanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5E32411B02712900EF9620 /* FinanceViewController.swift */; };
 		7C5FACEB1AEBA39000E12DF0 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE61AEBA39000E12DF0 /* Group.swift */; };
 		7C5FACEC1AEBA39000E12DF0 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE71AEBA39000E12DF0 /* Groups.swift */; };
 		7C5FACED1AEBA39000E12DF0 /* MoneyTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE81AEBA39000E12DF0 /* MoneyTransfer.swift */; };
@@ -43,6 +44,7 @@
 		54C4B3299A8C9ADF7C64BBF2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C0FCAAA1B02275400B0AF95 /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
 		7C2CE4681AFA5EF000F95F08 /* BalancesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalancesViewController.swift; sourceTree = "<group>"; };
+		7C5E32411B02712900EF9620 /* FinanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinanceViewController.swift; sourceTree = "<group>"; };
 		7C5FACE21AEB9AA100E12DF0 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		7C5FACE61AEBA39000E12DF0 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		7C5FACE71AEBA39000E12DF0 /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */,
 				7C0FCAAA1B02275400B0AF95 /* UserTableViewController.swift */,
 				7CDF66651AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift */,
+				7C5E32411B02712900EF9620 /* FinanceViewController.swift */,
 				9519BAE21AFCD5F60024A8F0 /* AddGroupTableViewController.swift */,
 				7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */,
 				7CDF66691AE8113600FE3E83 /* GroupDescriptionViewController.swift */,
@@ -353,6 +356,7 @@
 				7C5FACEE1AEBA39000E12DF0 /* User.swift in Sources */,
 				7C5FACED1AEBA39000E12DF0 /* MoneyTransfer.swift in Sources */,
 				7C2CE4691AFA5EF000F95F08 /* BalancesViewController.swift in Sources */,
+				7C5E32421B02712900EF9620 /* FinanceViewController.swift in Sources */,
 				7CCC26571AED58B600A987A0 /* ContactTableViewController.swift in Sources */,
 				7C0FCAAB1B02275400B0AF95 /* UserTableViewController.swift in Sources */,
 				7CF965BB1AED23B10020A023 /* GroupOverviewTableViewCell.swift in Sources */,
