@@ -84,12 +84,21 @@ class BalancesViewController: UIViewController {
         balances[idx].amount = Double(slider.value)
         
         if automaticSliders.on {
-            var rest:Float = Float(amount) - slider.value
-            var newAmount:Float = rest / Float(cells.count-1)
-            if idx < cells.count-1 {
-                for var i = idx+1; i < cells.count; i++ {
-                    cells[i].updateCell(newAmount)
-                    balances[i] = (user:balances[i].user, amount:Double(newAmount))
+            var rest:Double = amount
+            for var k=0; k<=idx; k++ {
+                rest -= balances[k].amount
+            }
+            if rest < 0 {
+                updateAmountLabel()
+            } else {
+                var newAmount:Double = rest / Double(cells.count-1-idx)
+                if idx < cells.count-1 {
+                    for var i = idx+1; i < cells.count; i++ {
+                        cells[i].updateCell(Float(newAmount))
+                        balances[i] = (user:balances[i].user, amount:newAmount)
+                    }
+                } else {
+                    updateAmountLabel()
                 }
             }
         } else {

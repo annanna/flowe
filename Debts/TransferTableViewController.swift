@@ -94,8 +94,6 @@ class TransferTableViewController: UITableViewController {
     }
     
     func fillView(currentView: UIView, identifier: String) {
-        println("----------------")
-        println(identifier)
         let btnY:CGFloat = 15
         let btnSize:CGFloat = 40
         var btnX:CGFloat = 20
