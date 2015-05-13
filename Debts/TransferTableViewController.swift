@@ -107,7 +107,6 @@ class TransferTableViewController: UITableViewController {
             if let t = transfer {
                 var markBtnAsClick = identifier == paymentDetailIdentifier ? t.hasPayed(user) : t.hasParticipated(user)
                 if markBtnAsClick {
-                    println("enabled \(user.getName())")
                     btn.toggleSelection()
                 }
             }
