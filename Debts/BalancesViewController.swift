@@ -13,9 +13,11 @@ class BalancesViewController: UIViewController {
     @IBOutlet weak var totalAmountLabel: UILabel!
     @IBOutlet weak var automaticSliders: UISwitch!
     @IBOutlet weak var balanceTableView: UITableView!
+    @IBOutlet weak var resetBtn: UIButton!
     
     var detail = false
     var amount: Double = 0
+    var originalAmount: Double = 0
     var cells: [BalanceTableViewCell] = []
     var balances: [(user: User, amount:Double)] = []
 
@@ -26,18 +28,10 @@ class BalancesViewController: UIViewController {
         var backgroundView = UIView(frame: CGRectZero)
         self.balanceTableView.tableFooterView = backgroundView
         self.balanceTableView.backgroundColor = UIColor.whiteColor()
-        
+        self.originalAmount = self.amount
         self.totalAmountLabel.text = self.amount.description
         
-        if !detail {
-            // calculate balances -> every person pays equal money
-            var part:Double = round(amount / Double(balances.count) * 100) / 100
-            var idx = 0
-            for balance in balances {
-                balances[idx] = (user:balance.user, amount:part)
-                idx++
-            }
-        } else {
+        if detail {
             self.balanceTableView.userInteractionEnabled = false
             // hide save button and switch
             self.navigationItem.rightBarButtonItem = nil
@@ -84,12 +78,21 @@ class BalancesViewController: UIViewController {
         balances[idx].amount = Double(slider.value)
         
         if automaticSliders.on {
-            var rest:Float = Float(amount) - slider.value
-            var newAmount:Float = rest / Float(cells.count-1)
-            if idx < cells.count-1 {
-                for var i = idx+1; i < cells.count; i++ {
-                    cells[i].updateCell(newAmount)
-                    balances[i] = (user:balances[i].user, amount:Double(newAmount))
+            var rest:Double = amount
+            for var k=0; k<=idx; k++ {
+                rest -= balances[k].amount
+            }
+            if rest < 0 {
+                updateAmountLabel()
+            } else {
+                var newAmount:Double = rest / Double(cells.count-1-idx)
+                if idx < cells.count-1 {
+                    for var i = idx+1; i < cells.count; i++ {
+                        cells[i].updateCell(Float(newAmount))
+                        balances[i] = (user:balances[i].user, amount:newAmount)
+                    }
+                } else {
+                    updateAmountLabel()
                 }
             }
         } else {
@@ -108,6 +111,24 @@ class BalancesViewController: UIViewController {
         for cell in cells {
             total += Double(cell.amountSlider.value)
         }
+        setTotal(total)
+        self.resetBtn.hidden = false
+    }
+    
+    @IBAction func resetBtnPressed(sender: UIButton) {
+        setTotal(self.originalAmount)
+        self.resetBtn.hidden = true
+        // re-calculate that everyone pays the same
+        var part:Double = round(amount / Double(balances.count) * 100) / 100
+        var idx = 0
+        for balance in balances {
+            balances[idx] = (user:balance.user, amount:part)
+            cells[idx].updateCell(Float(part))
+            idx++
+        }
+    }
+    
+    func setTotal(total: Double) {
         self.totalAmountLabel.text = String(format: "%.2f",total)
         self.amount = total
     }
