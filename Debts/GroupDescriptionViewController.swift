@@ -25,9 +25,10 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     let addTransferIdentifier = "addTransfer"
     let transferDetailIdentifier = "showTransfer"
     let transferCell = "transferCell"
-    
+    let financeIdentifier = "showFinance"
+
     var group:Group!
-    
+
     func configureView() {
         self.title = group.name
         if let peopleV = self.peopleView {
@@ -95,6 +96,10 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             let nav = segue.destinationViewController as! UINavigationController
             let transferVC = nav.topViewController as! TransferTableViewController
             transferVC.group = group
+        }  else if segue.identifier == financeIdentifier {
+            if let financeVC = segue.destinationViewController as? FinanceViewController {
+                financeVC.group = self.group
+            }
         }
     }
     

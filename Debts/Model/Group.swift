@@ -51,4 +51,17 @@ class Group: NSObject {
         }
         return false
     }
+    
+    func getFinanceForUser(user:User) -> Double {
+        var everyMemberHasToPay:Double = total / Double(users.count)
+        var userHasPayed = 0.0
+        for transfer in transfers {
+            for payment in transfer.payed {
+                if payment.user.isSame(user) {
+                    userHasPayed += payment.amount
+                }
+            }
+        }
+        return round((everyMemberHasToPay+userHasPayed) * 100) / 100
+    }
 }

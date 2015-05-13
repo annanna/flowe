@@ -10,26 +10,23 @@ import UIKit
 
 class FinanceViewController: UIViewController {
 
+    @IBOutlet weak var totalLabel: UILabel!
+    
+    var group:Group!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        if let totalL = totalLabel {
+            var total = group.getFinanceForUser(GlobalVar.currentUser)
+            var preSign = (total > 0 ? "+" : "")
+            var financeTotal = " \(preSign) \(total) €"
+            totalL.text = financeTotal
+//            totalL.textColor = (total > 0 ? UIColor.greenColor() : UIColor.redColor())
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
