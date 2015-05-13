@@ -94,6 +94,8 @@ class TransferTableViewController: UITableViewController {
     }
     
     func fillView(currentView: UIView, identifier: String) {
+        println("----------------")
+        println(identifier)
         let btnY:CGFloat = 15
         let btnSize:CGFloat = 40
         var btnX:CGFloat = 20
@@ -105,17 +107,11 @@ class TransferTableViewController: UITableViewController {
             btnX += btnSize + btnSize/2
             
             if let t = transfer {
-                var balance: [(user: User, amount:Double)] = identifier == paymentDetailIdentifier ? t.payed : t.participated
-                checkForMarking(btn, groupUser: user, balance: balance)
-                btn.enabled = false
-            }
-        }
-    }
-    
-    func checkForMarking(btn: PeopleButton, groupUser: User, balance: [(user: User, amount:Double)]) {
-        for pay in balance {
-            if groupUser.phoneNumber == pay.user.phoneNumber {
-                btn.toggleSelection()
+                var markBtnAsClick = identifier == paymentDetailIdentifier ? t.hasPayed(user) : t.hasParticipated(user)
+                if markBtnAsClick {
+                    println("enabled \(user.getName())")
+                    btn.toggleSelection()
+                }
             }
         }
     }
@@ -137,7 +133,6 @@ class TransferTableViewController: UITableViewController {
                 newTransfer.payed = whoPayed
                 newTransfer.participated = whoTookPart
 
-                printBalance(whoPayed)
                 self.transfer = newTransfer
             }
         } else if (segue.identifier == paymentDetailIdentifier) || (segue.identifier == participantDetailIdentifier) {
@@ -223,14 +218,5 @@ class TransferTableViewController: UITableViewController {
             idx++
         }
         return balances
-    }
-    
-    func printBalance(balances:[(user: User, amount:Double)]) {
-        println("-------------------------")
-        println("Printing Starts:")
-        for balance in balances {
-            println("\(balance.user.getName()): \(balance.amount) €")
-        }
-        println("-------------------------")
     }
 }

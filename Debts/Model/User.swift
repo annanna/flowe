@@ -31,8 +31,8 @@ class User: NSObject {
         var last = ""
         switch rand {
             case 1: first = "Kate"; last = "Bell"; phone = "(555) 564-8583"
-            case 2: first = "Daniel"; last = "Higgins"
-            case 3: first = "John"; last = "Appleseed"
+            case 2: first = "Daniel"; last = "Higgins"; phone = "123456789"
+            case 3: first = "John"; last = "Appleseed"; phone = "777878787"
             case 4: first = "Dora"; last = "Dresden"
             case 5: first = "Ernst"; last = "Ente"
             case 6: first = "Mama"; last = "Minute"

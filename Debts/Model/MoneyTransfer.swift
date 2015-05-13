@@ -34,4 +34,21 @@ class MoneyTransfer: NSObject {
             self.notes = n
         }
     }
+    
+    func hasPayed(user: User) -> Bool {
+        for payment in payed {
+            if payment.user.isSame(user) {
+                return true
+            }
+        }
+        return false
+    }
+    func hasParticipated(user: User) -> Bool {
+        for payment in participated {
+            if payment.user.isSame(user) {
+                return true
+            }
+        }
+        return false
+    }
 }
