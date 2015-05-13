@@ -125,11 +125,19 @@ class TransferTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == saveTransferIdentifier {
             if let t = self.transfer {
-                // update this transfer
+                // TODO: update this transfer
             } else {
                 var newTransfer = MoneyTransfer(name: transferName.text, creator: GlobalVar.currentUser, money: (transferAmount.text as NSString).doubleValue, notes: transferNotes.text)
+                if whoPayed.count == 0 {
+                    whoPayed = getSelectedUsers(paymentDetailIdentifier)
+                }
+                if whoTookPart.count == 0 {
+                    whoTookPart  = getSelectedUsers(participantDetailIdentifier)
+                }
                 newTransfer.payed = whoPayed
                 newTransfer.participated = whoTookPart
+
+                printBalance(whoPayed)
                 self.transfer = newTransfer
             }
         } else if (segue.identifier == paymentDetailIdentifier) || (segue.identifier == participantDetailIdentifier) {
@@ -187,6 +195,7 @@ class TransferTableViewController: UITableViewController {
                         whoPayed += [(user:btn.uid, amount:0.0)]
                     }
                 }
+                whoPayed = updateAmount(whoPayed)
                 return whoPayed
             }
         } else {
@@ -198,9 +207,30 @@ class TransferTableViewController: UITableViewController {
                         whoTookPart += [(user: btn.uid, amount:0.0)]
                     }
                 }
+                whoTookPart = updateAmount(whoTookPart)
                 return whoTookPart
             }
         }
         return []
+    }
+    
+    func updateAmount(payment:[(user: User, amount:Double)]) -> [(user: User, amount:Double)] {
+        var balances = payment
+        var part:Double = round((transferAmount.text as NSString).doubleValue / Double(balances.count) * 100) / 100
+        var idx = 0
+        for balance in balances {
+            balances[idx] = (user:balance.user, amount:part)
+            idx++
+        }
+        return balances
+    }
+    
+    func printBalance(balances:[(user: User, amount:Double)]) {
+        println("-------------------------")
+        println("Printing Starts:")
+        for balance in balances {
+            println("\(balance.user.getName()): \(balance.amount) €")
+        }
+        println("-------------------------")
     }
 }
