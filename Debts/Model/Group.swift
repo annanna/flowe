@@ -69,4 +69,49 @@ class Group: NSObject {
         }
         return round((userHasPayed+userHasToPay) * 100) / 100
     }
+    
+    func calculateAccounts() {
+        var pays:[(user: User, amount:Double)] = []
+        var gets:[(user: User, amount:Double)] = []
+        for user in users {
+            var amount = getFinanceForUser(user)
+            if amount > 0 {
+                gets += [(user:user,amount:amount)]
+            } else if amount < 0 {
+                amount *= -1
+                pays += [(user:user,amount:amount)]
+            }
+        }
+        pays.sort({ $0.amount > $1.amount })
+        gets.sort({ $0.amount > $1.amount })
+        
+        var cnt = pays.count
+        if gets.count < pays.count {
+            cnt = gets.count
+        }
+        
+        var getLooping = true
+        var i = 0
+        
+        while getLooping {
+            if gets[i].amount == pays[i].amount {
+                println("\(pays[i].user.firstname) pays \(pays[i].amount)€ to \(gets[i].user.firstname)")
+                gets[i].amount = 0.0
+                pays[i].amount = 0.0
+            } else if gets[i].amount > pays[i].amount {
+                println("\(pays[i].user.firstname) pays \(pays[i].amount)€ to \(gets[i].user.firstname)")
+                gets[i].amount -= pays[i].amount
+                pays[i].amount = 0.0
+            } else if gets[i].amount < pays[i].amount {
+                println("\(pays[i].user.firstname) pays \(gets[i].amount)€ to \(gets[i].user.firstname)")
+                pays[i].amount -= gets[i].amount
+                gets[i].amount = 0.0
+            }
+            pays.sort({ $0.amount > $1.amount })
+            gets.sort({ $0.amount > $1.amount })
+            if gets[i].amount == 0.0 && pays[i].amount == 0 {
+                getLooping = false
+            }
+        }
+    }
 }

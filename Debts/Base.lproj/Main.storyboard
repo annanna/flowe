@@ -188,10 +188,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y6M-h6-wZv">
-                                <rect key="frame" x="0.0" y="64" width="187" height="135"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Pif-dm-Y2Y">
                                 <rect key="frame" x="0.0" y="207" width="320" height="361"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -237,18 +233,35 @@
                                     <segue destination="sZQ-Rx-wFg" kind="push" identifier="showFinance" id="0Dv-JE-zwJ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8Y-Gt-2Nw">
+                                <rect key="frame" x="16" y="152" width="165" height="30"/>
+                                <state key="normal" title="Calculate">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="calcFinance:" destination="qho-IX-jrz" eventType="touchUpInside" id="YTn-NA-L3n"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y6M-h6-wZv">
+                                <rect key="frame" x="-6" y="64" width="187" height="80"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.89956059727894722" blue="0.71530633223684215" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="R8Y-Gt-2Nw" firstAttribute="top" secondItem="y6M-h6-wZv" secondAttribute="bottom" constant="8" symbolic="YES" id="1JD-A0-cf4"/>
                             <constraint firstItem="PfI-qw-6kC" firstAttribute="top" secondItem="rhZ-Ta-Xzw" secondAttribute="bottom" constant="8" symbolic="YES" id="1Mb-6a-dbX"/>
-                            <constraint firstItem="PfI-qw-6kC" firstAttribute="bottom" secondItem="y6M-h6-wZv" secondAttribute="bottom" id="1cR-Sk-1CX"/>
+                            <constraint firstItem="PfI-qw-6kC" firstAttribute="bottom" secondItem="y6M-h6-wZv" secondAttribute="bottom" constant="55" id="1cR-Sk-1CX"/>
+                            <constraint firstItem="R8Y-Gt-2Nw" firstAttribute="trailing" secondItem="y6M-h6-wZv" secondAttribute="trailing" id="5Ua-cR-VK7"/>
                             <constraint firstItem="Pif-dm-Y2Y" firstAttribute="bottom" secondItem="Zda-QE-nA9" secondAttribute="top" id="KTI-zC-CME"/>
+                            <constraint firstItem="R8Y-Gt-2Nw" firstAttribute="leading" secondItem="Kz6-4H-qHt" secondAttribute="leadingMargin" id="QH9-KP-7eP"/>
+                            <constraint firstItem="R8Y-Gt-2Nw" firstAttribute="top" secondItem="y6M-h6-wZv" secondAttribute="bottom" constant="8" id="Rfs-lw-rX0"/>
                             <constraint firstItem="Pif-dm-Y2Y" firstAttribute="top" secondItem="PfI-qw-6kC" secondAttribute="bottom" constant="8" symbolic="YES" id="bPD-JZ-Fcy"/>
-                            <constraint firstItem="PfI-qw-6kC" firstAttribute="leading" secondItem="y6M-h6-wZv" secondAttribute="trailing" constant="8" symbolic="YES" id="mLX-6A-bWR"/>
+                            <constraint firstItem="PfI-qw-6kC" firstAttribute="leading" secondItem="y6M-h6-wZv" secondAttribute="trailing" constant="14" id="mLX-6A-bWR"/>
                             <constraint firstAttribute="trailing" secondItem="PfI-qw-6kC" secondAttribute="trailing" id="tsx-dJ-sqd"/>
                             <constraint firstItem="PfI-qw-6kC" firstAttribute="trailing" secondItem="Pif-dm-Y2Y" secondAttribute="trailing" id="vrb-vl-0HW"/>
-                            <constraint firstItem="y6M-h6-wZv" firstAttribute="leading" secondItem="Pif-dm-Y2Y" secondAttribute="leading" id="wgo-lj-0ev"/>
-                            <constraint firstItem="y6M-h6-wZv" firstAttribute="leading" secondItem="Kz6-4H-qHt" secondAttribute="leading" id="ybh-pd-EAE"/>
+                            <constraint firstItem="y6M-h6-wZv" firstAttribute="leading" secondItem="Pif-dm-Y2Y" secondAttribute="leading" constant="-6" id="wgo-lj-0ev"/>
+                            <constraint firstItem="y6M-h6-wZv" firstAttribute="leading" secondItem="Kz6-4H-qHt" secondAttribute="leading" constant="-6" id="ybh-pd-EAE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="b94-0g-0KS">
