@@ -691,7 +691,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nq1-2x-AOa">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nq1-2x-AOa">
                                 <rect key="frame" x="0.0" y="64" width="320" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+ 20.23€" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xio-c9-9tI">
@@ -703,9 +703,21 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7no-L0-2mz">
-                                <rect key="frame" x="0.0" y="200" width="320" height="368"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7no-L0-2mz">
+                                <rect key="frame" x="0.0" y="172" width="320" height="396"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="accountCell" id="NKW-VK-Vk7">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NKW-VK-Vk7" id="RIR-r0-Oiv">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="sZQ-Rx-wFg" id="nXa-Tm-OTQ"/>
+                                    <outlet property="delegate" destination="sZQ-Rx-wFg" id="t7j-ue-nXq"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -714,14 +726,14 @@
                             <constraint firstAttribute="trailing" secondItem="nq1-2x-AOa" secondAttribute="trailing" id="FKL-Gt-doe"/>
                             <constraint firstItem="7no-L0-2mz" firstAttribute="bottom" secondItem="R7N-fM-HEg" secondAttribute="top" id="G4e-02-YOW"/>
                             <constraint firstItem="nq1-2x-AOa" firstAttribute="top" secondItem="aGB-It-JtK" secondAttribute="bottom" id="Ge3-2z-tjg"/>
-                            <constraint firstItem="7no-L0-2mz" firstAttribute="top" secondItem="nq1-2x-AOa" secondAttribute="bottom" id="QiV-3O-YHY"/>
-                            <constraint firstAttribute="bottom" secondItem="nq1-2x-AOa" secondAttribute="bottom" constant="368" id="fzd-tD-OCw"/>
+                            <constraint firstAttribute="bottom" secondItem="nq1-2x-AOa" secondAttribute="bottom" constant="404" id="fzd-tD-OCw"/>
                             <constraint firstItem="nq1-2x-AOa" firstAttribute="trailing" secondItem="7no-L0-2mz" secondAttribute="trailing" id="mJb-fP-NGB"/>
                             <constraint firstItem="nq1-2x-AOa" firstAttribute="leading" secondItem="7no-L0-2mz" secondAttribute="leading" id="yLl-rO-CSs"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eQZ-Tw-LUq"/>
                     <connections>
+                        <outlet property="accountTableView" destination="7no-L0-2mz" id="wyb-aT-kg1"/>
                         <outlet property="totalLabel" destination="Xio-c9-9tI" id="kVT-ed-KtN"/>
                     </connections>
                 </viewController>

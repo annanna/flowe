@@ -37,7 +37,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
                 peopleV.addSubview(btn)
             }
         }
-        updateSumLabel(group.total)
+        updateSumLabel(group.getTotalFinanceForUser(GlobalVar.currentUser))
         
         // auto height of cells
         self.tableView.estimatedRowHeight = 68.0
@@ -109,7 +109,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         group.addTransfer(transfer)
         let indexPath = NSIndexPath(forRow: group.transfers.count-1, inSection: 0)
         tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        updateSumLabel(group.total)
+        updateSumLabel(group.getTotalFinanceForUser(GlobalVar.currentUser))
     }
     
     func updateSumLabel(total: Double) {
