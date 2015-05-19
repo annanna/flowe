@@ -159,8 +159,4 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         btnX += btnSize + btnSize/2
         return btn
     }
-
-    @IBAction func calcFinance(sender: UIButton) {
-        self.group.calculateAccounts()
-    }
 }
