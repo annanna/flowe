@@ -67,10 +67,12 @@ class Group: NSObject {
                 }
             }
         }
-        return round((userHasPayed+userHasToPay) * 100) / 100
+        return (userHasPayed+userHasToPay).roundToMoney()
     }
     
     func calculateAccounts() {
+        var accounts:[(user: User, action: String, amount: Double, partner: User)] = []
+
         var pays:[(user: User, amount:Double)] = []
         var gets:[(user: User, amount:Double)] = []
         for user in users {
@@ -90,28 +92,69 @@ class Group: NSObject {
             cnt = gets.count
         }
         
-        var getLooping = true
-        var i = 0
+        var moneyLeftToPay = true
         
-        while getLooping {
-            if gets[i].amount == pays[i].amount {
-                println("\(pays[i].user.firstname) pays \(pays[i].amount)€ to \(gets[i].user.firstname)")
-                gets[i].amount = 0.0
-                pays[i].amount = 0.0
-            } else if gets[i].amount > pays[i].amount {
-                println("\(pays[i].user.firstname) pays \(pays[i].amount)€ to \(gets[i].user.firstname)")
-                gets[i].amount -= pays[i].amount
-                pays[i].amount = 0.0
-            } else if gets[i].amount < pays[i].amount {
-                println("\(pays[i].user.firstname) pays \(gets[i].amount)€ to \(gets[i].user.firstname)")
-                pays[i].amount -= gets[i].amount
-                gets[i].amount = 0.0
+        while moneyLeftToPay {
+            var getAmount = (gets[0].amount).roundToMoney()
+            var payAmount = (pays[0].amount).roundToMoney()
+            if getAmount == payAmount {
+                println("\(pays[0].user.firstname) pays \(payAmount)€ to \(gets[0].user.firstname)")
+                accounts += [(user: pays[0].user, action: "pays", amount: payAmount, partner: gets[0].user)]
+                accounts += [(user: gets[0].user, action: "gets", amount: payAmount, partner: pays[0].user)]
+                
+                getAmount = 0.0
+                payAmount = 0.0
+            } else if getAmount > payAmount {
+                println("\(pays[0].user.firstname) pays \(payAmount)€ to \(gets[0].user.firstname)")
+                accounts += [(user: pays[0].user, action: "pays", amount: payAmount, partner: gets[0].user)]
+                accounts += [(user: gets[0].user, action: "gets", amount: payAmount, partner: pays[0].user)]
+                
+                getAmount -= payAmount
+                payAmount = 0.0
+            } else if getAmount < payAmount {
+                println("\(pays[0].user.firstname) pays \(getAmount)€ to \(gets[0].user.firstname)")
+                accounts += [(user: pays[0].user, action: "pays", amount: getAmount, partner: gets[0].user)]
+                accounts += [(user: gets[0].user, action: "gets", amount: getAmount, partner: pays[0].user)]
+                
+                payAmount -= getAmount
+                getAmount = 0.0
             }
+            // but new amounts back to list and sort to compare the highest values
+            gets[0].amount = getAmount
+            pays[0].amount = payAmount
             pays.sort({ $0.amount > $1.amount })
             gets.sort({ $0.amount > $1.amount })
-            if gets[i].amount == 0.0 && pays[i].amount == 0 {
-                getLooping = false
+            if gets[0].amount == 0.0 && pays[0].amount == 0.0 {
+                moneyLeftToPay = false
+            } else if gets[0].amount < 0.01 || pays[0].amount < 0.01 {
+                // rounding error appeared
+                println("GETS:")
+                println(gets[0].amount)
+                println("PAYS:")
+                println(pays[0].amount)
+                moneyLeftToPay = false
             }
         }
+        // printAccount(accounts)
+        printAccountForCurrentUser(accounts)
+    }
+
+    func printAccount(accounts:[(user: User, action: String, amount: Double, partner: User)]) {
+        for a in accounts {
+            var adverb = a.action == "pays" ? "to" : "from"
+            println("\(a.user.firstname) \(a.action) \(a.amount)€ \(adverb) \(a.partner.firstname)")
+        }
+    }
+    
+    func printAccountForCurrentUser(accounts:[(user: User, action: String, amount: Double, partner: User)]) {
+        println("--------------------")
+        var currentUser = GlobalVar.currentUser
+        for a in accounts {
+            if a.user.isSame(currentUser) {
+                var adverb = a.action == "pays" ? "to" : "from"
+                println("\(a.user.firstname) \(a.action) \(a.amount)€ \(adverb) \(a.partner.firstname)")
+            }
+        }
+        println("--------------------")
     }
 }

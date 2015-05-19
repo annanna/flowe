@@ -12,6 +12,14 @@ struct GlobalVar {
     static var currentUser:User = User(rand: 1)
 }
 
+extension Double {
+    func format(f: String) -> String {
+        return String(format: "%\(f)f", self)
+    }
+    func roundToMoney() -> Double {
+        return Double(round(self*100)/100)
+    }
+}
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
