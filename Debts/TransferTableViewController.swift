@@ -75,7 +75,7 @@ class TransferTableViewController: UITableViewController {
             name.userInteractionEnabled = false
         }
         if let amount = self.transferAmount {
-            amount.text = transfer.moneyPayed.toMoneyString()
+            amount.text = "\(transfer.moneyPayed)"
             amount.userInteractionEnabled = false
         }
         if let notes = self.transferNotes {

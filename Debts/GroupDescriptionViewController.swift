@@ -115,7 +115,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     
     func updateSumLabel(total: Double) {
         if let sum = self.sumBtn {
-            sum.setTitle("\(total.toMoneyString())€", forState: UIControlState.Normal)
+            sum.setTitle(total.toMoneyString(), forState: UIControlState.Normal)
             if total < 0 {
                 sum.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
             } else {
@@ -144,7 +144,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             }
         }
         label += verb
-        label += "\(transfer.moneyPayed.toMoneyString())€ für \(transfer.name) bezahlt"
+        label += "\(transfer.moneyPayed.toMoneyString()) für \(transfer.name) bezahlt"
         return label
     }
     

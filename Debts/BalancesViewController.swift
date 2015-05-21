@@ -55,7 +55,7 @@ class BalancesViewController: UIViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("balanceCell", forIndexPath: indexPath) as! BalanceTableViewCell
         var currentBalance = balances[indexPath.row]
         cell.nameLabel.text = currentBalance.user.firstname
-        cell.sliderMax.text = "\(self.amount.toMoneyString())€"
+        cell.sliderMax.text = self.amount.toMoneyString()
         cell.amountText.text = currentBalance.amount.toMoneyString()
         cell.amountText.addTarget(self, action: "amountTextEditingEnd:", forControlEvents: UIControlEvents.EditingDidEnd)
         cell.amountSlider.maximumValue = Float(self.amount)

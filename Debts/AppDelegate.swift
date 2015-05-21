@@ -20,9 +20,9 @@ extension Double {
         // if number has decimals, display with 2 decimals, else crop zeros (e.g. 10 or 1.10)
         var isDecimal = Bool(self%1)
         if isDecimal {
-            return String(format: "%.2f", self)
+            return String(format: "%.2f€", self)
         }
-        return String(format: "%g", self)
+        return String(format: "%g€", self)
     }
 
 }
