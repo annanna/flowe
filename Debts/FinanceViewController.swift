@@ -23,7 +23,7 @@ class FinanceViewController: UIViewController {
         if let totalL = totalLabel {
             var total = group.getTotalFinanceForUser(GlobalVar.currentUser)
             var preSign = (total > 0 ? "+" : "")
-            var financeTotal = " \(preSign) \(total) €"
+            var financeTotal = " \(preSign) \(total.toMoneyString()) €"
             totalL.text = financeTotal
             totalL.textColor = (total > 0 ? UIColor.greenColor() : UIColor.redColor())
         }

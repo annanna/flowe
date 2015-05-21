@@ -29,7 +29,7 @@ class BalancesViewController: UIViewController {
         self.balanceTableView.tableFooterView = backgroundView
         self.balanceTableView.backgroundColor = UIColor.whiteColor()
         self.originalAmount = self.amount
-        self.totalAmountLabel.text = self.amount.description
+        self.totalAmountLabel.text = self.amount.toMoneyString()
         
         if detail {
             self.balanceTableView.userInteractionEnabled = false
@@ -55,8 +55,8 @@ class BalancesViewController: UIViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("balanceCell", forIndexPath: indexPath) as! BalanceTableViewCell
         var currentBalance = balances[indexPath.row]
         cell.nameLabel.text = currentBalance.user.firstname
-        cell.sliderMax.text = "\(self.amount)€"
-        cell.amountText.text = "\(currentBalance.amount)"
+        cell.sliderMax.text = "\(self.amount.toMoneyString())€"
+        cell.amountText.text = currentBalance.amount.toMoneyString()
         cell.amountText.addTarget(self, action: "amountTextEditingEnd:", forControlEvents: UIControlEvents.EditingDidEnd)
         cell.amountSlider.maximumValue = Float(self.amount)
         cell.amountSlider.value = Float(currentBalance.amount)
@@ -74,8 +74,7 @@ class BalancesViewController: UIViewController {
     func sliderChanged(slider: UISlider!) {
         var cell: BalanceTableViewCell = slider.superview?.superview as! BalanceTableViewCell
         var idx = find(cells, cell) as Int!
-        
-        balances[idx].amount = Double(slider.value)
+        balances[idx].amount = Double(slider.value).roundToMoney()
         
         if automaticSliders.on {
             var rest:Double = amount
@@ -86,6 +85,7 @@ class BalancesViewController: UIViewController {
                 updateAmountLabel()
             } else {
                 var newAmount:Double = rest / Double(cells.count-1-idx)
+                newAmount = newAmount.roundToMoney()
                 if idx < cells.count-1 {
                     for var i = idx+1; i < cells.count; i++ {
                         cells[i].updateCell(Float(newAmount))
@@ -102,7 +102,8 @@ class BalancesViewController: UIViewController {
     
     func amountTextEditingEnd(amountText: UITextField!) {
         var cell: BalanceTableViewCell = amountText.superview?.superview as! BalanceTableViewCell
-        cell.amountSlider.value = (amountText.text as NSString).floatValue
+        var newVal = amountText.text.toDouble().toMoneyString()
+        cell.amountSlider.value = newVal.toFloat()
         self.sliderChanged(cell.amountSlider)
     }
     
@@ -129,7 +130,7 @@ class BalancesViewController: UIViewController {
     }
     
     func setTotal(total: Double) {
-        self.totalAmountLabel.text = String(format: "%.2f",total)
+        self.totalAmountLabel.text = total.toMoneyString()
         self.amount = total
     }
 }

@@ -29,9 +29,9 @@ class BalanceTableViewCell: UITableViewCell {
     
     @IBAction func sliderChanged(sender: UISlider) {
         // slider-steps in cents (+- 0.01)
-        var sliderVal = round(100*sender.value) / 100
+        var sliderVal = sender.value.roundToMoney()
         sender.value = sliderVal
-        self.amountText.text = "\(sender.value)"
+        self.amountText.text = Double(sliderVal).toMoneyString()
     }
     
     func updateCell(amount: Float) {

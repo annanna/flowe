@@ -75,7 +75,7 @@ class TransferTableViewController: UITableViewController {
             name.userInteractionEnabled = false
         }
         if let amount = self.transferAmount {
-            amount.text = String(format: "%.2f",transfer.moneyPayed)
+            amount.text = transfer.moneyPayed.toMoneyString()
             amount.userInteractionEnabled = false
         }
         if let notes = self.transferNotes {
@@ -120,7 +120,7 @@ class TransferTableViewController: UITableViewController {
             if let t = self.transfer {
                 // TODO: update this transfer
             } else {
-                var newTransfer = MoneyTransfer(name: transferName.text, creator: GlobalVar.currentUser, money: (transferAmount.text as NSString).doubleValue, notes: transferNotes.text)
+                var newTransfer = MoneyTransfer(name: transferName.text, creator: GlobalVar.currentUser, money: getTransferAmountFromTextField(), notes: transferNotes.text)
                 if whoPayed.count == 0 {
                     whoPayed = getSelectedUsers(paymentDetailIdentifier)
                 }
@@ -143,7 +143,7 @@ class TransferTableViewController: UITableViewController {
                     // Add Transfer
                     balances = getSelectedUsers(segue.identifier!)
                 }
-                vc.amount = (transferAmount.text as NSString).doubleValue
+                vc.amount = getTransferAmountFromTextField()
                 vc.balances = balances
             }
             self.lastIdentifier = segue.identifier!
@@ -168,7 +168,7 @@ class TransferTableViewController: UITableViewController {
     }
     @IBAction func saveBalance(segue:UIStoryboardSegue) {
         if let vc = segue.sourceViewController as? BalancesViewController {
-            self.transferAmount.text = String(format: "%.2f",vc.amount)
+            self.transferAmount.text = vc.amount.toMoneyString()
             if self.lastIdentifier == paymentDetailIdentifier {
                 self.whoPayed = vc.balances
             } else {
@@ -208,12 +208,23 @@ class TransferTableViewController: UITableViewController {
     
     func updateAmount(payment:[(user: User, amount:Double)]) -> [(user: User, amount:Double)] {
         var balances = payment
-        var part:Double = round((transferAmount.text as NSString).doubleValue / Double(balances.count) * 100) / 100
-        var idx = 0
-        for balance in balances {
+        var userCount = Double(payment.count)
+        var total = getTransferAmountFromTextField()
+        
+        var part:Double = (total / userCount).roundToMoney()
+        for (idx,balance) in enumerate(balances) {
             balances[idx] = (user:balance.user, amount:part)
-            idx++
+            total -= part
         }
+        // in case of rounding issues (e.g. 10€ for 3 people) add the remaining difference to the first user (difference can be positive or negative
+        if total != 0 {
+            balances[0] = (user: balances[0].user, amount: part+total)
+        }
+        
         return balances
+    }
+    
+    func getTransferAmountFromTextField() -> Double {
+        return transferAmount.text.toDouble().roundToMoney()
     }
 }

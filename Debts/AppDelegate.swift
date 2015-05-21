@@ -13,13 +13,35 @@ struct GlobalVar {
 }
 
 extension Double {
-    func format(f: String) -> String {
-        return String(format: "%\(f)f", self)
-    }
     func roundToMoney() -> Double {
         return Double(round(self*100)/100)
     }
+    func toMoneyString() -> String {
+        // if number has decimals, display with 2 decimals, else crop zeros (e.g. 10 or 1.10)
+        var isDecimal = Bool(self%1)
+        if isDecimal {
+            return String(format: "%.2f", self)
+        }
+        return String(format: "%g", self)
+    }
+
 }
+
+extension String {
+    func toDouble() -> Double {
+        return (self as NSString).doubleValue
+    }
+    func toFloat() -> Float {
+        return (self as NSString).floatValue
+    }
+}
+
+extension Float {
+    func roundToMoney() -> Float {
+        return Float(round(self*100)/100)
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -30,8 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         groups = Groups()
-        println("new data")
-        
+
         var winterurlaub = Group(name: "Winterurlaub", users: [User(rand: 1), User(rand: 2), User(rand: 3)], creator: User(rand: 2))
         var italiener = MoneyTransfer(name: "Italiener", creator: winterurlaub.creator, money: 57.12, notes: "")
         italiener.payed = [(user: winterurlaub.creator, amount: 50), (user: User(rand: 3), amount: 7.12)]
