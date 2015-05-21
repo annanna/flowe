@@ -128,6 +128,7 @@ class Group: NSObject {
                 moneyLeftToPay = false
             } else if gets[0].amount < 0.01 || pays[0].amount < 0.01 {
                 // rounding error appeared
+                // should never happen anymore
                 println("GETS:")
                 println(gets[0].amount)
                 println("PAYS:")
@@ -135,30 +136,9 @@ class Group: NSObject {
                 moneyLeftToPay = false
             }
         }
-        // printAccount(accounts)
-        // printAccountForCurrentUser(accounts)
         return accounts
     }
 
-    func printAccount(accounts:[(user: User, action: String, amount: Double, partner: User)]) {
-        for a in accounts {
-            var adverb = a.action == "pay" ? "to" : "from"
-            println("\(a.user.firstname) \(a.action)s \(a.amount)€ \(adverb) \(a.partner.firstname)")
-        }
-    }
-    
-    func printAccountForCurrentUser(accounts:[(user: User, action: String, amount: Double, partner: User)]) {
-        println("--------------------")
-        var currentUser = GlobalVar.currentUser
-        for a in accounts {
-            if a.user.isSame(currentUser) {
-                var adverb = a.action == "pay" ? "to" : "from"
-                println("\(a.user.firstname) \(a.action)s \(a.amount)€ \(adverb) \(a.partner.firstname)")
-            }
-        }
-        println("--------------------")
-    }
-    
     func getAccountForUser(user: User) -> [(user: User, action: String, amount: Double, partner: User)] {
         var allAccounts = calculateAccounts()
         var userAccounts: [(user: User, action: String, amount: Double, partner: User)] = []

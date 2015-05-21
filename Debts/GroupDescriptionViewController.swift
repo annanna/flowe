@@ -82,6 +82,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     }
     
     // MARK: Navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == transferDetailIdentifier {
             if let indexPath = self.tableView.indexPathForSelectedRow() {

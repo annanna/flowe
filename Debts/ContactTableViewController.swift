@@ -13,8 +13,6 @@ import AddressBook
 class ContactTableViewController: UITableViewController {
 
     let addressBook: SwiftAddressBook? = swiftAddressBook
-    var mode = ""
-    var transferAmount:Double = 0
     var selectedUsers:[User] = []
     
     override func viewDidLoad() {
