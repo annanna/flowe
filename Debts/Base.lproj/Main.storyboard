@@ -353,7 +353,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CPV-0b-Bi7" id="Jtc-Or-aWl">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ep3-V5-OsM">
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ep3-V5-OsM" customClass="PeopleView" customModule="Debts" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="0.0" width="274" height="71"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -400,7 +400,7 @@
                                                         <segue destination="uaf-r4-WYe" kind="push" identifier="WhoTookPart" id="8N2-ym-w95"/>
                                                     </connections>
                                                 </button>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6OE-dN-327">
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6OE-dN-327" customClass="PeopleView" customModule="Debts" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="0.0" width="274" height="71"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>

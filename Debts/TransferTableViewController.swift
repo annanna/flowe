@@ -94,6 +94,25 @@ class TransferTableViewController: UITableViewController {
     }
     
     func fillView(currentView: UIView, identifier: String) {
+        if let peopleView = currentView as? PeopleView {
+        
+            for (i,user) in enumerate(group.users) {
+                if let t = transfer {
+                    var markBtnAsClick = identifier == paymentDetailIdentifier ? t.hasPayed(user) : t.hasParticipated(user)
+                    if markBtnAsClick {
+                        user.isActive = true
+                        group.users[i] = user
+                    }
+                }
+            }
+            
+            peopleView.userInteractionEnabled = self.editingMode
+            peopleView.setPeopleInView(group.users)
+
+        }
+    }
+    
+    func filllView(currentView: UIView, identifier: String) {
         let btnY:CGFloat = 15
         let btnSize:CGFloat = 40
         var btnX:CGFloat = 20
@@ -162,9 +181,6 @@ class TransferTableViewController: UITableViewController {
         //TODO: enable all labels and buttons and store updated transfer
         var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveTransfer:")
         navigationItem.rightBarButtonItem = saveBtn
-    }
-    func buttonPressed(btn: PeopleButton) {
-        btn.toggleSelection()
     }
     @IBAction func saveBalance(segue:UIStoryboardSegue) {
         if let vc = segue.sourceViewController as? BalancesViewController {
