@@ -31,11 +31,9 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
 
     func configureView() {
         self.title = group.name
-        if let peopleV = self.peopleView {
-            for user in group.users {
-                let btn = createBtn(user)
-                peopleV.addSubview(btn)
-            }
+        if let peopleV = self.peopleView as? PeopleView {
+            peopleV.people = group.users
+            peopleV.peopleCollection.reloadData()
         }
         updateSumLabel(group.getTotalFinanceForUser(GlobalVar.currentUser))
         

@@ -204,10 +204,6 @@
                                     <segue destination="sZQ-Rx-wFg" kind="push" identifier="showFinance" id="0Dv-JE-zwJ"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y6M-h6-wZv">
-                                <rect key="frame" x="-6" y="64" width="187" height="108"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Pif-dm-Y2Y">
                                 <rect key="frame" x="0.0" y="180" width="320" height="388"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -238,19 +234,61 @@
                                     <outlet property="delegate" destination="qho-IX-jrz" id="YAZ-wO-fNc"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y6M-h6-wZv" customClass="PeopleView" customModule="Debts" customModuleProvider="target">
+                                <rect key="frame" x="8" y="72" width="179" height="100"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TxM-Qw-efW">
+                                        <rect key="frame" x="0.0" y="-1" width="187" height="108"/>
+                                        <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="BLh-qX-QYs"/>
+                                        </constraints>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="Plq-UT-OBp">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PeopleCell" id="yoi-rC-P0O">
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <color key="backgroundColor" red="0.98823529409999999" green="0.32549019610000002" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="y6M-h6-wZv" id="ars-qS-Vav"/>
+                                            <outlet property="delegate" destination="y6M-h6-wZv" id="sBM-Dn-isK"/>
+                                        </connections>
+                                    </collectionView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="TxM-Qw-efW" firstAttribute="leading" secondItem="y6M-h6-wZv" secondAttribute="leading" id="28i-hm-G2N"/>
+                                    <constraint firstAttribute="trailing" secondItem="TxM-Qw-efW" secondAttribute="trailing" constant="-8" id="Qtt-4s-ByQ"/>
+                                    <constraint firstItem="TxM-Qw-efW" firstAttribute="top" secondItem="y6M-h6-wZv" secondAttribute="top" constant="-1" id="ZQ6-f0-kGX"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="peopleCollection" destination="TxM-Qw-efW" id="5HM-1V-YS9"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.89956059727894722" blue="0.71530633223684215" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="PfI-qw-6kC" firstAttribute="top" secondItem="rhZ-Ta-Xzw" secondAttribute="bottom" constant="8" symbolic="YES" id="1Mb-6a-dbX"/>
+                            <constraint firstItem="y6M-h6-wZv" firstAttribute="top" secondItem="PfI-qw-6kC" secondAttribute="top" id="333-Wf-Nc0"/>
                             <constraint firstItem="Pif-dm-Y2Y" firstAttribute="top" secondItem="PfI-qw-6kC" secondAttribute="bottom" constant="8" symbolic="YES" id="8PC-U3-Nnr"/>
-                            <constraint firstItem="y6M-h6-wZv" firstAttribute="top" secondItem="rhZ-Ta-Xzw" secondAttribute="bottom" id="CxO-U5-vWm"/>
                             <constraint firstItem="Pif-dm-Y2Y" firstAttribute="bottom" secondItem="Zda-QE-nA9" secondAttribute="top" id="DAf-1r-4I1"/>
+                            <constraint firstItem="Pif-dm-Y2Y" firstAttribute="top" secondItem="y6M-h6-wZv" secondAttribute="bottom" constant="8" symbolic="YES" id="SDq-dz-7XN"/>
                             <constraint firstItem="Pif-dm-Y2Y" firstAttribute="leading" secondItem="Kz6-4H-qHt" secondAttribute="leading" id="ajq-6C-LX9"/>
+                            <constraint firstItem="PfI-qw-6kC" firstAttribute="leading" secondItem="y6M-h6-wZv" secondAttribute="trailing" constant="8" symbolic="YES" id="g5U-io-m9Y"/>
                             <constraint firstItem="Pif-dm-Y2Y" firstAttribute="trailing" secondItem="PfI-qw-6kC" secondAttribute="trailing" id="gDq-RQ-q1T"/>
-                            <constraint firstItem="PfI-qw-6kC" firstAttribute="leading" secondItem="y6M-h6-wZv" secondAttribute="trailing" constant="14" id="mLX-6A-bWR"/>
-                            <constraint firstItem="Pif-dm-Y2Y" firstAttribute="top" secondItem="y6M-h6-wZv" secondAttribute="bottom" constant="8" symbolic="YES" id="sad-rY-ETg"/>
+                            <constraint firstItem="y6M-h6-wZv" firstAttribute="leading" secondItem="Kz6-4H-qHt" secondAttribute="leadingMargin" constant="-8" id="gLw-xD-jsE"/>
                             <constraint firstAttribute="trailing" secondItem="PfI-qw-6kC" secondAttribute="trailing" id="tsx-dJ-sqd"/>
-                            <constraint firstItem="y6M-h6-wZv" firstAttribute="leading" secondItem="Kz6-4H-qHt" secondAttribute="leading" constant="-6" id="ybh-pd-EAE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="b94-0g-0KS">
