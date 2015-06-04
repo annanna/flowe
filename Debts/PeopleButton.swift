@@ -29,6 +29,15 @@ class PeopleButton: UIButton {
         self.addCustomBtn(frame, user: user)
     }
     
+    convenience init(user: User) {
+        let btnMargin:CGFloat = 0.0
+        let btnSize:CGFloat = 40.0
+
+        var frame = CGRectMake(btnMargin, btnMargin, btnSize, btnSize)
+        self.init(frame: frame)
+        self.addCustomBtn(frame, user: user)
+    }
+    
     func addCustomBtn(f: CGRect, user: User) {
         self.backgroundColor = bgColorNormal
         self.layer.cornerRadius = f.width/2

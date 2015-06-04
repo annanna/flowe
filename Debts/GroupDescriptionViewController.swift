@@ -32,8 +32,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     func configureView() {
         self.title = group.name
         if let peopleV = self.peopleView as? PeopleView {
-            peopleV.people = group.users
-            peopleV.peopleCollection.reloadData()
+            peopleV.setPeopleInView(group.users)
         }
         updateSumLabel(group.getTotalFinanceForUser(GlobalVar.currentUser))
         
@@ -144,17 +143,5 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         label += verb
         label += "\(transfer.moneyPayed.toMoneyString()) für \(transfer.name) bezahlt"
         return label
-    }
-    
-    // MARK: PeopleButtons
-    
-    var btnX:CGFloat = 20;
-    let btnY:CGFloat = 15;
-    let btnSize:CGFloat = 40;
-    func createBtn(user: User) -> PeopleButton {
-        var rect:CGRect = CGRectMake(btnX, btnY, btnSize, btnSize)
-        var btn = PeopleButton(frame: rect, user: user)
-        btnX += btnSize + btnSize/2
-        return btn
     }
 }

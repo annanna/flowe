@@ -23,18 +23,4 @@ class GroupOverviewTableViewCell: UITableViewCell {
         self.titleLabel.textColor = UIColor.darkGrayColor()
         // Configure the view for the selected state
     }
-    
-    var btnX:CGFloat = 0;
-    let btnY:CGFloat = 0;
-    let btnSize:CGFloat = 40;
-    
-    func loadItem(title: String, users: [User]) {
-        titleLabel.text = title
-        for user in users {
-            var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: user)
-            people.addSubview(btn)
-            btnX += btnSize + btnSize/2
-        }
-    }
-
 }

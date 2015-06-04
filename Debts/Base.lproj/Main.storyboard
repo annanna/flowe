@@ -25,9 +25,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="84"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gVF-ob-Zik">
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gVF-ob-Zik" customClass="PeopleView" customModule="Debts" customModuleProvider="target">
                                             <rect key="frame" x="31" y="42" width="248" height="50"/>
-                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2lb-9A-ERN">
                                             <rect key="frame" x="31" y="13" width="248" height="21"/>
@@ -129,7 +129,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M3p-wj-JPZ" id="4A0-42-nBn">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2wv-Pt-lg1">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2wv-Pt-lg1" customClass="PeopleView" customModule="Debts" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="287" height="71"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -190,11 +190,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PfI-qw-6kC">
-                                <rect key="frame" x="195" y="72" width="125" height="100"/>
+                                <rect key="frame" x="195" y="64" width="125" height="108"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="9ia-n5-f9w"/>
-                                    <constraint firstAttribute="width" constant="125" id="mvZ-43-ipC"/>
+                                    <constraint firstAttribute="height" constant="108" id="FRb-zw-n0o"/>
+                                    <constraint firstAttribute="width" constant="125" id="Sov-gl-giY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Sum">
@@ -234,61 +234,23 @@
                                     <outlet property="delegate" destination="qho-IX-jrz" id="YAZ-wO-fNc"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y6M-h6-wZv" customClass="PeopleView" customModule="Debts" customModuleProvider="target">
-                                <rect key="frame" x="8" y="72" width="179" height="100"/>
-                                <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TxM-Qw-efW">
-                                        <rect key="frame" x="0.0" y="-1" width="187" height="108"/>
-                                        <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="BLh-qX-QYs"/>
-                                        </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="Plq-UT-OBp">
-                                            <size key="itemSize" width="50" height="50"/>
-                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        </collectionViewFlowLayout>
-                                        <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PeopleCell" id="yoi-rC-P0O">
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </view>
-                                                <color key="backgroundColor" red="0.98823529409999999" green="0.32549019610000002" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
-                                            </collectionViewCell>
-                                        </cells>
-                                        <connections>
-                                            <outlet property="dataSource" destination="y6M-h6-wZv" id="ars-qS-Vav"/>
-                                            <outlet property="delegate" destination="y6M-h6-wZv" id="sBM-Dn-isK"/>
-                                        </connections>
-                                    </collectionView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="TxM-Qw-efW" firstAttribute="leading" secondItem="y6M-h6-wZv" secondAttribute="leading" id="28i-hm-G2N"/>
-                                    <constraint firstAttribute="trailing" secondItem="TxM-Qw-efW" secondAttribute="trailing" constant="-8" id="Qtt-4s-ByQ"/>
-                                    <constraint firstItem="TxM-Qw-efW" firstAttribute="top" secondItem="y6M-h6-wZv" secondAttribute="top" constant="-1" id="ZQ6-f0-kGX"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="peopleCollection" destination="TxM-Qw-efW" id="5HM-1V-YS9"/>
-                                </connections>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y6M-h6-wZv" customClass="PeopleView" customModule="Debts" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="187" height="108"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.89956059727894722" blue="0.71530633223684215" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="PfI-qw-6kC" firstAttribute="top" secondItem="rhZ-Ta-Xzw" secondAttribute="bottom" constant="8" symbolic="YES" id="1Mb-6a-dbX"/>
-                            <constraint firstItem="y6M-h6-wZv" firstAttribute="top" secondItem="PfI-qw-6kC" secondAttribute="top" id="333-Wf-Nc0"/>
-                            <constraint firstItem="Pif-dm-Y2Y" firstAttribute="top" secondItem="PfI-qw-6kC" secondAttribute="bottom" constant="8" symbolic="YES" id="8PC-U3-Nnr"/>
-                            <constraint firstItem="Pif-dm-Y2Y" firstAttribute="bottom" secondItem="Zda-QE-nA9" secondAttribute="top" id="DAf-1r-4I1"/>
-                            <constraint firstItem="Pif-dm-Y2Y" firstAttribute="top" secondItem="y6M-h6-wZv" secondAttribute="bottom" constant="8" symbolic="YES" id="SDq-dz-7XN"/>
-                            <constraint firstItem="Pif-dm-Y2Y" firstAttribute="leading" secondItem="Kz6-4H-qHt" secondAttribute="leading" id="ajq-6C-LX9"/>
-                            <constraint firstItem="PfI-qw-6kC" firstAttribute="leading" secondItem="y6M-h6-wZv" secondAttribute="trailing" constant="8" symbolic="YES" id="g5U-io-m9Y"/>
-                            <constraint firstItem="Pif-dm-Y2Y" firstAttribute="trailing" secondItem="PfI-qw-6kC" secondAttribute="trailing" id="gDq-RQ-q1T"/>
-                            <constraint firstItem="y6M-h6-wZv" firstAttribute="leading" secondItem="Kz6-4H-qHt" secondAttribute="leadingMargin" constant="-8" id="gLw-xD-jsE"/>
-                            <constraint firstAttribute="trailing" secondItem="PfI-qw-6kC" secondAttribute="trailing" id="tsx-dJ-sqd"/>
+                            <constraint firstItem="Pif-dm-Y2Y" firstAttribute="leading" secondItem="Kz6-4H-qHt" secondAttribute="leading" id="EiQ-1i-i7f"/>
+                            <constraint firstItem="Pif-dm-Y2Y" firstAttribute="top" secondItem="PfI-qw-6kC" secondAttribute="bottom" constant="8" symbolic="YES" id="WRW-PK-VXN"/>
+                            <constraint firstItem="Pif-dm-Y2Y" firstAttribute="bottom" secondItem="Zda-QE-nA9" secondAttribute="top" id="XNF-13-Ntk"/>
+                            <constraint firstItem="y6M-h6-wZv" firstAttribute="top" secondItem="rhZ-Ta-Xzw" secondAttribute="bottom" constant="10" id="dm3-70-7KP"/>
+                            <constraint firstAttribute="trailing" secondItem="PfI-qw-6kC" secondAttribute="trailing" id="iNw-HI-pca"/>
+                            <constraint firstItem="PfI-qw-6kC" firstAttribute="leading" secondItem="y6M-h6-wZv" secondAttribute="trailing" constant="8" symbolic="YES" id="mtK-rl-z77"/>
+                            <constraint firstItem="Pif-dm-Y2Y" firstAttribute="top" secondItem="y6M-h6-wZv" secondAttribute="bottom" constant="8" symbolic="YES" id="rOg-aQ-AbF"/>
+                            <constraint firstItem="PfI-qw-6kC" firstAttribute="trailing" secondItem="Pif-dm-Y2Y" secondAttribute="trailing" id="tjJ-q0-UXf"/>
+                            <constraint firstItem="y6M-h6-wZv" firstAttribute="leading" secondItem="Kz6-4H-qHt" secondAttribute="leading" constant="10" id="w9X-65-onG"/>
+                            <constraint firstItem="PfI-qw-6kC" firstAttribute="top" secondItem="rhZ-Ta-Xzw" secondAttribute="bottom" id="xNV-1t-oOK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="b94-0g-0KS">

@@ -29,23 +29,8 @@ class AddGroupTableViewController: UITableViewController {
     }
    
    func showMembersInView() {
-      if let members = self.memberView {
-         for contact in selectedContacts {
-            var btn = self.createBtn(contact)
-            members.addSubview(btn)
-         }
+      if let members = self.memberView as? PeopleView {
+         members.setPeopleInView(selectedContacts)
       }
-   }
-   
-   // MARK: PeopleButtons
-   
-   var btnX:CGFloat = 20;
-   let btnY:CGFloat = 15;
-   let btnSize:CGFloat = 40;
-   func createBtn(user: User) -> PeopleButton {
-      var rect:CGRect = CGRectMake(btnX, btnY, btnSize, btnSize)
-      var btn = PeopleButton(frame: rect, user: user)
-      btnX += btnSize + btnSize/2
-      return btn
    }
 }

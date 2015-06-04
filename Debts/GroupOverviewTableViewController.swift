@@ -33,7 +33,6 @@ class GroupOverviewTableViewController: UITableViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -49,7 +48,10 @@ class GroupOverviewTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! GroupOverviewTableViewCell
         let group = groups[indexPath.row] as Group
-        cell.loadItem(group.name, users: group.users)
+        cell.titleLabel.text = group.name
+        if let pView = cell.people as? PeopleView {
+            pView.setPeopleInView(group.users)
+        }
         
         return cell
     }
