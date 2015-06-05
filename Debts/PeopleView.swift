@@ -16,7 +16,6 @@ class PeopleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        println("width: \(self.frame.width) height: \(self.frame.height)")
         self.createCollectionView()
     }
     
@@ -28,7 +27,6 @@ class PeopleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         collectionView?.delegate = self
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: collectionCellIdentifier)
         collectionView?.backgroundColor = UIColor.clearColor()
-        println("width: \(collectionFrame.width) height: \(collectionFrame.height)")
         self.addSubview(collectionView!)
     }
     

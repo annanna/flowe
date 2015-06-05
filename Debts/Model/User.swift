@@ -14,7 +14,6 @@ class User: NSObject {
     var lastname = ""
     var email = ""
     var img: UIImage?
-    var isActive: Bool?
     
     init(phone: String) {
         self.phoneNumber = phone

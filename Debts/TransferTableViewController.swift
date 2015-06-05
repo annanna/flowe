@@ -94,22 +94,21 @@ class TransferTableViewController: UITableViewController {
     }
     
     func fillView(currentView: UIView, identifier: String) {
+        println("\(identifier):")
         if let peopleView = currentView as? PeopleView {
-        
+            peopleView.userInteractionEnabled = self.editingMode
+            peopleView.setPeopleInView(group.users)
+            
             for (i,user) in enumerate(group.users) {
                 if let t = transfer {
                     var markBtnAsClick = identifier == paymentDetailIdentifier ? t.hasPayed(user) : t.hasParticipated(user)
                     if markBtnAsClick {
-                        user.isActive = true
-                        group.users[i] = user
+                        println("\(user.getName()) active")
                     }
                 }
             }
-            
-            peopleView.userInteractionEnabled = self.editingMode
-            peopleView.setPeopleInView(group.users)
-
         }
+        println("---------------------")
     }
     
     func filllView(currentView: UIView, identifier: String) {
