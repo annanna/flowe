@@ -194,9 +194,9 @@ class TransferTableViewController: UITableViewController {
     
     func getSelectedUsers(identifier: String) -> [(user: User, amount:Double)] {
         if identifier == paymentDetailIdentifier {
-            if let payer = payerView {
+            if let payer = payerView as? PeopleView {
                 whoPayed = []
-                var btns:[PeopleButton] = payer.subviews as! [PeopleButton]
+                var btns:[PeopleButton] = payer.peopleBtns
                 for btn in btns {
                     if btn.isClicked {
                         whoPayed += [(user:btn.uid, amount:0.0)]
@@ -206,9 +206,9 @@ class TransferTableViewController: UITableViewController {
                 return whoPayed
             }
         } else {
-            if let participant = participantView {
+            if let participant = participantView as? PeopleView {
                 whoTookPart = []
-                var btns:[PeopleButton] = participant.subviews as! [PeopleButton]
+                var btns:[PeopleButton] = participant.peopleBtns
                 for btn in btns {
                     if btn.isClicked {
                         whoTookPart += [(user: btn.uid, amount:0.0)]

@@ -11,6 +11,7 @@ import UIKit
 class PeopleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var people:[User] = [User]()
+    var peopleBtns:[PeopleButton] = [PeopleButton]()
     let collectionCellIdentifier = "PeopleCell"
     var collectionView: UICollectionView?
     
@@ -46,6 +47,7 @@ class PeopleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         
         var person = self.people[indexPath.row]
         var peopleBtn = PeopleButton(user: person)
+        peopleBtns.append(peopleBtn)
         cell.addSubview(peopleBtn)
         return cell
     }
