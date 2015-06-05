@@ -30,7 +30,7 @@ class PeopleButton: UIButton {
     }
     
     convenience init(user: User) {
-        let btnMargin:CGFloat = 0.0
+        let btnMargin:CGFloat = 5.0
         let btnSize:CGFloat = 40.0
 
         var frame = CGRectMake(btnMargin, btnMargin, btnSize, btnSize)
