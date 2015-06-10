@@ -43,7 +43,7 @@ class FinanceViewController: UIViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("accountCell", forIndexPath: indexPath) as! UITableViewCell
         var currentAccount:(user: User, action: String, amount: Double, partner: User) = self.accounts[indexPath.row]
         var adverb = currentAccount.action == "pay" ? "to" : "from"
-        cell.textLabel?.text = "\(currentAccount.action.capitalizedString) \(currentAccount.amount)€ \(adverb) \(currentAccount.partner.firstname)"
+        cell.textLabel?.text = "\(currentAccount.action.capitalizedString) \(currentAccount.amount.toMoneyString()) \(adverb) \(currentAccount.partner.firstname)"
         return cell
     }
     

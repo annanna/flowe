@@ -229,8 +229,8 @@ public class RequestHelper {
                                 
                                 accounts.append(account)
                             }
-                            
                             callback(accounts)
+                            println("Successfully fetched finance details")
                         }
                     }
                 }
