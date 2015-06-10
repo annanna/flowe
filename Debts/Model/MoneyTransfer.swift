@@ -21,12 +21,12 @@ class MoneyTransfer: NSObject {
     var payed: [(user: User, amount:Double)] = []
     var participated: [(user: User, amount:Double)] = []
     
-    init(name: String, notes: String, creator: User, money: Double) {
+    /*init(name: String, notes: String, creator: User, money: Double) {
         self.name = name
         self.notes = notes
         self.creator = creator
         self.moneyPayed = money.roundToMoney()
-    }
+    }*/
     
     init(name: String, creator: User, money: Double, notes: String?) {
         self.name = name
@@ -38,10 +38,11 @@ class MoneyTransfer: NSObject {
     }
     
     init(details: JSON) {
+        println("init transfer")
         self.tID = details["_id"].stringValue
         self.name = details["name"].stringValue
         var created = details["created"].stringValue
-        println("Timestamp: \(created)")
+        //println("Timestamp: \(created)")
         let creatorId = details["creator"].stringValue
         if let cre = UserHelper.getUser(creatorId) {
             self.creator = cre

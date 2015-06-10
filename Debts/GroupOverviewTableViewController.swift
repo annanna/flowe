@@ -83,6 +83,7 @@ class GroupOverviewTableViewController: UITableViewController {
     
     func addNewGroup(group: Group) {
         groups.insert(group, atIndex: 0)
-        self.tableView.reloadData()
+        var path = NSIndexPath(forRow: 0, inSection: 0)
+        self.tableView.insertRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.Bottom)
     }
 }

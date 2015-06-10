@@ -111,7 +111,8 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     
     func addNewTransfer(transfer: MoneyTransfer) {
         self.transfers.insert(transfer, atIndex: 0)
-        self.tableView.reloadData()
+        var path = NSIndexPath(forRow: 0, inSection: 0)
+        self.tableView.insertRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.Bottom)
         // update sum label
     }
     

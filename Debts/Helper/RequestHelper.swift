@@ -15,9 +15,13 @@ public class RequestHelper {
     static let dataUrl = "http://192.168.1.8:3000"
     
     class func postGroup(group: Group, callback:(Group) -> Void) {
-        var postBody:[String: AnyObject] = [
+        var users = [[String: String]]()
+        for user in group.users {
+            users.append(["phone": user.phoneNumber])
+        }
+        let postBody:[String: AnyObject] = [
             "name": group.name,
-            "users": group.users,
+            "users": users,
             "creator": GlobalVar.currentUid
         ]
         
@@ -161,7 +165,7 @@ public class RequestHelper {
                 } else {
                     if let jsonData: AnyObject = jsonResponse {
                         let userData = JSON(jsonData)
-                        let user = User(details: userData)
+                        let user = UserHelper.JSONcreateUserIfDoesNotExist(userData)
                         callback(user)
                     }
                 }
@@ -195,7 +199,7 @@ public class RequestHelper {
                 (request, response, jsonResponse, error) in
                 if let jsonData: AnyObject = jsonResponse {
                     let userData = JSON(jsonData)
-                    let u = User(details: userData)
+                    let u = UserHelper.JSONcreateUserIfDoesNotExist(userData)
                     callback(u)
                 }
         }

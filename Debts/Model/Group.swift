@@ -13,9 +13,9 @@ class Group: NSObject {
     var gID:String = ""
     var name = ""
     var created = NSDate()
-    var users: [User] = []
-    var creator: User
-    var transfers: [MoneyTransfer] = []
+    var users = [User]()
+    var creator: User?
+    var transfers = [MoneyTransfer]()
     var total = 0.0
     
     init(name: String, users: [User], creator: User) {
@@ -32,22 +32,21 @@ class Group: NSObject {
     }*/
     
     init(details: JSON) {
+        println("group init")
         self.gID = details["_id"].stringValue
         self.name = details["name"].stringValue
-        self.total = details["total"].doubleValue
-        
         var created = details["created"].stringValue
-        println("Timestamp: \(created)")
+        //println("Timestamp: \(created)")
         
         if let userArray = details["users"].array {
             for user in userArray {
-                var u:User = User(details: user)
+                var u:User = UserHelper.JSONcreateUserIfDoesNotExist(user)
                 self.users.append(u)
-                UserHelper.addUser(u)
             }
         }
         
-        self.creator = User(details: details["creator"])
+        self.total = details["total"].doubleValue
+        self.creator = UserHelper.JSONcreateUserIfDoesNotExist(details["creator"])
         
         if let transferArray = details["transfers"].array {
             for transfer in transferArray {
@@ -87,7 +86,7 @@ class Group: NSObject {
         return false
     }
     
-    func getTotalFinanceForUser(user:User) -> Double {
+    /*func getTotalFinanceForUser(user:User) -> Double {
         var userHasToPay = 0.0
         var userHasPayed = 0.0
         for transfer in transfers {
@@ -183,5 +182,5 @@ class Group: NSObject {
             }
         }
         return userAccounts
-    }
+    } */
 }

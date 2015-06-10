@@ -50,6 +50,7 @@ class User: NSObject {
     }
     
     init(details: JSON) {
+        println("user init")
         self.phoneNumber = details["phone"].stringValue
         self.firstname = details["firstname"].stringValue
         self.lastname = details["lastname"].stringValue
@@ -87,4 +88,9 @@ class User: NSObject {
         return false
     }
     
+    func updateUser(details: JSON) {
+        self.phoneNumber = details["phone"].stringValue
+        self.firstname = details["firstname"].stringValue
+        self.lastname = details["lastname"].stringValue
+    }
 }
