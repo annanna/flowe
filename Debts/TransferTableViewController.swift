@@ -22,6 +22,7 @@ class TransferTableViewController: UITableViewController {
     var lastIdentifier = ""
     
     var transfer: MoneyTransfer?
+    var transferId: String?
     var group:Group!
     
     var whoPayed: [(user: User, amount:Double)] = []
@@ -29,8 +30,12 @@ class TransferTableViewController: UITableViewController {
     
     let editingMode = true //depends on the user's rights
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    // MARK: - View Set Up
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+        self.setUpView()
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -40,24 +45,19 @@ class TransferTableViewController: UITableViewController {
         return true // is modal
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGrayColor()]
-        self.setUpView()
-    }
-    
-    // MARK: Set up view and load data
-    
     func setUpView() {
-        if let t = transfer {
+        if let tId = transferId {
             // Transfer Detail
-            loadDataInDetailView(t)
-            self.title = "\(t.name) Details"
-            
-            if editingMode {
-                var editBtn: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Done, target: self, action: "enableEditing:")
-                navigationItem.rightBarButtonItem = editBtn
-            }
+            RequestHelper.getTransferDetails(tId, callback: { (transferData) -> Void in
+                self.transfer = transferData
+                self.loadDataInDetailView(transferData)
+                self.drawGroupMembersInViews()
+                
+                if self.editingMode {
+                    var editBtn: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Done, target: self, action: "enableEditing:")
+                    self.navigationItem.rightBarButtonItem = editBtn
+                }
+            })
         } else {
             // New Transfer
             var cancelBtn: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "goBack:")
@@ -65,11 +65,13 @@ class TransferTableViewController: UITableViewController {
             var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveTransfer:")
             navigationItem.rightBarButtonItem = saveBtn
             self.title = "Add Transfer"
+            drawGroupMembersInViews()
         }
-        drawGroupMembersInViews()
     }
 
     func loadDataInDetailView(transfer: MoneyTransfer) {
+        self.title = "\(transfer.name) Details"
+        
         if let name = self.transferName {
             name.text = transfer.name
             name.userInteractionEnabled = false
@@ -94,39 +96,18 @@ class TransferTableViewController: UITableViewController {
     }
     
     func fillView(currentView: UIView, identifier: String) {
-        println("\(identifier):")
         if let peopleView = currentView as? PeopleView {
             peopleView.userInteractionEnabled = self.editingMode
             peopleView.setPeopleInView(group.users)
-            
-            for (i,user) in enumerate(group.users) {
-                if let t = transfer {
+            if let t = transfer {
+                var toggleUsers = [User]()
+                for (i,user) in enumerate(group.users) {
                     var markBtnAsClick = identifier == paymentDetailIdentifier ? t.hasPayed(user) : t.hasParticipated(user)
                     if markBtnAsClick {
-                        println("\(user.getName()) active")
+                        toggleUsers.append(user)
                     }
                 }
-            }
-        }
-        println("---------------------")
-    }
-    
-    func filllView(currentView: UIView, identifier: String) {
-        let btnY:CGFloat = 15
-        let btnSize:CGFloat = 40
-        var btnX:CGFloat = 20
-        
-        for user in group.users {
-            var btn = PeopleButton(frame: CGRectMake(btnX, btnY, btnSize, btnSize), user: user)
-            btn.addTarget(self, action: "buttonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-            currentView.addSubview(btn)
-            btnX += btnSize + btnSize/2
-            
-            if let t = transfer {
-                var markBtnAsClick = identifier == paymentDetailIdentifier ? t.hasPayed(user) : t.hasParticipated(user)
-                if markBtnAsClick {
-                    btn.toggleSelection()
-                }
+                peopleView.setActivePeopleInView(toggleUsers)
             }
         }
     }

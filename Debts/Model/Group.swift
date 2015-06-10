@@ -43,6 +43,7 @@ class Group: NSObject {
             for user in userArray {
                 var u:User = User(details: user)
                 self.users.append(u)
+                UserHelper.addUser(u)
             }
         }
         

@@ -13,69 +13,64 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var peopleView: UIView!
     @IBOutlet weak var sumBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    @IBAction func cancelToGroupDescription(segue: UIStoryboardSegue) {}
-    @IBAction func saveNewTransfer(segue: UIStoryboardSegue) {
-        if let addTransferVC = segue.sourceViewController as? TransferTableViewController {
-            if let t = addTransferVC.transfer {
-                addNewTransfer(t)
-            }
-        }
-    }
     
     let addTransferIdentifier = "addTransfer"
     let transferDetailIdentifier = "showTransfer"
     let transferCell = "transferCell"
     let financeIdentifier = "showFinance"
-
-    var group:Group!
-
+    
+    var group:Group?
+    var transfers = [MoneyTransfer]()
+    var groupId: String = ""
+    
+    // MARK: - View Set Up
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.getGroupDetails()
+    }
+    
+    func getGroupDetails() {
+        RequestHelper.getGroupDetails(self.groupId, callback: { (groupData) -> Void in
+            self.group = groupData
+            self.transfers = groupData.transfers
+            
+            self.configureView()
+            self.tableView.reloadData()
+        })
+    }
+    
     func configureView() {
-        self.title = group.name
+        self.title = group!.name
         if let peopleV = self.peopleView as? PeopleView {
-            peopleV.setPeopleInView(group.users)
+            peopleV.setPeopleInView(group!.users)
         }
-        updateSumLabel(group.getTotalFinanceForUser(GlobalVar.currentUser))
+//        updateSumLabel(group!.getTotalFinanceForUser(GlobalVar.currentUser))
         
         // auto height of cells
         self.tableView.estimatedRowHeight = 68.0
         self.tableView.rowHeight = UITableViewAutomaticDimension
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.configureView()
-
+        
         // hide empty cells
         var backgroundView = UIView(frame: CGRectZero)
         self.tableView.tableFooterView = backgroundView
         self.tableView.backgroundColor = UIColor.clearColor()
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    
-    // MARK: UITableViewDataSource
+    // MARK: - Table view data source & Delegate
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return group.transfers.count
+        return self.transfers.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(transferCell, forIndexPath: indexPath) as! UITableViewCell
         
-        cell.textLabel?.text = generateTransferConclusion(group.transfers[indexPath.row])
+        cell.textLabel?.text = generateTransferConclusion(self.transfers[indexPath.row])
         return cell
-    }
-    
-    // MARK: UITableViewDelegate
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let row = indexPath.row
     }
     
     // MARK: Navigation
@@ -85,7 +80,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 if let transfer = group?.transfers[indexPath.row] as MoneyTransfer! {
                     let vc = segue.destinationViewController as! TransferTableViewController
-                    vc.transfer = transfer
+                    vc.transferId = transfer.tID
                     vc.group = group
                 }
             }
@@ -100,14 +95,24 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             }
         }
     }
-    
+
     // MARK: Actions
     
+    @IBAction func cancelToGroupDescription(segue: UIStoryboardSegue) {}
+    @IBAction func saveNewTransfer(segue: UIStoryboardSegue) {
+        if let addTransferVC = segue.sourceViewController as? TransferTableViewController {
+            if let t = addTransferVC.transfer {
+                RequestHelper.postTransfer(self.groupId, transfer: t, callback: { (transfer) -> Void in
+                    self.addNewTransfer(transfer)
+                })
+            }
+        }
+    }
+    
     func addNewTransfer(transfer: MoneyTransfer) {
-        group.addTransfer(transfer)
-        let indexPath = NSIndexPath(forRow: group.transfers.count-1, inSection: 0)
-        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        updateSumLabel(group.getTotalFinanceForUser(GlobalVar.currentUser))
+        self.transfers.insert(transfer, atIndex: 0)
+        self.tableView.reloadData()
+        // update sum label
     }
     
     func updateSumLabel(total: Double) {

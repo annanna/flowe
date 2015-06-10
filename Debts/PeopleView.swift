@@ -10,8 +10,9 @@ import UIKit
 
 class PeopleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    var people:[User] = [User]()
-    var peopleBtns:[PeopleButton] = [PeopleButton]()
+    var people = [User]()
+    var activePeople = [User]()
+    var peopleBtns = [PeopleButton]()
     let collectionCellIdentifier = "PeopleCell"
     var collectionView: UICollectionView?
     
@@ -36,6 +37,10 @@ class PeopleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         self.collectionView?.reloadData()
     }
     
+    func setActivePeopleInView(activeP:[User]) {
+        self.activePeople = activeP
+        self.collectionView?.reloadData()
+    }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.people.count
@@ -47,6 +52,10 @@ class PeopleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         
         var person = self.people[indexPath.row]
         var peopleBtn = PeopleButton(user: person)
+        if let index = find(activePeople, person) {
+            peopleBtn.toggleSelection()
+        }
+        
         peopleBtns.append(peopleBtn)
         cell.addSubview(peopleBtn)
         return cell

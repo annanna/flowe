@@ -73,37 +73,62 @@ public class RequestHelper {
         }
     }
     
-    class func postTransfer(groupId: String, data: [String: AnyObject], callback:(JSON) -> Void) {
+    class func postTransfer(groupId: String, transfer: MoneyTransfer, callback:(MoneyTransfer) -> Void) {
+        var whoPayed = [[String: AnyObject]]()
+        for (user, amount) in transfer.payed {
+            var payed:[String: AnyObject] = [
+                "user": user.uID,
+                "amount": amount
+            ]
+            whoPayed.append(payed)
+        }
+        var whoTookPart = [[String: AnyObject]]()
+        for (user, amount) in transfer.participated {
+            var participated:[String: AnyObject] = [
+                "user": user.uID,
+                "amount": amount
+            ]
+            whoTookPart.append(participated)
+        }
+        
+        var postBody: [String: AnyObject] = [
+            "name": transfer.name,
+            "creator": GlobalVar.currentUid,
+            //"total":
+            "notes": transfer.notes,
+            "whoTookPart": whoTookPart,
+            "whoPayed": whoPayed
+        ]
+        
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/\(groupId)/transfers"
         
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
         request.HTTPMethod = "POST"
         var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(data, options: nil, error: &err)
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(postBody, options: nil, error: &err)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        var transferName = data["name"] as! String
         
         Alamofire.request(request)
             .responseJSON {
                 (request, response, jsonResponse, error) in
                 if (error != nil) {
-                    println("Error creating transfer \(transferName)")
+                    println("Error creating transfer \(transfer.name)")
                     println(request)
                     println(response)
                 } else {
                     if let jsonData: AnyObject = jsonResponse {
                         let transferData = JSON(jsonData)
-                        callback(transferData)
+                        let t = MoneyTransfer(details: transferData)
+                        callback(t)
                         
-                        println("Successfully created transfer \(transferName)")
+                        println("Successfully created transfer \(t.name)")
                     }
                 }
         }
     }
     
-    class func getGroupDetails(groupId: String, callback:(JSON)->Void) {
+    class func getGroupDetails(groupId: String, callback:(Group)->Void) {
         Alamofire.request(.GET, "\(dataUrl)/groups?groupId=\(groupId)")
             .responseJSON {
                 (request, response, jsonResponse, error) in
@@ -114,7 +139,8 @@ public class RequestHelper {
                 } else {
                     if let jsonData: AnyObject = jsonResponse {
                         let groupData = JSON(jsonData)
-                        callback(groupData)
+                        let group = Group(details: groupData)
+                        callback(group)
                         
                         println("Successfully fetched group \(groupId)")
                     }
@@ -122,7 +148,7 @@ public class RequestHelper {
         }
     }
     
-    class func getUserDetails(person: User, callback:(JSON) -> Void) {
+    class func getUserDetails(person: User, callback:(User) -> Void) {
         var escapedPhone = person.phoneNumber.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) as String!
         var url = "\(dataUrl)/users?phone=\(escapedPhone)"
         Alamofire.request(.GET, url)
@@ -135,13 +161,14 @@ public class RequestHelper {
                 } else {
                     if let jsonData: AnyObject = jsonResponse {
                         let userData = JSON(jsonData)
-                        callback(userData)
+                        let user = User(details: userData)
+                        callback(user)
                     }
                 }
         }
     }
     
-    class func getTransferDetails(transferId: String, callback:(JSON) -> Void) {
+    class func getTransferDetails(transferId: String, callback:(MoneyTransfer) -> Void) {
         var url = "\(dataUrl)/transfers?transferId=\(transferId)"
         Alamofire.request(.GET, url)
             .responseJSON {
@@ -153,20 +180,23 @@ public class RequestHelper {
                 } else {
                     if let jsonData: AnyObject = jsonResponse {
                         let transferData = JSON(jsonData)
-                        callback(transferData)
-                        println("Successfully fetched transfer \(transferId)")
+                        let transfer = MoneyTransfer(details: transferData)
+                        callback(transfer)
+                        println("Successfully fetched transfer \(transfer.name)")
                     }
                 }
         }
     }
     
-    class func createUser(data: [String: String], callback:(JSON) -> Void) {
-        Alamofire.request(.POST, "\(dataUrl)/users", parameters: data)
+    class func createUser(user: User, callback:(User) -> Void) {
+        var postBody = JSONHelper.createDictionaryFromUser(user)
+        Alamofire.request(.POST, "\(dataUrl)/users", parameters: postBody)
             .responseJSON {
                 (request, response, jsonResponse, error) in
                 if let jsonData: AnyObject = jsonResponse {
                     let userData = JSON(jsonData)
-                    callback(userData)
+                    let u = User(details: userData)
+                    callback(u)
                 }
         }
     }

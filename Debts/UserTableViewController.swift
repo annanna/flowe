@@ -78,16 +78,14 @@ class UserTableViewController: UITableViewController {
         
         // get user details or if it does not exist, create a new on and proceed
         RequestHelper.getUserDetails(person, callback: { (userData) -> Void in
-            var uid = userData["_id"].stringValue
+            var uid = userData.uID
             
             if count(uid) > 0 {
                 println("Successfully fetched uid \(uid)")
                 self.proceedWithSelectedUser(uid)
             } else {
-                let userPostBody = JSONHelper.createDictionaryFromUser(person)
-                
-                RequestHelper.createUser(userPostBody, callback: { (uData) -> Void in
-                    uid = uData["_id"].stringValue
+                RequestHelper.createUser(person, callback: { (uData) -> Void in
+                    uid = uData.uID
                     println("Successfully created user with uid \(uid)")
                     self.proceedWithSelectedUser(uid)
                 })

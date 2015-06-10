@@ -25,4 +25,8 @@ public class UserHelper: NSObject {
         userDic[user.uID] = user
     }
     
+    class func addUser(user: User) {
+        userDic[user.uID] = user
+    }
+    
 }

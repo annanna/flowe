@@ -56,11 +56,12 @@ class GroupOverviewTableViewController: UITableViewController {
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "groupDetail" {
+        if segue.identifier == groupDetailIdentifier {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-                let group = groups[indexPath.row] as Group
-                let vc = segue.destinationViewController as! GroupDescriptionViewController
-                vc.group = group
+                let group:Group = groups[indexPath.row]
+                if let vc = segue.destinationViewController as? GroupDescriptionViewController {
+                    vc.groupId = group.gID
+                }
             }
         }
     }
