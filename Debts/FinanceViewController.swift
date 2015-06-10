@@ -11,26 +11,23 @@ import UIKit
 class FinanceViewController: UIViewController {
 
     @IBOutlet weak var totalLabel: UILabel!
-    
     @IBOutlet weak var accountTableView: UITableView!
-    var group:Group!
+    
+    var total:Double = 0
+    var groupId = ""
     var accounts: [(user: User, action: String, amount: Double, partner: User)] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-/*        self.accounts = self.group.getAccountForUser(GlobalVar.currentUser)
-        
-        if let totalL = totalLabel {
-            var total = group.getTotalFinanceForUser(GlobalVar.currentUser)
-            var preSign = (total > 0 ? "+" : "")
-            var financeTotal = preSign + total.toMoneyString()
-            totalL.text = financeTotal
-            totalL.textColor = (total > 0 ? UIColor.greenColor() : UIColor.redColor())
-        } */
+        self.totalLabel.text = self.total.toMoneyString()
+        self.getAccounts()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    func getAccounts() {
+        RequestHelper.getFinance(groupId, callback: { (accountData) -> Void in
+            self.accounts = accountData
+            self.accountTableView.reloadData()
+        })
     }
     
     

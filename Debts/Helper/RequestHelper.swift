@@ -133,7 +133,8 @@ public class RequestHelper {
     }
     
     class func getGroupDetails(groupId: String, callback:(Group)->Void) {
-        Alamofire.request(.GET, "\(dataUrl)/groups?groupId=\(groupId)")
+        let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/\(groupId)"
+        Alamofire.request(.GET, url)
             .responseJSON {
                 (request, response, jsonResponse, error) in
                 if(error != nil) {
@@ -201,6 +202,37 @@ public class RequestHelper {
                     let userData = JSON(jsonData)
                     let u = UserHelper.JSONcreateUserIfDoesNotExist(userData)
                     callback(u)
+                }
+        }
+    }
+    
+    class func getFinance(groupId: String, callback:([(user: User, action: String, amount: Double, partner: User)]) -> Void) {
+        var url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/\(groupId)/finances"
+        Alamofire.request(.GET, url)
+            .responseJSON {
+                (request, response, jsonResponse, error) in
+                if (error != nil) {
+                    println("Error getting finances \(error)")
+                    println(request)
+                    println(response)
+                } else {
+                    if let jsonData: AnyObject = jsonResponse {
+                        let financeData = JSON(jsonData)
+                        if let financeArray = financeData.array {
+                            var accounts:[(user: User, action: String, amount: Double, partner: User)] = []
+
+                            for finance in financeArray {
+                                let user = UserHelper.JSONcreateUserIfDoesNotExist(finance["user"])
+                                let partner = UserHelper.JSONcreateUserIfDoesNotExist(finance["partner"])
+                                
+                                let account = (user: user, action: finance["action"].stringValue, amount: finance["amount"].doubleValue, partner: partner)
+                                
+                                accounts.append(account)
+                            }
+                            
+                            callback(accounts)
+                        }
+                    }
                 }
         }
     }

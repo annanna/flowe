@@ -45,7 +45,8 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         if let peopleV = self.peopleView as? PeopleView {
             peopleV.setPeopleInView(group!.users)
         }
-//        updateSumLabel(group!.getTotalFinanceForUser(GlobalVar.currentUser))
+        
+        updateSumLabel(group!.total)
         
         // auto height of cells
         self.tableView.estimatedRowHeight = 68.0
@@ -91,7 +92,8 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             transferVC.group = group
         }  else if segue.identifier == financeIdentifier {
             if let financeVC = segue.destinationViewController as? FinanceViewController {
-                financeVC.group = self.group
+                financeVC.total = self.group!.total
+                financeVC.groupId = self.group!.gID
             }
         }
     }
