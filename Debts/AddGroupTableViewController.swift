@@ -12,7 +12,7 @@ class AddGroupTableViewController: UITableViewController {
     @IBOutlet weak var groupName: UITextField!
     @IBOutlet weak var memberView: UIView!
     
-    var selectedContacts:[User] = []
+    var selectedContacts = [User]()
     
     @IBAction func addContacts(segue: UIStoryboardSegue) {
         if let contactVC = segue.sourceViewController as? ContactTableViewController {

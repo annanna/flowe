@@ -18,7 +18,7 @@ class FinanceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.accounts = self.group.getAccountForUser(GlobalVar.currentUser)
+/*        self.accounts = self.group.getAccountForUser(GlobalVar.currentUser)
         
         if let totalL = totalLabel {
             var total = group.getTotalFinanceForUser(GlobalVar.currentUser)
@@ -26,7 +26,7 @@ class FinanceViewController: UIViewController {
             var financeTotal = preSign + total.toMoneyString()
             totalL.text = financeTotal
             totalL.textColor = (total > 0 ? UIColor.greenColor() : UIColor.redColor())
-        }
+        } */
     }
 
     override func didReceiveMemoryWarning() {
