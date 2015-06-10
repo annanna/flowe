@@ -24,13 +24,6 @@ class Group: NSObject {
         self.creator = creator
     }
     
-    /*init(details: JSON) {
-        self.phoneNumber = details["phone"].stringValue
-        self.firstname = details["firstname"].stringValue
-        self.lastname = details["lastname"].stringValue
-        self.uid = details["_id"].stringValue
-    }*/
-    
     init(details: JSON) {
         println("group init")
         self.gID = details["_id"].stringValue
@@ -86,101 +79,22 @@ class Group: NSObject {
         return false
     }
     
-    /*func getTotalFinanceForUser(user:User) -> Double {
+    func updateTotal(transfer: MoneyTransfer) {
         var userHasToPay = 0.0
         var userHasPayed = 0.0
-        for transfer in transfers {
-            for payment in transfer.payed {
-                if payment.user.isSame(user) {
-                    userHasPayed += payment.amount
-                }
-            }
-            for payment in transfer.participated {
-                if payment.user.isSame(user) {
-                    userHasToPay -= payment.amount
-                }
+        
+        var whoPayed = transfer.payed
+        for pay in whoPayed {
+            if pay.user.uID == GlobalVar.currentUid {
+                userHasPayed += pay.amount
             }
         }
-        return (userHasPayed+userHasToPay).roundToMoney()
+        for part in transfer.participated {
+            if part.user.uID == GlobalVar.currentUid {
+                userHasToPay += part.amount
+            }
+        }
+        self.total = (userHasPayed - userHasToPay).roundToMoney()
     }
     
-    func calculateAccounts() -> [(user: User, action: String, amount: Double, partner: User)] {
-        var accounts:[(user: User, action: String, amount: Double, partner: User)] = []
-        
-        var pays:[(user: User, amount:Double)] = []
-        var gets:[(user: User, amount:Double)] = []
-        for user in users {
-            var amount = getTotalFinanceForUser(user)
-            if amount > 0 {
-                gets += [(user:user,amount:amount)]
-            } else if amount < 0 {
-                amount *= -1
-                pays += [(user:user,amount:amount)]
-            }
-        }
-        pays.sort({ $0.amount > $1.amount })
-        gets.sort({ $0.amount > $1.amount })
-        
-        var cnt = pays.count
-        if gets.count < pays.count {
-            cnt = gets.count
-        }
-        
-        var moneyLeftToPay = true
-        
-        while moneyLeftToPay {
-            var getAmount = (gets[0].amount).roundToMoney()
-            var payAmount = (pays[0].amount).roundToMoney()
-            if getAmount == payAmount {
-                println("\(pays[0].user.firstname) pays \(payAmount)€ to \(gets[0].user.firstname)")
-                accounts += [(user: pays[0].user, action: "pay", amount: payAmount, partner: gets[0].user)]
-                accounts += [(user: gets[0].user, action: "get", amount: payAmount, partner: pays[0].user)]
-                
-                getAmount = 0.0
-                payAmount = 0.0
-            } else if getAmount > payAmount {
-                println("\(pays[0].user.firstname) pays \(payAmount)€ to \(gets[0].user.firstname)")
-                accounts += [(user: pays[0].user, action: "pay", amount: payAmount, partner: gets[0].user)]
-                accounts += [(user: gets[0].user, action: "get", amount: payAmount, partner: pays[0].user)]
-                
-                getAmount -= payAmount
-                payAmount = 0.0
-            } else if getAmount < payAmount {
-                println("\(pays[0].user.firstname) pays \(getAmount)€ to \(gets[0].user.firstname)")
-                accounts += [(user: pays[0].user, action: "pay", amount: getAmount, partner: gets[0].user)]
-                accounts += [(user: gets[0].user, action: "get", amount: getAmount, partner: pays[0].user)]
-                
-                payAmount -= getAmount
-                getAmount = 0.0
-            }
-            // but new amounts back to list and sort to compare the highest values
-            gets[0].amount = getAmount
-            pays[0].amount = payAmount
-            pays.sort({ $0.amount > $1.amount })
-            gets.sort({ $0.amount > $1.amount })
-            if gets[0].amount == 0.0 && pays[0].amount == 0.0 {
-                moneyLeftToPay = false
-            } else if gets[0].amount < 0.01 || pays[0].amount < 0.01 {
-                // rounding error appeared
-                // should never happen anymore
-                println("GETS:")
-                println(gets[0].amount)
-                println("PAYS:")
-                println(pays[0].amount)
-                moneyLeftToPay = false
-            }
-        }
-        return accounts
-    }
-
-    func getAccountForUser(user: User) -> [(user: User, action: String, amount: Double, partner: User)] {
-        var allAccounts = calculateAccounts()
-        var userAccounts: [(user: User, action: String, amount: Double, partner: User)] = []
-        for account in allAccounts {
-            if account.user.isSame(user) {
-                userAccounts.append(account)
-            }
-        }
-        return userAccounts
-    } */
 }
