@@ -130,10 +130,16 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     }
     
     func generateTransferConclusion(transfer: MoneyTransfer) -> String {
-        var label = transfer.payed[0].user.firstname
+        var firstUser = transfer.payed[0].user
+        var label = firstUser.firstname
+        var verb = " hat "
+        if firstUser.uID == GlobalVar.currentUid {
+            label = "Du"
+            verb = " hast "
+        }
         var usersLeft = transfer.payed.count-1
         var count = 1
-        var verb = " hat "
+
         
         var joiner = ""
         if usersLeft > 0 {
@@ -144,7 +150,11 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
                 if count == usersLeft {
                     joiner = " und "
                 }
-                label += joiner + user.firstname
+                if user.uID == GlobalVar.currentUid {
+                    label += joiner + "du"
+                } else {
+                    label += joiner + user.firstname
+                }
                 count++
             }
         }
