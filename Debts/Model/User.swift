@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import SwiftyJSON
+import SwiftAddressBook
 
 class User: NSObject {
+    var uID: String = ""
     var phoneNumber:String //works as primary key for now -> what if changed?
     var firstname = ""
     var lastname = ""
@@ -44,6 +47,33 @@ class User: NSObject {
         self.phoneNumber = phone
         self.firstname = first
         self.lastname = last
+    }
+    
+    init(details: JSON) {
+        self.phoneNumber = details["phone"].stringValue
+        self.firstname = details["firstname"].stringValue
+        self.lastname = details["lastname"].stringValue
+        self.uID = details["_id"].stringValue
+    }
+    
+    init(person: SwiftAddressBookPerson) {
+        if let phone = person.phoneNumbers {
+            self.phoneNumber = phone[0].value
+        } else {
+            self.phoneNumber = ""
+        }
+        if let first = person.firstName {
+            self.firstname = first
+        }
+        if let last = person.lastName {
+            self.lastname = last
+        }
+        if let emails = person.emails {
+            self.email = emails[0].value
+        }
+        if person.hasImageData() {
+            self.img = person.image!
+        }
     }
     
     func getName() -> String {

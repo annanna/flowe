@@ -89,9 +89,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ooi-Na-yi9" id="GQG-zG-Qul">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="pGg-6v-bdr" kind="push" id="Tsj-MS-b7F"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -100,6 +97,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Select User" id="9md-kh-wLn"/>
+                    <connections>
+                        <segue destination="pGg-6v-bdr" kind="push" identifier="groupOverview" id="hbP-lw-iKE"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9US-t6-Zk8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

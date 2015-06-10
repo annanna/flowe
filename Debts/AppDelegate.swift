@@ -10,6 +10,7 @@ import UIKit
 
 struct GlobalVar {
     static var currentUser:User = User(rand: 1)
+    static var currentUid:String = ""
 }
 
 extension Double {
@@ -46,30 +47,9 @@ extension Float {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var groups = Groups()
 
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        groups = Groups()
-
-        var winterurlaub = Group(name: "Winterurlaub", users: [User(rand: 1), User(rand: 2), User(rand: 3)], creator: User(rand: 2))
-        var italiener = MoneyTransfer(name: "Italiener", creator: winterurlaub.creator, money: 57.12, notes: "")
-        italiener.payed = [(user: winterurlaub.creator, amount: 50), (user: User(rand: 3), amount: 7.12)]
-        italiener.participated = [(user: User(rand: 1), amount: 25.12), (user: User(rand: 3), amount: 32.0)]
-        winterurlaub.addTransfer(italiener)
-        
-        
-        var party = Group(name: "Geburtstagsparty", users: [User(rand:2), User(rand: 5), User(rand: 7)], creator: User(rand: 7))
-        var einkauf = MoneyTransfer(name: "Einkauf", creator: party.users[0], money: 13.50, notes: "")
-        einkauf.payed = [(user: party.creator, amount: einkauf.moneyPayed)]
-        einkauf.participated = [(user: User(rand: 2), amount: 6.75), (user: User(rand: 7), amount: 6.75)]
-        party.addTransfer(einkauf)
-        
-        groups.addGroup(winterurlaub)
-        groups.addGroup(party)
-
-        
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {        
         return true
     }
 

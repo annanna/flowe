@@ -11,11 +11,13 @@
 		7C2CE4691AFA5EF000F95F08 /* BalancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2CE4681AFA5EF000F95F08 /* BalancesViewController.swift */; };
 		7C5E32421B02712900EF9620 /* FinanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5E32411B02712900EF9620 /* FinanceViewController.swift */; };
 		7C5FACEB1AEBA39000E12DF0 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE61AEBA39000E12DF0 /* Group.swift */; };
-		7C5FACEC1AEBA39000E12DF0 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE71AEBA39000E12DF0 /* Groups.swift */; };
 		7C5FACED1AEBA39000E12DF0 /* MoneyTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE81AEBA39000E12DF0 /* MoneyTransfer.swift */; };
 		7C5FACEE1AEBA39000E12DF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5FACE91AEBA39000E12DF0 /* User.swift */; };
 		7C6406401AF8DDC8002AF7C8 /* TransferTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C64063F1AF8DDC8002AF7C8 /* TransferTableViewController.swift */; };
 		7C75F7C11AF76ABA000C96D2 /* BalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C75F7C01AF76ABA000C96D2 /* BalanceTableViewCell.swift */; };
+		7C7FA1131B284120007F46FF /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7FA1121B284120007F46FF /* JSONHelper.swift */; };
+		7C7FA1151B284128007F46FF /* RequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7FA1141B284128007F46FF /* RequestHelper.swift */; };
+		7C7FA1171B284132007F46FF /* UserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7FA1161B284132007F46FF /* UserHelper.swift */; };
 		7CCC26571AED58B600A987A0 /* ContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */; };
 		7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */; };
 		7CD2C7FB1ADD47DC00A2096E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F91ADD47DC00A2096E /* Main.storyboard */; };
@@ -29,6 +31,7 @@
 		7CFE34A01B209A9300DB03E2 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFE349F1B209A9300DB03E2 /* PeopleView.swift */; };
 		9519BAE31AFCD5F60024A8F0 /* AddGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9519BAE21AFCD5F60024A8F0 /* AddGroupTableViewController.swift */; };
 		F72081AA05177AF860C62D17 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C4B3299A8C9ADF7C64BBF2 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F8F1A1BF6D31B8BD090FBA74 /* Pods_Debts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF89652DBD4918E31A76E8B3 /* Pods_Debts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,17 +45,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		12E45C8B2C9B5C9EC3CFAF22 /* Pods-Debts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Debts.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Debts/Pods-Debts.debug.xcconfig"; sourceTree = "<group>"; };
 		54C4B3299A8C9ADF7C64BBF2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C0FCAAA1B02275400B0AF95 /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
 		7C2CE4681AFA5EF000F95F08 /* BalancesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalancesViewController.swift; sourceTree = "<group>"; };
 		7C5E32411B02712900EF9620 /* FinanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinanceViewController.swift; sourceTree = "<group>"; };
 		7C5FACE21AEB9AA100E12DF0 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		7C5FACE61AEBA39000E12DF0 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		7C5FACE71AEBA39000E12DF0 /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
 		7C5FACE81AEBA39000E12DF0 /* MoneyTransfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTransfer.swift; sourceTree = "<group>"; };
 		7C5FACE91AEBA39000E12DF0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7C64063F1AF8DDC8002AF7C8 /* TransferTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferTableViewController.swift; sourceTree = "<group>"; };
 		7C75F7C01AF76ABA000C96D2 /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
+		7C7FA1121B284120007F46FF /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
+		7C7FA1141B284128007F46FF /* RequestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestHelper.swift; sourceTree = "<group>"; };
+		7C7FA1161B284132007F46FF /* UserHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHelper.swift; sourceTree = "<group>"; };
 		7CCC26561AED58B600A987A0 /* ContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewController.swift; sourceTree = "<group>"; };
 		7CD2C7EE1ADD47DC00A2096E /* Debts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Debts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD2C7F21ADD47DC00A2096E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,6 +76,7 @@
 		7CFE349F1B209A9300DB03E2 /* PeopleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
 		9519BAE21AFCD5F60024A8F0 /* AddGroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroupTableViewController.swift; sourceTree = "<group>"; };
 		9F9B7A755E2834DF1A8129D1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		DF89652DBD4918E31A76E8B3 /* Pods_Debts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Debts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5FE7BB736248309DBBBCBFB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,6 +86,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F72081AA05177AF860C62D17 /* Pods.framework in Frameworks */,
+				F8F1A1BF6D31B8BD090FBA74 /* Pods_Debts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,12 +114,21 @@
 		7C5FACE51AEBA39000E12DF0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7C5FACE71AEBA39000E12DF0 /* Groups.swift */,
 				7C5FACE61AEBA39000E12DF0 /* Group.swift */,
 				7C5FACE91AEBA39000E12DF0 /* User.swift */,
 				7C5FACE81AEBA39000E12DF0 /* MoneyTransfer.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7C7FA1111B284106007F46FF /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				7C7FA1121B284120007F46FF /* JSONHelper.swift */,
+				7C7FA1141B284128007F46FF /* RequestHelper.swift */,
+				7C7FA1161B284132007F46FF /* UserHelper.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		7CD2C7E51ADD47DC00A2096E = {
@@ -150,6 +167,7 @@
 				7CD2C7F91ADD47DC00A2096E /* Main.storyboard */,
 				7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */,
 				7C2CE4671AF9EA4C00F95F08 /* View */,
+				7C7FA1111B284106007F46FF /* Helper */,
 				7C5FACE51AEBA39000E12DF0 /* Model */,
 				7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */,
 				7CD2C7F11ADD47DC00A2096E /* Supporting Files */,
@@ -187,6 +205,7 @@
 			children = (
 				9F9B7A755E2834DF1A8129D1 /* Pods.debug.xcconfig */,
 				F5FE7BB736248309DBBBCBFB /* Pods.release.xcconfig */,
+				12E45C8B2C9B5C9EC3CFAF22 /* Pods-Debts.debug.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -195,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				54C4B3299A8C9ADF7C64BBF2 /* Pods.framework */,
+				DF89652DBD4918E31A76E8B3 /* Pods_Debts.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -326,7 +346,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Debts/Pods-Debts-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		68B0FFE521A3A98FBF1562A2 /* Embed Pods Frameworks */ = {
@@ -341,7 +361,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Debts/Pods-Debts-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -354,6 +374,7 @@
 				7CDF66661AE80FEC00FE3E83 /* GroupOverviewTableViewController.swift in Sources */,
 				9519BAE31AFCD5F60024A8F0 /* AddGroupTableViewController.swift in Sources */,
 				7CFE34A01B209A9300DB03E2 /* PeopleView.swift in Sources */,
+				7C7FA1131B284120007F46FF /* JSONHelper.swift in Sources */,
 				7C75F7C11AF76ABA000C96D2 /* BalanceTableViewCell.swift in Sources */,
 				7CF965891AED11AE0020A023 /* PeopleButton.swift in Sources */,
 				7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */,
@@ -364,10 +385,11 @@
 				7C5E32421B02712900EF9620 /* FinanceViewController.swift in Sources */,
 				7CCC26571AED58B600A987A0 /* ContactTableViewController.swift in Sources */,
 				7C0FCAAB1B02275400B0AF95 /* UserTableViewController.swift in Sources */,
+				7C7FA1171B284132007F46FF /* UserHelper.swift in Sources */,
+				7C7FA1151B284128007F46FF /* RequestHelper.swift in Sources */,
 				7CF965BB1AED23B10020A023 /* GroupOverviewTableViewCell.swift in Sources */,
 				7C6406401AF8DDC8002AF7C8 /* TransferTableViewController.swift in Sources */,
 				7CDF666A1AE8113600FE3E83 /* GroupDescriptionViewController.swift in Sources */,
-				7C5FACEC1AEBA39000E12DF0 /* Groups.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,7 +514,7 @@
 		};
 		7CD2C8101ADD47DC00A2096E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F9B7A755E2834DF1A8129D1 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 12E45C8B2C9B5C9EC3CFAF22 /* Pods-Debts.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -506,7 +528,7 @@
 		};
 		7CD2C8111ADD47DC00A2096E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F5FE7BB736248309DBBBCBFB /* Pods.release.xcconfig */;
+			baseConfigurationReference = 12E45C8B2C9B5C9EC3CFAF22 /* Pods-Debts.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

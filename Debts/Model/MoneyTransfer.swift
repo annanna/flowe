@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class MoneyTransfer: NSObject {
+    var tID = ""
     var name = ""
     var timestamp = NSDate()
     var notes = ""
@@ -32,6 +34,43 @@ class MoneyTransfer: NSObject {
         self.moneyPayed = money.roundToMoney()
         if let n = notes {
             self.notes = n
+        }
+    }
+    
+    init(details: JSON) {
+        self.tID = details["_id"].stringValue
+        self.name = details["name"].stringValue
+        var created = details["created"].stringValue
+        println("Timestamp: \(created)")
+        let creatorId = details["creator"].stringValue
+        if let cre = UserHelper.getUser(creatorId) {
+            self.creator = cre
+        } else {
+            println("don't know this user")
+            self.creator = User(rand: 1)
+        }
+        
+        self.notes = details["notes"].stringValue
+        self.moneyPayed = details["total"].doubleValue
+        
+        if let whoPayedArray = details["whoPayed"].array {
+            for pay in whoPayedArray {
+                var userId = pay["user"].stringValue
+                if let u = UserHelper.getUser(userId) {
+                    var a:Double = pay["amount"].doubleValue
+                    payed += [(user:u, amount:a)]
+                }
+            }
+        }
+        
+        if let whoTookPartArray = details["whoTookPart"].array {
+            for part in whoTookPartArray {
+                var userId = part["user"].stringValue
+                if let u = UserHelper.getUser(userId) {
+                    var a:Double = part["amount"].doubleValue
+                    participated += [(user:u, amount:a)]
+                }
+            }
         }
     }
     

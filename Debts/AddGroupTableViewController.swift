@@ -9,28 +9,18 @@
 import UIKit
 
 class AddGroupTableViewController: UITableViewController {
-   @IBOutlet weak var groupName: UITextField!
-   @IBOutlet weak var memberView: UIView!
-   @IBAction func addContacts(segue: UIStoryboardSegue) {
-      if let contactVC = segue.sourceViewController as? ContactTableViewController {
-         self.selectedContacts = contactVC.selectedUsers
-         self.showMembersInView()
-      }
-   }
-   
-   var selectedContacts:[User] = []
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBOutlet weak var groupName: UITextField!
+    @IBOutlet weak var memberView: UIView!
+    
+    var selectedContacts:[User] = []
+    
+    @IBAction func addContacts(segue: UIStoryboardSegue) {
+        if let contactVC = segue.sourceViewController as? ContactTableViewController {
+            self.selectedContacts = contactVC.selectedUsers
+            
+            if let members = self.memberView as? PeopleView {
+                members.setPeopleInView(selectedContacts)
+            }
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-   
-   func showMembersInView() {
-      if let members = self.memberView as? PeopleView {
-         members.setPeopleInView(selectedContacts)
-      }
-   }
 }

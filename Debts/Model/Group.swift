@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class Group: NSObject {
+    var gID:String = ""
     var name = ""
     var created = NSDate()
     var users: [User] = []
@@ -20,6 +22,38 @@ class Group: NSObject {
         self.name = name
         self.users = users
         self.creator = creator
+    }
+    
+    /*init(details: JSON) {
+        self.phoneNumber = details["phone"].stringValue
+        self.firstname = details["firstname"].stringValue
+        self.lastname = details["lastname"].stringValue
+        self.uid = details["_id"].stringValue
+    }*/
+    
+    init(details: JSON) {
+        self.gID = details["_id"].stringValue
+        self.name = details["name"].stringValue
+        self.total = details["total"].doubleValue
+        
+        var created = details["created"].stringValue
+        println("Timestamp: \(created)")
+        
+        if let userArray = details["users"].array {
+            for user in userArray {
+                var u:User = User(details: user)
+                self.users.append(u)
+            }
+        }
+        
+        self.creator = User(details: details["creator"])
+        
+        if let transferArray = details["transfers"].array {
+            for transfer in transferArray {
+                var t:MoneyTransfer = MoneyTransfer(details: transfer)
+                self.transfers.append(t)
+            }
+        }
     }
     
     func getUsers() -> String {
