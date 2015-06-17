@@ -1,4 +1,9 @@
+.DS_Store
+
 Pods
 MyPlayground
 contents.xcworkspacedata
 xcuserdata
+
+
+node_modules
