@@ -30,6 +30,7 @@
 		7CD2C7FD1ADD47DC00A2096E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */; };
 		7CD2C8001ADD47DC00A2096E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */; };
 		7CD2C80C1ADD47DC00A2096E /* DebtsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */; };
+		C92D804121264D0B89F80452 /* Pods_Debts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF89652DBD4918E31A76E8B3 /* Pods_Debts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		7CD2C8051ADD47DC00A2096E /* DebtsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DebtsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD2C80A1ADD47DC00A2096E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtsTests.swift; sourceTree = "<group>"; };
+		8F6715B75A57B5681FA784C5 /* Pods-Debts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Debts.release.xcconfig"; path = "Pods/Target Support Files/Pods-Debts/Pods-Debts.release.xcconfig"; sourceTree = "<group>"; };
 		9F9B7A755E2834DF1A8129D1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DF89652DBD4918E31A76E8B3 /* Pods_Debts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Debts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5FE7BB736248309DBBBCBFB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C92D804121264D0B89F80452 /* Pods_Debts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,14 +102,14 @@
 		7C4ED23A1B31749D0042EFF2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7C4ED23B1B31749D0042EFF2 /* AddGroupTableViewController.swift */,
-				7C4ED23C1B31749D0042EFF2 /* BalancesViewController.swift */,
-				7C4ED23D1B31749D0042EFF2 /* ContactTableViewController.swift */,
-				7C4ED23E1B31749D0042EFF2 /* FinanceViewController.swift */,
-				7C4ED23F1B31749D0042EFF2 /* GroupDescriptionViewController.swift */,
-				7C4ED2401B31749D0042EFF2 /* GroupOverviewTableViewController.swift */,
-				7C4ED2411B31749D0042EFF2 /* TransferTableViewController.swift */,
 				7C4ED2421B31749D0042EFF2 /* UserTableViewController.swift */,
+				7C4ED2401B31749D0042EFF2 /* GroupOverviewTableViewController.swift */,
+				7C4ED23B1B31749D0042EFF2 /* AddGroupTableViewController.swift */,
+				7C4ED23D1B31749D0042EFF2 /* ContactTableViewController.swift */,
+				7C4ED23F1B31749D0042EFF2 /* GroupDescriptionViewController.swift */,
+				7C4ED2411B31749D0042EFF2 /* TransferTableViewController.swift */,
+				7C4ED23C1B31749D0042EFF2 /* BalancesViewController.swift */,
+				7C4ED23E1B31749D0042EFF2 /* FinanceViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -125,8 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				7C4ED2481B31749D0042EFF2 /* Group.swift */,
-				7C4ED2491B31749D0042EFF2 /* MoneyTransfer.swift */,
 				7C4ED24A1B31749D0042EFF2 /* User.swift */,
+				7C4ED2491B31749D0042EFF2 /* MoneyTransfer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -167,12 +170,12 @@
 			isa = PBXGroup;
 			children = (
 				7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */,
-				7C4ED2471B31749D0042EFF2 /* Models */,
 				7C4ED24B1B31749D0042EFF2 /* Views */,
 				7C4ED23A1B31749D0042EFF2 /* Controllers */,
 				7C4ED2431B31749D0042EFF2 /* Helpers */,
 				7CD2C7F91ADD47DC00A2096E /* Main.storyboard */,
 				7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */,
+				7C4ED2471B31749D0042EFF2 /* Models */,
 				7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */,
 				7CD2C7F11ADD47DC00A2096E /* Supporting Files */,
 			);
@@ -210,6 +213,7 @@
 				9F9B7A755E2834DF1A8129D1 /* Pods.debug.xcconfig */,
 				F5FE7BB736248309DBBBCBFB /* Pods.release.xcconfig */,
 				12E45C8B2C9B5C9EC3CFAF22 /* Pods-Debts.debug.xcconfig */,
+				8F6715B75A57B5681FA784C5 /* Pods-Debts.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -532,7 +536,7 @@
 		};
 		7CD2C8111ADD47DC00A2096E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 12E45C8B2C9B5C9EC3CFAF22 /* Pods-Debts.debug.xcconfig */;
+			baseConfigurationReference = 8F6715B75A57B5681FA784C5 /* Pods-Debts.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

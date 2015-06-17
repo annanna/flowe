@@ -79,7 +79,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == transferDetailIdentifier {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-                if let transfer = group?.transfers[indexPath.row] as MoneyTransfer! {
+                if let transfer = self.transfers[indexPath.row] as MoneyTransfer! {
                     let vc = segue.destinationViewController as! TransferTableViewController
                     vc.transferId = transfer.tID
                     vc.group = group

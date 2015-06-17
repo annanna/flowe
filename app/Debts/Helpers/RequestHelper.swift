@@ -15,10 +15,8 @@ public class RequestHelper {
     static let dataUrl = "https://flowe.herokuapp.com"
     
     class func postGroup(group: Group, callback:(Group) -> Void) {
-        var users = [[String: String]]()
-        for user in group.users {
-            users.append(["phone": user.phoneNumber])
-        }
+        var users = JSONHelper.createDictionaryFromUsers(group.users)
+        
         let postBody:[String: AnyObject] = [
             "name": group.name,
             "users": users,
