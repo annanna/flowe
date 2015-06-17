@@ -12,7 +12,7 @@ import SwiftyJSON
 
 public class RequestHelper {
     
-    static let dataUrl = "http://192.168.1.8:3000"
+    static let dataUrl = "https://flowe.herokuapp.com"
     
     class func postGroup(group: Group, callback:(Group) -> Void) {
         var users = [[String: String]]()
