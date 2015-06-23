@@ -78,7 +78,15 @@ class User: NSObject {
     }
     
     func getName() -> String {
-        return "\(Array(self.firstname)[0])\(Array(self.lastname)[0])"
+        var initials = ""
+        if count(self.firstname) > 0 {
+            initials += "\(Array(self.firstname)[0])"
+        }
+        if count(self.lastname) > 0 {
+            initials += "\(Array(self.lastname)[0])"
+        }
+        
+        return initials
     }
     
     func isSame(user:User) -> Bool {
