@@ -11,7 +11,6 @@
 import UIKit
 import Foundation
 import SwiftAddressBook
-import AddressBook
 
 class UserTableViewController: UITableViewController {
     
@@ -26,9 +25,9 @@ class UserTableViewController: UITableViewController {
         super.viewDidLoad()
         
         // load people and display them in tableview
-        self.loadPeopleFromAddressBook({(people) -> Void in
+        AddressBookHelper.loadPeopleFromAddressBook({(people) -> Void in
             let myContacts:[SwiftAddressBookPerson] = people
-            self.createSectionsArray(myContacts)
+            self.loadUsersInSections(myContacts)
             self.tableView.reloadData()
         })
         
@@ -38,20 +37,39 @@ class UserTableViewController: UITableViewController {
         self.tableView.backgroundColor = UIColor.whiteColor()
     }
     
-    func loadPeopleFromAddressBook(callback: [SwiftAddressBookPerson]->Void) {
-        let status: ABAuthorizationStatus = SwiftAddressBook.authorizationStatus()
-        let addressBook: SwiftAddressBook? = swiftAddressBook
-        swiftAddressBook?.requestAccessWithCompletion({(success, error) -> Void in
-            if success {
-                if let book = addressBook {
-                    if let people = book.allPeople {
-                        callback(people)
-                    }
+    func loadUsersInSections(fetchedContacts: [SwiftAddressBookPerson]) {
+        var myContacts = fetchedContacts //mutable copy
+        myContacts.sort({$0.firstName?.uppercaseString < $1.firstName?.uppercaseString})
+        
+        var sectionLetter = ""
+        var sectionIndex = -1
+        
+        self.contactSections = []
+        self.sectionNames = []
+        
+        for contact in myContacts {
+            if let first = contact.firstName {
+                let firstLetter = String(Array(first)[0])
+                
+                if sectionLetter != firstLetter {
+                    sectionNames.append(firstLetter)
+                    contactSections.append([])
+                    sectionIndex++
+                    sectionLetter = firstLetter
                 }
             } else {
-                println("User denied access to addressbook")
+                let alternateLetter = "#"
+                if let index = find(sectionNames, alternateLetter) {
+                    sectionIndex = index
+                } else{
+                    sectionNames.append(alternateLetter)
+                    contactSections.append([])
+                    sectionIndex++
+                    sectionLetter = alternateLetter
+                }
             }
-        })
+            contactSections[sectionIndex].append(contact)
+        }
     }
     
     // MARK: - Table view data source & Delegate
@@ -65,7 +83,6 @@ class UserTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-     //   return self.myContacts.count
         return self.contactSections[section].count
     }
     
@@ -75,7 +92,6 @@ class UserTableViewController: UITableViewController {
         
         let user = self.contactSections[indexPath.section][indexPath.row]
         var person: User = User(person: user)
-        //var person: User = User(person: myContacts[indexPath.row])
         
         let labelText = "\(person.firstname) \(person.lastname)"
         let highlightRange = (labelText as NSString).rangeOfString(person.firstname)
@@ -116,44 +132,5 @@ class UserTableViewController: UITableViewController {
     func proceedWithSelectedUser(uid: String) {
         GlobalVar.currentUid = uid
         self.performSegueWithIdentifier(groupOverviewIdentifier, sender: self)
-    }
-    
-    func sortNames(s1: String, s2: String) -> Bool {
-        return s1 < s2
-    }
-    
-    func createSectionsArray(fetchedContacts: [SwiftAddressBookPerson]) {
-        var myContacts = fetchedContacts //mutable copy
-        myContacts.sort({$0.firstName?.uppercaseString < $1.firstName?.uppercaseString})
-        
-        var sectionLetter = ""
-        var sectionIndex = -1
-        
-        self.contactSections = []
-        self.sectionNames = []
-        
-        for contact in myContacts {
-            if let first = contact.firstName {
-                let firstLetter = String(Array(first)[0])
-                
-                if sectionLetter != firstLetter {
-                    sectionNames.append(firstLetter)
-                    contactSections.append([])
-                    sectionIndex++
-                    sectionLetter = firstLetter
-                }
-            } else {
-                let alternateLetter = "#"
-                if let index = find(sectionNames, alternateLetter) {
-                    sectionIndex = index
-                } else{
-                    sectionNames.append(alternateLetter)
-                    contactSections.append([])
-                    sectionIndex++
-                    sectionLetter = alternateLetter
-                }
-            }
-            contactSections[sectionIndex].append(contact)
-        }
     }
 }

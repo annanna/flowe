@@ -8,7 +8,6 @@
 
 import UIKit
 import SwiftAddressBook
-import AddressBook
 
 class ContactTableViewController: UITableViewController {
     
@@ -26,7 +25,7 @@ class ContactTableViewController: UITableViewController {
         
         // load people and display them in tableview
         // code duplication for now with UserTableViewController, but UserTableViewController is just a temporary login replacing view
-        self.loadPeopleFromAddressBook({(people) -> Void in
+        AddressBookHelper.loadPeopleFromAddressBook({(people) -> Void in
             let myContacts:[SwiftAddressBookPerson] = people
             self.loadUsersInSections(myContacts)
             self.tableView.reloadData()
@@ -40,22 +39,6 @@ class ContactTableViewController: UITableViewController {
         var backgroundView = UIView(frame: CGRectZero)
         self.tableView.tableFooterView = backgroundView
         self.tableView.backgroundColor = UIColor.whiteColor()
-    }
-    
-    func loadPeopleFromAddressBook(callback: [SwiftAddressBookPerson]->Void) {
-        let status: ABAuthorizationStatus = SwiftAddressBook.authorizationStatus()
-        let addressBook: SwiftAddressBook? = swiftAddressBook
-        swiftAddressBook?.requestAccessWithCompletion({(success, error) -> Void in
-            if success {
-                if let book = addressBook {
-                    if let people = book.allPeople {
-                        callback(people)
-                    }
-                }
-            } else {
-                println("User denied access to addressbook")
-            }
-        })
     }
     
     func loadUsersInSections(fetchedContacts: [SwiftAddressBookPerson]) {
