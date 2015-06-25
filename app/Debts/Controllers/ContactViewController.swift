@@ -39,12 +39,9 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
             self.spinner.stopAnimating()
             self.contactTableView.reloadData()
         })
-        
-        self.contactTableView.allowsMultipleSelection = true
-        var doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "donePressed:")
-        self.navigationItem.rightBarButtonItem = doneBtn
-        
+
         // hide empty cells
+        self.contactTableView.allowsMultipleSelection = true
         var backgroundView = UIView(frame: CGRectZero)
         self.contactTableView.tableFooterView = backgroundView
         self.contactTableView.backgroundColor = colors.bgGreen
@@ -114,20 +111,18 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         return cell
     }
     
-    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // to handle select and deselect-event in one method, deselect here and handle deselection myself
+        self.contactTableView.deselectRowAtIndexPath(indexPath, animated: false)
         
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        cell?.accessoryType = .Checkmark
-    }
-    
-    // MARK: - Navigation
-    
-    func donePressed(btn: UIBarButtonItem!) {
-        var paths: [NSIndexPath] = self.contactTableView.indexPathsForSelectedRows() as! [NSIndexPath]
-        for path in paths {
-            selectedUsers.append(self.contactSections[path.section][path.row])
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! ContactTableViewCell
+        cell.selectedInMultipleMode = !cell.selectedInMultipleMode
+        
+        let user: User = self.contactSections[indexPath.section][indexPath.row]
+        if cell.selectedInMultipleMode {
+            self.selectedUsers.append(user)
+        } else {
+            self.selectedUsers.removeAtIndex(find(self.selectedUsers, user)!)
         }
-        self.performSegueWithIdentifier(addContactIdentifier, sender: self)
     }
 }

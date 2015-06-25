@@ -751,13 +751,20 @@
                             <constraint firstItem="wta-sn-6j1" firstAttribute="top" secondItem="fhU-vL-PAS" secondAttribute="bottom" id="wjE-vc-KIz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Select Contacts" id="yYv-pG-7Uv"/>
+                    <navigationItem key="navigationItem" title="Select Contacts" id="yYv-pG-7Uv">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="cGo-bE-5Fy">
+                            <connections>
+                                <segue destination="X2q-8q-KIh" kind="unwind" unwindAction="addContacts:" id="9Kt-jl-Tpc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="contactTableView" destination="wta-sn-6j1" id="8BA-O9-fif"/>
                         <outlet property="spinner" destination="OpK-hz-IPF" id="9tF-Yg-nBz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SI8-77-Kka" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="X2q-8q-KIh" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2693" y="-824"/>
         </scene>

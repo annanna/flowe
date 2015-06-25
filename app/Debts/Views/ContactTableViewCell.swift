@@ -13,31 +13,22 @@ class ContactTableViewCell: UITableViewCell {
     @IBOutlet weak var peopleLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = UITableViewCellSelectionStyle.None
+        self.selected = false
         self.contentView.backgroundColor = colors.green
         self.peopleLabel.textColor = UIColor.whiteColor()
     }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // TODO: why is label text removed between first and second call?
-//        if selected {
-//            println("Label text: \(self.peopleLabel.text!)")
-//        } else {
-//
-//        }
-
+    
+    override var selected : Bool {
+        didSet {
+            
+            self.backgroundColor = selected ? colors.red : colors.green
+        }
     }
     
-    override func setHighlighted(highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
-        
-        // workaround for selection status - would be better to select instead of highlighting
-        if highlighted {
-            self.contentView.backgroundColor = colors.red
-        } else {
-            self.contentView.backgroundColor = colors.green
+    var selectedInMultipleMode : Bool = false {
+        didSet {
+            self.backgroundColor = selectedInMultipleMode ? colors.bgGreen : colors.green
+            self.accessoryType = selectedInMultipleMode ? .Checkmark : .None
         }
     }
     
