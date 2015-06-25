@@ -9,7 +9,10 @@
 import UIKit
 import SwiftAddressBook
 
-class ContactTableViewController: UITableViewController {
+class ContactViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    @IBOutlet weak var contactTableView: UITableView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var selectedUsers = [User]()
     var contactSections = [[User]]()
@@ -23,22 +26,28 @@ class ContactTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // set up loading indicator
+        self.spinner.color = colors.red
+        self.spinner.startAnimating()
+        self.spinner.hidesWhenStopped = true
+        
         // load people and display them in tableview
         // code duplication for now with UserTableViewController, but UserTableViewController is just a temporary login replacing view
         AddressBookHelper.loadPeopleFromAddressBook({(people) -> Void in
             let myContacts:[SwiftAddressBookPerson] = people
             self.loadUsersInSections(myContacts)
-            self.tableView.reloadData()
+            self.spinner.stopAnimating()
+            self.contactTableView.reloadData()
         })
         
-        self.tableView.allowsMultipleSelection = true
+        self.contactTableView.allowsMultipleSelection = true
         var doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "donePressed:")
         self.navigationItem.rightBarButtonItem = doneBtn
         
         // hide empty cells
         var backgroundView = UIView(frame: CGRectZero)
-        self.tableView.tableFooterView = backgroundView
-        self.tableView.backgroundColor = UIColor.whiteColor()
+        self.contactTableView.tableFooterView = backgroundView
+        self.contactTableView.backgroundColor = colors.bgGreen
     }
     
     func loadUsersInSections(fetchedContacts: [SwiftAddressBookPerson]) {
@@ -85,35 +94,28 @@ class ContactTableViewController: UITableViewController {
     
     // MARK: - Table view data source & Delegate
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return self.contactSections.count
     }
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.sectionNames[section]
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.contactSections[section].count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(contactCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(contactCellIdentifier, forIndexPath: indexPath) as! ContactTableViewCell
         var person: User = self.contactSections[indexPath.section][indexPath.row]
         
-        let labelText = "\(person.firstname) \(person.lastname)"
-        let highlightRange = (labelText as NSString).rangeOfString(person.lastname)
-        // create attributed string so that lastname is displayed in bold
-        let attributedString = NSMutableAttributedString(string: labelText, attributes:[NSFontAttributeName : UIFont.systemFontOfSize(17.0)])
-        attributedString.setAttributes([NSFontAttributeName : UIFont.boldSystemFontOfSize(17)], range: highlightRange)
-        
-        cell.textLabel?.attributedText = attributedString
-        cell.textLabel?.textColor = UIColor.darkGrayColor()
+        cell.displayNameOfUser(person)
         
         return cell
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         cell?.accessoryType = .Checkmark
@@ -122,7 +124,7 @@ class ContactTableViewController: UITableViewController {
     // MARK: - Navigation
     
     func donePressed(btn: UIBarButtonItem!) {
-        var paths: [NSIndexPath] = tableView.indexPathsForSelectedRows() as! [NSIndexPath]
+        var paths: [NSIndexPath] = self.contactTableView.indexPathsForSelectedRows() as! [NSIndexPath]
         for path in paths {
             selectedUsers.append(self.contactSections[path.section][path.row])
         }

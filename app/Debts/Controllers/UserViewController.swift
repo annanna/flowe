@@ -1,10 +1,8 @@
 //
-//  UserTableViewController.swift
+//  UserViewController.swift
 //  Debts
 //
-//  Temporary view for replacing login while development
-//
-//  Created by Anna on 12.05.15.
+//  Created by Anna on 23.06.15.
 //  Copyright (c) 2015 Anna Muenster. All rights reserved.
 //
 
@@ -12,10 +10,13 @@ import UIKit
 import Foundation
 import SwiftAddressBook
 
-class UserTableViewController: UITableViewController {
+class UserViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var contactTableView: UITableView!
     
     let groupOverviewIdentifier = "groupOverview"
-    let userCellIdentifier = "userCell"
+    let userCellIdentifier = "ContactCell"
     var contactSections = [[SwiftAddressBookPerson]]()
     var sectionNames = [String]()
     
@@ -24,17 +25,24 @@ class UserTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // set up loading indicator
+        self.spinner.color = colors.red
+        self.spinner.startAnimating()
+        self.spinner.hidesWhenStopped = true
+        
         // load people and display them in tableview
         AddressBookHelper.loadPeopleFromAddressBook({(people) -> Void in
             let myContacts:[SwiftAddressBookPerson] = people
             self.loadUsersInSections(myContacts)
-            self.tableView.reloadData()
+            self.spinner.stopAnimating()
+            self.contactTableView.reloadData()
         })
         
         // hide empty cells
         var backgroundView = UIView(frame: CGRectZero)
-        self.tableView.tableFooterView = backgroundView
-        self.tableView.backgroundColor = UIColor.whiteColor()
+        self.contactTableView.tableFooterView = backgroundView
+        self.contactTableView.backgroundColor = colors.bgGreen
+        self.contactTableView.bounces = true
     }
     
     func loadUsersInSections(fetchedContacts: [SwiftAddressBookPerson]) {
@@ -74,63 +82,60 @@ class UserTableViewController: UITableViewController {
     
     // MARK: - Table view data source & Delegate
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return self.contactSections.count
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.sectionNames[section]
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.contactSections[section].count
     }
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(userCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(userCellIdentifier, forIndexPath: indexPath) as! ContactTableViewCell
         
         let user = self.contactSections[indexPath.section][indexPath.row]
         var person: User = User(person: user)
-        
-        let labelText = "\(person.firstname) \(person.lastname)"
-        let highlightRange = (labelText as NSString).rangeOfString(person.firstname)
-        // create attributed string so that lastname is displayed in bold
-        let attributedString = NSMutableAttributedString(string: labelText, attributes:[NSFontAttributeName : UIFont.systemFontOfSize(17.0)])
-        attributedString.setAttributes([NSFontAttributeName : UIFont.boldSystemFontOfSize(17)], range: highlightRange)
-        
-        cell.textLabel?.attributedText = attributedString
-        cell.textLabel?.textColor = UIColor.darkGrayColor()
+        cell.displayNameOfUser(person)
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.dequeueReusableCellWithIdentifier(userCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
-        var person: User = User(person: self.contactSections[indexPath.section][indexPath.row])
-        GlobalVar.currentUser = person
-        
-        // get user details or if it does not exist, create a new on and proceed
-        RequestHelper.getUserDetails(person, callback: { (userData) -> Void in
-            var uid = userData.uID
-            
-            if count(uid) > 0 {
-                println("Successfully fetched uid \(uid)")
-                self.proceedWithSelectedUser(uid)
-            } else {
-                RequestHelper.createUser(person, callback: { (uData) -> Void in
-                    uid = uData.uID
-                    println("Successfully created user with uid \(uid)")
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(userCellIdentifier, forIndexPath: indexPath) as? ContactTableViewCell {
+            self.spinner.startAnimating()
+            var person: User = User(person: self.contactSections[indexPath.section][indexPath.row])
+            GlobalVar.currentUser = person
+            self.contactTableView.deselectRowAtIndexPath(indexPath, animated: true)
+            // get user details or if it does not exist, create a new on and proceed
+            RequestHelper.getUserDetails(person, callback: { (userData) -> Void in
+                var uid = userData.uID
+                
+                if count(uid) > 0 {
+                    self.contactTableView.deselectRowAtIndexPath(indexPath, animated: true)
+                    println("Successfully fetched uid \(uid)")
                     self.proceedWithSelectedUser(uid)
-                })
-            }
-        })
+                } else {
+                    RequestHelper.createUser(person, callback: { (uData) -> Void in
+                        uid = uData.uID
+                        self.contactTableView.deselectRowAtIndexPath(indexPath, animated: true)
+                        println("Successfully created user with uid \(uid)")
+                        self.proceedWithSelectedUser(uid)
+                    })
+                }
+            })
+        }
     }
     
     // MARK: - Navigation
     
     func proceedWithSelectedUser(uid: String) {
         GlobalVar.currentUid = uid
+        self.spinner.stopAnimating()
         self.performSegueWithIdentifier(groupOverviewIdentifier, sender: self)
     }
 }

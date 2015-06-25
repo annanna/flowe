@@ -15,7 +15,7 @@ class AddGroupTableViewController: UITableViewController {
     var selectedContacts = [User]()
     
     @IBAction func addContacts(segue: UIStoryboardSegue) {
-        if let contactVC = segue.sourceViewController as? ContactTableViewController {
+        if let contactVC = segue.sourceViewController as? ContactViewController {
             self.selectedContacts = contactVC.selectedUsers
             
             if let members = self.memberView as? PeopleView {
