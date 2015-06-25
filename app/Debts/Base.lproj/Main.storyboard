@@ -702,6 +702,14 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="wta-sn-6j1">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" hidden="YES" contentMode="redraw" searchBarStyle="minimal" placeholder="Suchen" id="GCz-ou-Ex9">
+                                    <rect key="frame" x="0.0" y="262" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="Qvf-p2-Xna" id="Wdd-LO-crl"/>
+                                    </connections>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContactCell" rowHeight="44" id="Zw0-YR-1pb" customClass="ContactTableViewCell" customModule="Debts" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="262" width="320" height="44"/>
@@ -768,6 +776,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="contactTableView" destination="wta-sn-6j1" id="8BA-O9-fif"/>
+                        <outlet property="searchBar" destination="GCz-ou-Ex9" id="aAd-FZ-5Mq"/>
                         <outlet property="spinner" destination="OpK-hz-IPF" id="9tF-Yg-nBz"/>
                     </connections>
                 </viewController>

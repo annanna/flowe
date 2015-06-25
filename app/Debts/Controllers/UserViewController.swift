@@ -18,18 +18,18 @@ class UserViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     let groupOverviewIdentifier = "groupOverview"
     let userCellIdentifier = "ContactCell"
-    var contactSections = [[SwiftAddressBookPerson]]()
-    var sectionNames = [String]()
     
+    var sectionNames = [String]()
+    var peopleToDisplayInSections = [[SwiftAddressBookPerson]]()
+
+    var contactSections = [[SwiftAddressBookPerson]]()
+    var filterSections:[[SwiftAddressBookPerson]] = [[]]
     var searchMode: Bool = false {
         didSet {
             peopleToDisplayInSections = searchMode ? filterSections : contactSections
             self.contactTableView.reloadData()
         }
     }
-    var filterSections:[[SwiftAddressBookPerson]] = [[]]
-    
-    var peopleToDisplayInSections = [[SwiftAddressBookPerson]]()
     
     // MARK: - View Set Up
     
@@ -115,7 +115,6 @@ class UserViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return self.peopleToDisplayInSections[section].count
     }
     
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(userCellIdentifier, forIndexPath: indexPath) as! ContactTableViewCell
         
@@ -129,7 +128,7 @@ class UserViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let cell = tableView.dequeueReusableCellWithIdentifier(userCellIdentifier, forIndexPath: indexPath) as? ContactTableViewCell {
             
-            //
+            // workaround: for some reasons search messes up the cells...
             self.contactTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
             cell.selected = true
             self.spinner.startAnimating()

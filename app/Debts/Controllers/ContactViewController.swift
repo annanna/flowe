@@ -9,17 +9,27 @@
 import UIKit
 import SwiftAddressBook
 
-class ContactViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ContactViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var contactTableView: UITableView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
-    var selectedUsers = [User]()
-    var contactSections = [[User]]()
-    var sectionNames = [String]()
+    @IBOutlet weak var searchBar: UISearchBar!
     
     let contactCellIdentifier = "ContactCell"
     let addContactIdentifier = "AddContact"
+    
+    var sectionNames = [String]()
+    var peopleToDisplayInSections = [[User]]()
+    var selectedUsers = [User]()
+    
+    var contactSections = [[User]]()
+    var filterSections:[[User]] = [[]]
+    var searchMode: Bool = false {
+        didSet {
+            peopleToDisplayInSections = searchMode ? filterSections : contactSections
+            self.contactTableView.reloadData()
+        }
+    }
     
     // MARK: - View Set Up
     
@@ -36,8 +46,9 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         AddressBookHelper.loadPeopleFromAddressBook({(people) -> Void in
             let myContacts:[SwiftAddressBookPerson] = people
             self.loadUsersInSections(myContacts)
+            self.searchMode = false
+            self.searchBar.hidden = false
             self.spinner.stopAnimating()
-            self.contactTableView.reloadData()
         })
 
         // hide empty cells
@@ -92,19 +103,22 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     // MARK: - Table view data source & Delegate
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return self.contactSections.count
+        return self.peopleToDisplayInSections.count
     }
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if searchMode {
+            return ""
+        }
         return self.sectionNames[section]
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.contactSections[section].count
+        return self.peopleToDisplayInSections[section].count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(contactCellIdentifier, forIndexPath: indexPath) as! ContactTableViewCell
-        var person: User = self.contactSections[indexPath.section][indexPath.row]
+        var person: User = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
         
         cell.displayNameOfUser(person)
         
@@ -116,13 +130,47 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         self.contactTableView.deselectRowAtIndexPath(indexPath, animated: false)
         
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! ContactTableViewCell
+        // workaround: for some reasons search messes up the cells...
+        //self.contactTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        
         cell.selectedInMultipleMode = !cell.selectedInMultipleMode
         
-        let user: User = self.contactSections[indexPath.section][indexPath.row]
+        let user: User = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
         if cell.selectedInMultipleMode {
             self.selectedUsers.append(user)
         } else {
             self.selectedUsers.removeAtIndex(find(self.selectedUsers, user)!)
         }
+    }
+    
+    // MARK: - Search
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        self.filterSections[0] = [User]()
+        if count(searchText) > 0 {
+            for users in contactSections {
+                
+                let filteredUsers: [User] = users.filter({ (user: User) -> Bool in
+                    var name = "\(user.firstname)\(user.lastname)"
+                    let range = (name as NSString).rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+                    return range.location != NSNotFound
+                })
+                
+                self.filterSections[0] += filteredUsers
+            }
+            self.searchMode = true
+        } else {
+            self.searchMode = false
+        }
+        self.contactTableView.reloadData()
+    }
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.text = ""
+        self.searchMode = false
+        searchBar.endEditing(true)
+        searchBar.setShowsCancelButton(false, animated: true)
+        self.contactTableView.reloadData()
     }
 }
