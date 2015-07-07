@@ -11,6 +11,7 @@
 
 import UIKit
 import AVFoundation
+import SwiftyJSON
 
 class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
@@ -75,7 +76,18 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
                     qrCodeFrameView?.frame = barCodeObj.bounds
 
                     if metadataObj.stringValue != nil {
-                        messageLabel.text = metadataObj.stringValue
+                        
+                        let dataString = metadataObj.stringValue
+                        let data = dataString.dataUsingEncoding(NSISOLatin1StringEncoding, allowLossyConversion: false)
+
+                        let json:JSON = JSON(data: data!)
+                        let transferName = json["name"].stringValue
+                        messageLabel.text = transferName
+                        captureSession?.stopRunning()
+                        captureSession = nil
+                        videoPreviewLayer?.removeFromSuperlayer()
+                    } else {
+                        println("no string value detected..")
                         captureSession?.stopRunning()
                         captureSession = nil
                         videoPreviewLayer?.removeFromSuperlayer()
@@ -83,6 +95,10 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
                 }
             }
         }
+    }
+    
+    @IBAction func donePressed(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
 }

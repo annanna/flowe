@@ -38,6 +38,7 @@
 		7CDBF1161B4BF36800F5F89F /* reader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CDBF1121B4BF36800F5F89F /* reader@2x.png */; };
 		7CDBF1181B4BF3D400F5F89F /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDBF1171B4BF3D400F5F89F /* QRCodeScannerViewController.swift */; };
 		7CDBF11A1B4BFA2200F5F89F /* QRCodeCreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDBF1191B4BFA2200F5F89F /* QRCodeCreatorViewController.swift */; };
+		7CDBF11C1B4C0AA900F5F89F /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDBF11B1B4C0AA900F5F89F /* SyncViewController.swift */; };
 		C92D804121264D0B89F80452 /* Pods_Debts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF89652DBD4918E31A76E8B3 /* Pods_Debts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -90,6 +91,7 @@
 		7CDBF1121B4BF36800F5F89F /* reader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reader@2x.png"; sourceTree = "<group>"; };
 		7CDBF1171B4BF3D400F5F89F /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		7CDBF1191B4BFA2200F5F89F /* QRCodeCreatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeCreatorViewController.swift; sourceTree = "<group>"; };
+		7CDBF11B1B4C0AA900F5F89F /* SyncViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
 		8F6715B75A57B5681FA784C5 /* Pods-Debts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Debts.release.xcconfig"; path = "Pods/Target Support Files/Pods-Debts/Pods-Debts.release.xcconfig"; sourceTree = "<group>"; };
 		9F9B7A755E2834DF1A8129D1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DF89652DBD4918E31A76E8B3 /* Pods_Debts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Debts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +128,7 @@
 				7C4ED2411B31749D0042EFF2 /* TransferTableViewController.swift */,
 				7C4ED23C1B31749D0042EFF2 /* BalancesViewController.swift */,
 				7C4ED23E1B31749D0042EFF2 /* FinanceViewController.swift */,
+				7CDBF11B1B4C0AA900F5F89F /* SyncViewController.swift */,
 				7CDBF1171B4BF3D400F5F89F /* QRCodeScannerViewController.swift */,
 				7CDBF1191B4BFA2200F5F89F /* QRCodeCreatorViewController.swift */,
 			);
@@ -438,6 +441,7 @@
 				7C4ED2531B31749D0042EFF2 /* FinanceViewController.swift in Sources */,
 				7C4ED25E1B31749D0042EFF2 /* BalanceTableViewCell.swift in Sources */,
 				7C4ED2581B31749D0042EFF2 /* JSONHelper.swift in Sources */,
+				7CDBF11C1B4C0AA900F5F89F /* SyncViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

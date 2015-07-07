@@ -18,6 +18,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     let transferDetailIdentifier = "showTransfer"
     let transferCell = "transferCell"
     let financeIdentifier = "showFinance"
+    let syncIdentifier = "showSync"
     
     var group:Group?
     var transfers = [MoneyTransfer]()
@@ -94,6 +95,13 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             if let financeVC = segue.destinationViewController as? FinanceViewController {
                 financeVC.total = self.group!.total
                 financeVC.groupId = self.group!.gID
+            }
+        } else if segue.identifier == syncIdentifier {
+            
+            if let syncVC = segue.destinationViewController as? SyncViewController {
+                syncVC.groupId = self.groupId
+                syncVC.group = self.group!
+                syncVC.transfers = self.transfers
             }
         }
     }

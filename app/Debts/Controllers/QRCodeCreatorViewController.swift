@@ -16,20 +16,61 @@ class QRCodeCreatorViewController: UIViewController {
     @IBOutlet weak var imgQRCode: UIImageView!
     
     var qrcodeImg: CIImage!
+    //var sendingData: NSData!
+    var transfer: MoneyTransfer!
     
     override func viewDidLoad() {
+        println("\(transfer.name)")
         super.viewDidLoad()
-        self.generateImg()
+        //self.generateImg()
+        self.generateDataFromTransfer()
     }
     
-    func generateImg() {
+    func generateDataFromTransfer() {
+        let transferDictionary : [String: AnyObject] =
+            [
+                "tID": transfer.tID,
+                "name": transfer.name,
+                //"timestamp": transfer.timestamp,
+                "notes": transfer.notes,
+                "creator": transfer.creator.uID,
+                "moneyPayed": transfer.moneyPayed
+            ]
+        /*
+        let transferData: NSData = NSKeyedArchiver.archivedDataWithRootObject(transferDictionary)
+        let transferDic: AnyObject? = NSKeyedUnarchiver.unarchiveObjectWithData(transferData)
+        
+        let dataString = NSString(data: transferData, encoding: NSUTF8StringEncoding)
+        println(dataString)
+        */
+        var dataString = JSONStringify(transferDictionary)
+        
+        
+        let transferData = dataString.dataUsingEncoding(NSISOLatin1StringEncoding, allowLossyConversion: false)
+        
+        self.generateImg(transferData!)
+        
+    }
+    
+    func JSONStringify(jsonObj: AnyObject) -> String {
+        var e: NSError?
+        let jsonData = NSJSONSerialization.dataWithJSONObject(
+            jsonObj,
+            options: NSJSONWritingOptions(0),
+            error: &e)
+        if e != nil {
+            return ""
+        } else {
+            var dataString = NSString(data: jsonData!, encoding: NSUTF8StringEncoding)
+            return (dataString! as! String)
+        }
+    }
+    
+    func generateImg(dataToSend: NSData) {
         if qrcodeImg == nil {
-            let sampleString = "anna"
-            let data = (sampleString as NSString).dataUsingEncoding(NSUTF8StringEncoding)
-            
             
             let filter = CIFilter(name: "CIQRCodeGenerator")
-            filter.setValue(data, forKey: "inputMessage")
+            filter.setValue(dataToSend, forKey: "inputMessage")
             filter.setValue("Q", forKey: "inputCorrectionLevel")
             
             qrcodeImg = filter.outputImage
@@ -47,4 +88,7 @@ class QRCodeCreatorViewController: UIViewController {
         imgQRCode.image = UIImage(CIImage: transformedImg)
     }
 
+    @IBAction func donePressed(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
