@@ -32,6 +32,12 @@
 		7CD2C7FD1ADD47DC00A2096E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */; };
 		7CD2C8001ADD47DC00A2096E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */; };
 		7CD2C80C1ADD47DC00A2096E /* DebtsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */; };
+		7CDBF1131B4BF36800F5F89F /* creator.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CDBF10F1B4BF36800F5F89F /* creator.png */; };
+		7CDBF1141B4BF36800F5F89F /* creator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CDBF1101B4BF36800F5F89F /* creator@2x.png */; };
+		7CDBF1151B4BF36800F5F89F /* reader.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CDBF1111B4BF36800F5F89F /* reader.png */; };
+		7CDBF1161B4BF36800F5F89F /* reader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CDBF1121B4BF36800F5F89F /* reader@2x.png */; };
+		7CDBF1181B4BF3D400F5F89F /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDBF1171B4BF3D400F5F89F /* QRCodeScannerViewController.swift */; };
+		7CDBF11A1B4BFA2200F5F89F /* QRCodeCreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDBF1191B4BFA2200F5F89F /* QRCodeCreatorViewController.swift */; };
 		C92D804121264D0B89F80452 /* Pods_Debts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF89652DBD4918E31A76E8B3 /* Pods_Debts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -78,6 +84,12 @@
 		7CD2C8051ADD47DC00A2096E /* DebtsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DebtsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD2C80A1ADD47DC00A2096E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtsTests.swift; sourceTree = "<group>"; };
+		7CDBF10F1B4BF36800F5F89F /* creator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = creator.png; sourceTree = "<group>"; };
+		7CDBF1101B4BF36800F5F89F /* creator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "creator@2x.png"; sourceTree = "<group>"; };
+		7CDBF1111B4BF36800F5F89F /* reader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reader.png; sourceTree = "<group>"; };
+		7CDBF1121B4BF36800F5F89F /* reader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reader@2x.png"; sourceTree = "<group>"; };
+		7CDBF1171B4BF3D400F5F89F /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
+		7CDBF1191B4BFA2200F5F89F /* QRCodeCreatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeCreatorViewController.swift; sourceTree = "<group>"; };
 		8F6715B75A57B5681FA784C5 /* Pods-Debts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Debts.release.xcconfig"; path = "Pods/Target Support Files/Pods-Debts/Pods-Debts.release.xcconfig"; sourceTree = "<group>"; };
 		9F9B7A755E2834DF1A8129D1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DF89652DBD4918E31A76E8B3 /* Pods_Debts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Debts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +126,8 @@
 				7C4ED2411B31749D0042EFF2 /* TransferTableViewController.swift */,
 				7C4ED23C1B31749D0042EFF2 /* BalancesViewController.swift */,
 				7C4ED23E1B31749D0042EFF2 /* FinanceViewController.swift */,
+				7CDBF1171B4BF3D400F5F89F /* QRCodeScannerViewController.swift */,
+				7CDBF1191B4BFA2200F5F89F /* QRCodeCreatorViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -183,6 +197,7 @@
 				7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */,
 				7C4ED2471B31749D0042EFF2 /* Models */,
 				7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */,
+				7CDBF10E1B4BF34400F5F89F /* Images */,
 				7CD2C7F11ADD47DC00A2096E /* Supporting Files */,
 			);
 			path = Debts;
@@ -193,7 +208,7 @@
 			children = (
 				7CD2C7F21ADD47DC00A2096E /* Info.plist */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		7CD2C8081ADD47DC00A2096E /* DebtsTests */ = {
@@ -210,7 +225,18 @@
 			children = (
 				7CD2C80A1ADD47DC00A2096E /* Info.plist */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7CDBF10E1B4BF34400F5F89F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				7CDBF10F1B4BF36800F5F89F /* creator.png */,
+				7CDBF1101B4BF36800F5F89F /* creator@2x.png */,
+				7CDBF1111B4BF36800F5F89F /* reader.png */,
+				7CDBF1121B4BF36800F5F89F /* reader@2x.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		C05E341C0F5D763E02D4DF48 /* Pods */ = {
@@ -318,7 +344,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CD2C7FB1ADD47DC00A2096E /* Main.storyboard in Resources */,
+				7CDBF1161B4BF36800F5F89F /* reader@2x.png in Resources */,
 				7CD2C8001ADD47DC00A2096E /* LaunchScreen.xib in Resources */,
+				7CDBF1131B4BF36800F5F89F /* creator.png in Resources */,
+				7CDBF1141B4BF36800F5F89F /* creator@2x.png in Resources */,
+				7CDBF1151B4BF36800F5F89F /* reader.png in Resources */,
 				7CD2C7FD1ADD47DC00A2096E /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -390,6 +420,7 @@
 				7C4ED25A1B31749D0042EFF2 /* UserHelper.swift in Sources */,
 				7C3269AC1B3978CD0033CF3E /* AddressBookHelper.swift in Sources */,
 				7C4ED2521B31749D0042EFF2 /* ContactViewController.swift in Sources */,
+				7CDBF11A1B4BFA2200F5F89F /* QRCodeCreatorViewController.swift in Sources */,
 				7C4ED2551B31749D0042EFF2 /* GroupOverviewTableViewController.swift in Sources */,
 				7C4ED2591B31749D0042EFF2 /* RequestHelper.swift in Sources */,
 				7C3269AE1B397DDE0033CF3E /* UserViewController.swift in Sources */,
@@ -402,6 +433,7 @@
 				7C4ED2611B31749D0042EFF2 /* PeopleView.swift in Sources */,
 				7C4ED2501B31749D0042EFF2 /* AddGroupTableViewController.swift in Sources */,
 				7C4ED25C1B31749D0042EFF2 /* MoneyTransfer.swift in Sources */,
+				7CDBF1181B4BF3D400F5F89F /* QRCodeScannerViewController.swift in Sources */,
 				7C4ED2601B31749D0042EFF2 /* PeopleButton.swift in Sources */,
 				7C4ED2531B31749D0042EFF2 /* FinanceViewController.swift in Sources */,
 				7C4ED25E1B31749D0042EFF2 /* BalanceTableViewCell.swift in Sources */,
@@ -434,6 +466,7 @@
 				7CD2C7FA1ADD47DC00A2096E /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */ = {
@@ -442,6 +475,7 @@
 				7CD2C7FF1ADD47DC00A2096E /* Base */,
 			);
 			name = LaunchScreen.xib;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -535,7 +569,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = Debts/Info.plist;
+				INFOPLIST_FILE = "Debts/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -549,7 +583,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = Debts/Info.plist;
+				INFOPLIST_FILE = "Debts/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -568,7 +602,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = DebtsTests/Info.plist;
+				INFOPLIST_FILE = "DebtsTests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Debts.app/Debts";
@@ -583,7 +617,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = DebtsTests/Info.plist;
+				INFOPLIST_FILE = "DebtsTests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Debts.app/Debts";
