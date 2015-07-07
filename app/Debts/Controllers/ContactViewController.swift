@@ -119,8 +119,13 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(contactCellIdentifier, forIndexPath: indexPath) as! ContactTableViewCell
         var person: User = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
-        
         cell.displayNameOfUser(person)
+        
+        for user in self.selectedUsers {
+            if user.isSame(person) {
+                cell.selectedInMultipleMode = true
+            }
+        }
         
         return cell
     }
@@ -134,12 +139,15 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         //self.contactTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         
         cell.selectedInMultipleMode = !cell.selectedInMultipleMode
-        
         let user: User = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
         if cell.selectedInMultipleMode {
             self.selectedUsers.append(user)
         } else {
-            self.selectedUsers.removeAtIndex(find(self.selectedUsers, user)!)
+            for (idx, selUser) in enumerate(self.selectedUsers) {
+                if selUser.isSame(user) {
+                    self.selectedUsers.removeAtIndex(idx);
+                }
+            }
         }
     }
     

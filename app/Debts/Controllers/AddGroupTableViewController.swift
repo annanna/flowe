@@ -13,6 +13,7 @@ class AddGroupTableViewController: UITableViewController {
     @IBOutlet weak var memberView: UIView!
     
     var selectedContacts = [User]()
+    let contactIdentifier = "selectContacts"
     
     @IBAction func addContacts(segue: UIStoryboardSegue) {
         if let contactVC = segue.sourceViewController as? ContactViewController {
@@ -20,6 +21,14 @@ class AddGroupTableViewController: UITableViewController {
             
             if let members = self.memberView as? PeopleView {
                 members.setPeopleInView(selectedContacts)
+            }
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == contactIdentifier {
+            if let contactVC = segue.destinationViewController as? ContactViewController {
+                    contactVC.selectedUsers = self.selectedContacts
             }
         }
     }

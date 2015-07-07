@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="yXI-oS-fJO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="yXI-oS-fJO">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -216,7 +216,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="0.39000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <segue destination="Qvf-p2-Xna" kind="push" id="IAu-88-vSi"/>
+                                            <segue destination="Qvf-p2-Xna" kind="push" identifier="selectContacts" id="IAu-88-vSi"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -247,7 +247,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xin-Ve-TOG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="xxr-Ah-JAg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2242" y="-824"/>
+            <point key="canvasLocation" x="1710" y="-812"/>
         </scene>
         <!--Group Detail-->
         <scene sceneID="rJB-g0-t5H">
@@ -783,7 +783,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SI8-77-Kka" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="X2q-8q-KIh" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2693" y="-824"/>
+            <point key="canvasLocation" x="2161" y="-812"/>
         </scene>
         <!--Finance View Controller-->
         <scene sceneID="Hjw-Ua-k1X">
@@ -889,7 +889,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f6Z-NJ-lqr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1806" y="-670"/>
+            <point key="canvasLocation" x="1274" y="-658"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Zb3-ai-uAY">
