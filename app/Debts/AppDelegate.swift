@@ -13,6 +13,12 @@ struct GlobalVar {
     static var currentUid:String = ""
 }
 
+struct colors {
+    static let red: UIColor = UIColor(red: 250, green: 0, blue: 0, alpha: 0.5)
+    static let green: UIColor = UIColor(red: 197, green: 224, blue: 212, alpha: 0)
+    static let bgGreen: UIColor = UIColor(red: 87, green: 196, blue: 154, alpha: 0.5)
+}
+
 extension Double {
     func roundToMoney() -> Double {
         return Double(round(self*100)/100)
@@ -49,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {        
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         return true
     }
 

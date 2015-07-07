@@ -48,6 +48,11 @@ class PeopleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(collectionCellIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
+        
+        for subview in cell.subviews {
+            subview.removeFromSuperview()
+        }
+        
         cell.backgroundColor = UIColor.clearColor()
         
         var person = self.people[indexPath.row]
