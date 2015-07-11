@@ -116,6 +116,13 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
                     self.addNewTransfer(transfer)
                 })
             }
+        } else if let qrCodeTransferVC = segue.sourceViewController as? QRCodeScannerViewController {
+            if let t = qrCodeTransferVC.transfer {
+                RequestHelper.postTransfer(self.groupId, transfer: t, callback: { (transfer) -> Void in
+                    //self.addNewTransfer(transfer)
+                    println(transfer.name)
+                })
+            }
         }
     }
     

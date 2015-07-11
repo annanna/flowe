@@ -1099,9 +1099,11 @@
                     <tabBarItem key="tabBarItem" title="Reader" image="reader.png" id="R6K-8m-2gU"/>
                     <connections>
                         <outlet property="messageLabel" destination="9UX-k8-V5a" id="Eh1-DH-kAa"/>
+                        <segue destination="4Nh-lb-IT9" kind="unwind" identifier="saveTransfer" unwindAction="saveNewTransfer:" id="jDh-Ya-gNb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pky-re-bB2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="4Nh-lb-IT9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1500" y="1504"/>
         </scene>
