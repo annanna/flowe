@@ -20,6 +20,7 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
     var captureSession: AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
+    var transfer: MoneyTransfer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,11 +82,14 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
                         let data = dataString.dataUsingEncoding(NSISOLatin1StringEncoding, allowLossyConversion: false)
 
                         let json:JSON = JSON(data: data!)
-                        let transferName = json["name"].stringValue
+                        self.transfer = MoneyTransfer(details: json)
+                        
+                        let transferName = transfer?.name
                         messageLabel.text = transferName
                         captureSession?.stopRunning()
                         captureSession = nil
                         videoPreviewLayer?.removeFromSuperlayer()
+                        self.performSegueWithIdentifier("saveTransfer", sender: self)
                     } else {
                         println("no string value detected..")
                         captureSession?.stopRunning()
