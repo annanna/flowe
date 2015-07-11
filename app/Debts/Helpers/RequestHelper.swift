@@ -75,8 +75,32 @@ public class RequestHelper {
         }
     }
     
-    class func postTransfer(groupId: String, transfer: MoneyTransfer, callback:(MoneyTransfer) -> Void) {        
-        var postBody: [String: AnyObject] = JSONHelper.createDictionaryFromTransfer(transfer)
+    class func postTransfer(groupId: String, transfer: MoneyTransfer, callback:(MoneyTransfer) -> Void) {
+        var whoPayed = [[String: AnyObject]]()
+        for (user, amount) in transfer.payed {
+            var payed:[String: AnyObject] = [
+                "user": user.uID,
+                "amount": amount
+            ]
+            whoPayed.append(payed)
+        }
+        var whoTookPart = [[String: AnyObject]]()
+        for (user, amount) in transfer.participated {
+            var participated:[String: AnyObject] = [
+                "user": user.uID,
+                "amount": amount
+            ]
+            whoTookPart.append(participated)
+        }
+        
+        var postBody: [String: AnyObject] = [
+            "name": transfer.name,
+            "creator": GlobalVar.currentUid,
+            //"total":
+            "notes": transfer.notes,
+            "whoTookPart": whoTookPart,
+            "whoPayed": whoPayed
+        ]
         
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/\(groupId)/transfers"
         
@@ -130,25 +154,6 @@ public class RequestHelper {
     class func getUserDetails(person: User, callback:(User) -> Void) {
         var escapedPhone = person.phoneNumber.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) as String!
         var url = "\(dataUrl)/users?phone=\(escapedPhone)"
-        Alamofire.request(.GET, url)
-            .responseJSON {
-                (request, response, jsonResponse, error) in
-                if (error != nil) {
-                    println("Error getting user \(error)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let userData = JSON(jsonData)
-                        let user = UserHelper.JSONcreateUserIfDoesNotExist(userData)
-                        callback(user)
-                    }
-                }
-        }
-    }
-    
-    class func getUserById(uid: String, callback:(User) -> Void) {
-        var url = "\(dataUrl)/users?uid=\(uid)"
         Alamofire.request(.GET, url)
             .responseJSON {
                 (request, response, jsonResponse, error) in

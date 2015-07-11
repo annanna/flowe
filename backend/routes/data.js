@@ -9,12 +9,14 @@ router.get('/users', function(req, res, next) {
     var phone = req.query.phone;
     var uid = req.query.uid;
     if (phone) {
+        console.log(req.query.phone);
     	Model.User.findOne({'phone': phone},'_id', function(err, uid) {
     		if (err) return next(err);
             console.log(uid);
     		res.json(uid);
     	});
     } else if (uid) {
+        console.log(uid);
         Model.User
             .findById(uid)
             .exec(function(err, user) {

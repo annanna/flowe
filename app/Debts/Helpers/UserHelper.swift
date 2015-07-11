@@ -25,9 +25,6 @@ public class UserHelper: NSObject {
         if let user = userDic[id] {
             return user
         }
-        RequestHelper.getUserById(id, callback: { (user) -> Void in
-            return user
-        })
         return nil
     }
     

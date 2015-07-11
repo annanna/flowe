@@ -16,23 +16,54 @@ class QRCodeCreatorViewController: UIViewController {
     @IBOutlet weak var imgQRCode: UIImageView!
     
     var qrcodeImg: CIImage!
+    //var sendingData: NSData!
     var transfer: MoneyTransfer!
     
     override func viewDidLoad() {
         println("\(transfer.name)")
         super.viewDidLoad()
+        //self.generateImg()
         self.generateDataFromTransfer()
     }
     
     func generateDataFromTransfer() {
-
         let transferDictionary : [String: AnyObject] =
-            JSONHelper.createDictionaryFromTransfer(self.transfer)
-        var dataString = JSONHelper.JSONStringify(transferDictionary)
+            [
+                "tID": transfer.tID,
+                "name": transfer.name,
+                //"timestamp": transfer.timestamp,
+                "notes": transfer.notes,
+                "creator": transfer.creator.uID,
+                "moneyPayed": transfer.moneyPayed
+            ]
+        /*
+        let transferData: NSData = NSKeyedArchiver.archivedDataWithRootObject(transferDictionary)
+        let transferDic: AnyObject? = NSKeyedUnarchiver.unarchiveObjectWithData(transferData)
+        
+        let dataString = NSString(data: transferData, encoding: NSUTF8StringEncoding)
+        println(dataString)
+        */
+        var dataString = JSONStringify(transferDictionary)
+        
         
         let transferData = dataString.dataUsingEncoding(NSISOLatin1StringEncoding, allowLossyConversion: false)
         
         self.generateImg(transferData!)
+        
+    }
+    
+    func JSONStringify(jsonObj: AnyObject) -> String {
+        var e: NSError?
+        let jsonData = NSJSONSerialization.dataWithJSONObject(
+            jsonObj,
+            options: NSJSONWritingOptions(0),
+            error: &e)
+        if e != nil {
+            return ""
+        } else {
+            var dataString = NSString(data: jsonData!, encoding: NSUTF8StringEncoding)
+            return (dataString! as! String)
+        }
     }
     
     func generateImg(dataToSend: NSData) {
