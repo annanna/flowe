@@ -7,6 +7,7 @@ var Model = require('../models/Model.js');
 // GET users
 router.get('/users', function(req, res, next) {
     var phone = req.query.phone;
+    var uid = req.query.uid;
     if (phone) {
         console.log(req.query.phone);
     	Model.User.findOne({'phone': phone},'_id', function(err, uid) {
@@ -14,6 +15,15 @@ router.get('/users', function(req, res, next) {
             console.log(uid);
     		res.json(uid);
     	});
+    } else if (uid) {
+        console.log(uid);
+        Model.User
+            .findById(uid)
+            .exec(function(err, user) {
+                if (err) return next(err);
+                console.log(user);
+                res.json(user);
+            });
     } else {
         Model.User.find(function(err, users) {
             if (err) return next(err);
