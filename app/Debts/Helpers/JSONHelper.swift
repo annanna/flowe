@@ -53,7 +53,7 @@ public class JSONHelper {
             "name": transfer.name,
             "creator": GlobalVar.currentUid,
             "timestamp": transferDate,
-            //"total":
+            "total": transfer.moneyPayed,
             "notes": transfer.notes,
             "whoTookPart": whoTookPart,
             "whoPayed": whoPayed

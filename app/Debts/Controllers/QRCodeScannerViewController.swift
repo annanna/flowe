@@ -21,6 +21,7 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
     var transfer: MoneyTransfer?
+    var groupdId = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +66,7 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
     }
 
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+        
         if metadataObjects == nil || metadataObjects.count == 0 {
             qrCodeFrameView?.frame = CGRectZero
             messageLabel.text = "No QR code is detected"
@@ -82,23 +84,28 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
                         let data = dataString.dataUsingEncoding(NSISOLatin1StringEncoding, allowLossyConversion: false)
 
                         let json:JSON = JSON(data: data!)
-                        self.transfer = MoneyTransfer(details: json)
+                        let jsonGroupId = json["groupId"].stringValue
                         
-                        let transferName = transfer?.name
-                        messageLabel.text = transferName
-                        captureSession?.stopRunning()
-                        captureSession = nil
-                        videoPreviewLayer?.removeFromSuperlayer()
-                        self.performSegueWithIdentifier("saveTransfer", sender: self)
+                        if jsonGroupId == self.groupdId {
+                            self.transfer = MoneyTransfer(details: json)
+                            self.stopScanner()
+                            self.performSegueWithIdentifier("saveTransfer", sender: self)
+                        } else {
+                            messageLabel.text = "wrong group id received"
+                        }
                     } else {
-                        println("no string value detected..")
-                        captureSession?.stopRunning()
-                        captureSession = nil
-                        videoPreviewLayer?.removeFromSuperlayer()
+                        messageLabel.text = "no string value detected"
+                        self.stopScanner()
                     }
                 }
             }
         }
+    }
+    
+    func stopScanner() {
+        captureSession?.stopRunning()
+        captureSession = nil
+        videoPreviewLayer?.removeFromSuperlayer()
     }
     
     @IBAction func donePressed(sender: AnyObject) {

@@ -21,10 +21,11 @@ class SyncViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     let transferCellIdentifier = "sendingCell"
     let qrCodeCreatorIdentifier = "generateQRCode"
+    let qrCodeScanIdentifier = "scanQRCode"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        receivingBtn.titleLabel?.text = "Empfange Event für \(group.name)"
+        self.receivingBtn.setTitle("Empfange Event für \(group.name)", forState: UIControlState.Normal)
     }
     
     // MARK: - Table view data source & Delegate
@@ -53,6 +54,11 @@ class SyncViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if segue.identifier == qrCodeCreatorIdentifier {
             if let creatorVC = segue.destinationViewController as? QRCodeCreatorViewController {
                 creatorVC.transfer = self.selectedTransfer!
+                creatorVC.groupId = self.groupId
+            }
+        } else if segue.identifier == qrCodeScanIdentifier {
+            if let scanVC = segue.destinationViewController as? QRCodeScannerViewController {
+                scanVC.groupdId = self.groupId
             }
         }
     }

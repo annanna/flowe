@@ -32,10 +32,6 @@
 		7CD2C7FD1ADD47DC00A2096E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */; };
 		7CD2C8001ADD47DC00A2096E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */; };
 		7CD2C80C1ADD47DC00A2096E /* DebtsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */; };
-		7CDBF1131B4BF36800F5F89F /* creator.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CDBF10F1B4BF36800F5F89F /* creator.png */; };
-		7CDBF1141B4BF36800F5F89F /* creator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CDBF1101B4BF36800F5F89F /* creator@2x.png */; };
-		7CDBF1151B4BF36800F5F89F /* reader.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CDBF1111B4BF36800F5F89F /* reader.png */; };
-		7CDBF1161B4BF36800F5F89F /* reader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CDBF1121B4BF36800F5F89F /* reader@2x.png */; };
 		7CDBF1181B4BF3D400F5F89F /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDBF1171B4BF3D400F5F89F /* QRCodeScannerViewController.swift */; };
 		7CDBF11A1B4BFA2200F5F89F /* QRCodeCreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDBF1191B4BFA2200F5F89F /* QRCodeCreatorViewController.swift */; };
 		7CDBF11C1B4C0AA900F5F89F /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDBF11B1B4C0AA900F5F89F /* SyncViewController.swift */; };
@@ -85,10 +81,6 @@
 		7CD2C8051ADD47DC00A2096E /* DebtsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DebtsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD2C80A1ADD47DC00A2096E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtsTests.swift; sourceTree = "<group>"; };
-		7CDBF10F1B4BF36800F5F89F /* creator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = creator.png; sourceTree = "<group>"; };
-		7CDBF1101B4BF36800F5F89F /* creator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "creator@2x.png"; sourceTree = "<group>"; };
-		7CDBF1111B4BF36800F5F89F /* reader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reader.png; sourceTree = "<group>"; };
-		7CDBF1121B4BF36800F5F89F /* reader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reader@2x.png"; sourceTree = "<group>"; };
 		7CDBF1171B4BF3D400F5F89F /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		7CDBF1191B4BFA2200F5F89F /* QRCodeCreatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeCreatorViewController.swift; sourceTree = "<group>"; };
 		7CDBF11B1B4C0AA900F5F89F /* SyncViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
@@ -200,7 +192,6 @@
 				7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */,
 				7C4ED2471B31749D0042EFF2 /* Models */,
 				7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */,
-				7CDBF10E1B4BF34400F5F89F /* Images */,
 				7CD2C7F11ADD47DC00A2096E /* Supporting Files */,
 			);
 			path = Debts;
@@ -229,17 +220,6 @@
 				7CD2C80A1ADD47DC00A2096E /* Info.plist */,
 			);
 			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		7CDBF10E1B4BF34400F5F89F /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				7CDBF10F1B4BF36800F5F89F /* creator.png */,
-				7CDBF1101B4BF36800F5F89F /* creator@2x.png */,
-				7CDBF1111B4BF36800F5F89F /* reader.png */,
-				7CDBF1121B4BF36800F5F89F /* reader@2x.png */,
-			);
-			path = Images;
 			sourceTree = "<group>";
 		};
 		C05E341C0F5D763E02D4DF48 /* Pods */ = {
@@ -347,11 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CD2C7FB1ADD47DC00A2096E /* Main.storyboard in Resources */,
-				7CDBF1161B4BF36800F5F89F /* reader@2x.png in Resources */,
 				7CD2C8001ADD47DC00A2096E /* LaunchScreen.xib in Resources */,
-				7CDBF1131B4BF36800F5F89F /* creator.png in Resources */,
-				7CDBF1141B4BF36800F5F89F /* creator@2x.png in Resources */,
-				7CDBF1151B4BF36800F5F89F /* reader.png in Resources */,
 				7CD2C7FD1ADD47DC00A2096E /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

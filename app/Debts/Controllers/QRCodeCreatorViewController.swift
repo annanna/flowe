@@ -17,6 +17,7 @@ class QRCodeCreatorViewController: UIViewController {
     
     var qrcodeImg: CIImage!
     var transfer: MoneyTransfer!
+    var groupId = ""
     
     override func viewDidLoad() {
         println("\(transfer.name)")
@@ -26,8 +27,9 @@ class QRCodeCreatorViewController: UIViewController {
     
     func generateDataFromTransfer() {
 
-        let transferDictionary : [String: AnyObject] =
+        var transferDictionary : [String: AnyObject] =
             JSONHelper.createDictionaryFromTransfer(self.transfer)
+        transferDictionary["groupId"] = self.groupId
         var dataString = JSONHelper.JSONStringify(transferDictionary)
         
         let transferData = dataString.dataUsingEncoding(NSISOLatin1StringEncoding, allowLossyConversion: false)

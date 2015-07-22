@@ -118,10 +118,12 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             }
         } else if let qrCodeTransferVC = segue.sourceViewController as? QRCodeScannerViewController {
             if let t = qrCodeTransferVC.transfer {
-                RequestHelper.postTransfer(self.groupId, transfer: t, callback: { (transfer) -> Void in
+                println(t.name)
+                self.addNewTransfer(t)
+                /*RequestHelper.postTransfer(self.groupId, transfer: t, callback: { (transfer) -> Void in
                     //self.addNewTransfer(transfer)
                     println(transfer.name)
-                })
+                })*/
             }
         }
     }
@@ -147,6 +149,8 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     }
     
     func generateTransferConclusion(transfer: MoneyTransfer) -> String {
+        if transfer.payed.count > 0 {
+        
         var firstUser = transfer.payed[0].user
         var label = firstUser.firstname
         var verb = " hat "
@@ -178,5 +182,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         label += verb
         label += "\(transfer.moneyPayed.toMoneyString()) für \(transfer.name) bezahlt"
         return label
+        }
+        return ""
     }
 }

@@ -128,7 +128,8 @@ public class RequestHelper {
     }
     
     class func getUserDetails(person: User, callback:(User) -> Void) {
-        var escapedPhone = person.phoneNumber.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) as String!
+        let customAllowedSet =  NSCharacterSet(charactersInString:"+() \"#%/<>?@\\^`{|}").invertedSet
+        var escapedPhone = person.phoneNumber.stringByAddingPercentEncodingWithAllowedCharacters(customAllowedSet) as String!
         var url = "\(dataUrl)/users?phone=\(escapedPhone)"
         Alamofire.request(.GET, url)
             .responseJSON {
@@ -148,7 +149,7 @@ public class RequestHelper {
     }
     
     class func getUserById(uid: String, callback:(User) -> Void) {
-        var url = "\(dataUrl)/users?uid=\(uid)"
+        var url = "\(dataUrl)/\(uid)"
         Alamofire.request(.GET, url)
             .responseJSON {
                 (request, response, jsonResponse, error) in

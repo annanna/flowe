@@ -55,22 +55,28 @@ class MoneyTransfer: NSObject {
         self.moneyPayed = details["total"].doubleValue
         
         if let whoPayedArray = details["whoPayed"].array {
-            for pay in whoPayedArray {
+            for (i,pay) in enumerate(whoPayedArray) {
                 var userId = pay["user"].stringValue
-                if let u = UserHelper.getUser(userId) {
-                    var a:Double = pay["amount"].doubleValue
-                    payed += [(user:u, amount:a)]
+                var u = UserHelper.getUser(userId)
+                if (u == nil) {
+                    println("don't know this user")
+                    u = User(rand: i)
                 }
+                var a:Double = pay["amount"].doubleValue
+                payed += [(user:u!, amount:a)]
             }
         }
         
         if let whoTookPartArray = details["whoTookPart"].array {
-            for part in whoTookPartArray {
+            for (i,part) in enumerate(whoTookPartArray) {
                 var userId = part["user"].stringValue
-                if let u = UserHelper.getUser(userId) {
-                    var a:Double = part["amount"].doubleValue
-                    participated += [(user:u, amount:a)]
+                var u = UserHelper.getUser(userId)
+                if (u == nil) {
+                    println("don't know this user")
+                    u = User(rand: i)
                 }
+                var a:Double = part["amount"].doubleValue
+                participated += [(user:u!, amount:a)]
             }
         }
     }
