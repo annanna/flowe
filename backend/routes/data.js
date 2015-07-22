@@ -7,13 +7,22 @@ var Model = require('../models/Model.js');
 // GET users
 router.get('/users', function(req, res, next) {
     var phone = req.query.phone;
+    var uid = req.query.uid;
     if (phone) {
-        console.log(req.query.phone);
+        console.log(phone);
     	Model.User.findOne({'phone': phone},'_id', function(err, uid) {
     		if (err) return next(err);
             console.log(uid);
     		res.json(uid);
     	});
+    } else if (uid) {
+        Model.User
+            .findById(uid)
+            .exec(function(err, user) {
+                if (err) return next(err);
+                console.log(user);
+                res.json(user);
+            });
     } else {
         Model.User.find(function(err, users) {
             if (err) return next(err);
@@ -41,26 +50,26 @@ router.get('/groups', function(req, res, next) {
         });
     }
 });
-// GET transfers
-router.get('/transfers', function(req, res, next) {
-    var transferId = req.query.transferId
-    if (transferId) {
-        console.log("find transfer by id");
+// GET expenses
+router.get('/expenses', function(req, res, next) {
+    var expenseId = req.query.expenseId
+    if (expenseId) {
+        console.log("find expense by id");
 
-        Model.Transfer
-            .findById(transferId)
-            .exec(function(err, transfer) {
+        Model.Expense
+            .findById(expenseId)
+            .exec(function(err, expense) {
                 if (err) return next(err);
-                console.log(transfer);
-                console.log("Das war find transfer by id");
+                console.log(expense);
+                console.log("Das war find expense by id");
 
-                res.json(transfer);
+                res.json(expense);
             });
     } else {
-        Model.Transfer.find(function(err, transfers) {
+        Model.Expense.find(function(err, expenses) {
             if (err) return next(err);
-            console.log(transfers);
-            res.json(transfers);
+            console.log(expenses);
+            res.json(expenses);
         });
     }
 });
@@ -80,9 +89,9 @@ router.delete('/groups', function(req, res, next) {
         res.json(status);
     });
 });
-// DELETE all transfers
-router.delete('/transfers', function(req, res, next) {
-    Model.Transfer.remove({}, function(err, status) {
+// DELETE all expenses
+router.delete('/expenses', function(req, res, next) {
+    Model.Expense.remove({}, function(err, status) {
         if (err) return next(err);
         res.json(status);
     });
@@ -179,16 +188,16 @@ router.post('/:uid/groups/', function(req, res, next) {
 router.get('/:uid/groups/:groupId', function(req, res, next) {
     Model.Group
             .findById(req.params.groupId)
-            .select('name creator transfers users')
+            .select('name creator expenses users')
             .populate( {
-                path: 'transfers users',
+                path: 'expenses users',
                 select: 'name total whoPayed whoTookPart firstname lastname phone',
                 options: { sort: { 'created': 'desc'}}
             })
             .lean() // to return JS instead of mongoose document
             .exec(function(err, group) {
                 if (err) return next(err);
-                group.personalTotal = getTotalFinanceForUser(req.params.uid, group.transfers);
+                group.personalTotal = getTotalAccountForUser(req.params.uid, group.expenses);
                 console.log("Das war find group by id");
                 res.json(group);
             });
@@ -205,9 +214,9 @@ router.delete('/:uid/groups/', function(req, res, next) {
     });
 });
 
-// POST transfer
-router.post('/:uid/groups/:groupId/transfers', function(req, res, next) {
-    console.log("post transfer");
+// POST expense
+router.post('/:uid/groups/:groupId/expenses', function(req, res, next) {
+    console.log("post expense");
     console.log(req.body);
     var data = req.body;
     data.groupId = req.params.groupId;
@@ -218,52 +227,52 @@ router.post('/:uid/groups/:groupId/transfers', function(req, res, next) {
     }
     data.total = total;
 
-    Model.Transfer.create(data, function(err, transfer) {
+    Model.Expense.create(data, function(err, expense) {
         if (err) return next(err);
         var returnData = {
-            "transfer": transfer
+            "expense": expense
         };
 
         Model.Group.findByIdAndUpdate(
             req.params.groupId, 
             {   
-                $inc: {"total": transfer.total},
-                $push: {"transfers": transfer._id} 
+                $inc: {"total": expense.total},
+                $push: {"expenses": expense._id} 
             }, 
             { safe: true, upsert: true, new: true },
             function(err, group) {
                 if (err) return next(err);
-                var personalTotal = getTotalFinanceForUser(req.params.uid, group.transfers);
+                var personalTotal = getTotalAccountForUser(req.params.uid, group.expenses);
                 console.log(personalTotal);
-                console.log(transfer);
-                res.json(transfer);
+                console.log(expense);
+                res.json(expense);
             });
     });
 });
 
-// GET transfers by group
-router.get('/:uid/groups/:groupId/transfers', function(req, res, next) {
-    console.log("get transfers");
-    Model.Transfer
+// GET expenses by group
+router.get('/:uid/groups/:groupId/expenses', function(req, res, next) {
+    console.log("get expenses");
+    Model.Expense
         .find({
             'groupId': req.params.groupId
         })
         .sort({'created': 'desc'})
         .populate('whoPayed.user whoTookPart.user')
-        .exec( function(err, transfers) {
+        .exec( function(err, expenses) {
             if (err) return next(err);
-            console.log(transfers);
-            res.json(transfers);
+            console.log(expenses);
+            res.json(expenses);
         });
 });
 
-router.get('/:uid/groups/:groupId/finances', function(req, res, next) {
-    console.log("get finances");
+router.get('/:uid/groups/:groupId/accounts', function(req, res, next) {
+    console.log("get accounts");
     //format [{user: User, action: String, amount: Double, partner: User}] 
     Model.Group
         .findById(req.params.groupId)
-        .select('transfers users')
-        .populate('transfers users')
+        .select('expenses users')
+        .populate('expenses users')
         .lean() // to return JS instead of mongoose document
         .exec(function(err, group) {
             if (err) return next(err);
@@ -295,7 +304,7 @@ function calculateAccount(group) {
     for (var i in group.users) {
         var user = group.users[i];
         var uid = user["_id"];
-        var amount = getTotalFinanceForUser(uid, group.transfers);
+        var amount = getTotalAccountForUser(uid, group.expenses);
         var pushObject = {
                 "user": user,
                 "amount": amount
@@ -406,21 +415,21 @@ function calculateAccount(group) {
     return accounts;
 }
 
-function getTotalFinanceForUser(user, transfers) {
+function getTotalAccountForUser(user, expenses) {
     var userHasToPay = 0.0
     var userHasPayed = 0.0
-    for (var i in transfers) {
-        var transfer = transfers[i];
-        for (var j in transfer.whoPayed) {
-            var payer = transfer.whoPayed[j].user;
+    for (var i in expenses) {
+        var expense = expenses[i];
+        for (var j in expense.whoPayed) {
+            var payer = expense.whoPayed[j].user;
             if (user == payer) {
-                userHasPayed += transfer.whoPayed[j].amount;
+                userHasPayed += expense.whoPayed[j].amount;
             }
         }
-        for (var k in transfer.whoTookPart) {
-            var payer = transfer.whoTookPart[k].user;
+        for (var k in expense.whoTookPart) {
+            var payer = expense.whoTookPart[k].user;
             if (user == payer) {
-                userHasToPay -= transfer.whoTookPart[k].amount;
+                userHasToPay -= expense.whoTookPart[k].amount;
             }
         }
     }

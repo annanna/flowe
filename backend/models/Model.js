@@ -7,7 +7,7 @@ var groupSchema = Schema({
 	name: String,
 	created: { type: Date, default: Date.now },
 	users: [{ type: String, ref: 'User' }],
-	transfers: [{ type: String, ref: 'Transfer', default: [] }]
+	expenses: [{ type: String, ref: 'Expense', default: [] }]
 });
 
 var userSchema = Schema({
@@ -17,7 +17,7 @@ var userSchema = Schema({
 	email: String
 });
 
-var oldTransferSchema = Schema({
+var oldExpenseSchema = Schema({
 	groupId: String,
 	name: String,
 	total: Number,
@@ -34,7 +34,7 @@ var oldTransferSchema = Schema({
 	}] 
 });
 
-var newTransferSchema = Schema({
+var newExpenseSchema = Schema({
 	groupId: String,
 	name: String,
 	total: Number,
@@ -46,8 +46,8 @@ var newTransferSchema = Schema({
 		payed: Number,
 		participated: Number
 	}]
-})
+});
 
 module.exports.Group = mongoose.model('Group', groupSchema);
 module.exports.User = mongoose.model('User', userSchema);
-module.exports.Transfer = mongoose.model('Transfer', oldTransferSchema);
+module.exports.Expense = mongoose.model('Expense', oldExpenseSchema);

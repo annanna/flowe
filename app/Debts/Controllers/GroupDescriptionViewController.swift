@@ -18,6 +18,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     let transferDetailIdentifier = "showTransfer"
     let transferCell = "transferCell"
     let financeIdentifier = "showFinance"
+    let syncIdentifier = "showSync"
     
     var group:Group?
     var transfers = [MoneyTransfer]()
@@ -95,6 +96,13 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
                 financeVC.total = self.group!.total
                 financeVC.groupId = self.group!.gID
             }
+        } else if segue.identifier == syncIdentifier {
+            
+            if let syncVC = segue.destinationViewController as? SyncViewController {
+                syncVC.groupId = self.groupId
+                syncVC.group = self.group!
+                syncVC.transfers = self.transfers
+            }
         }
     }
 
@@ -107,6 +115,15 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
                 RequestHelper.postTransfer(self.groupId, transfer: t, callback: { (transfer) -> Void in
                     self.addNewTransfer(transfer)
                 })
+            }
+        } else if let qrCodeTransferVC = segue.sourceViewController as? QRCodeScannerViewController {
+            if let t = qrCodeTransferVC.transfer {
+                println(t.name)
+                self.addNewTransfer(t)
+                /*RequestHelper.postTransfer(self.groupId, transfer: t, callback: { (transfer) -> Void in
+                    //self.addNewTransfer(transfer)
+                    println(transfer.name)
+                })*/
             }
         }
     }
@@ -132,6 +149,8 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     }
     
     func generateTransferConclusion(transfer: MoneyTransfer) -> String {
+        if transfer.payed.count > 0 {
+        
         var firstUser = transfer.payed[0].user
         var label = firstUser.firstname
         var verb = " hat "
@@ -163,5 +182,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         label += verb
         label += "\(transfer.moneyPayed.toMoneyString()) für \(transfer.name) bezahlt"
         return label
+        }
+        return ""
     }
 }
