@@ -48,6 +48,24 @@ var newExpenseSchema = Schema({
 	}]
 });
 
+var accountSchema = Schema({
+	groupId: String,
+	debtor: { type: String, ref: 'User' },
+	creditor: { type: String, ref: 'User' },
+	amount: Number,
+	status: { type: Number, default: 0 },
+	updated: { type: Date, default: Date.now }
+});
+
+var messageSchema = Schema({
+	sender: { type: String, ref: 'User' },
+	receiver: { type: String, ref: 'User' },
+	created: { type: Date, default: Date.now },
+	message: String
+});
+
 module.exports.Group = mongoose.model('Group', groupSchema);
 module.exports.User = mongoose.model('User', userSchema);
 module.exports.Expense = mongoose.model('Expense', oldExpenseSchema);
+module.exports.Account = mongoose.model('Account', accountSchema);
+module.exports.Message = mongoose.model('Message', messageSchema);

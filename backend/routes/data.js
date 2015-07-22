@@ -168,16 +168,16 @@ router.post('/:uid/groups/', function(req, res, next) {
                     complete++;
                     if (complete === count) {
                         data.users.push(data.creator);
-                        Model.Group.create(data, function(err, post) {
+                        Model.Group.create(data, function(err, rawGroup) {
 					        if (err) return next(err);
                             Model.Group
-                                .findById(post["_id"])
-                                .populate('users')
-                                .exec(function(err, group) {
-                                    if (err) return next(err);
-                                    console.log(group);
-                                    return res.json(group);
-                                })
+                                .populate(rawGroup, 
+                                    {path: 'users'}, 
+                                    function(err, group) {
+                                        if (err) return next(err);
+                                        console.log(group);
+                                        return res.json(group);
+                                    });
 					    });
                     }
                 }
@@ -217,7 +217,7 @@ router.delete('/:uid/groups/', function(req, res, next) {
 // POST expense
 router.post('/:uid/groups/:groupId/expenses', function(req, res, next) {
     console.log("post expense");
-    console.log(req.body);
+    //console.log(req.body);
     var data = req.body;
     data.groupId = req.params.groupId;
     var total = 0.0
@@ -240,12 +240,13 @@ router.post('/:uid/groups/:groupId/expenses', function(req, res, next) {
                 $push: {"expenses": expense._id} 
             }, 
             { safe: true, upsert: true, new: true },
-            function(err, group) {
+            function(err, rawGroup) {
                 if (err) return next(err);
-                var personalTotal = getTotalAccountForUser(req.params.uid, group.expenses);
-                console.log(personalTotal);
-                console.log(expense);
-                res.json(expense);
+                Model.Group.populate(rawGroup, {path: "expenses"}, function (err, group) {
+                    if (err) return next(err);
+                        updateAccounts(group);
+                        res.json(expense);
+                });
             });
     });
 });
@@ -268,31 +269,63 @@ router.get('/:uid/groups/:groupId/expenses', function(req, res, next) {
 
 router.get('/:uid/groups/:groupId/accounts', function(req, res, next) {
     console.log("get accounts");
-    //format [{user: User, action: String, amount: Double, partner: User}] 
-    Model.Group
-        .findById(req.params.groupId)
-        .select('expenses users')
-        .populate('expenses users')
-        .lean() // to return JS instead of mongoose document
-        .exec(function(err, group) {
+
+    Model.Account
+        .find({
+            'groupId': req.params.groupId
+        })
+        .exec( function(err, accounts) {
             if (err) return next(err);
-            var accounts = calculatePersonalTotal(group, req.params.uid);
             console.log(accounts);
             res.json(accounts);
         });
 });
 
-function calculatePersonalTotal(group, currentUser) {
-    var allAccounts = calculateAccount(group);
-    var userAccounts = [];
 
-    for (var i in allAccounts) {
-        var uid = allAccounts[i].user["_id"];
-        if (currentUser == uid) {
-            userAccounts.push(allAccounts[i]);
-        }
-    }
-    return userAccounts;
+router.get('/:uid/messages', function(req, res, next) {
+    console.log("get messages");
+    Model.Message
+        .find({
+            'receiver': req.params.uid
+        })
+        .sort({'created': 'desc'})
+        .exec( function(err, messages) {
+            if (err) return next(err);
+            console.log(messages);
+            res.json(messages);
+        });
+});
+
+router.get('/:uid/accounts', function(req, res, next) {
+    console.log("get accounts");
+    Model.Account
+        .find().or([
+                { 'creditor': req.params.uid },
+                { 'debtor': req.params.uid }
+        ])
+        .sort({'updated': 'desc'})
+        .exec( function(err, accounts) {
+            if (err) return next(err);
+            console.log(accounts);
+            res.json(accounts);
+        });
+});
+
+
+function updateAccounts(group) {
+    var accounts = calculateAccount(group);
+
+    Model.Account
+        .find({
+            'groupId': group["_id"]
+        })
+        .remove( function(err, status) {
+            if (err) return next(err);
+            Model.Account.create(accounts, function(err, accounts) {
+                console.log("updated accounts successfully ");
+            });
+        });
+
 }
 
 function calculateAccount(group) {
@@ -301,12 +334,11 @@ function calculateAccount(group) {
 
     var accounts = [];
 
-    for (var i in group.users) {
-        var user = group.users[i];
-        var uid = user["_id"];
+    for (var i=0; i<group.users.length; i++) {
+        var uid = group.users[i];
         var amount = getTotalAccountForUser(uid, group.expenses);
         var pushObject = {
-                "user": user,
+                "user": uid,
                 "amount": amount
         };
         if (amount > 0) {
@@ -331,70 +363,40 @@ function calculateAccount(group) {
     if (cnt < 1) {
         moneyLeftToPay = false;
     }
-
  
     while(moneyLeftToPay) {
         var getAmount = gets[0].amount;
         var payAmount = pays[0].amount;
-
+        var accountAmount = 0;
         if (getAmount == payAmount) {
-            console.log("same");
+            //console.log("same");
             printStatus(pays[0].user, payAmount, gets[0].user);
 
-            accounts.push({
-                "user": pays[0].user,
-                "action": "pay",
-                "amount": payAmount,
-                "partner": gets[0].user
-            });
-            accounts.push({
-                "user": gets[0].user,
-                "action": "get",
-                "amount": payAmount,
-                "partner": pays[0].user
-            });
-
+            accountAmount = payAmount;
             getAmount = 0.0;
             payAmount = 0.0;
         } else if (getAmount > payAmount) {
-            console.log("higher");
+            //console.log("higher");
             printStatus(pays[0].user, payAmount, gets[0].user);
-            accounts.push({
-                "user": pays[0].user,
-                "action": "pay",
-                "amount": payAmount,
-                "partner": gets[0].user
-            });
-            accounts.push({
-                "user": gets[0].user,
-                "action": "get",
-                "amount": payAmount,
-                "partner": pays[0].user
-            });
 
-
+            accountAmount = payAmount;
             getAmount -= payAmount;
             payAmount = 0.0;
         } else if (getAmount < payAmount) {
-            console.log("lower");
+            //console.log("lower");
             printStatus(pays[0].user, getAmount, gets[0].user);
 
-            accounts.push({
-                "user": pays[0].user,
-                "action": "pay",
-                "amount": getAmount,
-                "partner": gets[0].user
-            });
-            accounts.push({
-                "user": gets[0].user,
-                "action": "get",
-                "amount": getAmount,
-                "partner": pays[0].user
-            });
-
+            accountAmount = getAmount;
             payAmount -= getAmount;
             getAmount = 0.0;
         }
+
+        accounts.push({
+            "groupId": group["_id"],
+            "debtor": pays[0].user,
+            "creditor": gets[0].user,
+            "amount": accountAmount
+        });
 
         // put new amounts back to list and sort to compare the highest value
         gets[0].amount = getAmount;
@@ -406,14 +408,14 @@ function calculateAccount(group) {
         if (gets[0].amount == 0.0 && pays[0].amount == 0.0) {
             moneyLeftToPay = false;
         } else if (gets[0].amount < 0.01 || pays[0].amount < 0.01) {
-            console.log("GETS: " + gets[0].amount);
-            console.log("PAYS: " + pays[0].amount);
+            //console.log("GETS: " + gets[0].amount);
+            //console.log("PAYS: " + pays[0].amount);
             moneyLeftToPay = false;
         }
     }
-
     return accounts;
 }
+
 
 function getTotalAccountForUser(user, expenses) {
     var userHasToPay = 0.0
@@ -441,7 +443,7 @@ function getTotalAccountForUser(user, expenses) {
 }
 
 function printStatus(first, amount, second) {
-    console.log(first.firstname + " pays " + amount + "€ to " + second.firstname);
+    console.log(first + " pays " + amount + "€ to " + second);
 }
 function sortByKey(array, key) {
     return array.sort(function(a, b) {
