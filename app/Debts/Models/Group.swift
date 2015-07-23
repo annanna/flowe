@@ -15,7 +15,7 @@ class Group: NSObject {
     var created = NSDate()
     var users = [User]()
     var creator: User?
-    var transfers = [MoneyTransfer]()
+    var expenses = [Expense]()
     var total = 0.0
     
     init(name: String, users: [User], creator: User) {
@@ -41,10 +41,10 @@ class Group: NSObject {
         self.total = details["personalTotal"].doubleValue
         self.creator = UserHelper.JSONcreateUserIfDoesNotExist(details["creator"])
         
-        if let transferArray = details["transfers"].array {
-            for transfer in transferArray {
-                var t:MoneyTransfer = MoneyTransfer(details: transfer)
-                self.transfers.append(t)
+        if let expenseArray = details["expenses"].array {
+            for transfer in expenseArray {
+                var t:Expense = Expense(details: transfer)
+                self.expenses.append(t)
             }
         }
     }
@@ -59,14 +59,14 @@ class Group: NSObject {
     
     func setTotal() {
         var total = 0.0
-        for transfer in transfers {
-            total -= transfer.moneyPayed
+        for expense in expenses {
+            total -= expense.moneyPayed
         }
         self.total = total
     }
     
-    func addTransfer(transfer: MoneyTransfer) {
-        self.transfers.append(transfer)
+    func addTransfer(transfer: Expense) {
+        self.expenses.append(transfer)
         setTotal()
     }
     
@@ -79,17 +79,17 @@ class Group: NSObject {
         return false
     }
     
-    func updateTotal(transfer: MoneyTransfer) {
+    func updateTotal(expense: Expense) {
         var userHasToPay = 0.0
         var userHasPayed = 0.0
         
-        var whoPayed = transfer.payed
+        var whoPayed = expense.payed
         for pay in whoPayed {
             if pay.user.uID == GlobalVar.currentUid {
                 userHasPayed += pay.amount
             }
         }
-        for part in transfer.participated {
+        for part in expense.participated {
             if part.user.uID == GlobalVar.currentUid {
                 userHasToPay += part.amount
             }

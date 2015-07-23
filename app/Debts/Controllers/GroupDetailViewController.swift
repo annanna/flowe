@@ -8,20 +8,20 @@
 
 import UIKit
 
-class GroupDescriptionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class GroupDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var peopleView: UIView!
     @IBOutlet weak var sumBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    let addTransferIdentifier = "addTransfer"
-    let transferDetailIdentifier = "showTransfer"
-    let transferCell = "transferCell"
-    let financeIdentifier = "showFinance"
+    let addExpenseIdentifier = "addExpense"
+    let expenseDetailIdentifier = "showExpense"
+    let expenseCell = "expenseCell"
+    let accountIdentifier = "showAccount"
     let syncIdentifier = "showSync"
     
     var group:Group?
-    var transfers = [MoneyTransfer]()
+    var expenses = [Expense]()
     var groupId: String = ""
     
     // MARK: - View Set Up
@@ -34,7 +34,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     func getGroupDetails() {
         RequestHelper.getGroupDetails(self.groupId, callback: { (groupData) -> Void in
             self.group = groupData
-            self.transfers = groupData.transfers
+            self.expenses = groupData.expenses
             
             self.configureView()
             self.tableView.reloadData()
@@ -66,33 +66,33 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         return 1
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.transfers.count
+        return self.expenses.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(transferCell, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(expenseCell, forIndexPath: indexPath) as! UITableViewCell
         
-        cell.textLabel?.text = generateTransferConclusion(self.transfers[indexPath.row])
+        cell.textLabel?.text = generateExpenseConclusion(self.expenses[indexPath.row])
         return cell
     }
     
     // MARK: Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == transferDetailIdentifier {
+        if segue.identifier == expenseDetailIdentifier {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-                if let transfer = self.transfers[indexPath.row] as MoneyTransfer! {
-                    let vc = segue.destinationViewController as! TransferTableViewController
-                    vc.transferId = transfer.tID
+                if let expense = self.expenses[indexPath.row] as Expense! {
+                    let vc = segue.destinationViewController as! ExpenseTableViewController
+                    vc.expenseId = expense.eID
                     vc.group = group
                 }
             }
-        } else if segue.identifier == addTransferIdentifier {
-            // TransferTableViewController is embedded in UINavigationController because of modal presentation
+        } else if segue.identifier == addExpenseIdentifier {
+            // ExpenseTableViewController is embedded in UINavigationController because of modal presentation
             let nav = segue.destinationViewController as! UINavigationController
-            let transferVC = nav.topViewController as! TransferTableViewController
-            transferVC.group = group
-        }  else if segue.identifier == financeIdentifier {
-            if let financeVC = segue.destinationViewController as? FinanceViewController {
+            let expenseVC = nav.topViewController as! ExpenseTableViewController
+            expenseVC.group = group
+        }  else if segue.identifier == accountIdentifier {
+            if let financeVC = segue.destinationViewController as? AccountViewController {
                 financeVC.total = self.group!.total
                 financeVC.groupId = self.group!.gID
             }
@@ -101,7 +101,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             if let syncVC = segue.destinationViewController as? SyncViewController {
                 syncVC.groupId = self.groupId
                 syncVC.group = self.group!
-                syncVC.transfers = self.transfers
+                syncVC.expenses = self.expenses
             }
         }
     }
@@ -109,30 +109,30 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
     // MARK: Actions
     
     @IBAction func cancelToGroupDescription(segue: UIStoryboardSegue) {}
-    @IBAction func saveNewTransfer(segue: UIStoryboardSegue) {
-        if let addTransferVC = segue.sourceViewController as? TransferTableViewController {
-            if let t = addTransferVC.transfer {
-                RequestHelper.postTransfer(self.groupId, transfer: t, callback: { (transfer) -> Void in
-                    self.addNewTransfer(transfer)
+    @IBAction func saveNewExpense(segue: UIStoryboardSegue) {
+        if let addExpenseVC = segue.sourceViewController as? ExpenseTableViewController {
+            if let ex = addExpenseVC.expense {
+                RequestHelper.createExpense(self.groupId, expense: ex, callback: { (expense) -> Void in
+                    self.addNewExpense(expense)
                 })
             }
-        } else if let qrCodeTransferVC = segue.sourceViewController as? QRCodeScannerViewController {
-            if let t = qrCodeTransferVC.transfer {
-                println(t.name)
-                self.addNewTransfer(t)
-                /*RequestHelper.postTransfer(self.groupId, transfer: t, callback: { (transfer) -> Void in
-                    //self.addNewTransfer(transfer)
-                    println(transfer.name)
+        } else if let qrCodeExpenseVC = segue.sourceViewController as? QRCodeScannerViewController {
+            if let ex = qrCodeExpenseVC.expense {
+                println(ex.name)
+                self.addNewExpense(ex)
+                /*RequestHelper.postExpense(self.groupId, expense: ex, callback: { (expense) -> Void in
+                    //self.addNewExpense(expense)
+                    println(expense.name)
                 })*/
             }
         }
     }
     
-    func addNewTransfer(transfer: MoneyTransfer) {
-        self.transfers.insert(transfer, atIndex: 0)
+    func addNewExpense(expense: Expense) {
+        self.expenses.insert(expense, atIndex: 0)
         var path = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.Bottom)
-        self.group?.updateTotal(transfer)
+        self.group?.updateTotal(expense)
         self.updateSumLabel()
     }
     
@@ -148,17 +148,17 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
         }
     }
     
-    func generateTransferConclusion(transfer: MoneyTransfer) -> String {
-        if transfer.payed.count > 0 {
+    func generateExpenseConclusion(expense: Expense) -> String {
+        if expense.payed.count > 0 {
         
-        var firstUser = transfer.payed[0].user
+        var firstUser = expense.payed[0].user
         var label = firstUser.firstname
         var verb = " hat "
         if firstUser.uID == GlobalVar.currentUid {
             label = "Du"
             verb = " hast "
         }
-        var usersLeft = transfer.payed.count-1
+        var usersLeft = expense.payed.count-1
         var count = 1
 
         
@@ -167,7 +167,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             joiner = ", "
             verb = " haben "
         
-            for (user, amount) in transfer.payed[1...usersLeft] {
+            for (user, amount) in expense.payed[1...usersLeft] {
                 if count == usersLeft {
                     joiner = " und "
                 }
@@ -180,7 +180,7 @@ class GroupDescriptionViewController: UIViewController, UITableViewDataSource, U
             }
         }
         label += verb
-        label += "\(transfer.moneyPayed.toMoneyString()) für \(transfer.name) bezahlt"
+        label += "\(expense.moneyPayed.toMoneyString()) für \(expense.name) bezahlt"
         return label
         }
         return ""

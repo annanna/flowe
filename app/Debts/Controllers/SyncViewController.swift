@@ -14,12 +14,12 @@ class SyncViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var receivingBtn: UIButton!
     
     var group:Group!
-    var transfers = [MoneyTransfer]()
+    var expenses = [Expense]()
     var groupId: String = ""
     
-    var selectedTransfer: MoneyTransfer?
+    var selectedExpense: Expense?
     
-    let transferCellIdentifier = "sendingCell"
+    let expenseCellIdentifier = "sendingCell"
     let qrCodeCreatorIdentifier = "generateQRCode"
     let qrCodeScanIdentifier = "scanQRCode"
     
@@ -35,17 +35,17 @@ class SyncViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return transfers.count
+        return expenses.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(transferCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = transfers[indexPath.row].name
+        let cell = tableView.dequeueReusableCellWithIdentifier(expenseCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        cell.textLabel?.text = expenses[indexPath.row].name
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println("\(indexPath.row)")
-        self.selectedTransfer = self.transfers[indexPath.row]
+        self.selectedExpense = self.expenses[indexPath.row]
         self.performSegueWithIdentifier(qrCodeCreatorIdentifier, sender: self)
         
     }
@@ -53,7 +53,7 @@ class SyncViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == qrCodeCreatorIdentifier {
             if let creatorVC = segue.destinationViewController as? QRCodeCreatorViewController {
-                creatorVC.transfer = self.selectedTransfer!
+                creatorVC.expense = self.selectedExpense!
                 creatorVC.groupId = self.groupId
             }
         } else if segue.identifier == qrCodeScanIdentifier {

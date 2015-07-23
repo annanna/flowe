@@ -27,9 +27,9 @@ public class JSONHelper {
         return userDict
     }
     
-    class func createDictionaryFromTransfer(transfer:MoneyTransfer) -> [String: AnyObject] {
+    class func createDictionaryFromExpense(expense:Expense) -> [String: AnyObject] {
         var whoPayed = [[String: AnyObject]]()
-        for (user, amount) in transfer.payed {
+        for (user, amount) in expense.payed {
             var payed:[String: AnyObject] = [
                 "user": user.uID,
                 "amount": amount
@@ -37,7 +37,7 @@ public class JSONHelper {
             whoPayed.append(payed)
         }
         var whoTookPart = [[String: AnyObject]]()
-        for (user, amount) in transfer.participated {
+        for (user, amount) in expense.participated {
             var participated:[String: AnyObject] = [
                 "user": user.uID,
                 "amount": amount
@@ -47,14 +47,14 @@ public class JSONHelper {
         
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "d.M.yyyy HH:mm"
-        let transferDate = dateFormatter.stringFromDate(transfer.timestamp)
+        let expenseDate = dateFormatter.stringFromDate(expense.timestamp)
         
         var postBody: [String: AnyObject] = [
-            "name": transfer.name,
+            "name": expense.name,
             "creator": GlobalVar.currentUid,
-            "timestamp": transferDate,
-            "total": transfer.moneyPayed,
-            "notes": transfer.notes,
+            "timestamp": expenseDate,
+            "total": expense.moneyPayed,
+            "notes": expense.notes,
             "whoTookPart": whoTookPart,
             "whoPayed": whoPayed
         ]

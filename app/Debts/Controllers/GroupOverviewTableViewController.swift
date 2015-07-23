@@ -59,7 +59,7 @@ class GroupOverviewTableViewController: UITableViewController {
         if segue.identifier == groupDetailIdentifier {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let group:Group = groups[indexPath.row]
-                if let vc = segue.destinationViewController as? GroupDescriptionViewController {
+                if let vc = segue.destinationViewController as? GroupDetailViewController {
                     vc.groupId = group.gID
                 }
             }

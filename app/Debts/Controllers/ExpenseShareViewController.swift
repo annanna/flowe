@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BalancesViewController: UIViewController {
+class ExpenseShareViewController: UIViewController {
     
     @IBOutlet weak var totalAmountLabel: UILabel!
     @IBOutlet weak var automaticSliders: UISwitch!

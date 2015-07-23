@@ -1,5 +1,5 @@
 //
-//  AddTransferTableViewController.swift
+//  ExpenseTableViewController.swift
 //  Debts
 //
 //  Created by Anna on 25.04.15.
@@ -8,21 +8,21 @@
 
 import UIKit
 
-class TransferTableViewController: UITableViewController {
+class ExpenseTableViewController: UITableViewController {
 
-    @IBOutlet weak var transferName: UITextField!
-    @IBOutlet weak var transferAmount: UITextField!
-    @IBOutlet weak var transferNotes: UITextView!
+    @IBOutlet weak var expenseName: UITextField!
+    @IBOutlet weak var expenseAmount: UITextField!
+    @IBOutlet weak var expenseNotes: UITextView!
     @IBOutlet weak var payerView: UIView!
     @IBOutlet weak var participantView: UIView!
     
-    let saveTransferIdentifier = "SaveTransfer"
+    let saveExpenseIdentifier = "SaveExpense"
     let paymentDetailIdentifier = "WhoPayed"
     let participantDetailIdentifier = "WhoTookPart"
     var lastIdentifier = ""
     
-    var transfer: MoneyTransfer?
-    var transferId: String?
+    var expense: Expense?
+    var expenseId: String?
     var group:Group!
     
     var whoPayed: [(user: User, amount:Double)] = []
@@ -39,18 +39,18 @@ class TransferTableViewController: UITableViewController {
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        if let t = transfer {
+        if let ex = expense {
             return false // is push
         }
         return true // is modal
     }
     
     func setUpView() {
-        if let tId = transferId {
-            // Transfer Detail
-            RequestHelper.getTransferDetails(tId, callback: { (transferData) -> Void in
-                self.transfer = transferData
-                self.loadDataInDetailView(transferData)
+        if let eId = expenseId {
+            // Expense Detail
+            RequestHelper.getExpenseDetails(self.group.gID, expenseId: eId, callback: { (expenseData) -> Void in
+                self.expense = expenseData
+                self.loadDataInDetailView(expenseData)
                 self.drawGroupMembersInViews()
                 
                 if self.editingMode {
@@ -59,29 +59,29 @@ class TransferTableViewController: UITableViewController {
                 }
             })
         } else {
-            // New Transfer
+            // New Expense
             var cancelBtn: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "goBack:")
             navigationItem.leftBarButtonItem = cancelBtn
-            var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveTransfer:")
+            var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveExpense:")
             navigationItem.rightBarButtonItem = saveBtn
-            self.title = "Add Transfer"
+            self.title = "Add Expense"
             drawGroupMembersInViews()
         }
     }
 
-    func loadDataInDetailView(transfer: MoneyTransfer) {
-        self.title = "\(transfer.name) Details"
+    func loadDataInDetailView(expense: Expense) {
+        self.title = "\(expense.name) Details"
         
-        if let name = self.transferName {
-            name.text = transfer.name
+        if let name = self.expenseName {
+            name.text = expense.name
             name.userInteractionEnabled = false
         }
-        if let amount = self.transferAmount {
-            amount.text = "\(transfer.moneyPayed)"
+        if let amount = self.expenseAmount {
+            amount.text = "\(expense.moneyPayed)"
             amount.userInteractionEnabled = false
         }
-        if let notes = self.transferNotes {
-            notes.text = transfer.notes
+        if let notes = self.expenseNotes {
+            notes.text = expense.notes
             notes.userInteractionEnabled = false
         }
     }
@@ -99,10 +99,10 @@ class TransferTableViewController: UITableViewController {
         if let peopleView = currentView as? PeopleView {
             peopleView.userInteractionEnabled = self.editingMode
             peopleView.setPeopleInView(group.users)
-            if let t = transfer {
+            if let ex = expense {
                 var toggleUsers = [User]()
                 for (i,user) in enumerate(group.users) {
-                    var markBtnAsClick = identifier == paymentDetailIdentifier ? t.hasPayed(user) : t.hasParticipated(user)
+                    var markBtnAsClick = identifier == paymentDetailIdentifier ? ex.hasPayed(user) : ex.hasParticipated(user)
                     if markBtnAsClick {
                         toggleUsers.append(user)
                     }
@@ -115,34 +115,34 @@ class TransferTableViewController: UITableViewController {
     // MARK: Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == saveTransferIdentifier {
-            if let t = self.transfer {
-                // TODO: update this transfer
+        if segue.identifier == saveExpenseIdentifier {
+            if let ex = self.expense {
+                // TODO: update this expense
             } else {
-                var newTransfer = MoneyTransfer(name: transferName.text, creator: GlobalVar.currentUser, money: getTransferAmountFromTextField(), notes: transferNotes.text)
+                var newExpense = Expense(name: expenseName.text, creator: GlobalVar.currentUser, money: getExpenseAmountFromTextField(), notes: expenseNotes.text)
                 if whoPayed.count == 0 {
                     whoPayed = getSelectedUsers(paymentDetailIdentifier)
                 }
                 if whoTookPart.count == 0 {
                     whoTookPart  = getSelectedUsers(participantDetailIdentifier)
                 }
-                newTransfer.payed = whoPayed
-                newTransfer.participated = whoTookPart
+                newExpense.payed = whoPayed
+                newExpense.participated = whoTookPart
 
-                self.transfer = newTransfer
+                self.expense = newExpense
             }
         } else if (segue.identifier == paymentDetailIdentifier) || (segue.identifier == participantDetailIdentifier) {
-            if let vc = segue.destinationViewController as? BalancesViewController {
+            if let vc = segue.destinationViewController as? ExpenseShareViewController {
                 var balances:[(user: User, amount:Double)]
-                if let t = transfer {
-                    // Transfer Detail
-                    balances = (segue.identifier == paymentDetailIdentifier) ? t.payed : t.participated
+                if let ex = expense {
+                    // Expense Detail
+                    balances = (segue.identifier == paymentDetailIdentifier) ? ex.payed : ex.participated
                     vc.detail = true
                 } else {
-                    // Add Transfer
+                    // Add Expense
                     balances = getSelectedUsers(segue.identifier!)
                 }
-                vc.amount = getTransferAmountFromTextField()
+                vc.amount = getExpenseAmountFromTextField()
                 vc.balances = balances
             }
             self.lastIdentifier = segue.identifier!
@@ -154,17 +154,17 @@ class TransferTableViewController: UITableViewController {
     func goBack(cancelBtn: UIBarButtonItem) {
         self.performSegueWithIdentifier("CancelToGroupDescription", sender: self)
     }
-    func saveTransfer(saveBtn: UIBarButtonItem) {
-        self.performSegueWithIdentifier("SaveTransfer", sender: self)
+    func saveExpense(saveBtn: UIBarButtonItem) {
+        self.performSegueWithIdentifier("SaveExpense", sender: self)
     }
     func enableEditing(editBtn: UIBarButtonItem) {
-        //TODO: enable all labels and buttons and store updated transfer
-        var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveTransfer:")
+        //TODO: enable all labels and buttons and store updated expense
+        var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveExpense:")
         navigationItem.rightBarButtonItem = saveBtn
     }
     @IBAction func saveBalance(segue:UIStoryboardSegue) {
-        if let vc = segue.sourceViewController as? BalancesViewController {
-            self.transferAmount.text = vc.amount.toMoneyString()
+        if let vc = segue.sourceViewController as? ExpenseShareViewController {
+            self.expenseAmount.text = vc.amount.toMoneyString()
             if self.lastIdentifier == paymentDetailIdentifier {
                 self.whoPayed = vc.balances
             } else {
@@ -205,7 +205,7 @@ class TransferTableViewController: UITableViewController {
     func updateAmount(payment:[(user: User, amount:Double)]) -> [(user: User, amount:Double)] {
         var balances = payment
         var userCount = Double(payment.count)
-        var total = getTransferAmountFromTextField()
+        var total = getExpenseAmountFromTextField()
         
         var part:Double = (total / userCount).roundToMoney()
         for (idx,balance) in enumerate(balances) {
@@ -220,7 +220,7 @@ class TransferTableViewController: UITableViewController {
         return balances
     }
     
-    func getTransferAmountFromTextField() -> Double {
-        return transferAmount.text.toDouble().roundToMoney()
+    func getExpenseAmountFromTextField() -> Double {
+        return expenseAmount.text.toDouble().roundToMoney()
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FinanceViewController: UIViewController {
+class AccountViewController: UIViewController {
 
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var accountTableView: UITableView!
@@ -24,7 +24,7 @@ class FinanceViewController: UIViewController {
     }
     
     func getAccounts() {
-        RequestHelper.getFinance(groupId, callback: { (accountData) -> Void in
+        RequestHelper.getAccounts(groupId, callback: { (accountData) -> Void in
             self.accounts = accountData
             self.accountTableView.reloadData()
         })

@@ -155,10 +155,7 @@ router.get('/:uid/groups', function(req, res, next) {
             res.json(groups);
         });
 });
-
-
-
-router.post('/:uid/groups/', function(req, res, next) {
+router.post('/:uid/groups', function(req, res, next) {
     var data = req.body;
     data.creator = req.params.uid;
 
@@ -373,109 +370,7 @@ router.delete('/:uid/messages/:messageId', function(req, res, next) {
 });
 
 
-
-function updateAccounts(group) {
-    var accounts = calculateAccount(group);
-
-    Model.Account
-        .find({
-            'groupId': group["_id"]
-        })
-        .remove( function(err, status) {
-            if (err) return next(err);
-            Model.Account.create(accounts, function(err, accounts) {
-                console.log("updated accounts successfully ");
-            });
-        });
-}
-
-function calculateAccount(group) {
-    var pays = [];
-    var gets = [];
-
-    var accounts = [];
-
-    for (var i=0; i<group.users.length; i++) {
-        var uid = group.users[i];
-        var amount = getTotalAccountForUser(uid, group.expenses);
-        var pushObject = {
-                "user": uid,
-                "amount": amount
-        };
-        if (amount > 0) {
-            gets.push(pushObject);
-        } else if (amount < 0) {
-            pushObject["amount"] *= -1;
-            pays.push(pushObject);
-        }
-    }
-    sortByKey(gets, "amount");
-    sortByKey(pays, "amount");
-
-
-    var cnt = pays.length;
-    if (gets.length < cnt) {
-        cnt = gets.length;
-    }
-
-    var moneyLeftToPay = true;
-
-
-    if (cnt < 1) {
-        moneyLeftToPay = false;
-    }
- 
-    while(moneyLeftToPay) {
-        var getAmount = gets[0].amount;
-        var payAmount = pays[0].amount;
-        var accountAmount = 0;
-        if (getAmount == payAmount) {
-            //console.log("same");
-            printStatus(pays[0].user, payAmount, gets[0].user);
-
-            accountAmount = payAmount;
-            getAmount = 0.0;
-            payAmount = 0.0;
-        } else if (getAmount > payAmount) {
-            //console.log("higher");
-            printStatus(pays[0].user, payAmount, gets[0].user);
-
-            accountAmount = payAmount;
-            getAmount -= payAmount;
-            payAmount = 0.0;
-        } else if (getAmount < payAmount) {
-            //console.log("lower");
-            printStatus(pays[0].user, getAmount, gets[0].user);
-
-            accountAmount = getAmount;
-            payAmount -= getAmount;
-            getAmount = 0.0;
-        }
-
-        accounts.push({
-            "groupId": group["_id"],
-            "debtor": pays[0].user,
-            "creditor": gets[0].user,
-            "amount": accountAmount
-        });
-
-        // put new amounts back to list and sort to compare the highest value
-        gets[0].amount = getAmount;
-        pays[0].amount = payAmount;
-        
-        sortByKey(gets, "amount");
-        sortByKey(pays, "amount");
-
-        if (gets[0].amount == 0.0 && pays[0].amount == 0.0) {
-            moneyLeftToPay = false;
-        } else if (gets[0].amount < 0.01 || pays[0].amount < 0.01) {
-            //console.log("GETS: " + gets[0].amount);
-            //console.log("PAYS: " + pays[0].amount);
-            moneyLeftToPay = false;
-        }
-    }
-    return accounts;
-}
+// ACCOUNT CALCULATION
 
 function getTotalAccountForUser(user, expenses) {
     var userHasToPay = 0.0
@@ -502,6 +397,98 @@ function getTotalAccountForUser(user, expenses) {
     return total;
 }
 
+function updateAccounts(group) {
+    var accounts = calculateAccount(group);
+
+    Model.Account
+        .find({
+            'groupId': group["_id"]
+        })
+        .remove( function(err, status) {
+            if (err) return next(err);
+            Model.Account.create(accounts, function(err, accounts) {
+                console.log("updated accounts successfully ");
+            });
+        });
+}
+
+function calculateAccount(group) {
+    var accounts = [];
+
+    // (1) [Teilen]
+    var pays = [];
+    var gets = [];
+
+    for (var i=0; i<group.users.length; i++) {
+        var uid = group.users[i];
+        var amount = getTotalAccountForUser(uid, group.expenses);
+
+        if (amount > 0) {
+            gets.push({
+                "user": uid,
+                "amount": amount
+            });
+        } else if (amount < 0) {
+            pays.push({
+                "user": uid,
+                "amount": amount*(-1)
+            });
+        }
+    }
+ 
+    while(true) {
+        // (2) [Ordnen]
+        sortByKey(gets, "amount");
+        sortByKey(pays, "amount");
+
+        // (3) [Vergleiche Beträge]
+        var getAmount = gets[0].amount;
+        var payAmount = pays[0].amount;
+        var accountAmount = 0;
+
+        if (payAmount > getAmount) {
+            // (a) z > e
+            printStatus(pays[0].user, getAmount, gets[0].user);
+            accountAmount = getAmount;
+            payAmount -= getAmount;
+            getAmount = 0.0;
+        } else if (payAmount < getAmount) {
+            // (b) z < e
+            printStatus(pays[0].user, payAmount, gets[0].user);
+            accountAmount = payAmount;
+            getAmount -= payAmount;
+            payAmount = 0.0;
+        } else if (payAmount == getAmount) {
+            // (c) z == e
+            printStatus(pays[0].user, payAmount, gets[0].user);
+            
+            accounts.push({
+                "groupId": group["_id"],
+                "debtor": pays[0].user,
+                "creditor": gets[0].user,
+                "amount": payAmount
+            });
+
+            break;
+        }
+
+        // Speichern der Zahlung
+        accounts.push({
+            "groupId": group["_id"],
+            "debtor": pays[0].user,
+            "creditor": gets[0].user,
+            "amount": accountAmount
+        });
+
+        // (4) [Aktualisiere Beträge]
+        gets[0].amount = getAmount;
+        pays[0].amount = payAmount;
+    }
+    return accounts;
+}
+
+// HELPER Methods
+
 function printStatus(first, amount, second) {
     console.log(first + " pays " + amount + "€ to " + second);
 }
@@ -511,12 +498,5 @@ function sortByKey(array, key) {
         return ((x > y) ? -1 : ((x < y) ? 1 : 0));
     });
 }
-
-
-
-
-
-
-
 
 module.exports = router;

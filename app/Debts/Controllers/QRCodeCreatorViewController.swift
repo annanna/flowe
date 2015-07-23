@@ -16,25 +16,25 @@ class QRCodeCreatorViewController: UIViewController {
     @IBOutlet weak var imgQRCode: UIImageView!
     
     var qrcodeImg: CIImage!
-    var transfer: MoneyTransfer!
+    var expense: Expense!
     var groupId = ""
     
     override func viewDidLoad() {
-        println("\(transfer.name)")
+        println("\(expense.name)")
         super.viewDidLoad()
-        self.generateDataFromTransfer()
+        self.generateDataFromExpense()
     }
     
-    func generateDataFromTransfer() {
+    func generateDataFromExpense() {
 
-        var transferDictionary : [String: AnyObject] =
-            JSONHelper.createDictionaryFromTransfer(self.transfer)
-        transferDictionary["groupId"] = self.groupId
-        var dataString = JSONHelper.JSONStringify(transferDictionary)
+        var expenseDictionary : [String: AnyObject] =
+            JSONHelper.createDictionaryFromExpense(self.expense)
+        expenseDictionary["groupId"] = self.groupId
+        var dataString = JSONHelper.JSONStringify(expenseDictionary)
         
-        let transferData = dataString.dataUsingEncoding(NSISOLatin1StringEncoding, allowLossyConversion: false)
+        let expenseData = dataString.dataUsingEncoding(NSISOLatin1StringEncoding, allowLossyConversion: false)
         
-        self.generateImg(transferData!)
+        self.generateImg(expenseData!)
     }
     
     func generateImg(dataToSend: NSData) {

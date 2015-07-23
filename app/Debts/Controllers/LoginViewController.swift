@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import SwiftAddressBook
 
-class UserViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class LoginViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var contactTableView: UITableView!

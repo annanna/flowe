@@ -1,5 +1,5 @@
 //
-//  MoneyTransfer.swift
+//  Expense.swift
 //  
 //
 //  Created by Anna on 25.04.15.
@@ -9,8 +9,8 @@
 import UIKit
 import SwiftyJSON
 
-class MoneyTransfer: NSObject {
-    var tID = ""
+class Expense : NSObject {
+    var eID = ""
     var name = ""
     var timestamp = NSDate()
     var notes = ""
@@ -38,8 +38,8 @@ class MoneyTransfer: NSObject {
     }
     
     init(details: JSON) {
-        println("init transfer")
-        self.tID = details["_id"].stringValue
+        println("init expense")
+        self.eID = details["_id"].stringValue
         self.name = details["name"].stringValue
         var created = details["created"].stringValue
         //println("Timestamp: \(created)")

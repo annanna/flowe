@@ -8,20 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		7C3269AC1B3978CD0033CF3E /* AddressBookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3269AB1B3978CD0033CF3E /* AddressBookHelper.swift */; };
-		7C3269AE1B397DDE0033CF3E /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3269AD1B397DDE0033CF3E /* UserViewController.swift */; };
+		7C3269AE1B397DDE0033CF3E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3269AD1B397DDE0033CF3E /* LoginViewController.swift */; };
 		7C3269B01B398DA80033CF3E /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3269AF1B398DA80033CF3E /* ContactTableViewCell.swift */; };
 		7C4ED2501B31749D0042EFF2 /* AddGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED23B1B31749D0042EFF2 /* AddGroupTableViewController.swift */; };
-		7C4ED2511B31749D0042EFF2 /* BalancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED23C1B31749D0042EFF2 /* BalancesViewController.swift */; };
+		7C4ED2511B31749D0042EFF2 /* ExpenseShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED23C1B31749D0042EFF2 /* ExpenseShareViewController.swift */; };
 		7C4ED2521B31749D0042EFF2 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED23D1B31749D0042EFF2 /* ContactViewController.swift */; };
-		7C4ED2531B31749D0042EFF2 /* FinanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED23E1B31749D0042EFF2 /* FinanceViewController.swift */; };
-		7C4ED2541B31749D0042EFF2 /* GroupDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED23F1B31749D0042EFF2 /* GroupDescriptionViewController.swift */; };
+		7C4ED2531B31749D0042EFF2 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED23E1B31749D0042EFF2 /* AccountViewController.swift */; };
+		7C4ED2541B31749D0042EFF2 /* GroupDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED23F1B31749D0042EFF2 /* GroupDetailViewController.swift */; };
 		7C4ED2551B31749D0042EFF2 /* GroupOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2401B31749D0042EFF2 /* GroupOverviewTableViewController.swift */; };
-		7C4ED2561B31749D0042EFF2 /* TransferTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2411B31749D0042EFF2 /* TransferTableViewController.swift */; };
+		7C4ED2561B31749D0042EFF2 /* ExpenseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2411B31749D0042EFF2 /* ExpenseTableViewController.swift */; };
 		7C4ED2581B31749D0042EFF2 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2441B31749D0042EFF2 /* JSONHelper.swift */; };
 		7C4ED2591B31749D0042EFF2 /* RequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2451B31749D0042EFF2 /* RequestHelper.swift */; };
 		7C4ED25A1B31749D0042EFF2 /* UserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2461B31749D0042EFF2 /* UserHelper.swift */; };
 		7C4ED25B1B31749D0042EFF2 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2481B31749D0042EFF2 /* Group.swift */; };
-		7C4ED25C1B31749D0042EFF2 /* MoneyTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2491B31749D0042EFF2 /* MoneyTransfer.swift */; };
+		7C4ED25C1B31749D0042EFF2 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2491B31749D0042EFF2 /* Expense.swift */; };
 		7C4ED25D1B31749D0042EFF2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24A1B31749D0042EFF2 /* User.swift */; };
 		7C4ED25E1B31749D0042EFF2 /* BalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24C1B31749D0042EFF2 /* BalanceTableViewCell.swift */; };
 		7C4ED25F1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24D1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift */; };
@@ -52,20 +52,20 @@
 		12E45C8B2C9B5C9EC3CFAF22 /* Pods-Debts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Debts.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Debts/Pods-Debts.debug.xcconfig"; sourceTree = "<group>"; };
 		54C4B3299A8C9ADF7C64BBF2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C3269AB1B3978CD0033CF3E /* AddressBookHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookHelper.swift; sourceTree = "<group>"; };
-		7C3269AD1B397DDE0033CF3E /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		7C3269AD1B397DDE0033CF3E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7C3269AF1B398DA80033CF3E /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		7C4ED23B1B31749D0042EFF2 /* AddGroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroupTableViewController.swift; sourceTree = "<group>"; };
-		7C4ED23C1B31749D0042EFF2 /* BalancesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalancesViewController.swift; sourceTree = "<group>"; };
+		7C4ED23C1B31749D0042EFF2 /* ExpenseShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseShareViewController.swift; sourceTree = "<group>"; };
 		7C4ED23D1B31749D0042EFF2 /* ContactViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
-		7C4ED23E1B31749D0042EFF2 /* FinanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinanceViewController.swift; sourceTree = "<group>"; };
-		7C4ED23F1B31749D0042EFF2 /* GroupDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDescriptionViewController.swift; sourceTree = "<group>"; };
+		7C4ED23E1B31749D0042EFF2 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		7C4ED23F1B31749D0042EFF2 /* GroupDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDetailViewController.swift; sourceTree = "<group>"; };
 		7C4ED2401B31749D0042EFF2 /* GroupOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupOverviewTableViewController.swift; sourceTree = "<group>"; };
-		7C4ED2411B31749D0042EFF2 /* TransferTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferTableViewController.swift; sourceTree = "<group>"; };
+		7C4ED2411B31749D0042EFF2 /* ExpenseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewController.swift; sourceTree = "<group>"; };
 		7C4ED2441B31749D0042EFF2 /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
 		7C4ED2451B31749D0042EFF2 /* RequestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestHelper.swift; sourceTree = "<group>"; };
 		7C4ED2461B31749D0042EFF2 /* UserHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHelper.swift; sourceTree = "<group>"; };
 		7C4ED2481B31749D0042EFF2 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		7C4ED2491B31749D0042EFF2 /* MoneyTransfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTransfer.swift; sourceTree = "<group>"; };
+		7C4ED2491B31749D0042EFF2 /* Expense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 		7C4ED24A1B31749D0042EFF2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7C4ED24C1B31749D0042EFF2 /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
 		7C4ED24D1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupOverviewTableViewCell.swift; sourceTree = "<group>"; };
@@ -112,14 +112,14 @@
 		7C4ED23A1B31749D0042EFF2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7C3269AD1B397DDE0033CF3E /* UserViewController.swift */,
+				7C3269AD1B397DDE0033CF3E /* LoginViewController.swift */,
 				7C4ED2401B31749D0042EFF2 /* GroupOverviewTableViewController.swift */,
 				7C4ED23B1B31749D0042EFF2 /* AddGroupTableViewController.swift */,
 				7C4ED23D1B31749D0042EFF2 /* ContactViewController.swift */,
-				7C4ED23F1B31749D0042EFF2 /* GroupDescriptionViewController.swift */,
-				7C4ED2411B31749D0042EFF2 /* TransferTableViewController.swift */,
-				7C4ED23C1B31749D0042EFF2 /* BalancesViewController.swift */,
-				7C4ED23E1B31749D0042EFF2 /* FinanceViewController.swift */,
+				7C4ED23F1B31749D0042EFF2 /* GroupDetailViewController.swift */,
+				7C4ED2411B31749D0042EFF2 /* ExpenseTableViewController.swift */,
+				7C4ED23C1B31749D0042EFF2 /* ExpenseShareViewController.swift */,
+				7C4ED23E1B31749D0042EFF2 /* AccountViewController.swift */,
 				7CDBF11B1B4C0AA900F5F89F /* SyncViewController.swift */,
 				7CDBF1171B4BF3D400F5F89F /* QRCodeScannerViewController.swift */,
 				7CDBF1191B4BFA2200F5F89F /* QRCodeCreatorViewController.swift */,
@@ -143,7 +143,7 @@
 			children = (
 				7C4ED2481B31749D0042EFF2 /* Group.swift */,
 				7C4ED24A1B31749D0042EFF2 /* User.swift */,
-				7C4ED2491B31749D0042EFF2 /* MoneyTransfer.swift */,
+				7C4ED2491B31749D0042EFF2 /* Expense.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -394,7 +394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C4ED2561B31749D0042EFF2 /* TransferTableViewController.swift in Sources */,
+				7C4ED2561B31749D0042EFF2 /* ExpenseTableViewController.swift in Sources */,
 				7C3269B01B398DA80033CF3E /* ContactTableViewCell.swift in Sources */,
 				7C4ED25A1B31749D0042EFF2 /* UserHelper.swift in Sources */,
 				7C3269AC1B3978CD0033CF3E /* AddressBookHelper.swift in Sources */,
@@ -402,19 +402,19 @@
 				7CDBF11A1B4BFA2200F5F89F /* QRCodeCreatorViewController.swift in Sources */,
 				7C4ED2551B31749D0042EFF2 /* GroupOverviewTableViewController.swift in Sources */,
 				7C4ED2591B31749D0042EFF2 /* RequestHelper.swift in Sources */,
-				7C3269AE1B397DDE0033CF3E /* UserViewController.swift in Sources */,
+				7C3269AE1B397DDE0033CF3E /* LoginViewController.swift in Sources */,
 				7C4ED25F1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift in Sources */,
 				7C4ED25B1B31749D0042EFF2 /* Group.swift in Sources */,
-				7C4ED2541B31749D0042EFF2 /* GroupDescriptionViewController.swift in Sources */,
+				7C4ED2541B31749D0042EFF2 /* GroupDetailViewController.swift in Sources */,
 				7C4ED25D1B31749D0042EFF2 /* User.swift in Sources */,
-				7C4ED2511B31749D0042EFF2 /* BalancesViewController.swift in Sources */,
+				7C4ED2511B31749D0042EFF2 /* ExpenseShareViewController.swift in Sources */,
 				7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */,
 				7C4ED2611B31749D0042EFF2 /* PeopleView.swift in Sources */,
 				7C4ED2501B31749D0042EFF2 /* AddGroupTableViewController.swift in Sources */,
-				7C4ED25C1B31749D0042EFF2 /* MoneyTransfer.swift in Sources */,
+				7C4ED25C1B31749D0042EFF2 /* Expense.swift in Sources */,
 				7CDBF1181B4BF3D400F5F89F /* QRCodeScannerViewController.swift in Sources */,
 				7C4ED2601B31749D0042EFF2 /* PeopleButton.swift in Sources */,
-				7C4ED2531B31749D0042EFF2 /* FinanceViewController.swift in Sources */,
+				7C4ED2531B31749D0042EFF2 /* AccountViewController.swift in Sources */,
 				7C4ED25E1B31749D0042EFF2 /* BalanceTableViewCell.swift in Sources */,
 				7C4ED2581B31749D0042EFF2 /* JSONHelper.swift in Sources */,
 				7CDBF11C1B4C0AA900F5F89F /* SyncViewController.swift in Sources */,

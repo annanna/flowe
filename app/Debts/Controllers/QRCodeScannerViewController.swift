@@ -20,7 +20,7 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
     var captureSession: AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
-    var transfer: MoneyTransfer?
+    var expense: Expense?
     var groupdId = ""
 
     override func viewDidLoad() {
@@ -87,9 +87,9 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
                         let jsonGroupId = json["groupId"].stringValue
                         
                         if jsonGroupId == self.groupdId {
-                            self.transfer = MoneyTransfer(details: json)
+                            self.expense = Expense(details: json)
                             self.stopScanner()
-                            self.performSegueWithIdentifier("saveTransfer", sender: self)
+                            self.performSegueWithIdentifier("saveExpense", sender: self)
                         } else {
                             messageLabel.text = "wrong group id received"
                         }
