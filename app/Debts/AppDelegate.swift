@@ -53,9 +53,22 @@ extension Float {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var tabBarController: UITabBarController?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        
+        var storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        self.tabBarController = (storyboard.instantiateInitialViewController() as! UITabBarController)
+        self.tabBarController?.selectedIndex = 1
+        var initialViewController = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+        
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
+        
+        
         return true
     }
 

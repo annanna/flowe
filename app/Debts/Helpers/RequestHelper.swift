@@ -208,31 +208,84 @@ public class RequestHelper {
     }
     
     //  /:uid/groups/:groupId/accounts
-    class func getAccounts(groupId: String, callback:([(user: User, action: String, amount: Double, partner: User)]) -> Void) {
-        var url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/\(groupId)/accounts"
+    class func getAccountsByGroup(groupId: String, callback:([Account]) -> Void) {
+        let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/\(groupId)/accounts"
         Alamofire.request(.GET, url)
             .responseJSON {
                 (request, response, jsonResponse, error) in
                 if (error != nil) {
-                    println("Error getting finances \(error)")
+                    println("Error getting accounts \(error)")
                     println(request)
                     println(response)
                 } else {
                     if let jsonData: AnyObject = jsonResponse {
-                        let financeData = JSON(jsonData)
-                        if let financeArray = financeData.array {
-                            var accounts:[(user: User, action: String, amount: Double, partner: User)] = []
+                        let accountData = JSON(jsonData)
+                        if let accountArray = accountData.array {
+                            var accounts:[Account] = []
 
-                            for finance in financeArray {
-                                let user = UserHelper.JSONcreateUserIfDoesNotExist(finance["user"])
-                                let partner = UserHelper.JSONcreateUserIfDoesNotExist(finance["partner"])
-                                
-                                let account = (user: user, action: finance["action"].stringValue, amount: finance["amount"].doubleValue, partner: partner)
-                                
+                            for acc in accountArray {
+                                let account = Account(data: acc)
                                 accounts.append(account)
                             }
                             callback(accounts)
-                            println("Successfully fetched finance details")
+                            println("Successfully fetched account details")
+                        }
+                    }
+                }
+        }
+    }
+    
+    //  /:uid/accounts
+    class func getAccounts(callback:([Account]) -> Void) {
+        let url = "\(dataUrl)/\(GlobalVar.currentUid)/accounts"
+        Alamofire.request(.GET, url)
+            .responseJSON {
+                (request, response, jsonResponse, error) in
+                if (error != nil) {
+                    println("Error getting accounts \(error)")
+                    println(request)
+                    println(response)
+                } else {
+                    if let jsonData: AnyObject = jsonResponse {
+                        let accountData = JSON(jsonData)
+                        if let accountArray = accountData.array {
+                            var accounts:[Account] = []
+                            
+                            for acc in accountArray {
+                                let account = Account(data: acc)
+                                accounts.append(account)
+                            }
+                            callback(accounts)
+                            println("Successfully fetched account details")
+                        }
+                    }
+                }
+        }
+    }
+    
+    
+    //  /:uid/messages
+    class func getMessages(callback:([Message]) -> Void) {
+        let url = "\(dataUrl)/\(GlobalVar.currentUid)/messages"
+        Alamofire.request(.GET, url)
+            .responseJSON {
+                (request, response, jsonResponse, error) in
+                if (error != nil) {
+                    println("Error getting messages \(error)")
+                    println(request)
+                    println(response)
+                } else {
+                    if let jsonData: AnyObject = jsonResponse {
+                        let messageData = JSON(jsonData)
+                        if let messageArray = messageData.array {
+                            var messages:[Message] = []
+                            
+                            for mess in messageArray {
+                                let message = Message(data: mess)
+                                messages.append(message)
+                            }
+                            callback(messages)
+                            println("Successfully fetched messages")
                         }
                     }
                 }

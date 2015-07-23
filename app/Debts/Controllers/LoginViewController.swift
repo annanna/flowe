@@ -162,8 +162,10 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
     func proceedWithSelectedUser(uid: String) {
         GlobalVar.currentUid = uid
         self.spinner.stopAnimating()
-        self.performSegueWithIdentifier(groupOverviewIdentifier, sender: self)
-    }
+        
+        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.window?.rootViewController = appDelegate.tabBarController
+    }    
     
     // MARK: - Search
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {

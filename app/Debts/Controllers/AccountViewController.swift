@@ -14,8 +14,8 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var accountTableView: UITableView!
     
     var total:Double = 0
-    var groupId = ""
-    var accounts: [(user: User, action: String, amount: Double, partner: User)] = []
+    var groupId:String?
+    var accounts: [Account] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +24,17 @@ class AccountViewController: UIViewController {
     }
     
     func getAccounts() {
-        RequestHelper.getAccounts(groupId, callback: { (accountData) -> Void in
-            self.accounts = accountData
-            self.accountTableView.reloadData()
-        })
+        if let g = groupId {
+            RequestHelper.getAccountsByGroup(g, callback: { (accountData) -> Void in
+                self.accounts = accountData
+                self.accountTableView.reloadData()
+            })
+        } else {
+            RequestHelper.getAccounts({ (accountData) -> Void in
+                self.accounts = accountData
+                self.accountTableView.reloadData()
+            })
+        }
     }
     
     
@@ -41,9 +48,8 @@ class AccountViewController: UIViewController {
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("accountCell", forIndexPath: indexPath) as! UITableViewCell
-        var currentAccount:(user: User, action: String, amount: Double, partner: User) = self.accounts[indexPath.row]
-        var adverb = currentAccount.action == "pay" ? "to" : "from"
-        cell.textLabel?.text = "\(currentAccount.action.capitalizedString) \(currentAccount.amount.toMoneyString()) \(adverb) \(currentAccount.partner.firstname)"
+        let acc = self.accounts[indexPath.row]
+        cell.textLabel?.text = "\(acc.creditor.firstname) kriegt \(acc.amount.toMoneyString()) von \(acc.debtor.firstname)"
         return cell
     }
     
