@@ -38,6 +38,9 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.searchMode = false
         self.contactTableView.reloadData()
     }
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
