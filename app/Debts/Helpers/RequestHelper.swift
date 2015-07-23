@@ -291,4 +291,21 @@ public class RequestHelper {
                 }
         }
     }
+    class func deleteMessage(messageId:String) {
+        let url = "\(dataUrl)/\(GlobalVar.currentUid)/messages/\(messageId)"
+        Alamofire.request(.DELETE, url)
+            .responseJSON {
+                (request, response, jsonResponse, error) in
+                if (error != nil) {
+                    println("Error getting messages \(error)")
+                    println(request)
+                    println(response)
+                } else {
+                    if let jsonData: AnyObject = jsonResponse {
+                        let statusData = JSON(jsonData)
+                        println("probably deleted message successfully")
+                    }
+                }
+        }
+    }
 }

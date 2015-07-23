@@ -29,6 +29,7 @@
 		7C4ED2611B31749D0042EFF2 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24F1B31749D0042EFF2 /* PeopleView.swift */; };
 		7CB97F3E1B61603200815DD7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB97F3D1B61603200815DD7 /* Account.swift */; };
 		7CB97F401B61615F00815DD7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB97F3F1B61615F00815DD7 /* Message.swift */; };
+		7CB97FC01B61828C00815DD7 /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB97FBF1B61828C00815DD7 /* MessageTableViewController.swift */; };
 		7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */; };
 		7CD2C7FB1ADD47DC00A2096E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F91ADD47DC00A2096E /* Main.storyboard */; };
 		7CD2C7FD1ADD47DC00A2096E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */; };
@@ -78,6 +79,7 @@
 		7CB97F3B1B615DAD00815DD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CB97F3D1B61603200815DD7 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		7CB97F3F1B61615F00815DD7 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		7CB97FBF1B61828C00815DD7 /* MessageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		7CD2C7EE1ADD47DC00A2096E /* Debts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Debts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CD2C7FA1ADD47DC00A2096E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				7CDBF11B1B4C0AA900F5F89F /* SyncViewController.swift */,
 				7CDBF1171B4BF3D400F5F89F /* QRCodeScannerViewController.swift */,
 				7CDBF1191B4BFA2200F5F89F /* QRCodeCreatorViewController.swift */,
+				7CB97FBF1B61828C00815DD7 /* MessageTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				7C4ED2521B31749D0042EFF2 /* ContactViewController.swift in Sources */,
 				7CDBF11A1B4BFA2200F5F89F /* QRCodeCreatorViewController.swift in Sources */,
 				7C4ED2551B31749D0042EFF2 /* GroupOverviewTableViewController.swift in Sources */,
+				7CB97FC01B61828C00815DD7 /* MessageTableViewController.swift in Sources */,
 				7C4ED2591B31749D0042EFF2 /* RequestHelper.swift in Sources */,
 				7C3269AE1B397DDE0033CF3E /* LoginViewController.swift in Sources */,
 				7CB97F401B61615F00815DD7 /* Message.swift in Sources */,

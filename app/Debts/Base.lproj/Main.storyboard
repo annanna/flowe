@@ -246,7 +246,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xin-Ve-TOG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="xxr-Ah-JAg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2811" y="-938"/>
+            <point key="canvasLocation" x="2811" y="-1028"/>
         </scene>
         <!--Group Detail-->
         <scene sceneID="rJB-g0-t5H">
@@ -404,7 +404,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p8q-rd-cBs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2137" y="1602"/>
+            <point key="canvasLocation" x="2585" y="1250"/>
         </scene>
         <!--Expense Detail-->
         <scene sceneID="iaj-5P-KLl">
@@ -603,7 +603,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdX-Gb-1r4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="45C-Z7-a1I" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3293" y="60"/>
+            <point key="canvasLocation" x="3301" y="60"/>
         </scene>
         <!--Expense Share-->
         <scene sceneID="Mu7-0s-wJz">
@@ -762,7 +762,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kye-Dq-seo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="eOl-Pv-t0P" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3742" y="60"/>
+            <point key="canvasLocation" x="3776" y="54"/>
         </scene>
         <!--Select Contacts-->
         <scene sceneID="RbJ-mD-Zev">
@@ -860,9 +860,9 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SI8-77-Kka" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="X2q-8q-KIh" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3293" y="-938"/>
+            <point key="canvasLocation" x="3253" y="-1028"/>
         </scene>
-        <!--Account View Controller-->
+        <!--Abrechnung-->
         <scene sceneID="Hjw-Ua-k1X">
             <objects>
                 <viewController id="sZQ-Rx-wFg" customClass="AccountViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
@@ -921,7 +921,7 @@
                             <constraint firstItem="7no-L0-2mz" firstAttribute="top" secondItem="nq1-2x-AOa" secondAttribute="bottom" constant="8" symbolic="YES" id="oyf-qX-Gne"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="eQZ-Tw-LUq"/>
+                    <navigationItem key="navigationItem" title="Abrechnung" id="eQZ-Tw-LUq"/>
                     <connections>
                         <outlet property="accountTableView" destination="7no-L0-2mz" id="wyb-aT-kg1"/>
                         <outlet property="totalLabel" destination="Xio-c9-9tI" id="kVT-ed-KtN"/>
@@ -948,7 +948,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3k-UN-CQd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3343" y="-267"/>
+            <point key="canvasLocation" x="2811" y="-311"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5to-2S-6LI">
@@ -969,16 +969,16 @@
             </objects>
             <point key="canvasLocation" x="2338" y="-658"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Meine Nachrichten-->
         <scene sceneID="QOX-7j-oXu">
             <objects>
-                <tableViewController id="1tG-Un-7zb" sceneMemberID="viewController">
+                <tableViewController id="1tG-Un-7zb" customClass="MessageTableViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="SqE-CO-c5d">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="brU-Hn-VTd">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" id="brU-Hn-VTd">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="brU-Hn-VTd" id="tWB-4r-Vxw">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -990,7 +990,7 @@
                             <outlet property="delegate" destination="1tG-Un-7zb" id="C0a-3B-Fgm"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="5ZU-mc-iC0"/>
+                    <navigationItem key="navigationItem" title="Meine Nachrichten" id="5ZU-mc-iC0"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PTy-EA-qEE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1073,7 +1073,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E9t-P6-wYz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2338" y="786"/>
+            <point key="canvasLocation" x="2811" y="534"/>
         </scene>
         <!--QR Code Reader-->
         <scene sceneID="Lzn-gN-8Dk">
@@ -1128,7 +1128,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pky-re-bB2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="4Nh-lb-IT9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2526" y="1602"/>
+            <point key="canvasLocation" x="3062" y="1250"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="pGa-Lw-Uft">
@@ -1220,8 +1220,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ykI-ma-Wa1"/>
         <segue reference="sMZ-3i-yFV"/>
+        <segue reference="aPj-Jp-m4k"/>
         <segue reference="W5L-gZ-Yfl"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
