@@ -4,6 +4,114 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Model = require('../models/Model.js');
 
+// DEBUGGING & TESTING
+
+// GET users
+router.get('/users', function(req, res, next) {
+    var phone = req.query.phone;
+    var uid = req.query.uid;
+    if (phone) {
+        console.log(phone);
+        Model.User.findOne({'phone': phone},'_id', function(err, uid) {
+            if (err) return next(err);
+            console.log(uid);
+            res.json(uid);
+        });
+    } else if (uid) {
+        Model.User
+            .findById(uid)
+            .exec(function(err, user) {
+                if (err) return next(err);
+                console.log(user);
+                res.json(user);
+            });
+    } else {
+        Model.User.find(function(err, users) {
+            if (err) return next(err);
+            console.log(users);
+            res.json(users);
+        });
+    }
+});
+// GET groups
+router.get('/groups', function(req, res, next) {
+    var groupId = req.query.groupId;
+    if (groupId) {
+        Model.Group
+            .findById(groupId)
+            .exec(function(err, group) {
+                if (err) return next(err);
+                console.log(group);
+                console.log("Das war find group by id");
+                res.json(group);
+            });
+    } else {
+        Model.Group.find(function(err, groups) {
+            console.log(groups);
+            res.json(groups);
+        });
+    }
+});
+// GET expenses
+router.get('/expenses', function(req, res, next) {
+    var expenseId = req.query.expenseId
+    if (expenseId) {
+        console.log("find expense by id");
+
+        Model.Expense
+            .findById(expenseId)
+            .exec(function(err, expense) {
+                if (err) return next(err);
+                console.log(expense);
+                console.log("Das war find expense by id");
+
+                res.json(expense);
+            });
+    } else {
+        Model.Expense.find(function(err, expenses) {
+            if (err) return next(err);
+            console.log(expenses);
+            res.json(expenses);
+        });
+    }
+});
+// DELETE all users
+router.delete('/users', function(req, res, next) {
+    Model.User.remove({}, function(err, status) {
+        if (err) return next(err);
+        console.log(status);
+        res.json(status);
+    });
+});
+//DELETE all groups
+router.delete('/groups', function(req, res, next) {
+    Model.Group.remove({}, function(err, status) {
+        if (err) return next(err);
+        res.json(status);
+    });
+});
+// DELETE all expenses
+router.delete('/expenses', function(req, res, next) {
+    Model.Expense.remove({}, function(err, status) {
+        if (err) return next(err);
+        res.json(status);
+    });
+});
+// DELETE all groups a user has created
+router.delete('/:uid/groups/', function(req, res, next) {
+    Model.Group.find({
+        'creator': req.params.uid
+    }).remove(function(err, status) {
+        if (err) return next(err);
+        console.log(status);
+        res.json(status);
+    });
+});
+
+
+// Official REST-API to be used by Debts-App
+
+
 // POST users
 router.post('/users', function(req, res, next) {
     Model.User.create(req.body, function(err, post) {
@@ -47,6 +155,9 @@ router.get('/:uid/groups', function(req, res, next) {
             res.json(groups);
         });
 });
+
+
+
 router.post('/:uid/groups/', function(req, res, next) {
     var data = req.body;
     data.creator = req.params.uid;
@@ -404,111 +515,7 @@ function sortByKey(array, key) {
 
 
 
-// DEBUGGING & TESTING
 
-// GET users
-router.get('/users', function(req, res, next) {
-    var phone = req.query.phone;
-    var uid = req.query.uid;
-    if (phone) {
-        console.log(phone);
-        Model.User.findOne({'phone': phone},'_id', function(err, uid) {
-            if (err) return next(err);
-            console.log(uid);
-            res.json(uid);
-        });
-    } else if (uid) {
-        Model.User
-            .findById(uid)
-            .exec(function(err, user) {
-                if (err) return next(err);
-                console.log(user);
-                res.json(user);
-            });
-    } else {
-        Model.User.find(function(err, users) {
-            if (err) return next(err);
-            console.log(users);
-            res.json(users);
-        });
-    }
-});
-// GET groups
-router.get('/groups', function(req, res, next) {
-    var groupId = req.query.groupId;
-    if (groupId) {
-        Model.Group
-            .findById(groupId)
-            .exec(function(err, group) {
-                if (err) return next(err);
-                console.log(group);
-                console.log("Das war find group by id");
-                res.json(group);
-            });
-    } else {
-        Model.Group.find(function(err, groups) {
-            console.log(groups);
-            res.json(groups);
-        });
-    }
-});
-// GET expenses
-router.get('/expenses', function(req, res, next) {
-    var expenseId = req.query.expenseId
-    if (expenseId) {
-        console.log("find expense by id");
-
-        Model.Expense
-            .findById(expenseId)
-            .exec(function(err, expense) {
-                if (err) return next(err);
-                console.log(expense);
-                console.log("Das war find expense by id");
-
-                res.json(expense);
-            });
-    } else {
-        Model.Expense.find(function(err, expenses) {
-            if (err) return next(err);
-            console.log(expenses);
-            res.json(expenses);
-        });
-    }
-});
-
-// DELETE all users
-router.delete('/users', function(req, res, next) {
-    Model.User.remove({}, function(err, status) {
-        if (err) return next(err);
-        console.log(status);
-        res.json(status);
-    });
-});
-//DELETE all groups
-router.delete('/groups', function(req, res, next) {
-    Model.Group.remove({}, function(err, status) {
-        if (err) return next(err);
-        res.json(status);
-    });
-});
-// DELETE all expenses
-router.delete('/expenses', function(req, res, next) {
-    Model.Expense.remove({}, function(err, status) {
-        if (err) return next(err);
-        res.json(status);
-    });
-});
-
-// DELETE all groups a user has created
-router.delete('/:uid/groups/', function(req, res, next) {
-    Model.Group.find({
-        'creator': req.params.uid
-    }).remove(function(err, status) {
-        if (err) return next(err);
-        console.log(status);
-        res.json(status);
-    });
-});
 
 
 
