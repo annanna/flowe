@@ -30,6 +30,7 @@
 		7CB97F3E1B61603200815DD7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB97F3D1B61603200815DD7 /* Account.swift */; };
 		7CB97F401B61615F00815DD7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB97F3F1B61615F00815DD7 /* Message.swift */; };
 		7CB97FC01B61828C00815DD7 /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB97FBF1B61828C00815DD7 /* MessageTableViewController.swift */; };
+		7CB97FF41B61871800815DD7 /* Debts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7CB97FF21B61871800815DD7 /* Debts.xcdatamodeld */; };
 		7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */; };
 		7CD2C7FB1ADD47DC00A2096E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7F91ADD47DC00A2096E /* Main.storyboard */; };
 		7CD2C7FD1ADD47DC00A2096E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */; };
@@ -80,6 +81,7 @@
 		7CB97F3D1B61603200815DD7 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		7CB97F3F1B61615F00815DD7 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		7CB97FBF1B61828C00815DD7 /* MessageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
+		7CB97FF31B61871800815DD7 /* Debts.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Debts.xcdatamodel; sourceTree = "<group>"; };
 		7CD2C7EE1ADD47DC00A2096E /* Debts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Debts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CD2C7FA1ADD47DC00A2096E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				7C4ED2491B31749D0042EFF2 /* Expense.swift */,
 				7CB97F3D1B61603200815DD7 /* Account.swift */,
 				7CB97F3F1B61615F00815DD7 /* Message.swift */,
+				7CB97FF21B61871800815DD7 /* Debts.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				7C4ED2541B31749D0042EFF2 /* GroupDetailViewController.swift in Sources */,
 				7C4ED25D1B31749D0042EFF2 /* User.swift in Sources */,
 				7C4ED2511B31749D0042EFF2 /* ExpenseShareViewController.swift in Sources */,
+				7CB97FF41B61871800815DD7 /* Debts.xcdatamodeld in Sources */,
 				7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */,
 				7C4ED2611B31749D0042EFF2 /* PeopleView.swift in Sources */,
 				7C4ED2501B31749D0042EFF2 /* AddGroupTableViewController.swift in Sources */,
@@ -647,6 +651,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7CB97FF21B61871800815DD7 /* Debts.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7CB97FF31B61871800815DD7 /* Debts.xcdatamodel */,
+			);
+			currentVersion = 7CB97FF31B61871800815DD7 /* Debts.xcdatamodel */;
+			path = Debts.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7CD2C7E61ADD47DC00A2096E /* Project object */;
 }
