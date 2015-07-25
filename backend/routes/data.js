@@ -11,10 +11,8 @@ router.get('/users', function(req, res, next) {
     var phone = req.query.phone;
     var uid = req.query.uid;
     if (phone) {
-        console.log(phone);
         Model.User.findOne({'phone': phone},'_id', function(err, uid) {
             if (err) return next(err);
-            console.log(uid);
             res.json(uid);
         });
     } else if (uid) {
@@ -22,13 +20,11 @@ router.get('/users', function(req, res, next) {
             .findById(uid)
             .exec(function(err, user) {
                 if (err) return next(err);
-                console.log(user);
                 res.json(user);
             });
     } else {
         Model.User.find(function(err, users) {
             if (err) return next(err);
-            console.log(users);
             res.json(users);
         });
     }
@@ -41,13 +37,10 @@ router.get('/groups', function(req, res, next) {
             .findById(groupId)
             .exec(function(err, group) {
                 if (err) return next(err);
-                console.log(group);
-                console.log("Das war find group by id");
                 res.json(group);
             });
     } else {
         Model.Group.find(function(err, groups) {
-            console.log(groups);
             res.json(groups);
         });
     }
@@ -56,21 +49,16 @@ router.get('/groups', function(req, res, next) {
 router.get('/expenses', function(req, res, next) {
     var expenseId = req.query.expenseId
     if (expenseId) {
-        console.log("find expense by id");
 
         Model.Expense
             .findById(expenseId)
             .exec(function(err, expense) {
                 if (err) return next(err);
-                console.log(expense);
-                console.log("Das war find expense by id");
-
                 res.json(expense);
             });
     } else {
         Model.Expense.find(function(err, expenses) {
             if (err) return next(err);
-            console.log(expenses);
             res.json(expenses);
         });
     }
@@ -79,7 +67,6 @@ router.get('/expenses', function(req, res, next) {
 router.delete('/users', function(req, res, next) {
     Model.User.remove({}, function(err, status) {
         if (err) return next(err);
-        console.log(status);
         res.json(status);
     });
 });
@@ -103,7 +90,6 @@ router.delete('/:uid/groups/', function(req, res, next) {
         'creator': req.params.uid
     }).remove(function(err, status) {
         if (err) return next(err);
-        console.log(status);
         res.json(status);
     });
 });
@@ -186,7 +172,6 @@ router.post('/:uid/groups', function(req, res, next) {
                                     {path: 'users'}, 
                                     function(err, group) {
                                         if (err) return next(err);
-                                        console.log(group);
                                         return res.json(group);
                                     });
 					    });
@@ -210,7 +195,7 @@ router.get('/:uid/groups/:groupId', function(req, res, next) {
             .lean() // to return JS instead of mongoose document
             .exec(function(err, group) {
                 if (err) return next(err);
-                group.personalTotal = getTotalAccountForUser(req.params.uid, group.expenses);
+                group.personalSaldo = getSaldoForUser(req.params.uid, group.expenses);
                 res.json(group);
             });
 });
@@ -218,7 +203,7 @@ router.put('/:uid/groups/:groupId', function(req, res, next) {
     Model.Group.findByIdAndUpdate(req.params.groupId, 
             function(err, group) {
                 if (err) return next(err);
-                group.personalTotal = getTotalAccountForUser(req.params.uid, group.expenses);
+                group.personalSaldo = getSaldoForUser(req.params.uid, group.expenses);
                 res.json(group);
             });
 });
@@ -372,9 +357,10 @@ router.delete('/:uid/messages/:messageId', function(req, res, next) {
 
 // ACCOUNT CALCULATION
 
-function getTotalAccountForUser(user, expenses) {
-    var userHasToPay = 0.0
-    var userHasPayed = 0.0
+function getSaldoForUser(user, expenses) {
+    var userHasToPay = 0.0,
+        userHasPayed = 0.0;
+
     for (var i in expenses) {
         var expense = expenses[i];
         for (var j in expense.whoPayed) {
@@ -384,21 +370,20 @@ function getTotalAccountForUser(user, expenses) {
             }
         }
         for (var k in expense.whoTookPart) {
-            var payer = expense.whoTookPart[k].user;
-            if (user == payer) {
+            var participant = expense.whoTookPart[k].user;
+            if (user == participant) {
                 userHasToPay -= expense.whoTookPart[k].amount;
             }
         }
     }
     var total = userHasPayed + userHasToPay;
     total = Math.round(total * 100) / 100;
-    console.log(user + "'s total: " + total);
 
     return total;
 }
 
 function updateAccounts(group) {
-    var accounts = calculateAccount(group);
+    var accounts = calculateAccounts(group);
 
     Model.Account
         .find({
@@ -412,39 +397,50 @@ function updateAccounts(group) {
         });
 }
 
-function calculateAccount(group) {
+function calculateAccounts(group) {
     var accounts = [];
 
     // (1) [Teilen]
-    var pays = [];
-    var gets = [];
+    var pays = [],
+        gets = [];
+
+    // Fallback to prevent endless looping...
+    var counter = 0,
+        payerSum = 0,
+        getterSum = 0;
 
     for (var i=0; i<group.users.length; i++) {
-        var uid = group.users[i];
-        var amount = getTotalAccountForUser(uid, group.expenses);
+        var uid = group.users[i],
+            saldo = getSaldoForUser(uid, group.expenses);
+        
+        var saldoObj = {
+            "user": uid,
+            "saldo": Math.abs(saldo)
+        };
 
-        if (amount > 0) {
-            gets.push({
-                "user": uid,
-                "amount": amount
-            });
-        } else if (amount < 0) {
-            pays.push({
-                "user": uid,
-                "amount": amount*(-1)
-            });
+        if (saldo > 0) {
+            gets.push(saldoObj);
+            getterSum += saldo;
+        } else if (saldo < 0) {
+            pays.push(saldoObj);
+            payerSum += saldo;
         }
     }
- 
-    while(true) {
-        // (2) [Ordnen]
-        sortByKey(gets, "amount");
-        sortByKey(pays, "amount");
 
-        // (3) [Vergleiche Beträge]
-        var getAmount = gets[0].amount;
-        var payAmount = pays[0].amount;
-        var accountAmount = 0;
+    if (payerSum + getterSum != 0) {
+        // Aufteilung war fehlerhaft
+        return accounts;
+    }
+ 
+    while(counter < 100) {
+        // (2) [Ordnen]
+        sortByKey(gets, "saldo");
+        sortByKey(pays, "saldo");
+
+        // (3) [Vergleiche Saldi]
+        var getAmount = gets[0].saldo,
+            payAmount = pays[0].saldo,
+            accountAmount = 0;
 
         if (payAmount > getAmount) {
             // (a) z > e
@@ -480,9 +476,11 @@ function calculateAccount(group) {
             "amount": accountAmount
         });
 
-        // (4) [Aktualisiere Beträge]
-        gets[0].amount = getAmount;
-        pays[0].amount = payAmount;
+        // (4) [Aktualisiere Saldi]
+        gets[0].saldo = getAmount;
+        pays[0].saldo = payAmount;
+
+        counter++;
     }
     return accounts;
 }
