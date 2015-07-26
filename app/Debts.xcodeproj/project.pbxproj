@@ -23,7 +23,7 @@
 		7C4ED25B1B31749D0042EFF2 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2481B31749D0042EFF2 /* Group.swift */; };
 		7C4ED25C1B31749D0042EFF2 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2491B31749D0042EFF2 /* Expense.swift */; };
 		7C4ED25D1B31749D0042EFF2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24A1B31749D0042EFF2 /* User.swift */; };
-		7C4ED25E1B31749D0042EFF2 /* BalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24C1B31749D0042EFF2 /* BalanceTableViewCell.swift */; };
+		7C4ED25E1B31749D0042EFF2 /* ShareTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24C1B31749D0042EFF2 /* ShareTableViewCell.swift */; };
 		7C4ED25F1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24D1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift */; };
 		7C4ED2601B31749D0042EFF2 /* PeopleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24E1B31749D0042EFF2 /* PeopleButton.swift */; };
 		7C4ED2611B31749D0042EFF2 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24F1B31749D0042EFF2 /* PeopleView.swift */; };
@@ -70,7 +70,7 @@
 		7C4ED2481B31749D0042EFF2 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		7C4ED2491B31749D0042EFF2 /* Expense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 		7C4ED24A1B31749D0042EFF2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		7C4ED24C1B31749D0042EFF2 /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
+		7C4ED24C1B31749D0042EFF2 /* ShareTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareTableViewCell.swift; sourceTree = "<group>"; };
 		7C4ED24D1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupOverviewTableViewCell.swift; sourceTree = "<group>"; };
 		7C4ED24E1B31749D0042EFF2 /* PeopleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleButton.swift; sourceTree = "<group>"; };
 		7C4ED24F1B31749D0042EFF2 /* PeopleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 		7C4ED24B1B31749D0042EFF2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7C4ED24C1B31749D0042EFF2 /* BalanceTableViewCell.swift */,
+				7C4ED24C1B31749D0042EFF2 /* ShareTableViewCell.swift */,
 				7C4ED24D1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift */,
 				7C4ED24E1B31749D0042EFF2 /* PeopleButton.swift */,
 				7C4ED24F1B31749D0042EFF2 /* PeopleView.swift */,
@@ -212,10 +212,10 @@
 				7CD2C7F31ADD47DC00A2096E /* AppDelegate.swift */,
 				7C4ED24B1B31749D0042EFF2 /* Views */,
 				7C4ED23A1B31749D0042EFF2 /* Controllers */,
-				7C4ED2431B31749D0042EFF2 /* Helpers */,
 				7CD2C7F91ADD47DC00A2096E /* Main.storyboard */,
 				7CD2C7FE1ADD47DC00A2096E /* LaunchScreen.xib */,
 				7C4ED2471B31749D0042EFF2 /* Models */,
+				7C4ED2431B31749D0042EFF2 /* Helpers */,
 				7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */,
 				7CB97F371B615D9F00815DD7 /* Supporting Files */,
 			);
@@ -427,7 +427,7 @@
 				7C4ED2601B31749D0042EFF2 /* PeopleButton.swift in Sources */,
 				7CB97F3E1B61603200815DD7 /* Account.swift in Sources */,
 				7C4ED2531B31749D0042EFF2 /* AccountViewController.swift in Sources */,
-				7C4ED25E1B31749D0042EFF2 /* BalanceTableViewCell.swift in Sources */,
+				7C4ED25E1B31749D0042EFF2 /* ShareTableViewCell.swift in Sources */,
 				7C4ED2581B31749D0042EFF2 /* JSONHelper.swift in Sources */,
 				7CDBF11C1B4C0AA900F5F89F /* SyncViewController.swift in Sources */,
 			);

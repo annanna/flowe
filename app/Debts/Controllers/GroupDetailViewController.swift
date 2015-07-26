@@ -83,14 +83,16 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
                 if let expense = self.expenses[indexPath.row] as Expense! {
                     let vc = segue.destinationViewController as! ExpenseTableViewController
                     vc.expenseId = expense.eID
-                    vc.group = group
+                    vc.groupId = group!.gID
+                    vc.groupMembers = group!.users
                 }
             }
         } else if segue.identifier == addExpenseIdentifier {
             // ExpenseTableViewController is embedded in UINavigationController because of modal presentation
             let nav = segue.destinationViewController as! UINavigationController
             let expenseVC = nav.topViewController as! ExpenseTableViewController
-            expenseVC.group = group
+            expenseVC.groupMembers = self.group!.users
+
         }  else if segue.identifier == accountIdentifier {
             if let financeVC = segue.destinationViewController as? AccountViewController {
                 financeVC.total = self.group!.total

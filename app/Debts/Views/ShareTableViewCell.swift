@@ -1,5 +1,5 @@
 //
-//  BalanceTableViewCell.swift
+//  ShareTableViewCell.swift
 //  Debts
 //
 //  Created by Anna on 04.05.15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BalanceTableViewCell: UITableViewCell {
+class ShareTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var amountText: UITextField!

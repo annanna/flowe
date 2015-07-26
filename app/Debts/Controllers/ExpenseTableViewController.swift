@@ -8,22 +8,26 @@
 
 import UIKit
 
-class ExpenseTableViewController: UITableViewController {
+class ExpenseTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var expenseName: UITextField!
     @IBOutlet weak var expenseAmount: UITextField!
     @IBOutlet weak var expenseNotes: UITextView!
     @IBOutlet weak var payerView: UIView!
     @IBOutlet weak var participantView: UIView!
+    @IBOutlet weak var imgCell: UITableViewCell!
     
     let saveExpenseIdentifier = "SaveExpense"
     let paymentDetailIdentifier = "WhoPayed"
     let participantDetailIdentifier = "WhoTookPart"
+    var imagePicker = UIImagePickerController()
     var lastIdentifier = ""
     
     var expense: Expense?
     var expenseId: String?
-    var group:Group!
+    
+    var groupMembers = [User]()
+    var groupId = ""
     
     var whoPayed: [(user: User, amount:Double)] = []
     var whoTookPart: [(user: User, amount:Double)] = []
@@ -36,22 +40,25 @@ class ExpenseTableViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGrayColor()]
         self.setUpView()
+        self.imagePicker.delegate = self
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        if let ex = expense {
+        if let eId = expenseId {
             return false // is push
         }
         return true // is modal
     }
     
     func setUpView() {
+        drawGroupMembersInViews()
         if let eId = expenseId {
             // Expense Detail
-            RequestHelper.getExpenseDetails(self.group.gID, expenseId: eId, callback: { (expenseData) -> Void in
+            RequestHelper.getExpenseDetails(self.groupId, expenseId: eId, callback: { (expenseData) -> Void in
                 self.expense = expenseData
                 self.loadDataInDetailView(expenseData)
-                self.drawGroupMembersInViews()
+                self.imgCell.hidden = true
+                self.tableView.reloadData()
                 
                 if self.editingMode {
                     var editBtn: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Done, target: self, action: "enableEditing:")
@@ -65,7 +72,6 @@ class ExpenseTableViewController: UITableViewController {
             var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveExpense:")
             navigationItem.rightBarButtonItem = saveBtn
             self.title = "Add Expense"
-            drawGroupMembersInViews()
         }
     }
 
@@ -98,10 +104,10 @@ class ExpenseTableViewController: UITableViewController {
     func fillView(currentView: UIView, identifier: String) {
         if let peopleView = currentView as? PeopleView {
             peopleView.userInteractionEnabled = self.editingMode
-            peopleView.setPeopleInView(group.users)
+            peopleView.setPeopleInView(self.groupMembers)
             if let ex = expense {
                 var toggleUsers = [User]()
-                for (i,user) in enumerate(group.users) {
+                for (i,user) in enumerate(self.groupMembers) {
                     var markBtnAsClick = identifier == paymentDetailIdentifier ? ex.hasPayed(user) : ex.hasParticipated(user)
                     if markBtnAsClick {
                         toggleUsers.append(user)
@@ -133,17 +139,17 @@ class ExpenseTableViewController: UITableViewController {
             }
         } else if (segue.identifier == paymentDetailIdentifier) || (segue.identifier == participantDetailIdentifier) {
             if let vc = segue.destinationViewController as? ExpenseShareViewController {
-                var balances:[(user: User, amount:Double)]
+                var shares:[(user: User, amount:Double)]
                 if let ex = expense {
                     // Expense Detail
-                    balances = (segue.identifier == paymentDetailIdentifier) ? ex.payed : ex.participated
+                    shares = (segue.identifier == paymentDetailIdentifier) ? ex.payed : ex.participated
                     vc.detail = true
                 } else {
                     // Add Expense
-                    balances = getSelectedUsers(segue.identifier!)
+                    shares = getSelectedUsers(segue.identifier!)
                 }
                 vc.amount = getExpenseAmountFromTextField()
-                vc.balances = balances
+                vc.shares = shares
             }
             self.lastIdentifier = segue.identifier!
         }
@@ -162,13 +168,19 @@ class ExpenseTableViewController: UITableViewController {
         var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveExpense:")
         navigationItem.rightBarButtonItem = saveBtn
     }
-    @IBAction func saveBalance(segue:UIStoryboardSegue) {
+    @IBAction func chooseImage(sender: UIButton) {
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func saveShare(segue:UIStoryboardSegue) {
         if let vc = segue.sourceViewController as? ExpenseShareViewController {
             self.expenseAmount.text = vc.amount.toMoneyString()
             if self.lastIdentifier == paymentDetailIdentifier {
-                self.whoPayed = vc.balances
+                self.whoPayed = vc.shares
             } else {
-                self.whoTookPart = vc.balances
+                self.whoTookPart = vc.shares
             }
         }
     }
@@ -203,21 +215,22 @@ class ExpenseTableViewController: UITableViewController {
     }
     
     func updateAmount(payment:[(user: User, amount:Double)]) -> [(user: User, amount:Double)] {
-        var balances = payment
+        var shares = payment
         var userCount = Double(payment.count)
         var total = getExpenseAmountFromTextField()
         
         var part:Double = (total / userCount).roundToMoney()
-        for (idx,balance) in enumerate(balances) {
-            balances[idx] = (user:balance.user, amount:part)
-            total -= part
+        let diff: Double = total - (part*userCount)
+        
+        for (idx,share) in enumerate(shares) {
+            shares[idx] = (user:share.user, amount:part)
         }
         // in case of rounding issues (e.g. 10€ for 3 people) add the remaining difference to the first user (difference can be positive or negative
-        if total != 0 {
-            balances[0] = (user: balances[0].user, amount: part+total)
+        if diff != 0 {
+            shares[0] = (user: shares[0].user, amount: part+diff)
         }
         
-        return balances
+        return shares
     }
     
     func getExpenseAmountFromTextField() -> Double {
