@@ -12,7 +12,7 @@ import SwiftyJSON
 
 public class RequestHelper {
     
-    static let dataUrl = "https://flowe.herokuapp.com"
+    static let dataUrl = "http://localhost:3000"
     
     //  /users
     class func getUserDetails(person: User, callback:(User) -> Void) {
@@ -285,6 +285,29 @@ public class RequestHelper {
                         }
                         callback(acc: account, exp: expenses)
                         println("Successfully fetched account details")
+                    }
+                }
+        }
+    }
+    
+    class func updateAccount(account: Account, callback: (Account)->Void) {
+        let url = "\(dataUrl)/\(GlobalVar.currentUid)/accounts/\(account.aId)"
+        
+        let putBody = account.asDictionary()
+        
+        Alamofire.request(.PUT, url, parameters: putBody)
+            .responseJSON {
+                (request, response, jsonResponse, error) in
+                if (error != nil) {
+                    println("Error updating account \(error)")
+                    println(request)
+                    println(response)
+                } else {
+                    if let jsonData: AnyObject = jsonResponse {
+                        let accountData = JSON(jsonData)
+                        let account = Account(data: accountData)
+                        callback(account)
+                        println("Successfully updated account details")
                     }
                 }
         }

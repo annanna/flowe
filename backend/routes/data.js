@@ -77,6 +77,13 @@ router.delete('/groups', function(req, res, next) {
         res.json(status);
     });
 });
+// DELETE false accounts
+router.delete('/accounts', function(req, res, next) {
+    Model.Account.remove({'amount': 0}, function(err, status) {
+        if (err) return next(err);
+        res.json(status);
+    })
+})
 // DELETE all expenses
 router.delete('/expenses', function(req, res, next) {
     Model.Expense.remove({}, function(err, status) {
@@ -341,15 +348,22 @@ router.get('/:uid/accounts/:accountId', function(req, res, next) {
 });
 
 router.put('/:uid/accounts/:accountId', function(req, res, next) {
+    var putData = req.body;
+    putData.updated = Date.now();
     Model.Account
-        .findByIdAndUpdate(req.params.accountId, function(err, account) {
-            if (err) return next(err);
-            res.json(account);
+        .findByIdAndUpdate(
+            req.params.accountId, 
+            putData,
+            {'new': true},
+            function(err, account) {
+                if (err) return next(err);
+                res.json(account);
         });
 });
 router.delete('/:uid/accounts/:accountId', function(req, res, next) {
     Model.Account
-        .findByIdAndRemove(req.params.accountId, function(err, status) {
+        .findByIdAndRemove(
+                req.params.accountId, function(err, status) {
             if (err) return next(err);
             res.json(status);
         });

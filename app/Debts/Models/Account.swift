@@ -37,4 +37,14 @@ class Account: NSObject {
             self.creditor = creditor
         })
     }
+    
+    func asDictionary() -> [String: String] {
+        return [
+            "aId": self.aId,
+            "debtor": self.debtor.uID,
+            "creditor": self.creditor.uID,
+            "amount": "\(self.amount)",
+            "status": "\(self.status)"
+        ]
+    }
 }

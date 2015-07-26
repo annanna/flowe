@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SwiftyJSON
 
-class AccountDetailViewController: UIViewController, PayPalPaymentDelegate, PayPalFuturePaymentDelegate, PayPalProfileSharingDelegate {
+class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var expenseTable: UITableView!
@@ -23,18 +24,13 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate, PayP
     var aId = ""
     var account: Account?
     var currentPersonIsCreditor:Bool = true
+    var groupName = ""
     
-    var environment: String = PayPalEnvironmentNoNetwork {
-        willSet(newEnvironment) {
-            if (newEnvironment != environment) {
-                PayPalMobile.preconnectWithEnvironment(newEnvironment)
-            }
-        }
-    }
     var payPalConfig = PayPalConfiguration()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupPayPal()
         RequestHelper.getAccountDetails(self.aId, callback: { (acc, exp) -> Void in
             self.expenses = exp
             self.account = acc
@@ -50,17 +46,23 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate, PayP
                 // der andere hat Schulden bei mir
                 currentPersonIsCreditor = true
                 otherName = acc.debtor.firstname
-                paymentBtn.titleLabel?.text = "Request Payment"
+                paymentBtn.setTitle("Request Payment", forState: UIControlState.Normal)
             } else {
                 // ich habe Schulden
                 currentPersonIsCreditor = false
                 otherName = acc.creditor.firstname
-                paymentBtn.titleLabel?.text = "Pay now"
+                paymentBtn.setTitle("Pay Now", forState: UIControlState.Normal)
             }
             titleLabel.text = "\(otherName) & Ich"
-            accStatusLabel.text = "\(acc.status)"
             accTotalLabel.text = acc.amount.toMoneyString()
+            displayStatus()
         }
+    }
+    
+    func displayStatus() {
+        accStatusLabel.text = "\(self.account!.status)"
+        let color = colors.paymentColors[self.account!.status]
+        self.accStatusLabel.backgroundColor = color
     }
     
     // MARK: - Table view data source & Delegate
@@ -87,45 +89,41 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate, PayP
             RequestHelper.sendMessage(message, callback: { () -> Void in
                 var alert = UIAlertController(title: "Message", message: "Message sent to \(self.account!.debtor.firstname)", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: { () -> Void in
-                    self.accStatusLabel.text = "1"
-                })
+                self.presentViewController(alert, animated: true, completion: nil)
             })
             
         } else {
-            self.paying()
-        }
-    }
-
-    
-    func paying() {
-        let payment = PayPalPayment(amount: 10.50, currencyCode: "EUR", shortDescription: "Schulden für Winterurlaub", intent: PayPalPaymentIntent.Sale)
-        payment.items = [PayPalItem(name: "Meine Schulden", withQuantity: 1, withPrice: NSDecimalNumber(string: "10.5"), withCurrency: "EUR", withSku: "ABC")]
-        payment.paymentDetails = PayPalPaymentDetails(subtotal: 10.5, withShipping: 0, withTax: 0)
-        
-        if payment.processable {
-            let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: payPalConfig, delegate: self)
-            presentViewController(paymentViewController, animated: true, completion: nil)
-        } else {
-            println("not processable")
+            let payment = PayPalPayment()
+            payment.amount = NSDecimalNumber(double: self.account!.amount)
+            payment.currencyCode = "EUR"
+            payment.shortDescription = "Schulden für \(groupName)"
+            payment.intent = PayPalPaymentIntent.Sale
+            
+            if payment.processable {
+                let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: payPalConfig, delegate: self)
+                presentViewController(paymentViewController, animated: true, completion: nil)
+            } else {
+                println("payment not processable")
+            }
         }
     }
     
     func setupPayPal() {
         PayPalMobile.initializeWithClientIdsForEnvironments(
             [
-                "PayPalEnvironmentProduction": "AQ8OKPIzdyDlboX9iyxRCAzzkVtKKaGGADFouqbFv5oOXly7kznX3vA-hD4MwUSw9y-TRNMm2vm6wRN6",
-                "PayPalEnvironmentSandbox": "AQ8OKPIzdyDlboX9iyxRCAzzkVtKKaGGADFouqbFv5oOXly7kznX3vA-hD4MwUSw9y-TRNMm2vm6wRN6"
+                PayPalEnvironmentSandbox: "AQ8OKPIzdyDlboX9iyxRCAzzkVtKKaGGADFouqbFv5oOXly7kznX3vA-hD4MwUSw9y-TRNMm2vm6wRN6"
             ]
         )
         
         // PayPal Config
         payPalConfig.acceptCreditCards = true
-        payPalConfig.merchantName = "Debts App"
-        payPalConfig.languageOrLocale = NSLocale.preferredLanguages()[0] as! String
-        payPalConfig.payPalShippingAddressOption = .PayPal
-        
-        PayPalMobile.preconnectWithEnvironment(environment)
+        payPalConfig.defaultUserPhoneNumber = GlobalVar.currentUser.phoneNumber
+        payPalConfig.defaultUserEmail = "myDebts@abc.com" // GlobalVar.currentUser.phoneNumber
+        payPalConfig.rememberUser = true
+        payPalConfig.alwaysDisplayCurrencyCodes = true
+        //payPalConfig.merchantName = "Debts App"
+        payPalConfig.payPalShippingAddressOption = PayPalShippingAddressOption.None
+        PayPalMobile.preconnectWithEnvironment(PayPalEnvironmentNoNetwork)
     }
 
     
@@ -138,37 +136,39 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate, PayP
     func payPalPaymentViewController(paymentViewController: PayPalPaymentViewController!, didCompletePayment completedPayment: PayPalPayment!) {
         println("PayPal Payment Success !")
         paymentViewController?.dismissViewControllerAnimated(true, completion: { () -> Void in
-            // send completed confirmaion to your server
-            println("Here is your proof of payment:\n\n\(completedPayment.confirmation)\n\nSend this to your server for confirmation and fulfillment.")
-            
+            self.verifyCompletedPayment(completedPayment)
+                self.account?.status++
+                self.displayStatus()
+                RequestHelper.updateAccount(self.account!, callback: { (acc) -> Void in
+                    self.account = acc
+                    self.setTopBar()
+                })
         })
     }
 
-    // Future Payment
-    func payPalFuturePaymentDidCancel(futurePaymentViewController: PayPalFuturePaymentViewController!) {
-        println("PayPal Future Payment Authorization Canceled")
-        futurePaymentViewController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-    func payPalFuturePaymentViewController(futurePaymentViewController: PayPalFuturePaymentViewController!, didAuthorizeFuturePayment futurePaymentAuthorization: [NSObject : AnyObject]!) {
-        println("PayPal Future Payment Authorization Success!")
-        // send authorization to your server to get refresh token.
-        futurePaymentViewController?.dismissViewControllerAnimated(true, completion: { () -> Void in
-            println("done")
-        })
-    }
-    
-    
-    // PayPalProfileSharingDelegate
-    func userDidCancelPayPalProfileSharingViewController(profileSharingViewController: PayPalProfileSharingViewController!) {
-        println("profile sharing cancelled")
-        profileSharingViewController.dismissViewControllerAnimated(true, completion: nil)
-    }
-    func payPalProfileSharingViewController(profileSharingViewController: PayPalProfileSharingViewController!, userDidLogInWithAuthorization profileSharingAuthorization: [NSObject : AnyObject]!) {
-        println("profile sharing authorization successfull")
+    func verifyCompletedPayment(completedPayment: PayPalPayment) {
+        var conf = completedPayment.confirmation
+        var confirmation = JSON(conf)
+        var paymentId = confirmation["response"]["id"].stringValue
+        println("payment id: \(paymentId)")
         
-        profileSharingViewController.dismissViewControllerAnimated(true, completion: { () -> Void in
-            println("hallo")
-        })
+        // (1) get access token
+        
+        /* 
+            curl -v https://api.sandbox.paypal.com/v1/oauth2/token \
+            -H "Accept: application/json" \
+            -H "Accept-Language: en_US" \
+            -u "<ClientId>:<SecretKey>" \
+            -d "grant_type=client_credentials"
+
+        */
+        
+        // (2) get payment from server
+        
+        /*
+            curl -v -X GET https://api.sandbox.paypal.com/v1/payments/payment \
+            -H "Content-Type:application/json" \
+            -H "Authorization: Bearer <AccessToken>"
+        */
     }
-    
 }
