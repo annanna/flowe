@@ -25,10 +25,9 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // video capture
         
-        let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        // set up capturing
+        let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) // we want to use the camera
         var error:NSError?
         let input: AnyObject! = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: &error)
         
@@ -37,15 +36,16 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
             return
         }
         
-        captureSession = AVCaptureSession()
+        captureSession = AVCaptureSession() // capture session coordinates data flow between input device and output
         captureSession?.addInput(input as! AVCaptureInput)
         
         let captureMetadataOutput = AVCaptureMetadataOutput()
         captureSession?.addOutput(captureMetadataOutput)
         
         captureMetadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
-        captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+        captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode] // we are interested in data in form of QR Codes
         
+        // show camera
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
         videoPreviewLayer?.frame = view.layer.bounds
@@ -98,6 +98,8 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
                         self.stopScanner()
                     }
                 }
+            } else {
+                println("should not be called...right?")
             }
         }
     }

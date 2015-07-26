@@ -38,7 +38,7 @@ class Group: NSObject {
             }
         }
         
-        self.total = details["personalTotal"].doubleValue
+        self.total = details["personalSaldo"].doubleValue
         self.creator = UserHelper.JSONcreateUserIfDoesNotExist(details["creator"])
         
         if let expenseArray = details["expenses"].array {
