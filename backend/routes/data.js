@@ -265,6 +265,13 @@ router.post('/:uid/groups/:groupId/expenses', function(req, res, next) {
 
 
 // expense by id
+router.get('/:uid/groups/:groupId/expenses/:expenseId', function(req, res, next) {
+    Model.Expense
+        .findById(req.params.expenseId, function(err, expense) {
+            if (err) return next(err);
+            res.json(expense);
+        });
+});
 router.put('/:uid/groups/:groupId/expenses/:expenseId', function(req, res, next) {
     Model.Expense
         .findByIdAndUpdate(req.params.expenseId, function(err, expense) {

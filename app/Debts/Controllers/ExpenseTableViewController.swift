@@ -32,7 +32,7 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
     var whoPayed: [(user: User, amount:Double)] = []
     var whoTookPart: [(user: User, amount:Double)] = []
     
-    let editingMode = true //depends on the user's rights
+    var enableEditing = false
     
     // MARK: - View Set Up
     
@@ -51,7 +51,6 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
     }
     
     func setUpView() {
-        drawGroupMembersInViews()
         if let eId = expenseId {
             // Expense Detail
             RequestHelper.getExpenseDetails(self.groupId, expenseId: eId, callback: { (expenseData) -> Void in
@@ -60,10 +59,12 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
                 self.imgCell.hidden = true
                 self.tableView.reloadData()
                 
-                if self.editingMode {
+                if self.expense!.creator.isSame(GlobalVar.currentUser) {
                     var editBtn: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Done, target: self, action: "enableEditing:")
                     self.navigationItem.rightBarButtonItem = editBtn
                 }
+
+                self.drawGroupMembersInViews()
             })
         } else {
             // New Expense
@@ -72,6 +73,8 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
             var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveExpense:")
             navigationItem.rightBarButtonItem = saveBtn
             self.title = "Add Expense"
+            self.enableEditing = true
+            self.drawGroupMembersInViews()
         }
     }
 
@@ -103,7 +106,7 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
     
     func fillView(currentView: UIView, identifier: String) {
         if let peopleView = currentView as? PeopleView {
-            peopleView.userInteractionEnabled = self.editingMode
+            peopleView.userInteractionEnabled = self.enableEditing
             peopleView.setPeopleInView(self.groupMembers)
             if let ex = expense {
                 var toggleUsers = [User]()
@@ -165,6 +168,7 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
     }
     func enableEditing(editBtn: UIBarButtonItem) {
         //TODO: enable all labels and buttons and store updated expense
+        self.enableEditing = true
         var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveExpense:")
         navigationItem.rightBarButtonItem = saveBtn
     }
