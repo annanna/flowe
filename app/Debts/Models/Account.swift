@@ -47,4 +47,11 @@ class Account: NSObject {
             "status": "\(self.status)"
         ]
     }
+    
+    func currentUserIsDebtor() -> Bool {
+        if GlobalVar.currentUser.isSame(self.debtor) {
+            return true
+        }
+        return false
+    }
 }

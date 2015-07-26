@@ -25,7 +25,6 @@ class Group: NSObject {
     }
     
     init(details: JSON) {
-        println("group init")
         self.gID = details["_id"].stringValue
         self.name = details["name"].stringValue
         var created = details["created"].stringValue

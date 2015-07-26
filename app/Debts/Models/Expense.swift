@@ -38,7 +38,6 @@ class Expense : NSObject {
     }
     
     init(details: JSON) {
-        println("init expense")
         self.eID = details["_id"].stringValue
         self.name = details["name"].stringValue
         var created = details["created"].stringValue

@@ -22,7 +22,6 @@ class AccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.totalLabel.text = self.total.toMoneyString()
         self.getAccounts()
     }
     
@@ -31,6 +30,7 @@ class AccountViewController: UIViewController {
             RequestHelper.getAccountsByGroup(g, callback: { (accountData) -> Void in
                 self.accounts = accountData
                 self.accountTableView.reloadData()
+                self.updateTotal()
             })
         } else {
             RequestHelper.getAccounts({ (accountData) -> Void in
@@ -38,6 +38,17 @@ class AccountViewController: UIViewController {
                 self.accountTableView.reloadData()
             })
         }
+    }
+    
+    func updateTotal() {
+        for account in self.accounts {
+            if account.currentUserIsDebtor() {
+                total -= account.amount
+            } else {
+                total += account.amount
+            }
+        }
+        self.totalLabel.text = total.toMoneyString()
     }
     
     // MARK: UITableViewDataSource
@@ -51,7 +62,14 @@ class AccountViewController: UIViewController {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("accountCell", forIndexPath: indexPath) as! UITableViewCell
         let acc = self.accounts[indexPath.row]
-        cell.textLabel?.text = "\(acc.creditor.firstname) kriegt \(acc.amount.toMoneyString()) von \(acc.debtor.firstname)"
+        if acc.currentUserIsDebtor() {
+            cell.textLabel?.text = "\(acc.creditor.firstname) kriegt \(acc.amount.toMoneyString()) von mir"
+        } else {
+            cell.textLabel?.text = "Ich kriege \(acc.amount.toMoneyString()) von \(acc.debtor.firstname)"
+        }
+
+        cell.backgroundColor = colors.paymentColors[acc.status]
+        
         return cell
     }
     

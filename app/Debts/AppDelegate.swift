@@ -19,9 +19,9 @@ struct colors {
     static let bgGreen: UIColor = UIColor(red: 87, green: 196, blue: 154, alpha: 0.5)
     
     static let paymentColors:[UIColor] = [
-        UIColor(red: 0, green: 41.0, blue: 113.0, alpha: 0.5),
-        UIColor(red: 144, green: 74, blue: 0, alpha: 0.5),
-        UIColor(red: 16, green: 104, blue: 17, alpha: 0.5)
+        UIColor(red: 0, green: 41.0, blue: 113.0, alpha: 0.3),
+        UIColor(red: 144, green: 74, blue: 0, alpha: 0.3),
+        UIColor(red: 16, green: 104, blue: 17, alpha: 0.3)
     ]
 }
 

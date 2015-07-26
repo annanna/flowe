@@ -22,7 +22,7 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
     
     var expenses = [Expense]()
     var aId = ""
-    var account: Account?
+    var account: Account!
     var currentPersonIsCreditor:Bool = true
     var groupName = ""
     
@@ -40,28 +40,26 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
     }
     
     func setTopBar() {
-        if let acc = self.account {
-            var otherName = ""
-            if acc.creditor.isSame(GlobalVar.currentUser) {
-                // der andere hat Schulden bei mir
-                currentPersonIsCreditor = true
-                otherName = acc.debtor.firstname
-                paymentBtn.setTitle("Request Payment", forState: UIControlState.Normal)
-            } else {
-                // ich habe Schulden
-                currentPersonIsCreditor = false
-                otherName = acc.creditor.firstname
-                paymentBtn.setTitle("Pay Now", forState: UIControlState.Normal)
-            }
-            titleLabel.text = "\(otherName) & Ich"
-            accTotalLabel.text = acc.amount.toMoneyString()
-            displayStatus()
+        var otherName = ""
+        if account.currentUserIsDebtor() {
+            // ich habe Schulden
+            currentPersonIsCreditor = false
+            otherName = account.creditor.firstname
+            paymentBtn.setTitle("Pay Now", forState: UIControlState.Normal)
+        } else {
+            // der andere hat Schulden bei mir
+            currentPersonIsCreditor = true
+            otherName = account.debtor.firstname
+            paymentBtn.setTitle("Request Payment", forState: UIControlState.Normal)
         }
+        titleLabel.text = "\(otherName) & Ich"
+        accTotalLabel.text = account.amount.toMoneyString()
+        displayStatus()
     }
     
     func displayStatus() {
-        accStatusLabel.text = "\(self.account!.status)"
-        let color = colors.paymentColors[self.account!.status]
+        accStatusLabel.text = "\(self.account.status)"
+        let color = colors.paymentColors[self.account.status]
         self.accStatusLabel.backgroundColor = color
     }
     
@@ -85,16 +83,16 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
     @IBAction func paymentPressed(sender: UIButton) {
         if currentPersonIsCreditor {
             // send message and show alert
-            let message = Message(sender: GlobalVar.currentUser, receiver: self.account!.debtor, message: " wants money from you!")
+            let message = Message(sender: GlobalVar.currentUser, receiver: self.account.debtor, message: " wants money from you!")
             RequestHelper.sendMessage(message, callback: { () -> Void in
-                var alert = UIAlertController(title: "Message", message: "Message sent to \(self.account!.debtor.firstname)", preferredStyle: UIAlertControllerStyle.Alert)
+                var alert = UIAlertController(title: "Message", message: "Message sent to \(self.account.debtor.firstname)", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
             })
             
         } else {
             let payment = PayPalPayment()
-            payment.amount = NSDecimalNumber(double: self.account!.amount)
+            payment.amount = NSDecimalNumber(double: self.account.amount)
             payment.currencyCode = "EUR"
             payment.shortDescription = "Schulden für \(groupName)"
             payment.intent = PayPalPaymentIntent.Sale
@@ -139,9 +137,10 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
             self.verifyCompletedPayment(completedPayment)
                 self.account?.status++
                 self.displayStatus()
-                RequestHelper.updateAccount(self.account!, callback: { (acc) -> Void in
+                RequestHelper.updateAccount(self.account, callback: { (acc) -> Void in
                     self.account = acc
                     self.setTopBar()
+                    let msg = Message(sender: GlobalVar.currentUser, receiver: self.account.creditor, message: "hat \(self.account.amount) bezahlt")
                 })
         })
     }
