@@ -11,54 +11,12 @@ import SwiftyJSON
 
 public class JSONHelper {
     
-    class func createDictionaryFromUser(user: User) -> [String: String] {
-        return [
-            "phone": user.phoneNumber,
-            "firstname": user.firstname,
-            "lastname": user.lastname
-        ]
-    }
-    
     class func createDictionaryFromUsers(users:[User]) -> [[String: String]] {
         var userDict=[[String: String]]()
         for user in users {
-            userDict += [createDictionaryFromUser(user)]
+            userDict += [user.asDictionary()]
         }
         return userDict
-    }
-    
-    class func createDictionaryFromExpense(expense:Expense) -> [String: AnyObject] {
-        var whoPayed = [[String: AnyObject]]()
-        for (user, amount) in expense.payed {
-            var payed:[String: AnyObject] = [
-                "user": user.uID,
-                "amount": amount
-            ]
-            whoPayed.append(payed)
-        }
-        var whoTookPart = [[String: AnyObject]]()
-        for (user, amount) in expense.participated {
-            var participated:[String: AnyObject] = [
-                "user": user.uID,
-                "amount": amount
-            ]
-            whoTookPart.append(participated)
-        }
-        
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "d.M.yyyy HH:mm"
-        let expenseDate = dateFormatter.stringFromDate(expense.timestamp)
-        
-        var postBody: [String: AnyObject] = [
-            "name": expense.name,
-            "creator": GlobalVar.currentUid,
-            "timestamp": expenseDate,
-            "total": expense.moneyPayed,
-            "notes": expense.notes,
-            "whoTookPart": whoTookPart,
-            "whoPayed": whoPayed
-        ]
-        return postBody
     }
     
     class func JSONToDictionary(dataArray:[JSON]) -> [[String: AnyObject]] {

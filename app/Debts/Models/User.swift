@@ -101,4 +101,12 @@ class User: NSObject {
         self.firstname = details["firstname"].stringValue
         self.lastname = details["lastname"].stringValue
     }
+    
+    func asDictionary() -> [String: String] {
+        return [
+            "phone": self.phoneNumber,
+            "firstname": self.firstname,
+            "lastname": self.lastname
+        ]
+    }
 }

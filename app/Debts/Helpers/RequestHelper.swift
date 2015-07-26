@@ -158,7 +158,7 @@ public class RequestHelper {
         
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/\(groupId)/expenses"
         
-        var postBody: [String: AnyObject] = JSONHelper.createDictionaryFromExpense(expense)
+        var postBody: [String: AnyObject] = expense.asDictionary()
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
         request.HTTPMethod = "POST"
         var err: NSError?

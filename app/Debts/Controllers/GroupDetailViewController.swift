@@ -70,8 +70,8 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(expenseCell, forIndexPath: indexPath) as! UITableViewCell
-        
-        cell.textLabel?.text = generateExpenseConclusion(self.expenses[indexPath.row])
+        let expense = self.expenses[indexPath.row]
+        cell.textLabel?.text = expense.generateConclusion()
         return cell
     }
     
@@ -148,43 +148,5 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
                 sum.setTitleColor(UIColor.greenColor(), forState: UIControlState.Normal)
             }
         }
-    }
-    
-    func generateExpenseConclusion(expense: Expense) -> String {
-        if expense.payed.count > 0 {
-        
-        var firstUser = expense.payed[0].user
-        var label = firstUser.firstname
-        var verb = " hat "
-        if firstUser.uID == GlobalVar.currentUid {
-            label = "Du"
-            verb = " hast "
-        }
-        var usersLeft = expense.payed.count-1
-        var count = 1
-
-        
-        var joiner = ""
-        if usersLeft > 0 {
-            joiner = ", "
-            verb = " haben "
-        
-            for (user, amount) in expense.payed[1...usersLeft] {
-                if count == usersLeft {
-                    joiner = " und "
-                }
-                if user.uID == GlobalVar.currentUid {
-                    label += joiner + "du"
-                } else {
-                    label += joiner + user.firstname
-                }
-                count++
-            }
-        }
-        label += verb
-        label += "\(expense.moneyPayed.toMoneyString()) für \(expense.name) bezahlt"
-        return label
-        }
-        return ""
     }
 }

@@ -97,4 +97,75 @@ class Expense : NSObject {
         }
         return false
     }
+    
+    func generateConclusion() -> String {
+        if self.payed.count > 0 {
+            
+            var firstUser = self.payed[0].user
+            var label = firstUser.firstname
+            var verb = " hat "
+            if firstUser.uID == GlobalVar.currentUid {
+                label = "Du"
+                verb = " hast "
+            }
+            var usersLeft = self.payed.count-1
+            var count = 1
+            
+            
+            var joiner = ""
+            if usersLeft > 0 {
+                joiner = ", "
+                verb = " haben "
+                
+                for (user, amount) in self.payed[1...usersLeft] {
+                    if count == usersLeft {
+                        joiner = " und "
+                    }
+                    if user.uID == GlobalVar.currentUid {
+                        label += joiner + "du"
+                    } else {
+                        label += joiner + user.firstname
+                    }
+                    count++
+                }
+            }
+            label += verb
+            label += "\(self.moneyPayed.toMoneyString()) für \(self.name) bezahlt"
+            return label
+        }
+        return ""
+    }
+    
+    func asDictionary() -> [String: AnyObject] {
+        var whoPayed = [[String: AnyObject]]()
+        for (user, amount) in self.payed {
+            var payed:[String: AnyObject] = [
+                "user": user.uID,
+                "amount": amount
+            ]
+            whoPayed.append(payed)
+        }
+        var whoTookPart = [[String: AnyObject]]()
+        for (user, amount) in self.participated {
+            var participated:[String: AnyObject] = [
+                "user": user.uID,
+                "amount": amount
+            ]
+            whoTookPart.append(participated)
+        }
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "d.M.yyyy HH:mm"
+        let expenseDate = dateFormatter.stringFromDate(self.timestamp)
+        
+        return [
+            "name": self.name,
+            "creator": GlobalVar.currentUid,
+            "timestamp": expenseDate,
+            "total": self.moneyPayed,
+            "notes": self.notes,
+            "whoTookPart": whoTookPart,
+            "whoPayed": whoPayed
+        ]
+    }
 }

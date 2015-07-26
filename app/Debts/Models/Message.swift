@@ -11,19 +11,27 @@ import SwiftyJSON
 
 class Message: NSObject {
     var mId = ""
-    var sender: User
+    var sender = GlobalVar.currentUser
     var receiver = GlobalVar.currentUser
     var created = NSDate()
     var message = ""
     
-    init(sender: User) {
-        self.sender = sender
+    init(sender: User?, receiver: User?, message: String) {
+        if let s = sender {
+            self.sender = s
+        }
+        if let r = receiver {
+            self.receiver = r
+        }
+
+        self.message = message
     }
     
     init(data: JSON) {
         self.mId = data["_id"].stringValue
         self.message = data["_id"].stringValue
-        let senderId = data["_id"].stringValue
+        let senderId = data["sender"].stringValue
+        let receiverId = data["receiver"].stringValue
         
         if let send = UserHelper.getUser(senderId) {
             self.sender = send
@@ -31,6 +39,21 @@ class Message: NSObject {
             println("kenn ich nicht")
             self.sender = User(rand: 1)
         }
+        
+        if let r = UserHelper.getUser(receiverId) {
+            self.sender = r
+        } else {
+            println("kenn ich nicht")
+            self.sender = User(rand: 1)
+        }
+    }
+    
+    func asDictionary() -> [String: String] {
+        return [
+            "sender": self.sender.uID,
+            "receiver": self.receiver.uID,
+            "message": self.message
+        ]
     }
    
 }

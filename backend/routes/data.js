@@ -314,6 +314,32 @@ router.get('/:uid/accounts', function(req, res, next) {
 });
 
 // account by id
+router.get('/:uid/accounts/:accountId', function(req, res, next) {
+    Model.Account
+        .findById(req.params.accountId)
+        .lean()
+        .exec( function(err, account) {
+            if (err) return next(err);
+
+            var groupId = account["groupId"];
+            var debtor = account["debtor"];
+            var creditor = account["creaditor"];
+            Model.Expense
+                .find({'groupId': groupId})
+                .or([
+                    {'whoPayed.user': debtor},
+                    {'whoPayed.user': creditor},
+                    {'whoTookPart.user': debtor},
+                    {'whoTookPart.user': creditor}
+                    ])
+                .exec( function( err, expenses) {
+                    if (err) return next(err);
+                    account["expenses"] = expenses;
+                    res.json(account);
+                })
+        });
+});
+
 router.put('/:uid/accounts/:accountId', function(req, res, next) {
     Model.Account
         .findByIdAndUpdate(req.params.accountId, function(err, account) {
