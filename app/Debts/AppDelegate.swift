@@ -20,9 +20,12 @@ struct colors {
     
     static let paymentColors:[UIColor] = [
         UIColor(red: 0, green: 41.0, blue: 113.0, alpha: 0.3),
-        UIColor(red: 144, green: 74, blue: 0, alpha: 0.3),
-        UIColor(red: 16, green: 104, blue: 17, alpha: 0.3)
+        UIColor(red: 16, green: 104, blue: 17, alpha: 0.3),
+        UIColor(red: 144, green: 74, blue: 0, alpha: 0.3)
     ]
+    // UIColor(red: 255, green: 114, blue: 80, alpha: 0.3),
+    // UIColor(red: 236, green: 205, blue: 83, alpha: 0.3),
+    // UIColor(red: 211, green: 219, blue: 135
 }
 
 extension Double {

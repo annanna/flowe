@@ -26,6 +26,7 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
     var currentPersonIsCreditor:Bool = true
     var groupName = ""
     
+    let paymentStatus = ["Unbezahlt", "Bestätigung ausstehend", "Bezahlt"]
     var payPalConfig = PayPalConfiguration()
     
     override func viewDidLoad() {
@@ -58,9 +59,13 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
     }
     
     func displayStatus() {
-        accStatusLabel.text = "\(self.account.status)"
-        let color = colors.paymentColors[self.account.status]
+        let status = self.account.status
+        accStatusLabel.text = self.paymentStatus[status]
+        let color = colors.paymentColors[status]
         self.accStatusLabel.backgroundColor = color
+        if status > 0 {
+            self.paymentBtn.hidden = true
+        }
     }
     
     // MARK: - Table view data source & Delegate
@@ -91,19 +96,49 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
             })
             
         } else {
-            let payment = PayPalPayment()
-            payment.amount = NSDecimalNumber(double: self.account.amount)
-            payment.currencyCode = "EUR"
-            payment.shortDescription = "Schulden für \(groupName)"
-            payment.intent = PayPalPaymentIntent.Sale
+            let alertController = UIAlertController(title: nil, message: "Wähle hier die Zahlungsart aus", preferredStyle: .ActionSheet)
+            let cashPayment = UIAlertAction(title: "Barzahlung", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                
+                self.paymentDone()
+                
+            })
+            let payPalPayment = UIAlertAction(title: "PayPal", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                
+                
+                let payment = PayPalPayment()
+                payment.amount = NSDecimalNumber(double: self.account.amount)
+                payment.currencyCode = "EUR"
+                payment.shortDescription = "Schulden für \(self.groupName)"
+                payment.intent = PayPalPaymentIntent.Sale
+                
+                if payment.processable {
+                    let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: self.payPalConfig, delegate: self)
+                    self.presentViewController(paymentViewController, animated: true, completion: nil)
+                } else {
+                    println("payment not processable")
+                }
+            })
+            alertController.addAction(cashPayment)
+            alertController.addAction(payPalPayment)
             
-            if payment.processable {
-                let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: payPalConfig, delegate: self)
-                presentViewController(paymentViewController, animated: true, completion: nil)
-            } else {
-                println("payment not processable")
-            }
+            self.presentViewController(alertController, animated: true, completion: nil)
+
+            
+
         }
+    }
+    
+    func paymentDone() {
+        self.account?.status++
+        self.displayStatus()
+        RequestHelper.updateAccount(self.account, callback: { (acc) -> Void in
+            self.account = acc
+            self.setTopBar()
+            let msg = Message(sender: GlobalVar.currentUser, receiver: self.account.creditor, message: "hat \(self.account.amount.toMoneyString()) bezahlt")
+            RequestHelper.sendMessage(msg, callback: { () -> Void in
+                println("message sent to \(self.account.creditor.firstname)")
+            })
+        })
     }
     
     func setupPayPal() {
@@ -135,13 +170,7 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
         println("PayPal Payment Success !")
         paymentViewController?.dismissViewControllerAnimated(true, completion: { () -> Void in
             self.verifyCompletedPayment(completedPayment)
-                self.account?.status++
-                self.displayStatus()
-                RequestHelper.updateAccount(self.account, callback: { (acc) -> Void in
-                    self.account = acc
-                    self.setTopBar()
-                    let msg = Message(sender: GlobalVar.currentUser, receiver: self.account.creditor, message: "hat \(self.account.amount) bezahlt")
-                })
+            self.paymentDone()
         })
     }
 
