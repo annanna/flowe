@@ -85,12 +85,12 @@ class Group: NSObject {
         
         var whoPayed = expense.payed
         for pay in whoPayed {
-            if pay.user.uID == GlobalVar.currentUid {
+            if GlobalVar.currentUser.isSame(pay.user) {
                 userHasPayed += pay.amount
             }
         }
         for part in expense.participated {
-            if part.user.uID == GlobalVar.currentUid {
+            if GlobalVar.currentUser.isSame(part.user) {
                 userHasToPay += part.amount
             }
         }

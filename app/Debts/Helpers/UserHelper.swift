@@ -28,6 +28,15 @@ public class UserHelper: NSObject {
         return nil
     }
     
+    class func getUserById(id: String, callback: (User) -> Void) {
+        var user = self.getUser(id)
+        if let u = user {
+            callback(u)
+        } else {
+            RequestHelper.getUserById(id, callback: callback)
+        }
+    }
+    
     class func createUser(json:JSON) {
         let user = User(details: json)
         userDic[user.uID] = user

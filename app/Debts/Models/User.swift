@@ -90,7 +90,7 @@ class User: NSObject {
     }
     
     func isSame(user:User) -> Bool {
-        if user.phoneNumber == self.phoneNumber {
+        if user.uID == self.uID {
             return true
         }
         return false

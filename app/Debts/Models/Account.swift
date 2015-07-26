@@ -11,8 +11,8 @@ import SwiftyJSON
 
 class Account: NSObject {
     var aId = ""
-    var debtor: User
-    var creditor: User
+    var debtor = GlobalVar.currentUser
+    var creditor = GlobalVar.currentUser
     var amount = 0.0
     var status = 0
     var updated = NSDate()
@@ -28,21 +28,13 @@ class Account: NSObject {
         self.status = data["status"].numberValue as Int
         
         let debtorId = data["debtor"].stringValue
-        if let deb = UserHelper.getUser(debtorId) {
-            self.debtor = deb
-        } else {
-            println("kenn ich nicht")
-            self.debtor = User(rand: 1)
-        }
-        
         let creditorId = data["creditor"].stringValue
-        if let cred = UserHelper.getUser(creditorId) {
-            self.creditor = cred
-        } else {
-            println("kenn ich nicht")
-            self.creditor = User(rand: 2)
-        }
-        
+        super.init()
+        UserHelper.getUserById(debtorId, callback: { (debtor) -> Void in
+            self.debtor = debtor
+        })
+        UserHelper.getUserById(creditorId, callback: { (creditor) -> Void in
+            self.creditor = creditor
+        })
     }
-    
 }
