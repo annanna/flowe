@@ -36,8 +36,8 @@ class MessageTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = self.messages[indexPath.row].message
-
+        let message = self.messages[indexPath.row]
+        cell.textLabel?.text = "\(message.sender.firstname) \(message.message)"
         return cell
     }
     

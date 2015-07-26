@@ -13,9 +13,12 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var accountTableView: UITableView!
     
+    let showDetailIdentifier = "accountDetails"
+    
     var total:Double = 0
     var groupId:String?
     var accounts: [Account] = []
+    var selectedAccount = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +40,6 @@ class AccountViewController: UIViewController {
         }
     }
     
-    
     // MARK: UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -53,10 +55,17 @@ class AccountViewController: UIViewController {
         return cell
     }
     
-    // MARK: UITableViewDelegate
+    // Navigation
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let row = indexPath.row
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == self.showDetailIdentifier {
+            if let indexPath = self.accountTableView.indexPathForSelectedRow() {
+                let acc = self.accounts[indexPath.row]
+                if let detailVC = segue.destinationViewController as? AccountDetailViewController {
+                    detailVC.aId = acc.aId
+                }
+            }
+        }
     }
     
 }

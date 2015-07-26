@@ -37,7 +37,7 @@ public class RequestHelper {
     }
     class func createUser(user: User, callback:(User) -> Void) {
         let url = "\(dataUrl)/users"
-        var postBody = JSONHelper.createDictionaryFromUser(user)
+        var postBody = user.asDictionary()
         Alamofire.request(.POST, url, parameters: postBody)
             .responseJSON {
                 (request, response, jsonResponse, error) in
@@ -262,6 +262,34 @@ public class RequestHelper {
                 }
         }
     }
+    //  /:uid/accounts/:accountId
+    class func getAccountDetails(accountId: String, callback:(acc: Account, exp: [Expense])-> Void) {
+        let url = "\(dataUrl)/\(GlobalVar.currentUid)/accounts/\(accountId)"
+        Alamofire.request(.GET, url)
+            .responseJSON {
+                (request, response, jsonResponse, error) in
+                if (error != nil) {
+                    println("Error getting account detail \(error)")
+                    println(request)
+                    println(response)
+                } else {
+                    if let jsonData: AnyObject = jsonResponse {
+                        let accountData = JSON(jsonData)
+                        let account = Account(data: accountData)
+                        var expenses: [Expense] = []
+                        if let expenseData = accountData["expenses"].array {
+                            for exp in expenseData {
+                                let expense = Expense(details: exp)
+                                expenses.append(expense)
+                            }
+                        }
+                        callback(acc: account, exp: expenses)
+                        println("Successfully fetched account details")
+                    }
+                }
+        }
+        
+    }
     
     
     //  /:uid/messages
@@ -291,6 +319,21 @@ public class RequestHelper {
                 }
         }
     }
+    
+    class func sendMessage(msg: Message, callback: ()->Void) {
+        let url = "\(dataUrl)/\(GlobalVar.currentUid)/messages"
+        var postBody = msg.asDictionary()
+        Alamofire.request(.POST, url, parameters: postBody)
+            .responseJSON {
+                (request, response, jsonResponse, error) in
+                if let jsonData: AnyObject = jsonResponse {
+                    let messageData = JSON(jsonData)
+                    println("successfully sent message")
+                    callback()
+                }
+        }
+    }
+    
     class func deleteMessage(messageId:String) {
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/messages/\(messageId)"
         Alamofire.request(.DELETE, url)

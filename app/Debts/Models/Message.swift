@@ -28,24 +28,24 @@ class Message: NSObject {
     }
     
     init(data: JSON) {
+        super.init()
         self.mId = data["_id"].stringValue
-        self.message = data["_id"].stringValue
+        self.message = data["message"].stringValue
         let senderId = data["sender"].stringValue
         let receiverId = data["receiver"].stringValue
-        
-        if let send = UserHelper.getUser(senderId) {
-            self.sender = send
-        } else {
-            println("kenn ich nicht")
-            self.sender = User(rand: 1)
-        }
-        
-        if let r = UserHelper.getUser(receiverId) {
-            self.sender = r
-        } else {
-            println("kenn ich nicht")
-            self.sender = User(rand: 1)
-        }
+        self.setSenderUser(senderId)
+        self.setReceiverUser(receiverId)
+    }
+    
+    func setSenderUser(senderId: String) {
+        UserHelper.getUserById(senderId, callback: { (user) -> Void in
+            self.sender = user
+        })
+    }
+    func setReceiverUser(receiverId: String) {
+        UserHelper.getUserById(receiverId, callback: { (user) -> Void in
+            self.receiver = user
+        })
     }
     
     func asDictionary() -> [String: String] {

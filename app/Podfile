@@ -6,4 +6,5 @@ target 'Debts' do
     pod 'Alamofire', '~> 1.2'
     pod 'SwiftyJSON', '~> 2.2.0'
     pod 'RSBarcodes_Swift', '~> 0.0.8'
+    pod 'PayPal-iOS-SDK'
 end

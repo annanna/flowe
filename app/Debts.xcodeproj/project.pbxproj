@@ -27,6 +27,7 @@
 		7C4ED25F1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24D1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift */; };
 		7C4ED2601B31749D0042EFF2 /* PeopleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24E1B31749D0042EFF2 /* PeopleButton.swift */; };
 		7C4ED2611B31749D0042EFF2 /* PeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24F1B31749D0042EFF2 /* PeopleView.swift */; };
+		7CA208731B650A2E00400F5E /* AccountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA208721B650A2E00400F5E /* AccountDetailViewController.swift */; };
 		7CB97F3E1B61603200815DD7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB97F3D1B61603200815DD7 /* Account.swift */; };
 		7CB97F401B61615F00815DD7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB97F3F1B61615F00815DD7 /* Message.swift */; };
 		7CB97FC01B61828C00815DD7 /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB97FBF1B61828C00815DD7 /* MessageTableViewController.swift */; };
@@ -75,6 +76,7 @@
 		7C4ED24E1B31749D0042EFF2 /* PeopleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleButton.swift; sourceTree = "<group>"; };
 		7C4ED24F1B31749D0042EFF2 /* PeopleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
 		7C5FACE21AEB9AA100E12DF0 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		7CA208721B650A2E00400F5E /* AccountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailViewController.swift; sourceTree = "<group>"; };
 		7CB97F381B615D9F00815DD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CB97F3B1B615DAD00815DD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CB97F3D1B61603200815DD7 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				7C4ED2411B31749D0042EFF2 /* ExpenseTableViewController.swift */,
 				7C4ED23C1B31749D0042EFF2 /* ExpenseShareViewController.swift */,
 				7C4ED23E1B31749D0042EFF2 /* AccountViewController.swift */,
+				7CA208721B650A2E00400F5E /* AccountDetailViewController.swift */,
 				7CDBF11B1B4C0AA900F5F89F /* SyncViewController.swift */,
 				7CDBF1171B4BF3D400F5F89F /* QRCodeScannerViewController.swift */,
 				7CDBF1191B4BFA2200F5F89F /* QRCodeCreatorViewController.swift */,
@@ -424,6 +427,7 @@
 				7C4ED2501B31749D0042EFF2 /* AddGroupTableViewController.swift in Sources */,
 				7C4ED25C1B31749D0042EFF2 /* Expense.swift in Sources */,
 				7CDBF1181B4BF3D400F5F89F /* QRCodeScannerViewController.swift in Sources */,
+				7CA208731B650A2E00400F5E /* AccountDetailViewController.swift in Sources */,
 				7C4ED2601B31749D0042EFF2 /* PeopleButton.swift in Sources */,
 				7CB97F3E1B61603200815DD7 /* Account.swift in Sources */,
 				7C4ED2531B31749D0042EFF2 /* AccountViewController.swift in Sources */,

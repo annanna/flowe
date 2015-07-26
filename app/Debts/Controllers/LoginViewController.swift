@@ -161,6 +161,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func proceedWithSelectedUser(uid: String) {
         GlobalVar.currentUid = uid
+        GlobalVar.currentUser.uID = uid
         self.spinner.stopAnimating()
         
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
