@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountDetailViewController: UIViewController {
+class AccountDetailViewController: UIViewController, PayPalPaymentDelegate, PayPalFuturePaymentDelegate, PayPalProfileSharingDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var expenseTable: UITableView!
@@ -17,10 +17,21 @@ class AccountDetailViewController: UIViewController {
     @IBOutlet weak var paymentBtn: UIButton!
     
     let cellIdentifier = "expenseCell"
+    let showPaymentIdentifier = "payNow"
+    
     var expenses = [Expense]()
     var aId = ""
     var account: Account?
     var currentPersonIsCreditor:Bool = true
+    
+    var environment: String = PayPalEnvironmentNoNetwork {
+        willSet(newEnvironment) {
+            if (newEnvironment != environment) {
+                PayPalMobile.preconnectWithEnvironment(newEnvironment)
+            }
+        }
+    }
+    var payPalConfig = PayPalConfiguration()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +92,83 @@ class AccountDetailViewController: UIViewController {
                 })
             })
             
+        } else {
+            self.paying()
         }
     }
 
+    
+    func paying() {
+        let payment = PayPalPayment(amount: 10.50, currencyCode: "EUR", shortDescription: "Schulden für Winterurlaub", intent: PayPalPaymentIntent.Sale)
+        payment.items = [PayPalItem(name: "Meine Schulden", withQuantity: 1, withPrice: NSDecimalNumber(string: "10.5"), withCurrency: "EUR", withSku: "ABC")]
+        payment.paymentDetails = PayPalPaymentDetails(subtotal: 10.5, withShipping: 0, withTax: 0)
+        
+        if payment.processable {
+            let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: payPalConfig, delegate: self)
+            presentViewController(paymentViewController, animated: true, completion: nil)
+        } else {
+            println("not processable")
+        }
+    }
+    
+    func setupPayPal() {
+        PayPalMobile.initializeWithClientIdsForEnvironments(
+            [
+                "PayPalEnvironmentProduction": "AQ8OKPIzdyDlboX9iyxRCAzzkVtKKaGGADFouqbFv5oOXly7kznX3vA-hD4MwUSw9y-TRNMm2vm6wRN6",
+                "PayPalEnvironmentSandbox": "AQ8OKPIzdyDlboX9iyxRCAzzkVtKKaGGADFouqbFv5oOXly7kznX3vA-hD4MwUSw9y-TRNMm2vm6wRN6"
+            ]
+        )
+        
+        // PayPal Config
+        payPalConfig.acceptCreditCards = true
+        payPalConfig.merchantName = "Debts App"
+        payPalConfig.languageOrLocale = NSLocale.preferredLanguages()[0] as! String
+        payPalConfig.payPalShippingAddressOption = .PayPal
+        
+        PayPalMobile.preconnectWithEnvironment(environment)
+    }
+
+    
+    // PayPalPaymentDelegate
+    
+    func payPalPaymentDidCancel(paymentViewController: PayPalPaymentViewController!) {
+        println("PayPal Payment Cancelled")
+        paymentViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    func payPalPaymentViewController(paymentViewController: PayPalPaymentViewController!, didCompletePayment completedPayment: PayPalPayment!) {
+        println("PayPal Payment Success !")
+        paymentViewController?.dismissViewControllerAnimated(true, completion: { () -> Void in
+            // send completed confirmaion to your server
+            println("Here is your proof of payment:\n\n\(completedPayment.confirmation)\n\nSend this to your server for confirmation and fulfillment.")
+            
+        })
+    }
+
+    // Future Payment
+    func payPalFuturePaymentDidCancel(futurePaymentViewController: PayPalFuturePaymentViewController!) {
+        println("PayPal Future Payment Authorization Canceled")
+        futurePaymentViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    func payPalFuturePaymentViewController(futurePaymentViewController: PayPalFuturePaymentViewController!, didAuthorizeFuturePayment futurePaymentAuthorization: [NSObject : AnyObject]!) {
+        println("PayPal Future Payment Authorization Success!")
+        // send authorization to your server to get refresh token.
+        futurePaymentViewController?.dismissViewControllerAnimated(true, completion: { () -> Void in
+            println("done")
+        })
+    }
+    
+    
+    // PayPalProfileSharingDelegate
+    func userDidCancelPayPalProfileSharingViewController(profileSharingViewController: PayPalProfileSharingViewController!) {
+        println("profile sharing cancelled")
+        profileSharingViewController.dismissViewControllerAnimated(true, completion: nil)
+    }
+    func payPalProfileSharingViewController(profileSharingViewController: PayPalProfileSharingViewController!, userDidLogInWithAuthorization profileSharingAuthorization: [NSObject : AnyObject]!) {
+        println("profile sharing authorization successfull")
+        
+        profileSharingViewController.dismissViewControllerAnimated(true, completion: { () -> Void in
+            println("hallo")
+        })
+    }
+    
 }

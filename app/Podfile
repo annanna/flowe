@@ -1,4 +1,4 @@
-platform :ios, '8.0'
+platform :ios, '8.3'
 use_frameworks!
 
 target 'Debts' do
@@ -6,5 +6,5 @@ target 'Debts' do
     pod 'Alamofire', '~> 1.2'
     pod 'SwiftyJSON', '~> 2.2.0'
     pod 'RSBarcodes_Swift', '~> 0.0.8'
-    pod 'PayPal-iOS-SDK'
+    pod 'PayPal-iOS-SDK', '~> 2.11.1'
 end
