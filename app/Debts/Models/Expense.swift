@@ -99,4 +99,38 @@ class Expense : NSObject {
         }
         return false
     }
+    
+    func asDictionary() -> [String: AnyObject] {
+        var whoPayed = [[String: AnyObject]]()
+        for (user, amount) in self.payed {
+            var payed:[String: AnyObject] = [
+                "user": user.id,
+                "amount": amount
+            ]
+            whoPayed.append(payed)
+        }
+        var whoTookPart = [[String: AnyObject]]()
+        for (user, amount) in self.participated {
+            var participated:[String: AnyObject] = [
+                "user": user.id,
+                "amount": amount
+            ]
+            whoTookPart.append(participated)
+        }
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "d.M.yyyy HH:mm"
+        let expenseDate = dateFormatter.stringFromDate(self.timestamp)
+        
+        var postBody: [String: AnyObject] = [
+            "name": self.name,
+            "creator": GlobalVar.currentUid,
+            "timestamp": expenseDate,
+            "total": self.moneyPayed,
+            "notes": self.notes,
+            "whoTookPart": whoTookPart,
+            "whoPayed": whoPayed
+        ]
+        return postBody
+    }
 }

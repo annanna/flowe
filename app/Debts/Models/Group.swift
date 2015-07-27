@@ -13,7 +13,7 @@ import SwiftyJSON
 @objc(Group)
 class Group: NSManagedObject {
 
-    @NSManaged var gID: String
+    @NSManaged var id: String
     @NSManaged var created: NSDate
     @NSManaged var name: String
     @NSManaged var total: NSNumber
@@ -21,6 +21,9 @@ class Group: NSManagedObject {
     @NSManaged var expenses: NSSet
     @NSManaged var users: NSSet
     @NSManaged var accounts: NSSet
+    
+    static let entityName = "Group"
+
     
     func getUsers() -> [User] {
         if let userArray = self.users.allObjects as? [User] {
@@ -57,51 +60,53 @@ class Group: NSManagedObject {
         
         var whoPayed = expense.payed
         for pay in whoPayed {
-            if pay.user.uID == GlobalVar.currentUid {
+            if pay.user.id == GlobalVar.currentUid {
                 userHasPayed += pay.amount
             }
         }
         for part in expense.participated {
-            if part.user.uID == GlobalVar.currentUid {
+            if part.user.id == GlobalVar.currentUid {
                 userHasToPay += part.amount
             }
         }
         self.total = (userHasPayed - userHasToPay).roundToMoney()
     }
     
-    func loadFromJSON(details: JSON) {
+    func addUser(user: User) {
+        var userArr = self.users.allObjects as! [User]
+        userArr.append(user)
+        self.users = NSSet(array: userArr)
+    }
+    
+    func loadFromJSON(details: JSON, callback: (Void)->Void) {
         
-        self.gID = details["_id"].stringValue
+        self.id = details["_id"].stringValue
         self.name = details["name"].stringValue
         var created = details["created"].stringValue
         //println("Timestamp: \(created)")
         
-        /*if let userArray = details["users"].array {
+        
+        if let userArray = details["users"].array {
+            var userCount = userArray.count
             for user in userArray {
-                var u:User = UserHelper.JSONcreateUserIfDoesNotExist(user)
-                var userArr = self.users.allObjects as! [User]
-                userArr.append(u)
-                self.users = NSSet(array: userArr)
+                var userDic = JSONHelper.JSONObjToStringDic(user)
+                RequestHelper.getUserDetails(userDic, byId: true, callback: { (user) -> Void in
+                    self.addUser(user)
+                    userCount -= 1
+                    if userCount == 0 {
+                        callback()
+                    }
+                })
             }
-        }*/
+        }
         
         self.total = details["personalTotal"].doubleValue
-        /*self.creator = UserHelper.JSONcreateUserIfDoesNotExist(details["creator"])*/
-        /*
-        if let expenseArray = details["expenses"].array {
-            for transfer in expenseArray {
-                var t:Expense = Expense(details: transfer)
-                var expenseArr = self.expenses.allObjects as! [Expense]
-                expenseArr.append(t)
-                self.expenses = NSSet(array: expenseArr)
-            }
-        }*/
+        let creatorId = details["creator"].stringValue
     }
-    
-    static func findOrCreateGroup(details: JSON, inContext context:NSManagedObjectContext) -> Group {
-        let identifier = details["_id"].stringValue
-        var fetchRequest = NSFetchRequest(entityName: "Group")
-        fetchRequest.predicate = NSPredicate(format: "gID = %@", identifier)
+    static func findOrCreateGroup(details: JSON, inContext context:NSManagedObjectContext, callback:((group: Group)->Void)) {
+        let groupId = details["_id"].stringValue
+        var fetchRequest = NSFetchRequest(entityName: self.entityName)
+        fetchRequest.predicate = NSPredicate(format: "id = %@", groupId)
         var error:NSError? = nil
         
         var result = context.executeFetchRequest(fetchRequest, error: &error)
@@ -110,18 +115,18 @@ class Group: NSManagedObject {
         }
         if let objects = result {
             if objects.count > 0 {
-                if let group = objects[0] as? Group {
-                    println("group fetched")
-                    return group
+                if let existingGroup = objects[0] as? Group {
+                    println("existing group \(existingGroup.name)")
+                    callback(group: existingGroup)
+                }
+            } else {
+                if let newGroup = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext:context) as? Group {
+                    newGroup.loadFromJSON(details, callback: { () -> Void in
+                        println("existing group \(newGroup.name)")
+                        callback(group: newGroup)
+                    })
                 }
             }
-            if let newGroup = NSEntityDescription.insertNewObjectForEntityForName("Group", inManagedObjectContext:context) as? Group {
-                println("created group")
-                newGroup.loadFromJSON(details)
-                return newGroup
-            }
         }
-        println("could not fetch or create group...")
-        return Group()
     }
 }

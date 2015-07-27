@@ -21,6 +21,8 @@ class GroupOverviewTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+    }
+    override func viewDidAppear(animated: Bool) {
         self.getGroupsOfUser()
     }
     
@@ -60,7 +62,7 @@ class GroupOverviewTableViewController: UITableViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let group:Group = groups[indexPath.row]
                 if let vc = segue.destinationViewController as? GroupDetailViewController {
-                    vc.groupId = group.gID
+                    vc.groupId = group.id
                 }
             }
         }
@@ -72,13 +74,8 @@ class GroupOverviewTableViewController: UITableViewController {
     @IBAction func saveNewGroup(segue: UIStoryboardSegue) {
         if let addGroupVC = segue.sourceViewController as? AddGroupTableViewController {
             if let name =  addGroupVC.groupName {
-                var newGroup = Group()
-                newGroup.setValue(name.text, forKey: "text")
-                newGroup.setValue(GlobalVar.currentUser, forKey: "creator")
-                newGroup.setValue(NSSet(array: addGroupVC.selectedContacts), forKey: "users")
-                
-                RequestHelper.postGroup(newGroup, callback: { (groupData) -> Void in
-                    self.addNewGroup(groupData)
+                    RequestHelper.postGroup(name.text, users: addGroupVC.selectedContacts, callback: { (newGroup) -> Void in
+                    self.addNewGroup(newGroup)
                 })
             }
         }

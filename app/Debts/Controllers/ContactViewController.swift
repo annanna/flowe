@@ -19,11 +19,11 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     let addContactIdentifier = "AddContact"
     
     var sectionNames = [String]()
-    var peopleToDisplayInSections = [[User]]()
+    var peopleToDisplayInSections = [[SwiftAddressBookPerson]]()
     var selectedUsers = [User]()
     
-    var contactSections = [[User]]()
-    var filterSections:[[User]] = [[]]
+    var contactSections = [[SwiftAddressBookPerson]]()
+    var filterSections:[[SwiftAddressBookPerson]] = [[]]
     var searchMode: Bool = false {
         didSet {
             peopleToDisplayInSections = searchMode ? filterSections : contactSections
@@ -69,14 +69,12 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         self.contactSections = []
         self.sectionNames = []
         
-        
-        for person in people {
-            let user = RequestHelper.getUserFromAddressBook(person)
-            //var user = User(person: person)
-            if !user.isSame(GlobalVar.currentUser) {
-                let nameCount = count(user.firstname)
-                if nameCount > 0 {
-                    let firstLetter = String(Array(user.firstname)[0])
+        for contact in people {
+            if contact.phoneNumber == GlobalVar.currentUser.phoneNumber {
+                // it's me so don't show in list
+            } else {
+                if let first = contact.firstName {
+                    let firstLetter = String(Array(first)[0])
                     
                     if sectionLetter != firstLetter {
                         sectionNames.append(firstLetter)
@@ -95,7 +93,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
                         sectionLetter = alternateLetter
                     }
                 }
-                self.contactSections[sectionIndex].append(user)
+                contactSections[sectionIndex].append(contact)
             }
         }
     }
@@ -119,11 +117,11 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(contactCellIdentifier, forIndexPath: indexPath) as! ContactTableViewCell
-        var person: User = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
-        cell.displayNameOfUser(person, addressBookPerson: nil)
+        var person: SwiftAddressBookPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
+        cell.displayNameOfUser(nil, addressBookPerson: person)
         
         for user in self.selectedUsers {
-            if user.isSame(person) {
+            if user.phoneNumber == person.phoneNumber {
                 cell.selectedInMultipleMode = true
             }
         }
@@ -140,13 +138,15 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         //self.contactTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         
         cell.selectedInMultipleMode = !cell.selectedInMultipleMode
-        let user: User = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
-        if cell.selectedInMultipleMode {
-            self.selectedUsers.append(user)
-        } else {
-            for (idx, selUser) in enumerate(self.selectedUsers) {
-                if selUser.isSame(user) {
-                    self.selectedUsers.removeAtIndex(idx);
+        let selectedPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
+        RequestHelper.getUserDetails(selectedPerson.asDictionary(), byId: false) { (user) -> Void in
+            if cell.selectedInMultipleMode {
+                self.selectedUsers.append(user)
+            } else {
+                for (idx, selUser) in enumerate(self.selectedUsers) {
+                    if selUser.isSame(user) {
+                        self.selectedUsers.removeAtIndex(idx);
+                    }
                 }
             }
         }
@@ -154,12 +154,12 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     
     // MARK: - Search
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filterSections[0] = [User]()
+        self.filterSections[0] = [SwiftAddressBookPerson]()
         if count(searchText) > 0 {
             for users in contactSections {
                 
-                let filteredUsers: [User] = users.filter({ (user: User) -> Bool in
-                    var name = "\(user.firstname)\(user.lastname)"
+                let filteredUsers: [SwiftAddressBookPerson] = users.filter({ (user: SwiftAddressBookPerson) -> Bool in
+                    var name = "\(user.firstname) \(user.lastname)"
                     let range = (name as NSString).rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
                     return range.location != NSNotFound
                 })

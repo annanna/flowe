@@ -18,23 +18,24 @@ class User: NSManagedObject {
     @NSManaged var firstname: String
     @NSManaged var lastname: String
     @NSManaged var phoneNumber: String
-    @NSManaged var uID: String
+    @NSManaged var id: String
     
-    
-    
-    func loadFromJSON (details: JSON) {
-        println("user init")
+    static let entityName = "User"
+
+    func loadFromJSON (details: JSON, callback:(Void)->Void) {
         self.phoneNumber = details["phone"].stringValue
         self.firstname = details["firstname"].stringValue
         self.lastname = details["lastname"].stringValue
-        self.uID = details["_id"].stringValue
+        self.id = details["_id"].stringValue
+        callback()
     }
     
     func loadFromAddressBook (person: SwiftAddressBookPerson) {
+        
         if let phone = person.phoneNumbers {
             let num = phone[0].value
-            println("\(num)")
             self.phoneNumber = num
+            self.id = num
         } else {
             self.phoneNumber = ""
         }
@@ -65,23 +66,16 @@ class User: NSManagedObject {
     }
     
     func isSame(user:User) -> Bool {
-        if user.uID == self.uID {
+        if user.id == self.id {
             return true
         }
         return false
     }
-    /*
-    func updateUser(details: JSON) {
-    self.phoneNumber = details["phone"].stringValue
-    self.firstname = details["firstname"].stringValue
-    self.lastname = details["lastname"].stringValue
-    }*/
     
-    
-    static func findOrCreateUser(details: JSON, inContext context:NSManagedObjectContext) -> User {
+    static func findOrCreateUser(details: JSON, inContext context:NSManagedObjectContext, callback:(User)->Void) {
         let identifier = details["_id"].stringValue
-        var fetchRequest = NSFetchRequest(entityName: "User")
-        fetchRequest.predicate = NSPredicate(format: "uID = %@", identifier)
+        var fetchRequest = NSFetchRequest(entityName: self.entityName)
+        fetchRequest.predicate = NSPredicate(format: "id = %@", identifier)
         var error:NSError? = nil
         
         var result = context.executeFetchRequest(fetchRequest, error: &error)
@@ -91,28 +85,23 @@ class User: NSManagedObject {
         if let objects = result {
             if objects.count > 0 {
                 if let user = objects[0] as? User {
-                    println("user fetched")
-                    return user
+                    println("existing user \(user.firstname)")
+                    callback(user)
+                }
+            } else {
+                if let newUser = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext:context) as? User {
+                    newUser.loadFromJSON(details, callback: { () -> Void in
+                        println("new user \(newUser.firstname)")
+                        callback(newUser)
+                    })
                 }
             }
-            if let newUser = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext:context) as? User {
-                println("created user")
-                newUser.loadFromJSON(details)
-                return newUser
-            }
         }
-        println("could not fetch or create user...")
-        return User()
     }
     
-    static func findOrCreateAddressBookUser(details: SwiftAddressBookPerson, inContext context:NSManagedObjectContext) -> User {
-        
-        let phone = details.phoneNumbers!
-        let identifier = phone[0].value
-        println(identifier)
-        
-        var fetchRequest = NSFetchRequest(entityName: "User")
-        fetchRequest.predicate = NSPredicate(format: "phoneNumber = %@", identifier)
+    static func findUserIfExists(key: String, identifier: String, context: NSManagedObjectContext) -> User? {
+        var fetchRequest = NSFetchRequest(entityName: self.entityName)
+        fetchRequest.predicate = NSPredicate(format: "%@ = %@", key, identifier)
         var error:NSError? = nil
         
         var result = context.executeFetchRequest(fetchRequest, error: &error)
@@ -126,40 +115,16 @@ class User: NSManagedObject {
                     return user
                 }
             }
-            if let newUser = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext:context) as? User {
-                println("created user")
-                newUser.loadFromAddressBook(details)
-                return newUser
-            }
         }
-        println("could not fetch or create user...")
-        return User()
+        return nil
     }
     
-    static func findOrCreateUserById(identifier: String, inContext context:NSManagedObjectContext) -> User {
-        var fetchRequest = NSFetchRequest(entityName: "User")
-        fetchRequest.predicate = NSPredicate(format: "uID = %@", identifier)
-        var error:NSError? = nil
-        
-        var result = context.executeFetchRequest(fetchRequest, error: &error)
-        if error != nil {
-            println("error \(error?.localizedDescription)")
-        }
-        if let objects = result {
-            if objects.count > 0 {
-                if let user = objects[0] as? User {
-                    println("user fetched")
-                    return user
-                }
-            }
-            if let newUser = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext:context) as? User {
-                newUser.uID = identifier
-                println("created user")
-                return newUser
-            }
-        }
-        println("could not fetch or create user...")
-        return User()
+    func asDictionary() -> [String: String] {
+        return [
+            "_id": self.id,
+            "phone": self.phoneNumber,
+            "firstname": self.firstname,
+            "lastname": self.lastname
+        ]
     }
-
 }

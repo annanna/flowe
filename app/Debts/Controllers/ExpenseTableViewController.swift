@@ -48,7 +48,7 @@ class ExpenseTableViewController: UITableViewController {
     func setUpView() {
         if let eId = expenseId {
             // Expense Detail
-            RequestHelper.getExpenseDetails(self.group.gID, expenseId: eId, callback: { (expenseData) -> Void in
+            RequestHelper.getExpenseDetails(self.group.id, expenseId: eId, callback: { (expenseData) -> Void in
                 self.expense = expenseData
                 self.loadDataInDetailView(expenseData)
                 self.drawGroupMembersInViews()

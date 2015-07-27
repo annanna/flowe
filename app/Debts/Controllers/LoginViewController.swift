@@ -11,15 +11,20 @@ import Foundation
 import SwiftAddressBook
 
 extension SwiftAddressBookPerson {
+    func asDictionary() -> [String: String] {
+        return [
+            "phone": self.phoneNumber,
+            "firstname": self.firstname,
+            "lastname": self.lastname
+        ]
+    }
+    
     var firstname: String {
         get {
             if let first = self.firstName {
                 return first
             }
             return ""
-        }
-        set (newName) {
-            self.firstName = newName
         }
     }
     var lastname: String {
@@ -29,8 +34,15 @@ extension SwiftAddressBookPerson {
             }
             return ""
         }
-        set (newName) {
-            self.lastName = newName
+    }
+    var phoneNumber: String {
+        get {
+            if let numbers = self.phoneNumbers {
+                if numbers.count > 0 {
+                    return numbers[0].value
+                }
+            }
+            return ""
         }
     }
 }
@@ -161,26 +173,11 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.spinner.startAnimating()
             
             var person:SwiftAddressBookPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
-            var user = RequestHelper.getUserFromAddressBook(person)
-            
-            GlobalVar.currentUser = user
-            self.contactTableView.deselectRowAtIndexPath(indexPath, animated: true)
-            // get user details or if it does not exist, create a new on and proceed
-            RequestHelper.getUserDetails(user, callback: { (userData) -> Void in
-                var uid = userData.uID
+            RequestHelper.getUserDetails(person.asDictionary(), byId: false, callback: { (user) -> Void in
+                GlobalVar.currentUser = user
+                self.contactTableView.deselectRowAtIndexPath(indexPath, animated: true)
+                self.proceedWithSelectedUser(user.id)
                 
-                if count(uid) > 0 {
-                    cell.selected = false
-                    println("Successfully fetched uid \(uid)")
-                    self.proceedWithSelectedUser(uid)
-                } else {
-                    RequestHelper.createUser(user, callback: { (uData) -> Void in
-                        uid = uData.uID
-                        cell.selected = false
-                        println("Successfully created user with uid \(uid)")
-                        self.proceedWithSelectedUser(uid)
-                    })
-                }
             })
         }
     }

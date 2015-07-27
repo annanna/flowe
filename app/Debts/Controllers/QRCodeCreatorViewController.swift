@@ -28,7 +28,7 @@ class QRCodeCreatorViewController: UIViewController {
     func generateDataFromExpense() {
 
         var expenseDictionary : [String: AnyObject] =
-            JSONHelper.createDictionaryFromExpense(self.expense)
+            self.expense.asDictionary()
         expenseDictionary["groupId"] = self.groupId
         var dataString = JSONHelper.JSONStringify(expenseDictionary)
         

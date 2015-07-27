@@ -94,7 +94,7 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
         }  else if segue.identifier == accountIdentifier {
             if let financeVC = segue.destinationViewController as? AccountViewController {
                 financeVC.total = Double(self.group!.total)
-                financeVC.groupId = self.group!.gID
+                financeVC.groupId = self.group!.id
             }
         } else if segue.identifier == syncIdentifier {
             
@@ -154,7 +154,7 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
         var firstUser = expense.payed[0].user
         var label = firstUser.firstname
         var verb = " hat "
-        if firstUser.uID == GlobalVar.currentUid {
+        if firstUser.isSame(GlobalVar.currentUser) {
             label = "Du"
             verb = " hast "
         }
@@ -171,7 +171,7 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
                 if count == usersLeft {
                     joiner = " und "
                 }
-                if user.uID == GlobalVar.currentUid {
+                if user.isSame(GlobalVar.currentUser) {
                     label += joiner + "du"
                 } else {
                     label += joiner + user.firstname
