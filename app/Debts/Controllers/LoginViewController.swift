@@ -10,6 +10,31 @@ import UIKit
 import Foundation
 import SwiftAddressBook
 
+extension SwiftAddressBookPerson {
+    var firstname: String {
+        get {
+            if let first = self.firstName {
+                return first
+            }
+            return ""
+        }
+        set (newName) {
+            self.firstName = newName
+        }
+    }
+    var lastname: String {
+        get {
+            if let last = self.lastName {
+                return last
+            }
+            return ""
+        }
+        set (newName) {
+            self.lastName = newName
+        }
+    }
+}
+
 class LoginViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var spinner: UIActivityIndicatorView!
@@ -122,8 +147,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier(userCellIdentifier, forIndexPath: indexPath) as! ContactTableViewCell
         
         var user:SwiftAddressBookPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
-        var person: User = User(person: user)
-        cell.displayNameOfUser(person)
+        cell.displayNameOfUser(nil, addressBookPerson: user)
         
         return cell
     }
@@ -136,12 +160,13 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
             cell.selected = true
             self.spinner.startAnimating()
             
-            var person = User(person: self.peopleToDisplayInSections[indexPath.section][indexPath.row])
+            var person:SwiftAddressBookPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
+            var user = RequestHelper.getUserFromAddressBook(person)
             
-            GlobalVar.currentUser = person
+            GlobalVar.currentUser = user
             self.contactTableView.deselectRowAtIndexPath(indexPath, animated: true)
             // get user details or if it does not exist, create a new on and proceed
-            RequestHelper.getUserDetails(person, callback: { (userData) -> Void in
+            RequestHelper.getUserDetails(user, callback: { (userData) -> Void in
                 var uid = userData.uID
                 
                 if count(uid) > 0 {
@@ -149,7 +174,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
                     println("Successfully fetched uid \(uid)")
                     self.proceedWithSelectedUser(uid)
                 } else {
-                    RequestHelper.createUser(person, callback: { (uData) -> Void in
+                    RequestHelper.createUser(user, callback: { (uData) -> Void in
                         uid = uData.uID
                         cell.selected = false
                         println("Successfully created user with uid \(uid)")
@@ -177,13 +202,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
             for users in contactSections {
                 
                 let filteredUsers: [SwiftAddressBookPerson] = users.filter({ (user: SwiftAddressBookPerson) -> Bool in
-                    var name = ""
-                    if let first = user.firstName {
-                        name += first
-                    }
-                    if let last = user.lastName {
-                        name += last
-                    }
+                    var name = "\(user.firstname) \(user.lastname)"
                     let range = (name as NSString).rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
                     return range.location != NSNotFound
                 })

@@ -26,9 +26,10 @@ class Account: NSObject {
         self.aId = data["_id"].stringValue
         self.amount = data["amount"].doubleValue
         self.status = data["status"].numberValue as Int
-        
+        self.debtor = GlobalVar.currentUser
+        self.creditor = GlobalVar.currentUser
         let debtorId = data["debtor"].stringValue
-        if let deb = UserHelper.getUser(debtorId) {
+        /*if let deb = UserHelper.getUser(debtorId) {
             self.debtor = deb
         } else {
             println("kenn ich nicht")
@@ -41,7 +42,7 @@ class Account: NSObject {
         } else {
             println("kenn ich nicht")
             self.creditor = User(rand: 2)
-        }
+        }*/
         
     }
     

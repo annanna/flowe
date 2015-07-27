@@ -44,12 +44,14 @@ class Expense : NSObject {
         var created = details["created"].stringValue
         //println("Timestamp: \(created)")
         let creatorId = details["creator"].stringValue
+        self.creator = GlobalVar.currentUser
+        /*
         if let cre = UserHelper.getUser(creatorId) {
             self.creator = cre
         } else {
             println("don't know this user")
             self.creator = User(rand: 1)
-        }
+        }*/
         
         self.notes = details["notes"].stringValue
         self.moneyPayed = details["total"].doubleValue
@@ -57,26 +59,26 @@ class Expense : NSObject {
         if let whoPayedArray = details["whoPayed"].array {
             for (i,pay) in enumerate(whoPayedArray) {
                 var userId = pay["user"].stringValue
-                var u = UserHelper.getUser(userId)
+                /*var u = UserHelper.getUser(userId)
                 if (u == nil) {
                     println("don't know this user")
                     u = User(rand: i)
                 }
                 var a:Double = pay["amount"].doubleValue
-                payed += [(user:u!, amount:a)]
+                payed += [(user:u!, amount:a)]*/
             }
         }
         
         if let whoTookPartArray = details["whoTookPart"].array {
             for (i,part) in enumerate(whoTookPartArray) {
                 var userId = part["user"].stringValue
-                var u = UserHelper.getUser(userId)
+                /*var u = UserHelper.getUser(userId)
                 if (u == nil) {
                     println("don't know this user")
                     u = User(rand: i)
                 }
                 var a:Double = part["amount"].doubleValue
-                participated += [(user:u!, amount:a)]
+                participated += [(user:u!, amount:a)]*/
             }
         }
     }

@@ -71,7 +71,8 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         
         
         for person in people {
-            var user = User(person: person)
+            let user = RequestHelper.getUserFromAddressBook(person)
+            //var user = User(person: person)
             if !user.isSame(GlobalVar.currentUser) {
                 let nameCount = count(user.firstname)
                 if nameCount > 0 {
@@ -119,7 +120,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(contactCellIdentifier, forIndexPath: indexPath) as! ContactTableViewCell
         var person: User = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
-        cell.displayNameOfUser(person)
+        cell.displayNameOfUser(person, addressBookPerson: nil)
         
         for user in self.selectedUsers {
             if user.isSame(person) {

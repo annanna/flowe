@@ -10,6 +10,8 @@
 		7C3269AC1B3978CD0033CF3E /* AddressBookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3269AB1B3978CD0033CF3E /* AddressBookHelper.swift */; };
 		7C3269AE1B397DDE0033CF3E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3269AD1B397DDE0033CF3E /* LoginViewController.swift */; };
 		7C3269B01B398DA80033CF3E /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3269AF1B398DA80033CF3E /* ContactTableViewCell.swift */; };
+		7C4DA9AE1B662D2300BE541B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4DA9AD1B662D2300BE541B /* Group.swift */; };
+		7C4DA9B31B6646AC00BE541B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4DA9B21B6646AC00BE541B /* User.swift */; };
 		7C4ED2501B31749D0042EFF2 /* AddGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED23B1B31749D0042EFF2 /* AddGroupTableViewController.swift */; };
 		7C4ED2511B31749D0042EFF2 /* ExpenseShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED23C1B31749D0042EFF2 /* ExpenseShareViewController.swift */; };
 		7C4ED2521B31749D0042EFF2 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED23D1B31749D0042EFF2 /* ContactViewController.swift */; };
@@ -20,9 +22,7 @@
 		7C4ED2581B31749D0042EFF2 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2441B31749D0042EFF2 /* JSONHelper.swift */; };
 		7C4ED2591B31749D0042EFF2 /* RequestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2451B31749D0042EFF2 /* RequestHelper.swift */; };
 		7C4ED25A1B31749D0042EFF2 /* UserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2461B31749D0042EFF2 /* UserHelper.swift */; };
-		7C4ED25B1B31749D0042EFF2 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2481B31749D0042EFF2 /* Group.swift */; };
 		7C4ED25C1B31749D0042EFF2 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED2491B31749D0042EFF2 /* Expense.swift */; };
-		7C4ED25D1B31749D0042EFF2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24A1B31749D0042EFF2 /* User.swift */; };
 		7C4ED25E1B31749D0042EFF2 /* BalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24C1B31749D0042EFF2 /* BalanceTableViewCell.swift */; };
 		7C4ED25F1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24D1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift */; };
 		7C4ED2601B31749D0042EFF2 /* PeopleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4ED24E1B31749D0042EFF2 /* PeopleButton.swift */; };
@@ -58,6 +58,8 @@
 		7C3269AB1B3978CD0033CF3E /* AddressBookHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookHelper.swift; sourceTree = "<group>"; };
 		7C3269AD1B397DDE0033CF3E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7C3269AF1B398DA80033CF3E /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		7C4DA9AD1B662D2300BE541B /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		7C4DA9B21B6646AC00BE541B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7C4ED23B1B31749D0042EFF2 /* AddGroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroupTableViewController.swift; sourceTree = "<group>"; };
 		7C4ED23C1B31749D0042EFF2 /* ExpenseShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseShareViewController.swift; sourceTree = "<group>"; };
 		7C4ED23D1B31749D0042EFF2 /* ContactViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
@@ -68,9 +70,7 @@
 		7C4ED2441B31749D0042EFF2 /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
 		7C4ED2451B31749D0042EFF2 /* RequestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestHelper.swift; sourceTree = "<group>"; };
 		7C4ED2461B31749D0042EFF2 /* UserHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHelper.swift; sourceTree = "<group>"; };
-		7C4ED2481B31749D0042EFF2 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		7C4ED2491B31749D0042EFF2 /* Expense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
-		7C4ED24A1B31749D0042EFF2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7C4ED24C1B31749D0042EFF2 /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
 		7C4ED24D1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupOverviewTableViewCell.swift; sourceTree = "<group>"; };
 		7C4ED24E1B31749D0042EFF2 /* PeopleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleButton.swift; sourceTree = "<group>"; };
@@ -150,8 +150,8 @@
 		7C4ED2471B31749D0042EFF2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7C4ED2481B31749D0042EFF2 /* Group.swift */,
-				7C4ED24A1B31749D0042EFF2 /* User.swift */,
+				7C4DA9B21B6646AC00BE541B /* User.swift */,
+				7C4DA9AD1B662D2300BE541B /* Group.swift */,
 				7C4ED2491B31749D0042EFF2 /* Expense.swift */,
 				7CB97F3D1B61603200815DD7 /* Account.swift */,
 				7CB97F3F1B61615F00815DD7 /* Message.swift */,
@@ -410,6 +410,7 @@
 				7C3269B01B398DA80033CF3E /* ContactTableViewCell.swift in Sources */,
 				7C4ED25A1B31749D0042EFF2 /* UserHelper.swift in Sources */,
 				7C3269AC1B3978CD0033CF3E /* AddressBookHelper.swift in Sources */,
+				7C4DA9B31B6646AC00BE541B /* User.swift in Sources */,
 				7C4ED2521B31749D0042EFF2 /* ContactViewController.swift in Sources */,
 				7CDBF11A1B4BFA2200F5F89F /* QRCodeCreatorViewController.swift in Sources */,
 				7C4ED2551B31749D0042EFF2 /* GroupOverviewTableViewController.swift in Sources */,
@@ -418,9 +419,7 @@
 				7C3269AE1B397DDE0033CF3E /* LoginViewController.swift in Sources */,
 				7CB97F401B61615F00815DD7 /* Message.swift in Sources */,
 				7C4ED25F1B31749D0042EFF2 /* GroupOverviewTableViewCell.swift in Sources */,
-				7C4ED25B1B31749D0042EFF2 /* Group.swift in Sources */,
 				7C4ED2541B31749D0042EFF2 /* GroupDetailViewController.swift in Sources */,
-				7C4ED25D1B31749D0042EFF2 /* User.swift in Sources */,
 				7C4ED2511B31749D0042EFF2 /* ExpenseShareViewController.swift in Sources */,
 				7CB97FF41B61871800815DD7 /* Debts.xcdatamodeld in Sources */,
 				7CD2C7F41ADD47DC00A2096E /* AppDelegate.swift in Sources */,
@@ -428,6 +427,7 @@
 				7C4ED2501B31749D0042EFF2 /* AddGroupTableViewController.swift in Sources */,
 				7C4ED25C1B31749D0042EFF2 /* Expense.swift in Sources */,
 				7CDBF1181B4BF3D400F5F89F /* QRCodeScannerViewController.swift in Sources */,
+				7C4DA9AE1B662D2300BE541B /* Group.swift in Sources */,
 				7C4ED2601B31749D0042EFF2 /* PeopleButton.swift in Sources */,
 				7CB97F3E1B61603200815DD7 /* Account.swift in Sources */,
 				7C4ED2531B31749D0042EFF2 /* AccountViewController.swift in Sources */,

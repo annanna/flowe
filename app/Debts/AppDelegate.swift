@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 struct GlobalVar {
-    static var currentUser:User = User(rand: 1)
+    static var currentUser:User!
     static var currentUid:String = ""
 }
 

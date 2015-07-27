@@ -47,7 +47,7 @@ class GroupOverviewTableViewController: UITableViewController {
         let group = groups[indexPath.row] as Group
         cell.titleLabel.text = group.name
         if let pView = cell.people as? PeopleView {
-            pView.setPeopleInView(group.users)
+            pView.setPeopleInView(group.getUsers())
         }
         
         return cell
@@ -72,7 +72,10 @@ class GroupOverviewTableViewController: UITableViewController {
     @IBAction func saveNewGroup(segue: UIStoryboardSegue) {
         if let addGroupVC = segue.sourceViewController as? AddGroupTableViewController {
             if let name =  addGroupVC.groupName {
-                var newGroup = Group(name: name.text, users: addGroupVC.selectedContacts, creator: GlobalVar.currentUser)
+                var newGroup = Group()
+                newGroup.setValue(name.text, forKey: "text")
+                newGroup.setValue(GlobalVar.currentUser, forKey: "creator")
+                newGroup.setValue(NSSet(array: addGroupVC.selectedContacts), forKey: "users")
                 
                 RequestHelper.postGroup(newGroup, callback: { (groupData) -> Void in
                     self.addNewGroup(groupData)

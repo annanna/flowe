@@ -13,7 +13,7 @@ class PeopleButton: UIButton {
     let bgColorNormal: UIColor = UIColor(red: 192, green: 192, blue: 192, alpha: 0.3)
     let bgColorClicked: UIColor = UIColor(red: 192, green: 192, blue: 192, alpha: 0.6)
     
-    var uid: User = User(phone: "")
+    var uid: User!
     var isClicked: Bool = false
 
     override init(frame: CGRect) {
@@ -44,12 +44,12 @@ class PeopleButton: UIButton {
         self.clipsToBounds = true;
         self.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         self.frame = f
-        if let img = user.img {
+        /*if let img = user.img {
             self.setImage(img, forState: UIControlState.Normal)
-        } else {
+        } else {*/
             self.setTitle(user.getName(), forState: UIControlState.Normal)
             self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: 15)
-        }
+        //}
         self.addTarget(self, action: "toggleSelection", forControlEvents: UIControlEvents.TouchUpInside)
         self.uid = user
     }

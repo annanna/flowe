@@ -34,7 +34,7 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
     func getGroupDetails() {
         RequestHelper.getGroupDetails(self.groupId, callback: { (groupData) -> Void in
             self.group = groupData
-            self.expenses = groupData.expenses
+            self.expenses = self.group!.getExpenses()
             
             self.configureView()
             self.tableView.reloadData()
@@ -44,7 +44,7 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
     func configureView() {
         self.title = group!.name
         if let peopleV = self.peopleView as? PeopleView {
-            peopleV.setPeopleInView(group!.users)
+            peopleV.setPeopleInView(group!.getUsers())
         }
         
         updateSumLabel()
@@ -93,7 +93,7 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
             expenseVC.group = group
         }  else if segue.identifier == accountIdentifier {
             if let financeVC = segue.destinationViewController as? AccountViewController {
-                financeVC.total = self.group!.total
+                financeVC.total = Double(self.group!.total)
                 financeVC.groupId = self.group!.gID
             }
         } else if segue.identifier == syncIdentifier {
@@ -139,7 +139,7 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
     func updateSumLabel() {
         if let sum = self.sumBtn {
             let total = group!.total
-            sum.setTitle(total.toMoneyString(), forState: UIControlState.Normal)
+            sum.setTitle(Double(total).toMoneyString(), forState: UIControlState.Normal)
             if total < 0 {
                 sum.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
             } else {

@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 public class UserHelper: NSObject {
-    
+    /*
     static var userDic = [String: User]()
     
     class func createUserIfDoesNotExist(user: User) {
@@ -29,7 +29,8 @@ public class UserHelper: NSObject {
     }
     
     class func createUser(json:JSON) {
-        let user = User(details: json)
+        let user = User()
+        user.loadFromJSON(json)
         userDic[user.uID] = user
     }
     class func JSONcreateUserIfDoesNotExist(json: JSON) -> User {
@@ -46,5 +47,5 @@ public class UserHelper: NSObject {
     class func addUser(user: User) {
         userDic[user.uID] = user
     }
-    
+    */
 }

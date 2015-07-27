@@ -25,12 +25,14 @@ class Message: NSObject {
         self.message = data["_id"].stringValue
         let senderId = data["_id"].stringValue
         
+        self.sender = GlobalVar.currentUser
+/*
         if let send = UserHelper.getUser(senderId) {
             self.sender = send
         } else {
             println("kenn ich nicht")
             self.sender = User(rand: 1)
-        }
+        }*/
     }
    
 }

@@ -9,10 +9,19 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import SwiftAddressBook
 
 public class RequestHelper {
     
     static let dataUrl = "https://flowe.herokuapp.com"
+    static let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    static let context = appDelegate.managedObjectContext
+    
+    class func getUserFromAddressBook(person: SwiftAddressBookPerson) -> User {
+        let user = User.findOrCreateAddressBookUser(person, inContext: self.context!)
+        self.appDelegate.saveContext()
+        return user
+    }
     
     //  /users
     class func getUserDetails(person: User, callback:(User) -> Void) {
@@ -29,7 +38,9 @@ public class RequestHelper {
                 } else {
                     if let jsonData: AnyObject = jsonResponse {
                         let userData = JSON(jsonData)
-                        let user = UserHelper.JSONcreateUserIfDoesNotExist(userData)
+                        let user = User.findOrCreateUser(userData, inContext: self.context!)
+                        self.appDelegate.saveContext()
+//                        let user = UserHelper.JSONcreateUserIfDoesNotExist(userData)
                         callback(user)
                     }
                 }
@@ -43,7 +54,9 @@ public class RequestHelper {
                 (request, response, jsonResponse, error) in
                 if let jsonData: AnyObject = jsonResponse {
                     let userData = JSON(jsonData)
-                    let u = UserHelper.JSONcreateUserIfDoesNotExist(userData)
+                    let u = User.findOrCreateUser(userData, inContext: self.context!)
+                    self.appDelegate.saveContext()
+                    //let u = UserHelper.JSONcreateUserIfDoesNotExist(userData)
                     callback(u)
                 }
         }
@@ -62,7 +75,9 @@ public class RequestHelper {
                 } else {
                     if let jsonData: AnyObject = jsonResponse {
                         let userData = JSON(jsonData)
-                        let user = UserHelper.JSONcreateUserIfDoesNotExist(userData)
+                        let user = User.findOrCreateUser(userData, inContext: self.context!)
+                        self.appDelegate.saveContext()
+                        //let user = UserHelper.JSONcreateUserIfDoesNotExist(userData)
                         callback(user)
                     }
                 }
@@ -84,9 +99,14 @@ public class RequestHelper {
                         let json = JSON(jsonData)
                         if let groupArray = json.array {
                             var groups = [Group]()
+                            
                             for group in groupArray {
-                                var newGroup = Group(details: group)
+                                var newGroup = Group.findOrCreateGroup(group, inContext: self.context!)
+                                
+                                //var newGroup = Group(details: group)
+
                                 groups.append(newGroup)
+                                self.appDelegate.saveContext()
                             }
                             callback(groups)
                             println("Successfully fetched \(groups.count) groups")
@@ -97,7 +117,9 @@ public class RequestHelper {
     }
     class func postGroup(group: Group, callback:(Group) -> Void) {
         let url =  "\(dataUrl)/\(GlobalVar.currentUid)/groups"
-        var users = JSONHelper.createDictionaryFromUsers(group.users)
+        
+        
+        var users = JSONHelper.createDictionaryFromUsers(group.getUsers())
         
         let postBody:[String: AnyObject] = [
             "name": group.name,
@@ -122,7 +144,9 @@ public class RequestHelper {
                 } else {
                     if let jsonData: AnyObject = jsonResponse {
                         let json = JSON(jsonData)
-                        let g = Group(details: json)
+                        let g = Group.findOrCreateGroup(json, inContext: self.context!)
+                        //let g = Group(details: json)
+                        self.appDelegate.saveContext()
                         callback(g)
                         
                         println("successfully created Group '\(g.name)'")
@@ -144,7 +168,9 @@ public class RequestHelper {
                 } else {
                     if let jsonData: AnyObject = jsonResponse {
                         let groupData = JSON(jsonData)
-                        let group = Group(details: groupData)
+                        let group = Group.findOrCreateGroup(groupData, inContext: self.context!)
+                        self.appDelegate.saveContext()
+                        //let group = Group(details: groupData)
                         callback(group)
                         
                         println("Successfully fetched group \(groupId)")

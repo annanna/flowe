@@ -98,10 +98,10 @@ class ExpenseTableViewController: UITableViewController {
     func fillView(currentView: UIView, identifier: String) {
         if let peopleView = currentView as? PeopleView {
             peopleView.userInteractionEnabled = self.editingMode
-            peopleView.setPeopleInView(group.users)
+            peopleView.setPeopleInView(group.getUsers())
             if let ex = expense {
                 var toggleUsers = [User]()
-                for (i,user) in enumerate(group.users) {
+                for (i,user) in enumerate(group.getUsers()) {
                     var markBtnAsClick = identifier == paymentDetailIdentifier ? ex.hasPayed(user) : ex.hasParticipated(user)
                     if markBtnAsClick {
                         toggleUsers.append(user)
@@ -180,7 +180,11 @@ class ExpenseTableViewController: UITableViewController {
                 var btns:[PeopleButton] = payer.peopleBtns
                 for btn in btns {
                     if btn.isClicked {
-                        whoPayed += [(user:btn.uid, amount:0.0)]
+                        //whoPayed.append(user: btn.uid, amount: 0.0)
+                        //let inst = [(user:btn.uid, amount:0.0)]
+                        //whoPayed[whoPayed.count+1] = inst
+                        
+//                        whoPayed += [(user:btn.uid, amount:0.0)]
                     }
                 }
                 whoPayed = updateAmount(whoPayed)
@@ -192,7 +196,9 @@ class ExpenseTableViewController: UITableViewController {
                 var btns:[PeopleButton] = participant.peopleBtns
                 for btn in btns {
                     if btn.isClicked {
-                        whoTookPart += [(user: btn.uid, amount:0.0)]
+                        
+                        
+                        //whoTookPart += [(user: btn.uid, amount:0.0)]
                     }
                 }
                 whoTookPart = updateAmount(whoTookPart)
