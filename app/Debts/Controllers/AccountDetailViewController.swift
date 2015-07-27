@@ -27,11 +27,9 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
     var groupName = ""
     
     let paymentStatus = ["Unbezahlt", "Bestätigung ausstehend", "Bezahlt"]
-    var payPalConfig = PayPalConfiguration()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupPayPal()
         RequestHelper.getAccountDetails(self.aId, callback: { (acc, exp) -> Void in
             self.expenses = exp
             self.account = acc
@@ -96,6 +94,7 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
             })
             
         } else {
+            // let user pay by cash or PayPal
             let alertController = UIAlertController(title: nil, message: "Wähle hier die Zahlungsart aus", preferredStyle: .ActionSheet)
             let cashPayment = UIAlertAction(title: "Barzahlung", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 
@@ -104,27 +103,13 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
             })
             let payPalPayment = UIAlertAction(title: "PayPal", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 
+                self.payWithPayPal()
                 
-                let payment = PayPalPayment()
-                payment.amount = NSDecimalNumber(double: self.account.amount)
-                payment.currencyCode = "EUR"
-                payment.shortDescription = "Schulden für \(self.groupName)"
-                payment.intent = PayPalPaymentIntent.Sale
-                
-                if payment.processable {
-                    let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: self.payPalConfig, delegate: self)
-                    self.presentViewController(paymentViewController, animated: true, completion: nil)
-                } else {
-                    println("payment not processable")
-                }
             })
             alertController.addAction(cashPayment)
             alertController.addAction(payPalPayment)
             
             self.presentViewController(alertController, animated: true, completion: nil)
-
-            
-
         }
     }
     
@@ -141,39 +126,27 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
         })
     }
     
-    func setupPayPal() {
-        PayPalMobile.initializeWithClientIdsForEnvironments(
-            [
-                PayPalEnvironmentSandbox: "AQ8OKPIzdyDlboX9iyxRCAzzkVtKKaGGADFouqbFv5oOXly7kznX3vA-hD4MwUSw9y-TRNMm2vm6wRN6"
-            ]
-        )
+    func payWithPayPal() {
         
-        // PayPal Config
-        payPalConfig.acceptCreditCards = true
-        payPalConfig.defaultUserPhoneNumber = GlobalVar.currentUser.phoneNumber
-        payPalConfig.defaultUserEmail = "myDebts@abc.com" // GlobalVar.currentUser.phoneNumber
-        payPalConfig.rememberUser = true
-        payPalConfig.alwaysDisplayCurrencyCodes = true
-        //payPalConfig.merchantName = "Debts App"
-        payPalConfig.payPalShippingAddressOption = PayPalShippingAddressOption.None
-        PayPalMobile.preconnectWithEnvironment(PayPalEnvironmentNoNetwork)
+        let config = self.setupPayPal()
+        
+        // set up payment
+        let payment = PayPalPayment()
+        payment.amount = NSDecimalNumber(double: self.account.amount)
+        payment.currencyCode = "EUR"
+        payment.shortDescription = "Schulden für \(self.groupName)"
+        payment.intent = PayPalPaymentIntent.Sale
+        
+        if payment.processable {
+            let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: config, delegate: self)
+            self.presentViewController(paymentViewController, animated: true, completion: nil)
+        } else {
+            println("payment is not processable")
+        }
+
     }
 
     
-    // PayPalPaymentDelegate
-    
-    func payPalPaymentDidCancel(paymentViewController: PayPalPaymentViewController!) {
-        println("PayPal Payment Cancelled")
-        paymentViewController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-    func payPalPaymentViewController(paymentViewController: PayPalPaymentViewController!, didCompletePayment completedPayment: PayPalPayment!) {
-        println("PayPal Payment Success !")
-        paymentViewController?.dismissViewControllerAnimated(true, completion: { () -> Void in
-            self.verifyCompletedPayment(completedPayment)
-            self.paymentDone()
-        })
-    }
-
     func verifyCompletedPayment(completedPayment: PayPalPayment) {
         var conf = completedPayment.confirmation
         var confirmation = JSON(conf)
@@ -182,21 +155,59 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
         
         // (1) get access token
         
-        /* 
-            curl -v https://api.sandbox.paypal.com/v1/oauth2/token \
-            -H "Accept: application/json" \
-            -H "Accept-Language: en_US" \
-            -u "<ClientId>:<SecretKey>" \
-            -d "grant_type=client_credentials"
-
+        /*
+        curl -v https://api.sandbox.paypal.com/v1/oauth2/token \
+        -H "Accept: application/json" \
+        -H "Accept-Language: en_US" \
+        -u "<ClientId>:<SecretKey>" \
+        -d "grant_type=client_credentials"
+        
         */
         
         // (2) get payment from server
         
         /*
-            curl -v -X GET https://api.sandbox.paypal.com/v1/payments/payment \
-            -H "Content-Type:application/json" \
-            -H "Authorization: Bearer <AccessToken>"
+        curl -v -X GET https://api.sandbox.paypal.com/v1/payments/payment \
+        -H "Content-Type:application/json" \
+        -H "Authorization: Bearer <AccessToken>"
         */
+    }
+    
+    func setupPayPal() -> PayPalConfiguration {
+        PayPalMobile.initializeWithClientIdsForEnvironments(
+            [
+                PayPalEnvironmentSandbox: "AQ8OKPIzdyDlboX9iyxRCAzzkVtKKaGGADFouqbFv5oOXly7kznX3vA-hD4MwUSw9y-TRNMm2vm6wRN6"
+            ]
+        )
+        
+        // Set up config
+        var payPalConfig = PayPalConfiguration()
+        payPalConfig.acceptCreditCards = true
+        payPalConfig.defaultUserPhoneNumber = GlobalVar.currentUser.phoneNumber
+        payPalConfig.defaultUserEmail = "myDebts@abc.com" // GlobalVar.currentUser.phoneNumber
+        payPalConfig.rememberUser = true
+        payPalConfig.alwaysDisplayCurrencyCodes = true
+        //payPalConfig.merchantName = "Debts App"
+        payPalConfig.payPalShippingAddressOption = PayPalShippingAddressOption.None
+        
+        // Preconnect
+        PayPalMobile.preconnectWithEnvironment(PayPalEnvironmentNoNetwork)
+        
+        return payPalConfig
+    }
+
+    
+    // PayPalPaymentDelegate
+    func payPalPaymentDidCancel(paymentViewController: PayPalPaymentViewController!) {
+        println("payment Cancelled")
+    
+        paymentViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    func payPalPaymentViewController(paymentViewController: PayPalPaymentViewController!, didCompletePayment completedPayment: PayPalPayment!) {
+        println("payment success")
+        paymentViewController?.dismissViewControllerAnimated(true, completion: { () -> Void in
+            self.verifyCompletedPayment(completedPayment)
+            self.paymentDone()
+        })
     }
 }
