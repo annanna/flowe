@@ -116,17 +116,40 @@ class Group: NSManagedObject {
         if let objects = result {
             if objects.count > 0 {
                 if let existingGroup = objects[0] as? Group {
-                    println("existing group \(existingGroup.name)")
-                    callback(group: existingGroup)
+                    // update group -> TODO: check if modified
+                    existingGroup.loadFromJSON(details, callback: { () -> Void in
+                        println("existing group \(existingGroup.name)")
+                        callback(group: existingGroup)
+                    })
                 }
             } else {
                 if let newGroup = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext:context) as? Group {
                     newGroup.loadFromJSON(details, callback: { () -> Void in
-                        println("existing group \(newGroup.name)")
+                        println("new group \(newGroup.name)")
                         callback(group: newGroup)
                     })
                 }
             }
+        }
+    }
+    
+    static func findGroupsWithUser(context: NSManagedObjectContext, callback:([Group])->Void) {
+        
+        var fetchRequest = NSFetchRequest(entityName: self.entityName)        
+        fetchRequest.predicate = NSPredicate(format: "users CONTAINS %@", GlobalVar.currentUser)
+        var error:NSError? = nil
+        
+        var result = context.executeFetchRequest(fetchRequest, error: &error)
+        if error != nil {
+        println("error \(error?.localizedDescription)")
+        }
+        if let objects = result {
+            if objects.count > 0 {
+                if let fetchedGroups = objects as? [Group] {
+                    callback(fetchedGroups)
+                }
+            }
+        
         }
     }
 }

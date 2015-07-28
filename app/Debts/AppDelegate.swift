@@ -12,6 +12,7 @@ import CoreData
 struct GlobalVar {
     static var currentUser:User!
     static var currentUid:String = ""
+    static var offline = true
 }
 
 struct colors {
@@ -94,6 +95,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         self.saveContext()
+    }
+    func showError() {
+        var alert = UIAlertController(title: "Network Error", message: "Please enable Network and launch again!", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+            println("stop app")
+        }))
+
+        self.window?.rootViewController!.presentViewController(alert, animated: true, completion: nil)
     }
 
     // MARK: - Core Data stack

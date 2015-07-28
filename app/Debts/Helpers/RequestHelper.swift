@@ -15,23 +15,23 @@ public class RequestHelper {
     static let dataUrl = "https://flowe.herokuapp.com"
     static let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     static let context = appDelegate.managedObjectContext
-    static let offline = false
     
     //  /users
     class func getUserDetails(user: [String: String], byId: Bool, callback:(User) -> Void) {
-        var val = ""; var key = ""
+        var predicate:NSPredicate?
+        var val = ""
         if byId {
             val = user["_id"] as String!
-            key = "id"
+            predicate = NSPredicate(format: "id = %@", val)
         } else {
             val = user["phone"] as String!
-            key = "phoneNumber"
+            predicate = NSPredicate(format: "phoneNumber = %@", val)
         }
         
-        if let coreDataUser = User.findUserIfExists(key, identifier: val, context: self.context!) {
+        if let coreDataUser = User.findUserIfExists(predicate!, context: self.context!) {
             // user found in local Core Data db
             callback(coreDataUser)
-        } else {
+        } else if !GlobalVar.offline {
             // look for user on server
             var url = "\(dataUrl)/users?"
             if byId {
@@ -59,6 +59,8 @@ public class RequestHelper {
                     }
                 }
             }
+        } else {
+            self.appDelegate.showError()
         }
     }
     
@@ -85,6 +87,11 @@ public class RequestHelper {
 
     //  /:uid/groups
     class func getGroups(callback:([Group]) -> Void) {
+        
+        if GlobalVar.offline {
+            Group.findGroupsWithUser(self.context!, callback: callback)
+        } else {
+        
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/"
         Alamofire.request(.GET, url)
             .responseJSON {
@@ -115,6 +122,7 @@ public class RequestHelper {
                         }
                     }
                 }
+            }
         }
     }
     class func postGroup(name: String, users: [User], callback:(Group) -> Void) {

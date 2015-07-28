@@ -30,29 +30,6 @@ class User: NSManagedObject {
         callback()
     }
     
-    func loadFromAddressBook (person: SwiftAddressBookPerson) {
-        
-        if let phone = person.phoneNumbers {
-            let num = phone[0].value
-            self.phoneNumber = num
-            self.id = num
-        } else {
-            self.phoneNumber = ""
-        }
-        if let first = person.firstName {
-            self.firstname = first
-        }
-        if let last = person.lastName {
-            self.lastname = last
-        }
-        if let emails = person.emails {
-            self.email = emails[0].value
-        }/*
-        if person.hasImageData() {
-        self.img = person.image!
-        }*/
-    }
-    
     func getName() -> String {
         var initials = ""
         if count(self.firstname) > 0 {
@@ -99,9 +76,9 @@ class User: NSManagedObject {
         }
     }
     
-    static func findUserIfExists(key: String, identifier: String, context: NSManagedObjectContext) -> User? {
+    static func findUserIfExists(predicate: NSPredicate, context: NSManagedObjectContext) -> User? {
         var fetchRequest = NSFetchRequest(entityName: self.entityName)
-        fetchRequest.predicate = NSPredicate(format: "%@ = %@", key, identifier)
+        fetchRequest.predicate = predicate
         var error:NSError? = nil
         
         var result = context.executeFetchRequest(fetchRequest, error: &error)
