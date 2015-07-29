@@ -18,6 +18,14 @@ class User: NSObject {
     var email = ""
     var img: UIImage?
     
+    init(coreDataUser: CDUser) {
+        self.uID = coreDataUser.id
+        self.phoneNumber = coreDataUser.phoneNumber
+        self.firstname = coreDataUser.firstname
+        self.lastname = coreDataUser.lastname
+       // self.email = coreDataUser.email
+    }
+    
     init(phone: String) {
         self.phoneNumber = phone
     }

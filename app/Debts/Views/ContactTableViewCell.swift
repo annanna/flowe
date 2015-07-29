@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftAddressBook
 
 class ContactTableViewCell: UITableViewCell {
 
@@ -32,10 +33,9 @@ class ContactTableViewCell: UITableViewCell {
         }
     }
     
-    func displayNameOfUser(person: User) {
-        
-        let labelText = "\(person.firstname) \(person.lastname)"
-        let highlightRange = (labelText as NSString).rangeOfString(person.firstname)
+    func displayNameOfUser(addressBookPerson: SwiftAddressBookPerson) {        
+        let labelText = "\(addressBookPerson.firstname) \(addressBookPerson.lastname)"
+        let highlightRange = (labelText as NSString).rangeOfString(addressBookPerson.firstname)
         
         // create attributed string so that lastname is displayed in bold
         let attributedString = NSMutableAttributedString(string: labelText, attributes:[NSFontAttributeName : UIFont.systemFontOfSize(17.0)])

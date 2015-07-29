@@ -12,95 +12,139 @@ import SwiftyJSON
 
 public class RequestHelper {
     
-    static let dataUrl = "http://localhost:3000"
+    static let dataUrl = "https://flowe.herokuapp.com"
+    static let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    static let context = appDelegate.managedObjectContext
     
     //  /users
-    class func getUserDetails(person: User, callback:(User) -> Void) {
-        let customAllowedSet =  NSCharacterSet(charactersInString:"+() \"#%/<>?@\\^`{|}").invertedSet
-        var escapedPhone = person.phoneNumber.stringByAddingPercentEncodingWithAllowedCharacters(customAllowedSet) as String!
-        var url = "\(dataUrl)/users?phone=\(escapedPhone)"
-        Alamofire.request(.GET, url)
-            .responseJSON {
-                (request, response, jsonResponse, error) in
-                if (error != nil) {
-                    println("Error getting user \(error)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let userData = JSON(jsonData)
-                        let user = UserHelper.JSONcreateUserIfDoesNotExist(userData)
-                        callback(user)
+    class func getUserDetails(user: [String: String], byId: Bool, callback:(User) -> Void) {
+        var predicate:NSPredicate?
+        var val = ""
+        if byId {
+            val = user["_id"] as String!
+            predicate = NSPredicate(format: "id = %@", val)
+        } else {
+            val = user["phone"] as String!
+            predicate = NSPredicate(format: "phoneNumber = %@", val)
+        }
+        
+        if let coreDataUser = CDUser.findUserIfExists(predicate!, context: self.context!) {
+            // user found in local Core Data db
+            let fetchedUser = User(coreDataUser: coreDataUser)
+            UserHelper.createUserIfDoesNotExist(fetchedUser)
+            callback(fetchedUser)
+        } else if !GlobalVar.offline {
+            // look for user on server
+            var url = "\(dataUrl)/users?"
+            if byId {
+                url += "uid=\(val)"
+            } else {
+                let customAllowedSet =  NSCharacterSet(charactersInString:"+() \"#%/<>?@\\^`{|}").invertedSet
+                let escapedPhone = val.stringByAddingPercentEncodingWithAllowedCharacters(customAllowedSet) as String!
+                url += "phone=\(escapedPhone)"
+            }
+            
+            Alamofire.request(.GET, url)
+                .responseJSON {
+                    (request, response, jsonResponse, error) in
+                    if (error != nil) {
+                        println("Error getting user \(error)")
+                        println(request)
+                        println(response)
+                    } else {
+                        if let jsonData: AnyObject = jsonResponse {
+                            let userData = JSON(jsonData)
+                            // save user in Core Data and UserHelper-Dic
+                            self.saveUser(userData, callback: callback)
+                        } else {
+                            println("user does not exist on server")
+                            self.createUser(user, callback: callback)
+                        }
                     }
-                }
+            }
+        } else {
+            self.appDelegate.showError()
         }
     }
-    class func createUser(user: User, callback:(User) -> Void) {
+    class func getCDUser(id: String, callback:(CDUser)->Void) {
+        if let coreDataUser = CDUser.findUserIfExists(NSPredicate(format: "id = %@", id), context: self.context!) {
+            // user found in local Core Data db
+            callback(coreDataUser)
+        }
+    }
+    
+    private class func createUser(user: [String: String], callback:(User) -> Void) {
         let url = "\(dataUrl)/users"
-        var postBody = user.asDictionary()
-        Alamofire.request(.POST, url, parameters: postBody)
+        Alamofire.request(.POST, url, parameters: user)
             .responseJSON {
                 (request, response, jsonResponse, error) in
                 if let jsonData: AnyObject = jsonResponse {
                     let userData = JSON(jsonData)
-                    let u = UserHelper.JSONcreateUserIfDoesNotExist(userData)
-                    callback(u)
+                    self.saveUser(userData, callback: callback)
                 }
         }
     }
-    
-    //  /:uid
-    class func getUserById(uid: String, callback:(User) -> Void) {
-        var url = "\(dataUrl)/\(uid)"
-        Alamofire.request(.GET, url)
-            .responseJSON {
-                (request, response, jsonResponse, error) in
-                if (error != nil) {
-                    println("Error getting user \(error)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let userData = JSON(jsonData)
-                        let user = UserHelper.JSONcreateUserIfDoesNotExist(userData)
-                        callback(user)
-                    }
-                }
+    private class func saveUser(userData: JSON, callback:(User)->Void) {
+        // store user in local db
+        CDUser.findOrCreateUser(userData, inContext: self.context!) { (user) -> Void in
+            self.appDelegate.saveContext()
+            // store user in UserHelper-Dic
+            let newUser = User(coreDataUser: user)
+            UserHelper.createUserIfDoesNotExist(newUser)
+            callback(newUser)
         }
     }
     
+
     //  /:uid/groups
     class func getGroups(callback:([Group]) -> Void) {
-        let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/"
-        Alamofire.request(.GET, url)
-            .responseJSON {
-                (request, response, jsonResponse, error) in
-                if(error != nil) {
-                    println("Error fetching groups: \(error)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let json = JSON(jsonData)
-                        if let groupArray = json.array {
-                            var groups = [Group]()
-                            for group in groupArray {
-                                var newGroup = Group(details: group)
-                                groups.append(newGroup)
+        
+        if GlobalVar.offline {
+            CDGroup.findGroupsWithUser(self.context!, callback: { (cdGroups) -> Void in
+                callback(self.transformGroups(cdGroups))
+            })
+        } else {
+            
+            let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/"
+            Alamofire.request(.GET, url)
+                .responseJSON {
+                    (request, response, jsonResponse, error) in
+                    if(error != nil) {
+                        println("Error fetching groups: \(error)")
+                        println(request)
+                        println(response)
+                    } else {
+                        if let jsonData: AnyObject = jsonResponse {
+                            let json = JSON(jsonData)
+                            if let groupArray = json.array {
+                                let cdGroupCount = groupArray.count
+                                var groups = [Group]()
+                                
+                                for group in groupArray {
+                                    groups.append(Group(details: group))
+                                    callback(groups)
+
+                                    CDGroup.findOrCreateGroup(group, inContext: self.context!, callback: { (newGroup:CDGroup) -> Void in
+                                        self.appDelegate.saveContext()
+                                        
+                                        if groups.count == cdGroupCount {
+                                            println("Successfully saved \(groups.count) groups in Core Data")
+                                        }
+                                    })
+                                }
                             }
-                            callback(groups)
-                            println("Successfully fetched \(groups.count) groups")
                         }
                     }
-                }
+            }
         }
     }
-    class func postGroup(group: Group, callback:(Group) -> Void) {
+    class func postGroup(name: String, users: [User], callback:(Group) -> Void) {
         let url =  "\(dataUrl)/\(GlobalVar.currentUid)/groups"
-        var users = JSONHelper.createDictionaryFromUsers(group.users)
+        
+        var users = JSONHelper.createDictionaryFromUsers(users)
         
         let postBody:[String: AnyObject] = [
-            "name": group.name,
+            "name": name,
             "users": users,
             "creator": GlobalVar.currentUid
         ]
@@ -122,15 +166,20 @@ public class RequestHelper {
                 } else {
                     if let jsonData: AnyObject = jsonResponse {
                         let json = JSON(jsonData)
-                        let g = Group(details: json)
-                        callback(g)
-                        
-                        println("successfully created Group '\(g.name)'")
+                        self.saveGroupInCoreData(json, callback: callback)
                     }
                 }
             })
     }
     
+    private class func transformGroups(cdGroups: [CDGroup]) -> [Group] {
+        var groups = [Group]()
+        for gr in cdGroups {
+            let group = Group(coreDataGroup: gr)
+            groups.append(group)
+        }
+        return groups
+    }
     //  /:uid/groups/:groupId
     class func getGroupDetails(groupId: String, callback:(Group)->Void) {
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/\(groupId)"
@@ -144,12 +193,19 @@ public class RequestHelper {
                 } else {
                     if let jsonData: AnyObject = jsonResponse {
                         let groupData = JSON(jsonData)
-                        let group = Group(details: groupData)
-                        callback(group)
-                        
+                        callback(Group(details: groupData))
+                        self.saveGroupInCoreData(groupData, callback: callback)
                         println("Successfully fetched group \(groupId)")
                     }
                 }
+        }
+    }
+    
+    private class func saveGroupInCoreData(groupData: JSON, callback:(Group)->Void) {
+        // store group in local db
+        CDGroup.findOrCreateGroup(groupData, inContext: self.context!) { (group) -> Void in
+            self.appDelegate.saveContext()
+//            callback(Group(coreDataGroup: group))
         }
     }
     

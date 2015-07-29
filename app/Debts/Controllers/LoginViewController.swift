@@ -10,6 +10,43 @@ import UIKit
 import Foundation
 import SwiftAddressBook
 
+extension SwiftAddressBookPerson {
+    func asDictionary() -> [String: String] {
+        return [
+            "phone": self.phoneNumber,
+            "firstname": self.firstname,
+            "lastname": self.lastname
+        ]
+    }
+    
+    var firstname: String {
+        get {
+            if let first = self.firstName {
+                return first
+            }
+            return ""
+        }
+    }
+    var lastname: String {
+        get {
+            if let last = self.lastName {
+                return last
+            }
+            return ""
+        }
+    }
+    var phoneNumber: String {
+        get {
+            if let numbers = self.phoneNumbers {
+                if numbers.count > 0 {
+                    return numbers[0].value
+                }
+            }
+            return ""
+        }
+    }
+}
+
 class LoginViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var spinner: UIActivityIndicatorView!
@@ -37,6 +74,9 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewWillAppear(animated)
         self.searchMode = false
         self.contactTableView.reloadData()
+    }
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
     }
     
     override func viewDidLoad() {
@@ -119,8 +159,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier(userCellIdentifier, forIndexPath: indexPath) as! ContactTableViewCell
         
         var user:SwiftAddressBookPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
-        var person: User = User(person: user)
-        cell.displayNameOfUser(person)
+        cell.displayNameOfUser(user)
         
         return cell
     }
@@ -133,26 +172,12 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
             cell.selected = true
             self.spinner.startAnimating()
             
-            var person = User(person: self.peopleToDisplayInSections[indexPath.section][indexPath.row])
-            
-            GlobalVar.currentUser = person
-            self.contactTableView.deselectRowAtIndexPath(indexPath, animated: true)
-            // get user details or if it does not exist, create a new on and proceed
-            RequestHelper.getUserDetails(person, callback: { (userData) -> Void in
-                var uid = userData.uID
+            var person:SwiftAddressBookPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
+            RequestHelper.getUserDetails(person.asDictionary(), byId: false, callback: { (user) -> Void in
+                GlobalVar.currentUser = user
+                self.contactTableView.deselectRowAtIndexPath(indexPath, animated: true)
+                self.proceedWithSelectedUser(user.uID)
                 
-                if count(uid) > 0 {
-                    cell.selected = false
-                    println("Successfully fetched uid \(uid)")
-                    self.proceedWithSelectedUser(uid)
-                } else {
-                    RequestHelper.createUser(person, callback: { (uData) -> Void in
-                        uid = uData.uID
-                        cell.selected = false
-                        println("Successfully created user with uid \(uid)")
-                        self.proceedWithSelectedUser(uid)
-                    })
-                }
             })
         }
     }
@@ -175,13 +200,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
             for users in contactSections {
                 
                 let filteredUsers: [SwiftAddressBookPerson] = users.filter({ (user: SwiftAddressBookPerson) -> Bool in
-                    var name = ""
-                    if let first = user.firstName {
-                        name += first
-                    }
-                    if let last = user.lastName {
-                        name += last
-                    }
+                    var name = "\(user.firstname) \(user.lastname)"
                     let range = (name as NSString).rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
                     return range.location != NSNotFound
                 })

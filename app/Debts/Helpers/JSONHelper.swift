@@ -19,6 +19,14 @@ public class JSONHelper {
         return userDict
     }
     
+    class func JSONObjToStringDic(json: JSON) -> [String: String] {
+        var dic = [String: String]()
+        for (key, object) in json {
+            dic[key] = object.stringValue
+        }
+        return dic
+    }
+    
     class func JSONToDictionary(dataArray:[JSON]) -> [[String: AnyObject]] {
         var dataDic:[[String:AnyObject]] = []
         for data in dataArray {

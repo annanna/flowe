@@ -18,6 +18,12 @@ class Group: NSObject {
     var expenses = [Expense]()
     var total = 0.0
     
+    init(coreDataGroup: CDGroup) {
+        self.gID = coreDataGroup.id
+        self.name = coreDataGroup.name
+        self.total = Double(coreDataGroup.total)
+    }
+    
     init(name: String, users: [User], creator: User) {
         self.name = name
         self.users = users
