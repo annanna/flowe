@@ -20,24 +20,17 @@ class AccountViewController: UIViewController {
     var accounts: [Account] = []
     var selectedAccount = ""
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.getAccounts()
-    }
-    
-    func getAccounts() {
+    override func viewWillAppear(animated: Bool) {
         if let g = groupId {
-            RequestHelper.getAccountsByGroup(g, callback: { (accountData) -> Void in
-                self.accounts = accountData
-                self.accountTableView.reloadData()
-                self.updateTotal()
-            })
+            RequestHelper.getAccountsByGroup(g, callback: setupView)
         } else {
-            RequestHelper.getAccounts({ (accountData) -> Void in
-                self.accounts = accountData
-                self.accountTableView.reloadData()
-            })
+            RequestHelper.getAccounts(setupView)
         }
+    }
+    func setupView(accountData: [Account]) {
+        self.accounts = accountData
+        self.accountTableView.reloadData()
+        self.updateTotal()
     }
     
     func updateTotal() {

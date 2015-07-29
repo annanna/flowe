@@ -13,9 +13,7 @@ class MessageTableViewController: UITableViewController {
     let cellIdentifier = "messageCell"
     var messages:[Message] = [Message]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override func viewWillAppear(animated: Bool) {
         RequestHelper.getMessages { (messageData) -> Void in
             self.messages = messageData
             self.tableView.reloadData()

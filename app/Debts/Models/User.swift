@@ -84,7 +84,7 @@ class User: NSObject {
         }
     }
     
-    func getName() -> String {
+    func getInitials() -> String {
         var initials = ""
         if count(self.firstname) > 0 {
             initials += "\(Array(self.firstname)[0])"
@@ -94,6 +94,9 @@ class User: NSObject {
         }
         
         return initials
+    }
+    func getName() -> String {
+        return "\(self.firstname) \(self.lastname)"
     }
     
     func isSame(user:User) -> Bool {

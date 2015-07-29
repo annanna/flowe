@@ -406,7 +406,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p8q-rd-cBs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2689" y="544"/>
+            <point key="canvasLocation" x="3221" y="544"/>
         </scene>
         <!--Expense Detail-->
         <scene sceneID="iaj-5P-KLl">
@@ -888,10 +888,10 @@
             </objects>
             <point key="canvasLocation" x="3131" y="-1584"/>
         </scene>
-        <!--Abrechnungsdetails-->
+        <!--Account Detail-->
         <scene sceneID="yAY-Gp-BA0">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="ZoO-0e-7xd" customClass="AccountDetailViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Account Detail" automaticallyAdjustsScrollViewInsets="NO" id="ZoO-0e-7xd" customClass="AccountDetailViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="N87-LX-CYw"/>
                         <viewControllerLayoutGuide type="bottom" id="FH9-Ei-R92"/>
@@ -1007,10 +1007,10 @@
             </objects>
             <point key="canvasLocation" x="1262" y="-1882"/>
         </scene>
-        <!--Abrechnung-->
+        <!--Accounts-->
         <scene sceneID="Hjw-Ua-k1X">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="sZQ-Rx-wFg" customClass="AccountViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Accounts" automaticallyAdjustsScrollViewInsets="NO" id="sZQ-Rx-wFg" customClass="AccountViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aGB-It-JtK"/>
                         <viewControllerLayoutGuide type="bottom" id="R7N-fM-HEg"/>
@@ -1081,10 +1081,10 @@
             </objects>
             <point key="canvasLocation" x="1794" y="-1144"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--AddExpenseNav-->
         <scene sceneID="bkD-LY-wCB">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="x9x-dH-tCr" sceneMemberID="viewController">
+                <navigationController title="AddExpenseNav" automaticallyAdjustsScrollViewInsets="NO" id="x9x-dH-tCr" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="rRF-yW-tvd"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bWT-O3-Hiw">
@@ -1100,10 +1100,10 @@
             </objects>
             <point key="canvasLocation" x="2689" y="-867"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--AddGroupNav-->
         <scene sceneID="5to-2S-6LI">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QbE-oK-Qdr" sceneMemberID="viewController">
+                <navigationController title="AddGroupNav" automaticallyAdjustsScrollViewInsets="NO" id="QbE-oK-Qdr" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="VoC-N2-8gU"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qpQ-Rw-qL1">
@@ -1119,20 +1119,23 @@
             </objects>
             <point key="canvasLocation" x="2216" y="-1214"/>
         </scene>
-        <!--Meine Nachrichten-->
+        <!--Messages-->
         <scene sceneID="QOX-7j-oXu">
             <objects>
-                <tableViewController id="1tG-Un-7zb" customClass="MessageTableViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Messages" id="1tG-Un-7zb" customClass="MessageTableViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="SqE-CO-c5d">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.78922161443513839" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" id="brU-Hn-VTd">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="brU-Hn-VTd" id="tWB-4r-Vxw">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.98965686559999999" green="0.46128228310000002" blue="0.48567023869999998" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1146,37 +1149,65 @@
             </objects>
             <point key="canvasLocation" x="1799" y="159"/>
         </scene>
-        <!--Settings-->
+        <!--User Data-->
         <scene sceneID="FQM-SL-iGp">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qL3-OK-Ocy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="fyt-Kf-KZV" customClass="SettingsTableViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="yqX-J2-4ID">
+                <tableViewController title="User Data" id="fyt-Kf-KZV" customClass="UserDataTableViewController" customModule="Debts" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="yqX-J2-4ID">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
-                            <tableViewSection headerTitle="Settings" footerTitle="  " id="Smr-v7-chG">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="efL-IP-50M">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="efL-IP-50M" id="xZf-hJ-qlv">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Offline" id="iAb-a6-KEF">
+                            <tableViewSection headerTitle="User ID" id="iAb-a6-KEF">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="yV1-A7-Syk">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yV1-A7-Syk" id="Dx6-dH-qTB">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a92-WH-Q2n">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPZ-bU-nhG">
+                                                    <rect key="frame" x="8" y="0.0" width="304" height="43"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Name" footerTitle="   " id="um8-z0-h8L">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Poj-Wo-vYb">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Poj-Wo-vYb" id="uSm-8n-de1">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Firstname Lastname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhW-mg-dWq">
+                                                    <rect key="frame" x="8" y="0.0" width="304" height="43"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Offline" id="9Z4-8m-PiV">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="h1T-Ui-ML9">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h1T-Ui-ML9" id="uuC-QK-SBY">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XkB-jv-S3Z">
                                                     <rect key="frame" x="136" y="6" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="offlineSwitched:" destination="fyt-Kf-KZV" eventType="valueChanged" id="5Qq-hM-7qS"/>
+                                                        <action selector="offlineSwitched:" destination="fyt-Kf-KZV" eventType="valueChanged" id="z5r-dU-OAz"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -1190,13 +1221,16 @@
                             <outlet property="delegate" destination="fyt-Kf-KZV" id="g8I-7P-l2w"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Settings" id="QOg-v6-CZi"/>
+                    <navigationItem key="navigationItem" title="Meine Daten" id="jc1-2f-fcX"/>
                     <connections>
-                        <outlet property="offlineSwitch" destination="a92-WH-Q2n" id="Cek-oP-MiL"/>
+                        <outlet property="nameLabel" destination="bhW-mg-dWq" id="lww-zU-pLV"/>
+                        <outlet property="offlineSwitch" destination="XkB-jv-S3Z" id="RDU-DS-GlP"/>
+                        <outlet property="uIDLabel" destination="NPZ-bU-nhG" id="FFH-iJ-QCl"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qL3-OK-Ocy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1262" y="832"/>
+            <point key="canvasLocation" x="1794" y="832"/>
         </scene>
         <!--Sync-->
         <scene sceneID="9vi-Ir-s88">
@@ -1276,7 +1310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E9t-P6-wYz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2216" y="599"/>
+            <point key="canvasLocation" x="2748" y="599"/>
         </scene>
         <!--QR Code Reader-->
         <scene sceneID="Lzn-gN-8Dk">
@@ -1331,13 +1365,13 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pky-re-bB2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="4Nh-lb-IT9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2824" y="653"/>
+            <point key="canvasLocation" x="3356" y="653"/>
         </scene>
-        <!--Gruppen-->
+        <!--GroupsNav-->
         <scene sceneID="nnw-qe-scH">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="abC-03-3LP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Gruppen" id="B5i-os-ZNp"/>
+                <navigationController title="GroupsNav" automaticallyAdjustsScrollViewInsets="NO" id="abC-03-3LP" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Gruppen" image="groupMenu" id="B5i-os-ZNp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KBp-ek-m4k">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1352,11 +1386,11 @@
             </objects>
             <point key="canvasLocation" x="1262" y="-502"/>
         </scene>
-        <!--Finanzen-->
+        <!--AccountsNav-->
         <scene sceneID="SpD-Lg-VZF">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mgT-sg-5TM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Finanzen" id="DUk-9y-Uy8"/>
+                <navigationController title="AccountsNav" automaticallyAdjustsScrollViewInsets="NO" id="mgT-sg-5TM" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Abrechnung" image="accountMenu" id="DUk-9y-Uy8"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="M1b-1d-hRq"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fmC-6M-oD0">
@@ -1372,11 +1406,11 @@
             </objects>
             <point key="canvasLocation" x="1262" y="-1144"/>
         </scene>
-        <!--Nachrichten-->
+        <!--MessagesNav-->
         <scene sceneID="6Hy-Sf-hVg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Xhc-T3-7w3" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Nachrichten" id="NMM-QK-AG8"/>
+                <navigationController title="MessagesNav" automaticallyAdjustsScrollViewInsets="NO" id="Xhc-T3-7w3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Nachrichten" image="messageMenu" id="NMM-QK-AG8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1za-1f-HLA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1394,7 +1428,6 @@
         <!--Tab Bar Controller-->
         <scene sceneID="sTr-Rg-4ev">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BuO-0l-6ac" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="xgZ-dO-n6b" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -1406,15 +1439,46 @@
                         <segue destination="mgT-sg-5TM" kind="relationship" relationship="viewControllers" id="Sm7-qm-kYA"/>
                         <segue destination="abC-03-3LP" kind="relationship" relationship="viewControllers" id="agG-wg-OgJ"/>
                         <segue destination="Xhc-T3-7w3" kind="relationship" relationship="viewControllers" id="Q1L-gl-uUV"/>
-                        <segue destination="fyt-Kf-KZV" kind="relationship" relationship="viewControllers" id="8OA-Lv-J7O"/>
+                        <segue destination="pi5-iL-apE" kind="relationship" relationship="viewControllers" id="8OA-Lv-J7O"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BuO-0l-6ac" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="788" y="-212"/>
         </scene>
+        <!--DataNav-->
+        <scene sceneID="toI-PG-Y8H">
+            <objects>
+                <navigationController title="DataNav" automaticallyAdjustsScrollViewInsets="NO" id="pi5-iL-apE" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="User" image="dataMenu" id="QOg-v6-CZi"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OP4-D9-5um">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fyt-Kf-KZV" kind="relationship" relationship="rootViewController" id="ebK-b7-sjV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d72-ye-UFO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Firstname Lastname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sZP-j0-qbh">
+                    <rect key="frame" x="0.0" y="0.0" width="304" height="43"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </objects>
+            <point key="canvasLocation" x="1262" y="832"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="accountMenu" width="25" height="25"/>
         <image name="creator.png" width="84" height="75"/>
+        <image name="dataMenu" width="25" height="25"/>
+        <image name="groupMenu" width="25" height="25"/>
+        <image name="messageMenu" width="25" height="25"/>
         <image name="reader.png" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

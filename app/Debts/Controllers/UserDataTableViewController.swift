@@ -1,5 +1,5 @@
 //
-//  SettingsTableViewController.swift
+//  UserDataTableViewController.swift
 //  Debts
 //
 //  Created by Anna on 27.07.15.
@@ -8,8 +8,10 @@
 
 import UIKit
 
-class SettingsTableViewController: UITableViewController {
+class UserDataTableViewController: UITableViewController {
     @IBOutlet weak var offlineSwitch: UISwitch!
+    @IBOutlet weak var uIDLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
 
     @IBAction func offlineSwitched(switchControl: UISwitch) {
         GlobalVar.offline = switchControl.on
@@ -17,5 +19,7 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         self.offlineSwitch.on = GlobalVar.offline
+        self.uIDLabel.text = GlobalVar.currentUid
+        self.nameLabel.text = GlobalVar.currentUser.getName()
     }
 }

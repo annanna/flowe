@@ -47,7 +47,7 @@ class PeopleButton: UIButton {
         if let img = user.img {
             self.setImage(img, forState: UIControlState.Normal)
         } else {
-            self.setTitle(user.getName(), forState: UIControlState.Normal)
+            self.setTitle(user.getInitials(), forState: UIControlState.Normal)
             self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: 15)
         }
         self.addTarget(self, action: "toggleSelection", forControlEvents: UIControlEvents.TouchUpInside)

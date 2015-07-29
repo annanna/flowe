@@ -63,6 +63,12 @@ router.get('/expenses', function(req, res, next) {
         });
     }
 });
+router.get('/accounts', function(req, res, next) {
+    Model.Account.find(function(err, accounts) {
+        if (err) return next(err);
+        res.json(accounts);
+    })
+})
 // DELETE all users
 router.delete('/users', function(req, res, next) {
     Model.User.remove({}, function(err, status) {
@@ -86,6 +92,13 @@ router.delete('/accounts', function(req, res, next) {
 })
 // DELETE all expenses
 router.delete('/expenses', function(req, res, next) {
+    var id = req.params.id
+    if (id) {
+        Model.Expense.findByIdAndRemove(id, function(err, status) {
+            if (err) return next(err);
+            res.json(status);
+        })
+    }
     Model.Expense.remove({}, function(err, status) {
         if (err) return next(err);
         res.json(status);

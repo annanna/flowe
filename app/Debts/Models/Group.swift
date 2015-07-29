@@ -57,7 +57,7 @@ class Group: NSObject {
     func getUsers() -> String {
         var initials = ""
         for user in self.users {
-            initials += user.getName() + " "
+            initials += user.getInitials() + " "
         }
         return initials
     }
