@@ -29,25 +29,6 @@ class CDUser: NSManagedObject {
         self.id = details["_id"].stringValue
         callback()
     }
-    /*
-    func getName() -> String {
-        var initials = ""
-        if count(self.firstname) > 0 {
-            initials += "\(Array(self.firstname)[0])"
-        }
-        if count(self.lastname) > 0 {
-            initials += "\(Array(self.lastname)[0])"
-        }
-        
-        return initials
-    }
-    
-    func isSame(user:CDUser) -> Bool {
-        if user.id == self.id {
-            return true
-        }
-        return false
-    }*/
     
     static func findOrCreateUser(details: JSON, inContext context:NSManagedObjectContext, callback:(CDUser)->Void) {
         let identifier = details["_id"].stringValue

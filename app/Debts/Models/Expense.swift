@@ -21,13 +21,6 @@ class Expense : NSObject {
     var payed: [(user: User, amount:Double)] = []
     var participated: [(user: User, amount:Double)] = []
     
-    /*init(name: String, notes: String, creator: User, money: Double) {
-        self.name = name
-        self.notes = notes
-        self.creator = creator
-        self.moneyPayed = money.roundToMoney()
-    }*/
-    
     init(name: String, creator: User, money: Double, notes: String?) {
         self.name = name
         self.creator = creator

@@ -27,9 +27,21 @@ class GroupOverviewTableViewController: UITableViewController {
     }
     
     func getGroupsOfUser() {
+        
+        let activityIndic = UIActivityIndicatorView(frame: CGRectMake(0, 0, 20, 20))
+        activityIndic.color = UIColor.redColor()
+        activityIndic.hidesWhenStopped = true
+        let btn = UIBarButtonItem(customView: activityIndic)
+        let existingBtn = self.navigationItem.rightBarButtonItem!
+        activityIndic.startAnimating()
+        
+        self.navigationItem.setRightBarButtonItems([existingBtn, btn], animated: true)
+        
         RequestHelper.getGroups { (groups) -> Void in
             self.groups = groups
             self.tableView.reloadData()
+            activityIndic.stopAnimating()
+            self.navigationItem.setRightBarButtonItem(existingBtn, animated: true)
         }
     }
     
@@ -74,7 +86,9 @@ class GroupOverviewTableViewController: UITableViewController {
     @IBAction func saveNewGroup(segue: UIStoryboardSegue) {
         if let addGroupVC = segue.sourceViewController as? AddGroupTableViewController {
             if let name =  addGroupVC.groupName {
-                RequestHelper.postGroup(name.text, users: addGroupVC.selectedContacts, callback: { (groupData) -> Void in
+                var users = addGroupVC.selectedContacts
+                users.append(GlobalVar.currentUser)
+                RequestHelper.postGroup(name.text, users: users, callback: { (groupData) -> Void in
                     self.addNewGroup(groupData)
                 })
             }

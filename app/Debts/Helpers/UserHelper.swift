@@ -36,14 +36,7 @@ public class UserHelper: NSObject {
             RequestHelper.getUserDetails(["_id": id], byId: true, callback: callback)
         }
     }
-    /*class func getUserByPhone(phone: String, callback: (User) -> Void){
-        RequestHelper.getUserDetails(["phone", phone], byId: false, callback: callback)
-    }*/
-    /*
-    class func createUser(json:JSON) {
-        let user = User(details: json)
-        userDic[user.uID] = user
-    }*/
+    
     class func JSONcreateUserIfDoesNotExist(json: JSON) -> User {
         var uid = json["_id"].stringValue
         if let u = userDic[uid] {

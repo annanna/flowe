@@ -21,6 +21,7 @@ class AccountViewController: UIViewController {
     var selectedAccount = ""
     
     override func viewWillAppear(animated: Bool) {
+        self.total = 0
         if let g = groupId {
             RequestHelper.getAccountsByGroup(g, callback: setupView)
         } else {

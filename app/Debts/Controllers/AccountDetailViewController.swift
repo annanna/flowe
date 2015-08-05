@@ -132,7 +132,8 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
         
         // set up payment
         let payment = PayPalPayment()
-        payment.amount = NSDecimalNumber(double: self.account.amount.roundToMoney())
+        let amount = NSDecimalNumber(double: self.account.amount)
+        payment.amount = amount
         payment.currencyCode = "EUR"
         payment.shortDescription = "Schulden für \(self.groupName)"
         payment.intent = PayPalPaymentIntent.Sale

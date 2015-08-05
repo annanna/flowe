@@ -13,6 +13,7 @@ import SwiftyJSON
 public class RequestHelper {
     
     static let dataUrl = "https://flowe.herokuapp.com"
+    // Local Server = 
     static let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     static let context = appDelegate.managedObjectContext
     
@@ -54,8 +55,13 @@ public class RequestHelper {
                     } else {
                         if let jsonData: AnyObject = jsonResponse {
                             let userData = JSON(jsonData)
-                            // save user in Core Data and UserHelper-Dic
-                            self.saveUser(userData, callback: callback)
+                            if let id = userData["_id"].string {
+                                // save user in Core Data and UserHelper-Dic
+                                self.saveUser(userData, callback: callback)
+                            } else {
+                                self.createUser(user, callback: callback)
+                            }
+
                         } else {
                             println("user does not exist on server")
                             self.createUser(user, callback: callback)
@@ -122,7 +128,6 @@ public class RequestHelper {
                                 
                                 for group in groupArray {
                                     groups.append(Group(details: group))
-                                    callback(groups)
 
                                     CDGroup.findOrCreateGroup(group, inContext: self.context!, callback: { (newGroup:CDGroup) -> Void in
                                         self.appDelegate.saveContext()
@@ -132,6 +137,7 @@ public class RequestHelper {
                                         }
                                     })
                                 }
+                                callback(groups)
                             }
                         }
                     }
@@ -140,7 +146,6 @@ public class RequestHelper {
     }
     class func postGroup(name: String, users: [User], callback:(Group) -> Void) {
         let url =  "\(dataUrl)/\(GlobalVar.currentUid)/groups"
-        
         var users = JSONHelper.createDictionaryFromUsers(users)
         
         let postBody:[String: AnyObject] = [

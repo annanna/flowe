@@ -122,10 +122,9 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
             if let ex = qrCodeExpenseVC.expense {
                 println(ex.name)
                 self.addNewExpense(ex)
-                /*RequestHelper.postExpense(self.groupId, expense: ex, callback: { (expense) -> Void in
-                    //self.addNewExpense(expense)
-                    println(expense.name)
-                })*/
+                RequestHelper.createExpense(self.groupId, expense: ex, callback: { (expense) -> Void in
+                    self.addNewExpense(expense)
+                })
             }
         }
     }

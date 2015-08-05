@@ -35,7 +35,7 @@ var expenseSchema = Schema({
 });
 
 var accountSchema = Schema({
-	group: { type: String },
+	groupId: { type: String },
 	debtor: { type: String, ref: 'User' },
 	creditor: { type: String, ref: 'User' },
 	amount: Number,

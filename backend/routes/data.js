@@ -11,9 +11,14 @@ router.get('/users', function(req, res, next) {
     var phone = req.query.phone;
     var uid = req.query.uid;
     if (phone) {
-        Model.User.findOne({'phone': phone},'_id', function(err, uid) {
+        Model.User.findOne({'phone': phone}, function(err, user) {
             if (err) return next(err);
-            res.json(uid);
+            if (user == null) {
+                console.log("no user found");
+                res.json({});
+            } else {
+                res.json(user);
+            }
         });
     } else if (uid) {
         Model.User
@@ -68,6 +73,33 @@ router.get('/accounts', function(req, res, next) {
         if (err) return next(err);
         res.json(accounts);
     })
+})
+router.delete('/clean', function(req, res, next) {
+    Model.Message.remove({}, function(err, msgStatus) {
+        if (err) return next(err);
+        Model.Expense.remove({}, function(err, expStatus) {
+            if (err) return next(err);
+            Model.Account.remove({}, function(err, accStatus) {
+                if (err) return next(err);
+                Model.Group.remove({}, function(err, grStatus) {
+                    if (err) return next(err);
+                    Model.User.remove({}, function(err, userStatus) {
+                        if (err) return next(err);
+                        res.json(
+                                {
+                                    "messages": msgStatus,
+                                    "expenses": expStatus,
+                                    "accounts": accStatus,
+                                    "groups": grStatus,
+                                    "users": userStatus   
+                                }
+                            );
+                    });
+                });
+            });
+        });
+
+    });
 })
 // DELETE all users
 router.delete('/users', function(req, res, next) {
@@ -163,7 +195,7 @@ router.get('/:uid/groups', function(req, res, next) {
 });
 router.post('/:uid/groups', function(req, res, next) {
     var data = req.body;
-    data.creator = req.params.uid;
+//    data.creator = req.params.uid;
 
     var users = data.users;
     var count = users.length;
@@ -184,7 +216,6 @@ router.post('/:uid/groups', function(req, res, next) {
                     data.users.push(post._id);
                     complete++;
                     if (complete === count) {
-                        data.users.push(data.creator);
                         Model.Group.create(data, function(err, rawGroup) {
 					        if (err) return next(err);
                             Model.Group
@@ -526,6 +557,10 @@ function calculateAccounts(group) {
             });
 
             break;
+        }
+        if (accountAmount == 0) {
+            console.log("something went wrong");
+            break; // something went wrong...
         }
 
         // Speichern der Zahlung

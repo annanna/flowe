@@ -24,55 +24,6 @@ class CDGroup: NSManagedObject {
     
     static let entityName = "Group"
     
-    /*
-    func getUsers() -> [User] {
-        if let userArray = self.users.allObjects as? [User] {
-            return userArray
-        }
-        return [User]()
-    }
-    func getExpenses() -> [Expense] {
-        if let expArray = self.expenses.allObjects as? [Expense] {
-            return expArray
-        }
-        return [Expense]()
-    }
-    func getAccounts() -> [Account] {
-        if let accArray = self.accounts.allObjects as? [Account] {
-            return accArray
-        }
-        return [Account]()
-    }
-    
-    func hasUser(user:User) -> Bool {
-        if let userArray = self.users.allObjects as? [User] {
-            for u in userArray {
-                if u.isSame(user) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-
-    func updateTotal(expense: Expense) {
-        var userHasToPay = 0.0
-        var userHasPayed = 0.0
-        
-        var whoPayed = expense.payed
-        for pay in whoPayed {
-            if pay.user.id == GlobalVar.currentUid {
-                userHasPayed += pay.amount
-            }
-        }
-        for part in expense.participated {
-            if part.user.id == GlobalVar.currentUid {
-                userHasToPay += part.amount
-            }
-        }
-        self.total = (userHasPayed - userHasToPay).roundToMoney()
-    }
-    */
     func addUser(user: User) {
         var userArr = self.users.allObjects as! [CDUser]
 //        userArr.append(user)

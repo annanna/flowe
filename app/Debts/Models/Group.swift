@@ -96,10 +96,10 @@ class Group: NSObject {
         }
         for part in expense.participated {
             if GlobalVar.currentUser.isSame(part.user) {
-                userHasToPay += part.amount
+                userHasToPay -= part.amount
             }
         }
-        self.total = (userHasPayed - userHasToPay).roundToMoney()
+        self.total = (userHasPayed + userHasToPay).roundToMoney()
     }
     
 }

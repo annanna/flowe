@@ -72,6 +72,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
         for contact in people {
             if contact.phoneNumber == GlobalVar.currentUser.phoneNumber {
                 // it's me so don't show in list
+                println("its me")
             } else {
                 if let first = contact.firstName {
                     let firstLetter = String(Array(first)[0])
