@@ -175,6 +175,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
             let person:SwiftAddressBookPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
             RequestHelper.getUserDetails(person.asDictionary(), byId: false, callback: { (user) -> Void in
                 GlobalVar.currentUser = user
+                GlobalVar.currentUid = user.phoneNumber
                 self.contactTableView.deselectRowAtIndexPath(indexPath, animated: true)
                 self.proceedWithSelectedUser(user.uID)
                 

@@ -12,7 +12,7 @@ import CoreData
 struct GlobalVar {
     static var currentUser:User!
     static var currentUid:String = ""
-    static var offline = true
+    static var offline = false
 }
 
 struct colors {

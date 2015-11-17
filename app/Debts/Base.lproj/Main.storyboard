@@ -151,22 +151,22 @@
                                 </subviews>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="centerY" secondItem="Pd8-XM-Pox" secondAttribute="centerY" constant="0.5" id="TgE-aZ-5x8"/>
-                                    <constraint firstAttribute="centerX" secondItem="Pd8-XM-Pox" secondAttribute="centerX" constant="-0.5" id="tUe-K6-cfA"/>
+                                    <constraint firstItem="Pd8-XM-Pox" firstAttribute="centerY" secondItem="twX-da-JyN" secondAttribute="centerY" id="cbO-cJ-DZy"/>
+                                    <constraint firstItem="Pd8-XM-Pox" firstAttribute="centerX" secondItem="twX-da-JyN" secondAttribute="centerX" id="leL-YS-iVb"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.77114826439999995" green="0.87772417069999997" blue="0.83322244879999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="twX-da-JyN" secondAttribute="trailing" id="56F-cG-8YO"/>
-                            <constraint firstItem="uNf-5l-Dfs" firstAttribute="leading" secondItem="ptE-C0-PrB" secondAttribute="leading" id="Cjy-kI-m4l"/>
-                            <constraint firstItem="twX-da-JyN" firstAttribute="top" secondItem="P7D-TX-Xvc" secondAttribute="bottom" id="MAU-JL-zFM"/>
-                            <constraint firstItem="B2y-Ii-h0f" firstAttribute="top" secondItem="twX-da-JyN" secondAttribute="bottom" id="Oy8-fk-fbP"/>
-                            <constraint firstAttribute="trailing" secondItem="uNf-5l-Dfs" secondAttribute="trailing" id="hoQ-Jn-4RC"/>
-                            <constraint firstItem="twX-da-JyN" firstAttribute="leading" secondItem="ptE-C0-PrB" secondAttribute="leading" id="ko8-Ob-Qg4"/>
-                            <constraint firstItem="B2y-Ii-h0f" firstAttribute="top" secondItem="uNf-5l-Dfs" secondAttribute="bottom" id="oc6-Gz-DWL"/>
-                            <constraint firstItem="uNf-5l-Dfs" firstAttribute="top" secondItem="P7D-TX-Xvc" secondAttribute="bottom" id="uLu-z3-odU"/>
+                            <constraint firstItem="uNf-5l-Dfs" firstAttribute="trailing" secondItem="twX-da-JyN" secondAttribute="trailing" id="8nA-rO-nPB"/>
+                            <constraint firstItem="twX-da-JyN" firstAttribute="leading" secondItem="ptE-C0-PrB" secondAttribute="leading" id="FM2-Jr-43H"/>
+                            <constraint firstItem="twX-da-JyN" firstAttribute="top" secondItem="P7D-TX-Xvc" secondAttribute="bottom" id="G5e-kM-jqk"/>
+                            <constraint firstAttribute="trailing" secondItem="twX-da-JyN" secondAttribute="trailing" id="VQ7-VK-c11"/>
+                            <constraint firstItem="uNf-5l-Dfs" firstAttribute="bottom" secondItem="B2y-Ii-h0f" secondAttribute="top" id="Veq-MX-FUd"/>
+                            <constraint firstItem="uNf-5l-Dfs" firstAttribute="top" secondItem="twX-da-JyN" secondAttribute="top" id="eQw-2w-osX"/>
+                            <constraint firstItem="twX-da-JyN" firstAttribute="bottom" secondItem="B2y-Ii-h0f" secondAttribute="top" id="kej-es-jtE"/>
+                            <constraint firstItem="uNf-5l-Dfs" firstAttribute="leading" secondItem="twX-da-JyN" secondAttribute="leading" id="xPs-CY-KoL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Demo Login" id="Ybu-UN-UbE"/>
@@ -1382,8 +1382,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Empfangen" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpH-3S-MMH">
-                                <rect key="frame" x="16" y="73" width="88" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Empfangen" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpH-3S-MMH">
+                                <rect key="frame" x="16" y="73" width="87" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

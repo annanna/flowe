@@ -47,7 +47,7 @@ public class RequestHelper {
             Alamofire.request(.GET, url)
                 .responseJSON {
                     jsonResponse in
-                    if let jsonData: NSData = jsonResponse.data {
+                    if let jsonData = jsonResponse.result.value {
                         let userData = JSON(jsonData)
                         // save user in Core Data and UserHelper-Dic
                         self.saveUser(userData, callback: callback)
@@ -72,7 +72,7 @@ public class RequestHelper {
         Alamofire.request(.POST, url, parameters: user)
             .responseJSON {
                 jsonResponse in
-                if let jsonData: NSData = jsonResponse.data {
+                if let jsonData = jsonResponse.result.value {
                     let userData = JSON(jsonData)
                     self.saveUser(userData, callback: callback)
                 }
@@ -103,7 +103,7 @@ public class RequestHelper {
             Alamofire.request(.GET, url)
                 .responseJSON {
                     jsonResponse in
-                    if let jsonData: NSData = jsonResponse.data {
+                    if let jsonData = jsonResponse.result.value {
                         let json = JSON(jsonData)
                         if let groupArray = json.array {
                             let cdGroupCount = groupArray.count
@@ -150,7 +150,7 @@ public class RequestHelper {
         
         Alamofire.request(request)
             .responseJSON(completionHandler: { jsonResponse -> Void in
-                if let jsonData: NSData = jsonResponse.data {
+                if let jsonData = jsonResponse.result.value {
                     let json = JSON(jsonData)
                     self.saveGroupInCoreData(json, callback: callback)
                 }
@@ -171,7 +171,7 @@ public class RequestHelper {
         Alamofire.request(.GET, url)
             .responseJSON {
                 jsonResponse in
-                if let jsonData: NSData = jsonResponse.data {
+                if let jsonData = jsonResponse.result.value {
                     let groupData = JSON(jsonData)
                     callback(Group(details: groupData))
                     self.saveGroupInCoreData(groupData, callback: callback)
@@ -207,7 +207,7 @@ public class RequestHelper {
         Alamofire.request(request)
             .responseJSON {
                 jsonResponse in
-                if let jsonData: NSData = jsonResponse.data {
+                if let jsonData = jsonResponse.result.value {
                     let expenseData = JSON(jsonData)
                     let e = Expense(details: expenseData)
                     callback(e)
@@ -224,7 +224,7 @@ public class RequestHelper {
         Alamofire.request(.GET, url)
             .responseJSON {
                 jsonResponse in
-                if let jsonData: NSData = jsonResponse.data {
+                if let jsonData = jsonResponse.result.value {
                     let expenseData = JSON(jsonData)
                     let expense = Expense(details: expenseData)
                     callback(expense)
@@ -239,7 +239,7 @@ public class RequestHelper {
         Alamofire.request(.GET, url)
             .responseJSON {
                 jsonResponse in
-                if let jsonData: NSData = jsonResponse.data {
+                if let jsonData = jsonResponse.result.value {
                     let accountData = JSON(jsonData)
                     if let accountArray = accountData.array {
                         var accounts:[Account] = []
@@ -261,7 +261,7 @@ public class RequestHelper {
         Alamofire.request(.GET, url)
             .responseJSON {
                 jsonResponse in
-                if let jsonData: NSData = jsonResponse.data {
+                if let jsonData = jsonResponse.result.value {
                     let accountData = JSON(jsonData)
                     if let accountArray = accountData.array {
                         var accounts:[Account] = []
@@ -282,7 +282,7 @@ public class RequestHelper {
         Alamofire.request(.GET, url)
             .responseJSON {
                 jsonResponse in
-                if let jsonData: NSData = jsonResponse.data {
+                if let jsonData = jsonResponse.result.value {
                     let accountData = JSON(jsonData)
                     let account = Account(data: accountData)
                     var expenses: [Expense] = []
@@ -306,7 +306,7 @@ public class RequestHelper {
         Alamofire.request(.PUT, url, parameters: putBody)
             .responseJSON {
                 jsonResponse in
-                if let jsonData: NSData = jsonResponse.data {
+                if let jsonData = jsonResponse.result.value {
                     let accountData = JSON(jsonData)
                     let account = Account(data: accountData)
                     callback(account)
@@ -323,7 +323,7 @@ public class RequestHelper {
         Alamofire.request(.GET, url)
             .responseJSON {
                 jsonResponse in
-                if let jsonData: NSData = jsonResponse.data {
+                if let jsonData = jsonResponse.result.value {
                     let messageData = JSON(jsonData)
                     if let messageArray = messageData.array {
                         var messages:[Message] = []
@@ -345,7 +345,7 @@ public class RequestHelper {
         Alamofire.request(.POST, url, parameters: postBody)
             .responseJSON {
                 jsonResponse in
-                if let jsonData: NSData = jsonResponse.data {
+                if let jsonData = jsonResponse.result.value {
                     _ = JSON(jsonData)
                     print("successfully sent message")
                     callback()
@@ -358,7 +358,7 @@ public class RequestHelper {
         Alamofire.request(.DELETE, url)
             .responseJSON {
                 jsonResponse in
-                if let jsonData: NSData = jsonResponse.data {
+                if let jsonData = jsonResponse.result.value {
                     _ = JSON(jsonData)
                     print("probably deleted message successfully")
                 }
