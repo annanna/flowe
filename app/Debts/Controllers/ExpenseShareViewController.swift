@@ -25,7 +25,7 @@ class ExpenseShareViewController: UIViewController {
         super.viewDidLoad()
 
         // hide empty cells
-        var backgroundView = UIView(frame: CGRectZero)
+        let backgroundView = UIView(frame: CGRectZero)
         self.shareTableView.tableFooterView = backgroundView
         self.shareTableView.backgroundColor = UIColor.whiteColor()
         self.originalAmount = self.amount
@@ -52,7 +52,7 @@ class ExpenseShareViewController: UIViewController {
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("shareCell", forIndexPath: indexPath) as! ShareTableViewCell
-        var currentShare = shares[indexPath.row]
+        let currentShare = shares[indexPath.row]
         cell.nameLabel.text = currentShare.user.firstname
         cell.sliderMax.text = self.amount.toMoneyString()
         cell.amountText.text = currentShare.amount.toMoneyString()
@@ -71,8 +71,8 @@ class ExpenseShareViewController: UIViewController {
     // MARK: Actions
     func sliderChanged(slider: UISlider!) {
         // update amount
-        var cell: ShareTableViewCell = slider.superview?.superview as! ShareTableViewCell
-        var idx = find(cells, cell)!
+        let cell: ShareTableViewCell = slider.superview?.superview as! ShareTableViewCell
+        var idx = cells.indexOf(cell)!
         shares[idx].amount = Double(slider.value).roundToMoney()
         
         if (automaticSliders.on && (idx < cells.count-1)) {
@@ -93,8 +93,8 @@ class ExpenseShareViewController: UIViewController {
     }
 
     func amountTextEditingEnd(amountText: UITextField!) {
-        var cell: ShareTableViewCell = amountText.superview?.superview as! ShareTableViewCell
-        var newVal = amountText.text.toDouble().toMoneyString()
+        let cell: ShareTableViewCell = amountText.superview?.superview as! ShareTableViewCell
+        let newVal = amountText.text!.toDouble().toMoneyString()
         cell.amountSlider.value = newVal.toFloat()
         self.sliderChanged(cell.amountSlider)
     }

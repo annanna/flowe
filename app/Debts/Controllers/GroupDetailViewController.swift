@@ -54,7 +54,7 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
         // hide empty cells
-        var backgroundView = UIView(frame: CGRectZero)
+        let backgroundView = UIView(frame: CGRectZero)
         self.tableView.tableFooterView = backgroundView
         self.tableView.backgroundColor = UIColor.clearColor()
 
@@ -69,7 +69,7 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
         return self.expenses.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(expenseCell, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(expenseCell, forIndexPath: indexPath) 
         let expense = self.expenses[indexPath.row]
         cell.textLabel?.text = expense.generateConclusion()
         return cell
@@ -79,7 +79,7 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == expenseDetailIdentifier {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
                 if let expense = self.expenses[indexPath.row] as Expense! {
                     let vc = segue.destinationViewController as! ExpenseTableViewController
                     vc.expenseId = expense.eID
@@ -120,7 +120,7 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
             }
         } else if let qrCodeExpenseVC = segue.sourceViewController as? QRCodeScannerViewController {
             if let ex = qrCodeExpenseVC.expense {
-                println(ex.name)
+                print(ex.name)
                 self.addNewExpense(ex)
                 /*RequestHelper.postExpense(self.groupId, expense: ex, callback: { (expense) -> Void in
                     //self.addNewExpense(expense)
@@ -132,7 +132,7 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     func addNewExpense(expense: Expense) {
         self.expenses.insert(expense, atIndex: 0)
-        var path = NSIndexPath(forRow: 0, inSection: 0)
+        let path = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.Bottom)
         self.group?.updateTotal(expense)
         self.updateSumLabel()

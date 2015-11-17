@@ -53,7 +53,7 @@ class AccountViewController: UIViewController {
         return self.accounts.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("accountCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("accountCell", forIndexPath: indexPath) 
         let acc = self.accounts[indexPath.row]
         if acc.currentUserIsDebtor() {
             cell.textLabel?.text = "\(acc.creditor.firstname) kriegt \(acc.amount.toMoneyString()) von mir"
@@ -70,7 +70,7 @@ class AccountViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == self.showDetailIdentifier {
-            if let indexPath = self.accountTableView.indexPathForSelectedRow() {
+            if let indexPath = self.accountTableView.indexPathForSelectedRow {
                 let acc = self.accounts[indexPath.row]
                 if let detailVC = segue.destinationViewController as? AccountDetailViewController {
                     detailVC.aId = acc.aId

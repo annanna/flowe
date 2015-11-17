@@ -20,7 +20,7 @@ class PeopleButton: UIButton {
         super.init(frame: frame)
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -33,7 +33,7 @@ class PeopleButton: UIButton {
         let btnMargin:CGFloat = 5.0
         let btnSize:CGFloat = 40.0
 
-        var frame = CGRectMake(btnMargin, btnMargin, btnSize, btnSize)
+        let frame = CGRectMake(btnMargin, btnMargin, btnSize, btnSize)
         self.init(frame: frame)
         self.addCustomBtn(frame, user: user)
     }

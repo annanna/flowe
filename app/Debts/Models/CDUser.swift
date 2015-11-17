@@ -51,24 +51,30 @@ class CDUser: NSManagedObject {
     
     static func findOrCreateUser(details: JSON, inContext context:NSManagedObjectContext, callback:(CDUser)->Void) {
         let identifier = details["_id"].stringValue
-        var fetchRequest = NSFetchRequest(entityName: self.entityName)
+        let fetchRequest = NSFetchRequest(entityName: self.entityName)
         fetchRequest.predicate = NSPredicate(format: "id = %@", identifier)
         var error:NSError? = nil
         
-        var result = context.executeFetchRequest(fetchRequest, error: &error)
+        var result: [AnyObject]?
+        do {
+            result = try context.executeFetchRequest(fetchRequest)
+        } catch let error1 as NSError {
+            error = error1
+            result = nil
+        }
         if error != nil {
-            println("error \(error?.localizedDescription)")
+            print("error \(error?.localizedDescription)")
         }
         if let objects = result {
             if objects.count > 0 {
                 if let user = objects[0] as? CDUser {
-                    println("existing user \(user.firstname)")
+                    print("existing user \(user.firstname)")
                     callback(user)
                 }
             } else {
                 if let newUser = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext:context) as? CDUser {
                     newUser.loadFromJSON(details, callback: { () -> Void in
-                        println("new user \(newUser.firstname)")
+                        print("new user \(newUser.firstname)")
                         callback(newUser)
                     })
                 }
@@ -77,18 +83,24 @@ class CDUser: NSManagedObject {
     }
     
     static func findUserIfExists(predicate: NSPredicate, context: NSManagedObjectContext) -> CDUser? {
-        var fetchRequest = NSFetchRequest(entityName: self.entityName)
+        let fetchRequest = NSFetchRequest(entityName: self.entityName)
         fetchRequest.predicate = predicate
         var error:NSError? = nil
         
-        var result = context.executeFetchRequest(fetchRequest, error: &error)
+        var result: [AnyObject]?
+        do {
+            result = try context.executeFetchRequest(fetchRequest)
+        } catch let error1 as NSError {
+            error = error1
+            result = nil
+        }
         if error != nil {
-            println("error \(error?.localizedDescription)")
+            print("error \(error?.localizedDescription)")
         }
         if let objects = result {
             if objects.count > 0 {
                 if let user = objects[0] as? CDUser {
-                    println("user fetched")
+                    print("user fetched")
                     return user
                 }
             }

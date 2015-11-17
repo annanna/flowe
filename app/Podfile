@@ -2,9 +2,9 @@ platform :ios, '8.3'
 use_frameworks!
 
 target 'Debts' do
-    pod 'SwiftAddressBook', '~> 0.4.3'
-    pod 'Alamofire', '~> 1.2'
-    pod 'SwiftyJSON', '~> 2.2.0'
-    pod 'RSBarcodes_Swift', '~> 0.0.8'
-    pod 'PayPal-iOS-SDK', '~> 2.11.1'
+	pod 'SwiftAddressBook', '~> 0.5'
+	pod 'Alamofire', '~> 3.1'
+	pod 'SwiftyJSON', '~> 2.3'    
+	pod 'RSBarcodes_Swift', '~> 0.1'
+	pod 'PayPal-iOS-SDK', '~> 2.12'
 end

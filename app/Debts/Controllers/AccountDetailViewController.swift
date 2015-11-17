@@ -77,7 +77,7 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) 
         let expense = self.expenses[indexPath.row]
         cell.textLabel?.text = expense.generateConclusion()
         return cell
@@ -88,7 +88,7 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
             // send message and show alert
             let message = Message(sender: GlobalVar.currentUser, receiver: self.account.debtor, message: " wants money from you!")
             RequestHelper.sendMessage(message, callback: { () -> Void in
-                var alert = UIAlertController(title: "Message", message: "Message sent to \(self.account.debtor.firstname)", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: "Message", message: "Message sent to \(self.account.debtor.firstname)", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
             })
@@ -121,7 +121,7 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
             self.setTopBar()
             let msg = Message(sender: GlobalVar.currentUser, receiver: self.account.creditor, message: "hat \(self.account.amount.toMoneyString()) bezahlt")
             RequestHelper.sendMessage(msg, callback: { () -> Void in
-                println("message sent to \(self.account.creditor.firstname)")
+                print("message sent to \(self.account.creditor.firstname)")
             })
         })
     }
@@ -141,17 +141,17 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
             let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: config, delegate: self)
             self.presentViewController(paymentViewController, animated: true, completion: nil)
         } else {
-            println("payment is not processable")
+            print("payment is not processable")
         }
 
     }
 
     
     func verifyCompletedPayment(completedPayment: PayPalPayment) {
-        var conf = completedPayment.confirmation
+        let conf = completedPayment.confirmation
         var confirmation = JSON(conf)
-        var paymentId = confirmation["response"]["id"].stringValue
-        println("payment id: \(paymentId)")
+        let paymentId = confirmation["response"]["id"].stringValue
+        print("payment id: \(paymentId)")
         
         // (1) get access token
         
@@ -181,7 +181,7 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
         )
         
         // Set up config
-        var payPalConfig = PayPalConfiguration()
+        let payPalConfig = PayPalConfiguration()
         payPalConfig.acceptCreditCards = true
         payPalConfig.defaultUserPhoneNumber = GlobalVar.currentUser.phoneNumber
         payPalConfig.defaultUserEmail = "myDebts@abc.com" // GlobalVar.currentUser.phoneNumber
@@ -199,12 +199,12 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
     
     // PayPalPaymentDelegate
     func payPalPaymentDidCancel(paymentViewController: PayPalPaymentViewController!) {
-        println("payment Cancelled")
+        print("payment Cancelled")
     
         paymentViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     func payPalPaymentViewController(paymentViewController: PayPalPaymentViewController!, didCompletePayment completedPayment: PayPalPayment!) {
-        println("payment success")
+        print("payment success")
         paymentViewController?.dismissViewControllerAnimated(true, completion: { () -> Void in
             self.verifyCompletedPayment(completedPayment)
             self.paymentDone()

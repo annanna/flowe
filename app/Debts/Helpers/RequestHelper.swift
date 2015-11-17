@@ -46,20 +46,14 @@ public class RequestHelper {
             
             Alamofire.request(.GET, url)
                 .responseJSON {
-                    (request, response, jsonResponse, error) in
-                    if (error != nil) {
-                        println("Error getting user \(error)")
-                        println(request)
-                        println(response)
+                    jsonResponse in
+                    if let jsonData: NSData = jsonResponse.data {
+                        let userData = JSON(jsonData)
+                        // save user in Core Data and UserHelper-Dic
+                        self.saveUser(userData, callback: callback)
                     } else {
-                        if let jsonData: AnyObject = jsonResponse {
-                            let userData = JSON(jsonData)
-                            // save user in Core Data and UserHelper-Dic
-                            self.saveUser(userData, callback: callback)
-                        } else {
-                            println("user does not exist on server")
-                            self.createUser(user, callback: callback)
-                        }
+                        print("user does not exist on server")
+                        self.createUser(user, callback: callback)
                     }
             }
         } else {
@@ -77,8 +71,8 @@ public class RequestHelper {
         let url = "\(dataUrl)/users"
         Alamofire.request(.POST, url, parameters: user)
             .responseJSON {
-                (request, response, jsonResponse, error) in
-                if let jsonData: AnyObject = jsonResponse {
+                jsonResponse in
+                if let jsonData: NSData = jsonResponse.data {
                     let userData = JSON(jsonData)
                     self.saveUser(userData, callback: callback)
                 }
@@ -95,7 +89,7 @@ public class RequestHelper {
         }
     }
     
-
+    
     //  /:uid/groups
     class func getGroups(callback:([Group]) -> Void) {
         
@@ -108,30 +102,24 @@ public class RequestHelper {
             let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/"
             Alamofire.request(.GET, url)
                 .responseJSON {
-                    (request, response, jsonResponse, error) in
-                    if(error != nil) {
-                        println("Error fetching groups: \(error)")
-                        println(request)
-                        println(response)
-                    } else {
-                        if let jsonData: AnyObject = jsonResponse {
-                            let json = JSON(jsonData)
-                            if let groupArray = json.array {
-                                let cdGroupCount = groupArray.count
-                                var groups = [Group]()
+                    jsonResponse in
+                    if let jsonData: NSData = jsonResponse.data {
+                        let json = JSON(jsonData)
+                        if let groupArray = json.array {
+                            let cdGroupCount = groupArray.count
+                            var groups = [Group]()
+                            
+                            for group in groupArray {
+                                groups.append(Group(details: group))
+                                callback(groups)
                                 
-                                for group in groupArray {
-                                    groups.append(Group(details: group))
-                                    callback(groups)
-
-                                    CDGroup.findOrCreateGroup(group, inContext: self.context!, callback: { (newGroup:CDGroup) -> Void in
-                                        self.appDelegate.saveContext()
-                                        
-                                        if groups.count == cdGroupCount {
-                                            println("Successfully saved \(groups.count) groups in Core Data")
-                                        }
-                                    })
-                                }
+                                CDGroup.findOrCreateGroup(group, inContext: self.context!, callback: { (newGroup:CDGroup) -> Void in
+                                    self.appDelegate.saveContext()
+                                    
+                                    if groups.count == cdGroupCount {
+                                        print("Successfully saved \(groups.count) groups in Core Data")
+                                    }
+                                })
                             }
                         }
                     }
@@ -141,7 +129,7 @@ public class RequestHelper {
     class func postGroup(name: String, users: [User], callback:(Group) -> Void) {
         let url =  "\(dataUrl)/\(GlobalVar.currentUid)/groups"
         
-        var users = JSONHelper.createDictionaryFromUsers(users)
+        let users = JSONHelper.createDictionaryFromUsers(users)
         
         let postBody:[String: AnyObject] = [
             "name": name,
@@ -152,22 +140,19 @@ public class RequestHelper {
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
         request.HTTPMethod = "POST"
         
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(postBody, options: nil, error: &err)
+        do {
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(postBody, options: [])
+        } catch _ as NSError {
+            request.HTTPBody = nil
+        }
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         Alamofire.request(request)
-            .responseJSON(completionHandler: { (request, response, jsonResponse, error) -> Void in
-                if(error != nil) {
-                    println("Error creating group \(error)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let json = JSON(jsonData)
-                        self.saveGroupInCoreData(json, callback: callback)
-                    }
+            .responseJSON(completionHandler: { jsonResponse -> Void in
+                if let jsonData: NSData = jsonResponse.data {
+                    let json = JSON(jsonData)
+                    self.saveGroupInCoreData(json, callback: callback)
                 }
             })
     }
@@ -185,18 +170,12 @@ public class RequestHelper {
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/\(groupId)"
         Alamofire.request(.GET, url)
             .responseJSON {
-                (request, response, jsonResponse, error) in
-                if(error != nil) {
-                    println("Error fetching group \(groupId) \(error)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let groupData = JSON(jsonData)
-                        callback(Group(details: groupData))
-                        self.saveGroupInCoreData(groupData, callback: callback)
-                        println("Successfully fetched group \(groupId)")
-                    }
+                jsonResponse in
+                if let jsonData: NSData = jsonResponse.data {
+                    let groupData = JSON(jsonData)
+                    callback(Group(details: groupData))
+                    self.saveGroupInCoreData(groupData, callback: callback)
+                    print("Successfully fetched group \(groupId)")
                 }
         }
     }
@@ -205,7 +184,7 @@ public class RequestHelper {
         // store group in local db
         CDGroup.findOrCreateGroup(groupData, inContext: self.context!) { (group) -> Void in
             self.appDelegate.saveContext()
-//            callback(Group(coreDataGroup: group))
+            //            callback(Group(coreDataGroup: group))
         }
     }
     
@@ -214,29 +193,26 @@ public class RequestHelper {
         
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/\(groupId)/expenses"
         
-        var postBody: [String: AnyObject] = expense.asDictionary()
+        let postBody: [String: AnyObject] = expense.asDictionary()
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
         request.HTTPMethod = "POST"
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(postBody, options: nil, error: &err)
+        do {
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(postBody, options: [])
+        } catch _ as NSError {
+            request.HTTPBody = nil
+        }
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         Alamofire.request(request)
             .responseJSON {
-                (request, response, jsonResponse, error) in
-                if (error != nil) {
-                    println("Error creating expense \(expense.name)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let expenseData = JSON(jsonData)
-                        let e = Expense(details: expenseData)
-                        callback(e)
-                        
-                        println("Successfully created expense \(e.name)")
-                    }
+                jsonResponse in
+                if let jsonData: NSData = jsonResponse.data {
+                    let expenseData = JSON(jsonData)
+                    let e = Expense(details: expenseData)
+                    callback(e)
+                    
+                    print("Successfully created expense \(e.name)")
                 }
         }
     }
@@ -247,18 +223,12 @@ public class RequestHelper {
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/\(groupId)/expenses/\(expenseId)"
         Alamofire.request(.GET, url)
             .responseJSON {
-                (request, response, jsonResponse, error) in
-                if (error != nil) {
-                    println("Error getting expense \(error)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let expenseData = JSON(jsonData)
-                        let expense = Expense(details: expenseData)
-                        callback(expense)
-                        println("Successfully fetched expense \(expense.name)")
-                    }
+                jsonResponse in
+                if let jsonData: NSData = jsonResponse.data {
+                    let expenseData = JSON(jsonData)
+                    let expense = Expense(details: expenseData)
+                    callback(expense)
+                    print("Successfully fetched expense \(expense.name)")
                 }
         }
     }
@@ -268,24 +238,18 @@ public class RequestHelper {
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/groups/\(groupId)/accounts"
         Alamofire.request(.GET, url)
             .responseJSON {
-                (request, response, jsonResponse, error) in
-                if (error != nil) {
-                    println("Error getting accounts \(error)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let accountData = JSON(jsonData)
-                        if let accountArray = accountData.array {
-                            var accounts:[Account] = []
-
-                            for acc in accountArray {
-                                let account = Account(data: acc)
-                                accounts.append(account)
-                            }
-                            callback(accounts)
-                            println("Successfully fetched account details")
+                jsonResponse in
+                if let jsonData: NSData = jsonResponse.data {
+                    let accountData = JSON(jsonData)
+                    if let accountArray = accountData.array {
+                        var accounts:[Account] = []
+                        
+                        for acc in accountArray {
+                            let account = Account(data: acc)
+                            accounts.append(account)
                         }
+                        callback(accounts)
+                        print("Successfully fetched account details")
                     }
                 }
         }
@@ -296,24 +260,18 @@ public class RequestHelper {
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/accounts"
         Alamofire.request(.GET, url)
             .responseJSON {
-                (request, response, jsonResponse, error) in
-                if (error != nil) {
-                    println("Error getting accounts \(error)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let accountData = JSON(jsonData)
-                        if let accountArray = accountData.array {
-                            var accounts:[Account] = []
-                            
-                            for acc in accountArray {
-                                let account = Account(data: acc)
-                                accounts.append(account)
-                            }
-                            callback(accounts)
-                            println("Successfully fetched account details")
+                jsonResponse in
+                if let jsonData: NSData = jsonResponse.data {
+                    let accountData = JSON(jsonData)
+                    if let accountArray = accountData.array {
+                        var accounts:[Account] = []
+                        
+                        for acc in accountArray {
+                            let account = Account(data: acc)
+                            accounts.append(account)
                         }
+                        callback(accounts)
+                        print("Successfully fetched account details")
                     }
                 }
         }
@@ -323,25 +281,19 @@ public class RequestHelper {
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/accounts/\(accountId)"
         Alamofire.request(.GET, url)
             .responseJSON {
-                (request, response, jsonResponse, error) in
-                if (error != nil) {
-                    println("Error getting account detail \(error)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let accountData = JSON(jsonData)
-                        let account = Account(data: accountData)
-                        var expenses: [Expense] = []
-                        if let expenseData = accountData["expenses"].array {
-                            for exp in expenseData {
-                                let expense = Expense(details: exp)
-                                expenses.append(expense)
-                            }
+                jsonResponse in
+                if let jsonData: NSData = jsonResponse.data {
+                    let accountData = JSON(jsonData)
+                    let account = Account(data: accountData)
+                    var expenses: [Expense] = []
+                    if let expenseData = accountData["expenses"].array {
+                        for exp in expenseData {
+                            let expense = Expense(details: exp)
+                            expenses.append(expense)
                         }
-                        callback(acc: account, exp: expenses)
-                        println("Successfully fetched account details")
                     }
+                    callback(acc: account, exp: expenses)
+                    print("Successfully fetched account details")
                 }
         }
     }
@@ -353,18 +305,12 @@ public class RequestHelper {
         
         Alamofire.request(.PUT, url, parameters: putBody)
             .responseJSON {
-                (request, response, jsonResponse, error) in
-                if (error != nil) {
-                    println("Error updating account \(error)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let accountData = JSON(jsonData)
-                        let account = Account(data: accountData)
-                        callback(account)
-                        println("Successfully updated account details")
-                    }
+                jsonResponse in
+                if let jsonData: NSData = jsonResponse.data {
+                    let accountData = JSON(jsonData)
+                    let account = Account(data: accountData)
+                    callback(account)
+                    print("Successfully updated account details")
                 }
         }
         
@@ -376,24 +322,18 @@ public class RequestHelper {
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/messages"
         Alamofire.request(.GET, url)
             .responseJSON {
-                (request, response, jsonResponse, error) in
-                if (error != nil) {
-                    println("Error getting messages \(error)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let messageData = JSON(jsonData)
-                        if let messageArray = messageData.array {
-                            var messages:[Message] = []
-                            
-                            for mess in messageArray {
-                                let message = Message(data: mess)
-                                messages.append(message)
-                            }
-                            callback(messages)
-                            println("Successfully fetched messages")
+                jsonResponse in
+                if let jsonData: NSData = jsonResponse.data {
+                    let messageData = JSON(jsonData)
+                    if let messageArray = messageData.array {
+                        var messages:[Message] = []
+                        
+                        for mess in messageArray {
+                            let message = Message(data: mess)
+                            messages.append(message)
                         }
+                        callback(messages)
+                        print("Successfully fetched messages")
                     }
                 }
         }
@@ -401,13 +341,13 @@ public class RequestHelper {
     
     class func sendMessage(msg: Message, callback: ()->Void) {
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/messages"
-        var postBody = msg.asDictionary()
+        let postBody = msg.asDictionary()
         Alamofire.request(.POST, url, parameters: postBody)
             .responseJSON {
-                (request, response, jsonResponse, error) in
-                if let jsonData: AnyObject = jsonResponse {
-                    let messageData = JSON(jsonData)
-                    println("successfully sent message")
+                jsonResponse in
+                if let jsonData: NSData = jsonResponse.data {
+                    _ = JSON(jsonData)
+                    print("successfully sent message")
                     callback()
                 }
         }
@@ -417,16 +357,10 @@ public class RequestHelper {
         let url = "\(dataUrl)/\(GlobalVar.currentUid)/messages/\(messageId)"
         Alamofire.request(.DELETE, url)
             .responseJSON {
-                (request, response, jsonResponse, error) in
-                if (error != nil) {
-                    println("Error getting messages \(error)")
-                    println(request)
-                    println(response)
-                } else {
-                    if let jsonData: AnyObject = jsonResponse {
-                        let statusData = JSON(jsonData)
-                        println("probably deleted message successfully")
-                    }
+                jsonResponse in
+                if let jsonData: NSData = jsonResponse.data {
+                    _ = JSON(jsonData)
+                    print("probably deleted message successfully")
                 }
         }
     }

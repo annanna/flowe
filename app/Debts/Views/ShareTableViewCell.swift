@@ -29,7 +29,7 @@ class ShareTableViewCell: UITableViewCell {
     
     @IBAction func sliderChanged(sender: UISlider) {
         // slider-steps in cents (+- 0.01)
-        var sliderVal = sender.value.roundToMoney()
+        let sliderVal = sender.value.roundToMoney()
         sender.value = sliderVal
         self.amountText.text = Double(sliderVal).toMoneyString()
     }

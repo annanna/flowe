@@ -38,13 +38,13 @@ class SyncViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return expenses.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(expenseCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(expenseCellIdentifier, forIndexPath: indexPath) 
         cell.textLabel?.text = expenses[indexPath.row].name
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println("\(indexPath.row)")
+        print("\(indexPath.row)")
         self.selectedExpense = self.expenses[indexPath.row]
         self.performSegueWithIdentifier(qrCodeCreatorIdentifier, sender: self)
         

@@ -36,7 +36,7 @@ extension Double {
     }
     func toMoneyString() -> String {
         // if number has decimals, display with 2 decimals, else crop zeros (e.g. 10 or 1.10)
-        var isDecimal = Bool(self%1)
+        let isDecimal = Bool(self%1)
         if isDecimal {
             return String(format: "%.2f€", self)
         }
@@ -70,11 +70,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-        var storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         self.tabBarController = (storyboard.instantiateInitialViewController() as! UITabBarController)
         self.tabBarController?.selectedIndex = 1
-        var initialViewController = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+        let initialViewController = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
         
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()
@@ -106,9 +106,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
     func showError() {
-        var alert = UIAlertController(title: "Network Error", message: "Please enable Network and launch again!", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Network Error", message: "Please enable Network and launch again!", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
-            println("stop app")
+            print("stop app")
         }))
 
         self.window?.rootViewController!.presentViewController(alert, animated: true, completion: nil)
@@ -119,7 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "de.htw-berlin.Debts" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as! NSURL
+        return urls[urls.count-1] 
         }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -135,7 +135,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Debts.sqlite")
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        do {
+            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+        } catch var error1 as NSError {
+            error = error1
             coordinator = nil
             // Report any error we got.
             var dict = [String: AnyObject]()
@@ -147,6 +150,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")
             abort()
+        } catch {
+            fatalError()
         }
         
         return coordinator
@@ -168,11 +173,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func saveContext () {
         if let moc = self.managedObjectContext {
             var error: NSError? = nil
-            if moc.hasChanges && !moc.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                NSLog("Unresolved error \(error), \(error!.userInfo)")
-                abort()
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch let error1 as NSError {
+                    error = error1
+                    // Replace this implementation with code to handle the error appropriately.
+                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    NSLog("Unresolved error \(error), \(error!.userInfo)")
+                    abort()
+                }
             }
         }
     }

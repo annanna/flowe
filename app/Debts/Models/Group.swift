@@ -33,12 +33,12 @@ class Group: NSObject {
     init(details: JSON) {
         self.gID = details["_id"].stringValue
         self.name = details["name"].stringValue
-        var created = details["created"].stringValue
+        _ = details["created"].stringValue
         //println("Timestamp: \(created)")
         
         if let userArray = details["users"].array {
             for user in userArray {
-                var u:User = UserHelper.JSONcreateUserIfDoesNotExist(user)
+                let u:User = UserHelper.JSONcreateUserIfDoesNotExist(user)
                 self.users.append(u)
             }
         }
@@ -48,7 +48,7 @@ class Group: NSObject {
         
         if let expenseArray = details["expenses"].array {
             for transfer in expenseArray {
-                var t:Expense = Expense(details: transfer)
+                let t:Expense = Expense(details: transfer)
                 self.expenses.append(t)
             }
         }
@@ -88,7 +88,7 @@ class Group: NSObject {
         var userHasToPay = 0.0
         var userHasPayed = 0.0
         
-        var whoPayed = expense.payed
+        let whoPayed = expense.payed
         for pay in whoPayed {
             if GlobalVar.currentUser.isSame(pay.user) {
                 userHasPayed += pay.amount

@@ -7,3 +7,5 @@ xcuserdata
 
 
 node_modules
+Podfile.lock
+app/Debts.xcworkspace/xcshareddata

@@ -16,7 +16,7 @@ class PeopleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     let collectionCellIdentifier = "PeopleCell"
     var collectionView: UICollectionView?
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.createCollectionView()
     }
@@ -47,7 +47,7 @@ class PeopleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(collectionCellIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(collectionCellIdentifier, forIndexPath: indexPath) 
         
         for subview in cell.subviews {
             subview.removeFromSuperview()
@@ -55,9 +55,9 @@ class PeopleView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         
         cell.backgroundColor = UIColor.clearColor()
         
-        var person = self.people[indexPath.row]
-        var peopleBtn = PeopleButton(user: person)
-        if let index = find(activePeople, person) {
+        let person = self.people[indexPath.row]
+        let peopleBtn = PeopleButton(user: person)
+        if let _ = activePeople.indexOf(person) {
             peopleBtn.toggleSelection()
         }
         

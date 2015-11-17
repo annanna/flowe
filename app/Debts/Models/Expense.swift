@@ -40,29 +40,29 @@ class Expense : NSObject {
     init(details: JSON) {
         self.eID = details["_id"].stringValue
         self.name = details["name"].stringValue
-        var created = details["created"].stringValue
+        _ = details["created"].stringValue
         //println("Timestamp: \(created)")
         
         self.notes = details["notes"].stringValue
         self.moneyPayed = details["total"].doubleValue
         super.init()
         if let whoPayedArray = details["whoPayed"].array {
-            for (i,pay) in enumerate(whoPayedArray) {
-                var payerId = pay["user"].stringValue
+            for (_,pay) in whoPayedArray.enumerate() {
+                let payerId = pay["user"].stringValue
                 
                 UserHelper.getUserById(payerId, callback: { (user) -> Void in
-                    var a:Double = pay["amount"].doubleValue
+                    let a:Double = pay["amount"].doubleValue
                     self.payed += [(user:user, amount:a)]
                 })
             }
         }
         
         if let whoTookPartArray = details["whoTookPart"].array {
-            for (i,part) in enumerate(whoTookPartArray) {
-                var partId = part["user"].stringValue
+            for (_,part) in whoTookPartArray.enumerate() {
+                let partId = part["user"].stringValue
                 
                 UserHelper.getUserById(partId, callback: { (user) -> Void in
-                    var a:Double = part["amount"].doubleValue
+                    let a:Double = part["amount"].doubleValue
                     self.participated += [(user:user, amount:a)]
                 })
             }
@@ -94,14 +94,14 @@ class Expense : NSObject {
     func generateConclusion() -> String {
         if self.payed.count > 0 {
             
-            var firstUser = self.payed[0].user
+            let firstUser = self.payed[0].user
             var label = firstUser.firstname
             var verb = " hat "
             if firstUser.uID == GlobalVar.currentUid {
                 label = "Du"
                 verb = " hast "
             }
-            var usersLeft = self.payed.count-1
+            let usersLeft = self.payed.count-1
             var count = 1
             
             
@@ -110,7 +110,7 @@ class Expense : NSObject {
                 joiner = ", "
                 verb = " haben "
                 
-                for (user, amount) in self.payed[1...usersLeft] {
+                for (user, _) in self.payed[1...usersLeft] {
                     if count == usersLeft {
                         joiner = " und "
                     }
@@ -132,7 +132,7 @@ class Expense : NSObject {
     func asDictionary() -> [String: AnyObject] {
         var whoPayed = [[String: AnyObject]]()
         for (user, amount) in self.payed {
-            var payed:[String: AnyObject] = [
+            let payed:[String: AnyObject] = [
                 "user": user.uID,
                 "amount": amount
             ]
@@ -140,7 +140,7 @@ class Expense : NSObject {
         }
         var whoTookPart = [[String: AnyObject]]()
         for (user, amount) in self.participated {
-            var participated:[String: AnyObject] = [
+            let participated:[String: AnyObject] = [
                 "user": user.uID,
                 "amount": amount
             ]

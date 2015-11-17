@@ -97,7 +97,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
         })
         
         // hide empty cells
-        var backgroundView = UIView(frame: CGRectZero)
+        let backgroundView = UIView(frame: CGRectZero)
         self.contactTableView.tableFooterView = backgroundView
         self.contactTableView.backgroundColor = colors.bgGreen
         self.contactTableView.bounces = true
@@ -105,7 +105,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func loadUsersInSections(fetchedContacts: [SwiftAddressBookPerson]) {
         var myContacts = fetchedContacts //mutable copy
-        myContacts.sort({$0.firstName?.uppercaseString < $1.firstName?.uppercaseString})
+        myContacts.sortInPlace({$0.firstName?.uppercaseString < $1.firstName?.uppercaseString})
         
         var sectionLetter = ""
         var sectionIndex = -1
@@ -115,7 +115,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         for contact in myContacts {
             if let first = contact.firstName {
-                let firstLetter = String(Array(first)[0])
+                let firstLetter = String(Array(arrayLiteral: first)[0])
                 
                 if sectionLetter != firstLetter {
                     sectionNames.append(firstLetter)
@@ -125,7 +125,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
                 }
             } else {
                 let alternateLetter = "#"
-                if let index = find(sectionNames, alternateLetter) {
+                if let index = sectionNames.indexOf(alternateLetter) {
                     sectionIndex = index
                 } else{
                     sectionNames.append(alternateLetter)
@@ -158,7 +158,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(userCellIdentifier, forIndexPath: indexPath) as! ContactTableViewCell
         
-        var user:SwiftAddressBookPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
+        let user:SwiftAddressBookPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
         cell.displayNameOfUser(user)
         
         return cell
@@ -172,7 +172,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
             cell.selected = true
             self.spinner.startAnimating()
             
-            var person:SwiftAddressBookPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
+            let person:SwiftAddressBookPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
             RequestHelper.getUserDetails(person.asDictionary(), byId: false, callback: { (user) -> Void in
                 GlobalVar.currentUser = user
                 self.contactTableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -196,11 +196,11 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: - Search
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         self.filterSections[0] = [SwiftAddressBookPerson]()
-        if count(searchText) > 0 {
+        if searchText.characters.count > 0 {
             for users in contactSections {
                 
                 let filteredUsers: [SwiftAddressBookPerson] = users.filter({ (user: SwiftAddressBookPerson) -> Bool in
-                    var name = "\(user.firstname) \(user.lastname)"
+                    let name = "\(user.firstname) \(user.lastname)"
                     let range = (name as NSString).rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
                     return range.location != NSNotFound
                 })

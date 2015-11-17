@@ -20,7 +20,7 @@ class QRCodeCreatorViewController: UIViewController {
     var groupId = ""
     
     override func viewDidLoad() {
-        println("\(expense.name)")
+        print("\(expense.name)")
         super.viewDidLoad()
         self.generateDataFromExpense()
     }
@@ -29,7 +29,7 @@ class QRCodeCreatorViewController: UIViewController {
 
         var expenseDictionary : [String: AnyObject] = self.expense.asDictionary()
         expenseDictionary["groupId"] = self.groupId
-        var dataString = JSONHelper.JSONStringify(expenseDictionary)
+        let dataString = JSONHelper.JSONStringify(expenseDictionary)
         
         let expenseData = dataString.dataUsingEncoding(NSISOLatin1StringEncoding, allowLossyConversion: false)
         
@@ -40,18 +40,18 @@ class QRCodeCreatorViewController: UIViewController {
         if qrcodeImg == nil {
             
             let filter = CIFilter(name: "CIQRCodeGenerator")
-            filter.setValue(dataToSend, forKey: "inputMessage")
-            filter.setValue("Q", forKey: "inputCorrectionLevel")
+            filter!.setValue(dataToSend, forKey: "inputMessage")
+            filter!.setValue("Q", forKey: "inputCorrectionLevel")
             
-            qrcodeImg = filter.outputImage
+            qrcodeImg = filter!.outputImage
             
             displayQRCodeImage()
         }
     }
     
     func displayQRCodeImage() {
-        let scaleX = imgQRCode.frame.size.width / qrcodeImg.extent().size.width
-        let scaleY = imgQRCode.frame.size.height / qrcodeImg.extent().size.height
+        let scaleX = imgQRCode.frame.size.width / qrcodeImg.extent.size.width
+        let scaleY = imgQRCode.frame.size.height / qrcodeImg.extent.size.height
         // extend returns the frame of the image
 
         let transformedImg = qrcodeImg.imageByApplyingTransform(CGAffineTransformMakeScale(scaleX, scaleY))

@@ -14,7 +14,7 @@ public class UserHelper: NSObject {
     static var userDic = [String: User]()
     
     class func createUserIfDoesNotExist(user: User) {
-        if let u = userDic[user.uID] {
+        if let _ = userDic[user.uID] {
             
         } else {
             userDic[user.uID] = user
@@ -29,7 +29,7 @@ public class UserHelper: NSObject {
     }
     
     class func getUserById(id: String, callback: (User) -> Void) {
-        var user = self.getUser(id)
+        let user = self.getUser(id)
         if let u = user {
             callback(u)
         } else {
@@ -45,7 +45,7 @@ public class UserHelper: NSObject {
         userDic[user.uID] = user
     }*/
     class func JSONcreateUserIfDoesNotExist(json: JSON) -> User {
-        var uid = json["_id"].stringValue
+        let uid = json["_id"].stringValue
         if let u = userDic[uid] {
             u.updateUser(json)
             return u

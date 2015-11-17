@@ -44,7 +44,7 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        if let eId = expenseId {
+        if let _ = expenseId {
             return false // is push
         }
         return true // is modal
@@ -60,7 +60,7 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
                 self.tableView.reloadData()
                 
                 if self.expense!.creator.isSame(GlobalVar.currentUser) {
-                    var editBtn: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Done, target: self, action: "enableEditing:")
+                    let editBtn: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Done, target: self, action: "enableEditing:")
                     self.navigationItem.rightBarButtonItem = editBtn
                 }
 
@@ -68,9 +68,9 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
             })
         } else {
             // New Expense
-            var cancelBtn: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "goBack:")
+            let cancelBtn: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "goBack:")
             navigationItem.leftBarButtonItem = cancelBtn
-            var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveExpense:")
+            let saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveExpense:")
             navigationItem.rightBarButtonItem = saveBtn
             self.title = "Add Expense"
             self.enableEditing = true
@@ -110,8 +110,8 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
             peopleView.setPeopleInView(self.groupMembers)
             if let ex = expense {
                 var toggleUsers = [User]()
-                for (i,user) in enumerate(self.groupMembers) {
-                    var markBtnAsClick = identifier == paymentDetailIdentifier ? ex.hasPayed(user) : ex.hasParticipated(user)
+                for (_,user) in self.groupMembers.enumerate() {
+                    let markBtnAsClick = identifier == paymentDetailIdentifier ? ex.hasPayed(user) : ex.hasParticipated(user)
                     if markBtnAsClick {
                         toggleUsers.append(user)
                     }
@@ -125,10 +125,10 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == saveExpenseIdentifier {
-            if let ex = self.expense {
+            if let _ = self.expense {
                 // TODO: update this expense
             } else {
-                var newExpense = Expense(name: expenseName.text, creator: GlobalVar.currentUser, money: getExpenseAmountFromTextField(), notes: expenseNotes.text)
+                let newExpense = Expense(name: expenseName.text!, creator: GlobalVar.currentUser, money: getExpenseAmountFromTextField(), notes: expenseNotes.text)
                 if whoPayed.count == 0 {
                     whoPayed = getSelectedUsers(paymentDetailIdentifier)
                 }
@@ -169,7 +169,7 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
     func enableEditing(editBtn: UIBarButtonItem) {
         //TODO: enable all labels and buttons and store updated expense
         self.enableEditing = true
-        var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveExpense:")
+        let saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveExpense:")
         navigationItem.rightBarButtonItem = saveBtn
     }
     @IBAction func chooseImage(sender: UIButton) {
@@ -193,7 +193,7 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
         if identifier == paymentDetailIdentifier {
             if let payer = payerView as? PeopleView {
                 whoPayed = []
-                var btns:[PeopleButton] = payer.peopleBtns
+                let btns:[PeopleButton] = payer.peopleBtns
                 for btn in btns {
                     if btn.isClicked {
                         whoPayed += [(user:btn.uid, amount:0.0)]
@@ -205,7 +205,7 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
         } else {
             if let participant = participantView as? PeopleView {
                 whoTookPart = []
-                var btns:[PeopleButton] = participant.peopleBtns
+                let btns:[PeopleButton] = participant.peopleBtns
                 for btn in btns {
                     if btn.isClicked {
                         whoTookPart += [(user: btn.uid, amount:0.0)]
@@ -220,13 +220,13 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
     
     func updateAmount(payment:[(user: User, amount:Double)]) -> [(user: User, amount:Double)] {
         var shares = payment
-        var userCount = Double(payment.count)
-        var total = getExpenseAmountFromTextField()
+        let userCount = Double(payment.count)
+        let total = getExpenseAmountFromTextField()
         
-        var part:Double = (total / userCount).roundToMoney()
+        let part:Double = (total / userCount).roundToMoney()
         let diff: Double = total - (part*userCount)
         
-        for (idx,share) in enumerate(shares) {
+        for (idx,share) in shares.enumerate() {
             shares[idx] = (user:share.user, amount:part)
         }
         // in case of rounding issues (e.g. 10€ for 3 people) add the remaining difference to the first user (difference can be positive or negative
@@ -238,6 +238,6 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
     }
     
     func getExpenseAmountFromTextField() -> Double {
-        return expenseAmount.text.toDouble().roundToMoney()
+        return expenseAmount.text!.toDouble().roundToMoney()
     }
 }

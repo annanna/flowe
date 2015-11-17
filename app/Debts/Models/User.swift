@@ -86,11 +86,11 @@ class User: NSObject {
     
     func getInitials() -> String {
         var initials = ""
-        if count(self.firstname) > 0 {
-            initials += "\(Array(self.firstname)[0])"
+        if self.firstname.characters.count > 0 {
+            initials += "\(Array(self.firstname.characters)[0])"
         }
-        if count(self.lastname) > 0 {
-            initials += "\(Array(self.lastname)[0])"
+        if self.lastname.characters.count > 0 {
+            initials += "\(Array(self.lastname.characters)[0])"
         }
         
         return initials

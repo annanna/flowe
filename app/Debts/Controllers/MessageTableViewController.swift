@@ -14,7 +14,8 @@ class MessageTableViewController: UITableViewController {
     var messages:[Message] = [Message]()
     
     override func viewWillAppear(animated: Bool) {
-        RequestHelper.getMessages { (messageData) -> Void in
+        RequestHelper.getMessages {
+            (messageData: [Message]) -> Void in
             self.messages = messageData
             self.tableView.reloadData()
         }
@@ -33,14 +34,14 @@ class MessageTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) 
         let message = self.messages[indexPath.row]
         cell.textLabel?.text = "\(message.sender.firstname) \(message.message)"
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let selectedMessage = self.messages[indexPath.row]
+        _ = self.messages[indexPath.row]
         // go to relevant detail view
         
         // delete from list and database

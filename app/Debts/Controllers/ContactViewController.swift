@@ -53,7 +53,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
 
         // hide empty cells
         self.contactTableView.allowsMultipleSelection = true
-        var backgroundView = UIView(frame: CGRectZero)
+        let backgroundView = UIView(frame: CGRectZero)
         self.contactTableView.tableFooterView = backgroundView
         self.contactTableView.backgroundColor = colors.bgGreen
     }
@@ -61,7 +61,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     func loadUsersInSections(fetchedContacts: [SwiftAddressBookPerson]) {
         
         var people = fetchedContacts //mutable copy
-        people.sort({$0.firstName?.uppercaseString < $1.firstName?.uppercaseString})
+        people.sortInPlace({$0.firstName?.uppercaseString < $1.firstName?.uppercaseString})
         
         var sectionLetter = ""
         var sectionIndex = -1
@@ -74,7 +74,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
                 // it's me so don't show in list
             } else {
                 if let first = contact.firstName {
-                    let firstLetter = String(Array(first)[0])
+                    let firstLetter = String(Array(arrayLiteral: first)[0])
                     
                     if sectionLetter != firstLetter {
                         sectionNames.append(firstLetter)
@@ -84,7 +84,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
                     }
                 } else {
                     let alternateLetter = "#"
-                    if let index = find(sectionNames, alternateLetter) {
+                    if let index = sectionNames.indexOf(alternateLetter) {
                         sectionIndex = index
                     } else{
                         sectionNames.append(alternateLetter)
@@ -117,7 +117,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(contactCellIdentifier, forIndexPath: indexPath) as! ContactTableViewCell
-        var person: SwiftAddressBookPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
+        let person: SwiftAddressBookPerson = self.peopleToDisplayInSections[indexPath.section][indexPath.row]
         cell.displayNameOfUser(person)
         
         for user in self.selectedUsers {
@@ -143,7 +143,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
             if cell.selectedInMultipleMode {
                 self.selectedUsers.append(user)
             } else {
-                for (idx, selUser) in enumerate(self.selectedUsers) {
+                for (idx, selUser) in self.selectedUsers.enumerate() {
                     if selUser.isSame(user) {
                         self.selectedUsers.removeAtIndex(idx);
                     }
@@ -155,11 +155,11 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
     // MARK: - Search
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         self.filterSections[0] = [SwiftAddressBookPerson]()
-        if count(searchText) > 0 {
+        if searchText.characters.count > 0 {
             for users in contactSections {
                 
                 let filteredUsers: [SwiftAddressBookPerson] = users.filter({ (user: SwiftAddressBookPerson) -> Bool in
-                    var name = "\(user.firstname) \(user.lastname)"
+                    let name = "\(user.firstname) \(user.lastname)"
                     let range = (name as NSString).rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
                     return range.location != NSNotFound
                 })

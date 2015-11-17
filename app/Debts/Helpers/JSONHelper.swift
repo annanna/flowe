@@ -30,7 +30,7 @@ public class JSONHelper {
     class func JSONToDictionary(dataArray:[JSON]) -> [[String: AnyObject]] {
         var dataDic:[[String:AnyObject]] = []
         for data in dataArray {
-            var dic:[String: AnyObject] = data.dictionaryObject!
+            let dic:[String: AnyObject] = data.dictionaryObject!
             dataDic.append(dic)
         }
         return dataDic
@@ -39,27 +39,32 @@ public class JSONHelper {
     class func printDic(dic: [String: AnyObject]) {
         for (key, value) in dic {
             if let arr = value as? [String: Double] {
-                println("\(key):")
+                print("\(key):")
                 for (arrKey, arrValue) in arr {
-                    println("\(arrKey): \(arrValue)")
+                    print("\(arrKey): \(arrValue)")
                 }
             } else {
-                println("\(key): \(value)")
+                print("\(key): \(value)")
             }
         }
     }
     
     class func JSONStringify(jsonObj: AnyObject) -> String {
         var e: NSError?
-        let jsonData = NSJSONSerialization.dataWithJSONObject(
-            jsonObj,
-            options: NSJSONWritingOptions(0),
-            error: &e)
+        let jsonData: NSData?
+        do {
+            jsonData = try NSJSONSerialization.dataWithJSONObject(
+                        jsonObj,
+                        options: NSJSONWritingOptions(rawValue: 0))
+        } catch let error as NSError {
+            e = error
+            jsonData = nil
+        }
         if e != nil {
             return ""
         } else {
-            var dataString = NSString(data: jsonData!, encoding: NSUTF8StringEncoding)
-            return (dataString! as! String)
+            let dataString = NSString(data: jsonData!, encoding: NSUTF8StringEncoding)
+            return (dataString! as String)
         }
     }
     

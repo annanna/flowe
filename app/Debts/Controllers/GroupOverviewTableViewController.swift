@@ -59,7 +59,7 @@ class GroupOverviewTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == groupDetailIdentifier {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
                 let group:Group = groups[indexPath.row]
                 if let vc = segue.destinationViewController as? GroupDetailViewController {
                     vc.groupId = group.gID
@@ -74,7 +74,7 @@ class GroupOverviewTableViewController: UITableViewController {
     @IBAction func saveNewGroup(segue: UIStoryboardSegue) {
         if let addGroupVC = segue.sourceViewController as? AddGroupTableViewController {
             if let name =  addGroupVC.groupName {
-                RequestHelper.postGroup(name.text, users: addGroupVC.selectedContacts, callback: { (groupData) -> Void in
+                RequestHelper.postGroup(name.text!, users: addGroupVC.selectedContacts, callback: { (groupData) -> Void in
                     self.addNewGroup(groupData)
                 })
             }
@@ -83,7 +83,7 @@ class GroupOverviewTableViewController: UITableViewController {
     
     func addNewGroup(group: Group) {
         groups.insert(group, atIndex: 0)
-        var path = NSIndexPath(forRow: 0, inSection: 0)
+        let path = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.Bottom)
     }
 }

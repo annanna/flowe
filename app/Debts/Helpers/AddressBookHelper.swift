@@ -13,7 +13,7 @@ import AddressBook
 public class AddressBookHelper {
     
     class func loadPeopleFromAddressBook(callback: [SwiftAddressBookPerson]->Void) {
-        let status: ABAuthorizationStatus = SwiftAddressBook.authorizationStatus()
+        //let status: ABAuthorizationStatus = SwiftAddressBook.authorizationStatus()
         let addressBook: SwiftAddressBook? = swiftAddressBook
         swiftAddressBook?.requestAccessWithCompletion({(success, error) -> Void in
             if success {
@@ -23,7 +23,7 @@ public class AddressBookHelper {
                     }
                 }
             } else {
-                println("User denied access to addressbook")
+                print("User denied access to addressbook")
             }
         })
     }

@@ -29,10 +29,17 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
         // set up capturing
         let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) // we want to use the camera
         var error:NSError?
-        let input: AnyObject! = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: &error)
+        let input: AnyObject!
+        do {
+            input = try AVCaptureDeviceInput(device: captureDevice)
+//            input = try AVCaptureDeviceInput.deviceInputWithDevice(captureDevice)
+        } catch let error1 as NSError {
+            error = error1
+            input = nil
+        }
         
         if error != nil {
-            println("\(error?.localizedDescription)")
+            print("\(error?.localizedDescription)")
             return
         }
         
@@ -49,7 +56,7 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
         videoPreviewLayer?.frame = view.layer.bounds
-        view.layer.addSublayer(videoPreviewLayer)
+        view.layer.addSublayer(videoPreviewLayer!)
         
         captureSession?.startRunning()
         
@@ -99,7 +106,7 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
                     }
                 }
             } else {
-                println("should not be called...right?")
+                print("should not be called...right?")
             }
         }
     }

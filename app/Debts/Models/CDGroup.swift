@@ -74,7 +74,7 @@ class CDGroup: NSManagedObject {
     }
     */
     func addUser(user: User) {
-        var userArr = self.users.allObjects as! [CDUser]
+        let userArr = self.users.allObjects as! [CDUser]
 //        userArr.append(user)
         self.users = NSSet(array: userArr)
     }
@@ -83,14 +83,14 @@ class CDGroup: NSManagedObject {
         
         self.id = details["_id"].stringValue
         self.name = details["name"].stringValue
-        var created = details["created"].stringValue
+        _ = details["created"].stringValue
         //println("Timestamp: \(created)")
         
         
         if let userArray = details["users"].array {
             var userCount = userArray.count
             for user in userArray {
-                var userDic = JSONHelper.JSONObjToStringDic(user)
+                let userDic = JSONHelper.JSONObjToStringDic(user)
                 RequestHelper.getUserDetails(userDic, byId: true, callback: { (user) -> Void in
                     self.addUser(user)
                     userCount -= 1
@@ -102,31 +102,37 @@ class CDGroup: NSManagedObject {
         }
         
         self.total = details["personalTotal"].doubleValue
-        let creatorId = details["creator"].stringValue
+        _ = details["creator"].stringValue
     }
     static func findOrCreateGroup(details: JSON, inContext context:NSManagedObjectContext, callback:((group: CDGroup)->Void)) {
         let groupId = details["_id"].stringValue
-        var fetchRequest = NSFetchRequest(entityName: self.entityName)
+        let fetchRequest = NSFetchRequest(entityName: self.entityName)
         fetchRequest.predicate = NSPredicate(format: "id = %@", groupId)
         var error:NSError? = nil
         
-        var result = context.executeFetchRequest(fetchRequest, error: &error)
+        var result: [AnyObject]?
+        do {
+            result = try context.executeFetchRequest(fetchRequest)
+        } catch let error1 as NSError {
+            error = error1
+            result = nil
+        }
         if error != nil {
-            println("error \(error?.localizedDescription)")
+            print("error \(error?.localizedDescription)")
         }
         if let objects = result {
             if objects.count > 0 {
                 if let existingGroup = objects[0] as? CDGroup {
                     // update group -> TODO: check if modified
                     existingGroup.loadFromJSON(details, callback: { () -> Void in
-                        println("existing group \(existingGroup.name)")
+                        print("existing group \(existingGroup.name)")
                         callback(group: existingGroup)
                     })
                 }
             } else {
                 if let newGroup = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext:context) as? CDGroup {
                     newGroup.loadFromJSON(details, callback: { () -> Void in
-                        println("new group \(newGroup.name)")
+                        print("new group \(newGroup.name)")
                         callback(group: newGroup)
                     })
                 }
@@ -136,13 +142,19 @@ class CDGroup: NSManagedObject {
     
     static func findGroupsWithUser(context: NSManagedObjectContext, callback:([CDGroup])->Void) {
         
-        var fetchRequest = NSFetchRequest(entityName: self.entityName)
+        let fetchRequest = NSFetchRequest(entityName: self.entityName)
         fetchRequest.predicate = NSPredicate(format: "users CONTAINS %@", GlobalVar.currentUser)
         var error:NSError? = nil
         
-        var result = context.executeFetchRequest(fetchRequest, error: &error)
+        var result: [AnyObject]?
+        do {
+            result = try context.executeFetchRequest(fetchRequest)
+        } catch let error1 as NSError {
+            error = error1
+            result = nil
+        }
         if error != nil {
-            println("error \(error?.localizedDescription)")
+            print("error \(error?.localizedDescription)")
         }
         if let objects = result {
             if objects.count > 0 {
