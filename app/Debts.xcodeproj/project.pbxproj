@@ -70,7 +70,6 @@
 		7C4ED24F1B31749D0042EFF2 /* PeopleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleView.swift; sourceTree = "<group>"; };
 		7CA208721B650A2E00400F5E /* AccountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailViewController.swift; sourceTree = "<group>"; };
 		7CB97F381B615D9F00815DD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7CB97F3B1B615DAD00815DD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CB97F3D1B61603200815DD7 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		7CB97F3F1B61615F00815DD7 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		7CB97FBF1B61828C00815DD7 /* MessageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
@@ -80,7 +79,6 @@
 		7CD2C7FA1ADD47DC00A2096E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7CD2C7FC1ADD47DC00A2096E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7CD2C7FF1ADD47DC00A2096E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtsTests.swift; sourceTree = "<group>"; };
 		7CDBF1171B4BF3D400F5F89F /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		7CDBF1191B4BFA2200F5F89F /* QRCodeCreatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeCreatorViewController.swift; sourceTree = "<group>"; };
 		7CDBF11B1B4C0AA900F5F89F /* SyncViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
@@ -180,19 +178,10 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		7CB97F3A1B615DAD00815DD7 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				7CB97F3B1B615DAD00815DD7 /* Info.plist */,
-			);
-			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		7CD2C7E51ADD47DC00A2096E = {
 			isa = PBXGroup;
 			children = (
 				7CD2C7F01ADD47DC00A2096E /* Debts */,
-				7CD2C8081ADD47DC00A2096E /* DebtsTests */,
 				7CD2C7EF1ADD47DC00A2096E /* Products */,
 				C05E341C0F5D763E02D4DF48 /* Pods */,
 				CF34F8D232C408AC13514DA4 /* Frameworks */,
@@ -221,15 +210,6 @@
 				7CB97F371B615D9F00815DD7 /* Supporting Files */,
 			);
 			path = Debts;
-			sourceTree = "<group>";
-		};
-		7CD2C8081ADD47DC00A2096E /* DebtsTests */ = {
-			isa = PBXGroup;
-			children = (
-				7CD2C80B1ADD47DC00A2096E /* DebtsTests.swift */,
-				7CB97F3A1B615DAD00815DD7 /* Supporting Files */,
-			);
-			path = DebtsTests;
 			sourceTree = "<group>";
 		};
 		C05E341C0F5D763E02D4DF48 /* Pods */ = {
