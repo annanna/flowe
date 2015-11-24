@@ -50,7 +50,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
             self.searchBar.hidden = false
             self.spinner.stopAnimating()
         })
-
+        
         // hide empty cells
         self.contactTableView.allowsMultipleSelection = true
         let backgroundView = UIView(frame: CGRectZero)
@@ -74,13 +74,15 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
                 // it's me so don't show in list
             } else {
                 if let first = contact.firstName {
-                    let firstLetter = String(Array(arrayLiteral: first)[0])
-                    
-                    if sectionLetter != firstLetter {
-                        sectionNames.append(firstLetter)
-                        contactSections.append([])
-                        sectionIndex++
-                        sectionLetter = firstLetter
+                    if let firstL = first.characters.first {
+                        let firstLetter = String(firstL)
+                        
+                        if sectionLetter != firstLetter {
+                            sectionNames.append(firstLetter)
+                            contactSections.append([])
+                            sectionIndex++
+                            sectionLetter = firstLetter
+                        }
                     }
                 } else {
                     let alternateLetter = "#"

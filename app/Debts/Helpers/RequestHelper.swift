@@ -49,11 +49,13 @@ public class RequestHelper {
                     jsonResponse in
                     if let jsonData = jsonResponse.result.value {
                         let userData = JSON(jsonData)
-                        // save user in Core Data and UserHelper-Dic
-                        self.saveUser(userData, callback: callback)
-                    } else {
-                        print("user does not exist on server")
-                        self.createUser(user, callback: callback)
+                        if userData.count > 0 {
+                            // save user in Core Data and UserHelper-Dic
+                            self.saveUser(userData, callback: callback)
+                        } else {
+                            print("user does not exist on server")
+                            self.createUser(user, callback: callback)
+                        }
                     }
             }
         } else {

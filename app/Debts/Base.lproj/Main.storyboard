@@ -1353,6 +1353,36 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="yi3-h8-5vT">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ubT-GT-Ah5">
+                                        <rect key="frame" x="0.0" y="376" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ubT-GT-Ah5" id="4RU-rM-Qpj">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NJM-3k-OgU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <animations/>
+                                                    <state key="normal" title="Logout"/>
+                                                    <connections>
+                                                        <action selector="logoutPressed:" destination="fyt-Kf-KZV" eventType="touchUpInside" id="Onk-SI-Tyu"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="NJM-3k-OgU" firstAttribute="top" secondItem="4RU-rM-Qpj" secondAttribute="top" id="Ds1-Fj-lQm"/>
+                                                <constraint firstAttribute="bottom" secondItem="NJM-3k-OgU" secondAttribute="bottom" id="SGM-x2-nZC"/>
+                                                <constraint firstAttribute="trailing" secondItem="NJM-3k-OgU" secondAttribute="trailing" id="f29-g9-yPY"/>
+                                                <constraint firstItem="NJM-3k-OgU" firstAttribute="leading" secondItem="4RU-rM-Qpj" secondAttribute="leading" id="l9d-T5-Y93"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="fyt-Kf-KZV" id="Zyf-MV-ZxD"/>

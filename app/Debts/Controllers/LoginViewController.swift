@@ -48,7 +48,7 @@ extension SwiftAddressBookPerson {
 }
 
 class LoginViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-
+    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var contactTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -58,7 +58,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var sectionNames = [String]()
     var peopleToDisplayInSections = [[SwiftAddressBookPerson]]()
-
+    
     var contactSections = [[SwiftAddressBookPerson]]()
     var filterSections:[[SwiftAddressBookPerson]] = [[]]
     var searchMode: Bool = false {
@@ -115,13 +115,14 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         for contact in myContacts {
             if let first = contact.firstName {
-                let firstLetter = String(Array(arrayLiteral: first)[0])
-                
-                if sectionLetter != firstLetter {
-                    sectionNames.append(firstLetter)
-                    contactSections.append([])
-                    sectionIndex++
-                    sectionLetter = firstLetter
+                if let firstL = first.characters.first {
+                    let firstLetter = String(firstL)
+                    if sectionLetter != firstLetter {
+                        sectionNames.append(firstLetter)
+                        contactSections.append([])
+                        sectionIndex++
+                        sectionLetter = firstLetter
+                    }
                 }
             } else {
                 let alternateLetter = "#"
@@ -191,8 +192,9 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.spinner.stopAnimating()
         
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.window?.rootViewController = appDelegate.tabBarController
-    }    
+        appDelegate.tabBarController?.selectedIndex = 1
+        appDelegate.window?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     // MARK: - Search
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {

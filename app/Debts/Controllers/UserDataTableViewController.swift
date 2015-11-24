@@ -16,8 +16,16 @@ class UserDataTableViewController: UITableViewController {
     @IBAction func offlineSwitched(switchControl: UISwitch) {
         GlobalVar.offline = switchControl.on
     }
+    @IBAction func logoutPressed(sender: UIButton) {
+        GlobalVar.currentUid = ""
+        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let loginVC = storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+        appDelegate.window?.rootViewController?.presentViewController(loginVC, animated: true, completion: nil)
+        
+        
+    }
     
-    override func viewDidLoad() {
+    override func viewDidAppear(animated: Bool) {
         self.offlineSwitch.on = GlobalVar.offline
         self.uIDLabel.text = GlobalVar.currentUid
         self.nameLabel.text = GlobalVar.currentUser.getName()

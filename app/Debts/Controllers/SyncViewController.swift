@@ -25,7 +25,7 @@ class SyncViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.receivingBtn.setTitle("Empfange Event für \(group.name)", forState: UIControlState.Normal)
+        self.receivingBtn.setTitle("Empfange Ausgabe für \(group.name)", forState: UIControlState.Normal)
     }
     
     // MARK: - Table view data source & Delegate

@@ -65,21 +65,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var tabBarController: UITabBarController?
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
         self.tabBarController = (storyboard.instantiateInitialViewController() as! UITabBarController)
         self.tabBarController?.selectedIndex = 1
-        let initialViewController = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-        
-        self.window?.rootViewController = initialViewController
+        self.window?.rootViewController = self.tabBarController
+                
         self.window?.makeKeyAndVisible()
-        
-        
         return true
     }
 
@@ -163,7 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if coordinator == nil {
             return nil
         }
-        var managedObjectContext = NSManagedObjectContext()
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
         }()
