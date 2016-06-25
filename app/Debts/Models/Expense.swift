@@ -119,7 +119,7 @@ class Expense : NSObject {
                     } else {
                         label += joiner + user.firstname
                     }
-                    count++
+                    count += 1
                 }
             }
             label += verb

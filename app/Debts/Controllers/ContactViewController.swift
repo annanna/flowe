@@ -80,7 +80,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
                         if sectionLetter != firstLetter {
                             sectionNames.append(firstLetter)
                             contactSections.append([])
-                            sectionIndex++
+                            sectionIndex += 1
                             sectionLetter = firstLetter
                         }
                     }
@@ -91,7 +91,7 @@ class ContactViewController: UIViewController, UITableViewDataSource, UITableVie
                     } else{
                         sectionNames.append(alternateLetter)
                         contactSections.append([])
-                        sectionIndex++
+                        sectionIndex += 1
                         sectionLetter = alternateLetter
                     }
                 }

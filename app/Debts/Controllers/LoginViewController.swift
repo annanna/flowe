@@ -120,7 +120,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
                     if sectionLetter != firstLetter {
                         sectionNames.append(firstLetter)
                         contactSections.append([])
-                        sectionIndex++
+                        sectionIndex += 1
                         sectionLetter = firstLetter
                     }
                 }
@@ -131,7 +131,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
                 } else{
                     sectionNames.append(alternateLetter)
                     contactSections.append([])
-                    sectionIndex++
+                    sectionIndex += 1
                     sectionLetter = alternateLetter
                 }
             }

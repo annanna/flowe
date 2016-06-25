@@ -50,7 +50,7 @@ class PeopleButton: UIButton {
             self.setTitle(user.getInitials(), forState: UIControlState.Normal)
             self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: 15)
         }
-        self.addTarget(self, action: "toggleSelection", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addTarget(self, action: #selector(PeopleButton.toggleSelection), forControlEvents: UIControlEvents.TouchUpInside)
         self.uid = user
     }
     

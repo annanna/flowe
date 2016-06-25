@@ -60,7 +60,7 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
                 self.tableView.reloadData()
                 
                 if self.expense!.creator.isSame(GlobalVar.currentUser) {
-                    let editBtn: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Done, target: self, action: "enableEditing:")
+                    let editBtn: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Done, target: self, action: #selector(ExpenseTableViewController.enableEditing(_:)))
                     self.navigationItem.rightBarButtonItem = editBtn
                 }
 
@@ -68,9 +68,9 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
             })
         } else {
             // New Expense
-            let cancelBtn: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "goBack:")
+            let cancelBtn: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ExpenseTableViewController.goBack(_:)))
             navigationItem.leftBarButtonItem = cancelBtn
-            let saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveExpense:")
+            let saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: #selector(ExpenseTableViewController.saveExpense(_:)))
             navigationItem.rightBarButtonItem = saveBtn
             self.title = "Add Expense"
             self.enableEditing = true
@@ -169,7 +169,7 @@ class ExpenseTableViewController: UITableViewController, UIImagePickerController
     func enableEditing(editBtn: UIBarButtonItem) {
         //TODO: enable all labels and buttons and store updated expense
         self.enableEditing = true
-        let saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "saveExpense:")
+        let saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: #selector(ExpenseTableViewController.saveExpense(_:)))
         navigationItem.rightBarButtonItem = saveBtn
     }
     @IBAction func chooseImage(sender: UIButton) {

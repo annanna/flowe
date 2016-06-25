@@ -56,10 +56,10 @@ class ExpenseShareViewController: UIViewController {
         cell.nameLabel.text = currentShare.user.firstname
         cell.sliderMax.text = self.amount.toMoneyString()
         cell.amountText.text = currentShare.amount.toMoneyString()
-        cell.amountText.addTarget(self, action: "amountTextEditingEnd:", forControlEvents: UIControlEvents.EditingDidEnd)
+        cell.amountText.addTarget(self, action: #selector(ExpenseShareViewController.amountTextEditingEnd(_:)), forControlEvents: UIControlEvents.EditingDidEnd)
         cell.amountSlider.maximumValue = Float(self.amount)
         cell.amountSlider.value = Float(currentShare.amount)
-        cell.amountSlider.addTarget(self, action: "sliderChanged:", forControlEvents: UIControlEvents.ValueChanged)
+        cell.amountSlider.addTarget(self, action: #selector(ExpenseShareViewController.sliderChanged(_:)), forControlEvents: UIControlEvents.ValueChanged)
         cells.append(cell)
         return cell
     }
@@ -78,12 +78,14 @@ class ExpenseShareViewController: UIViewController {
         if (automaticSliders.on && (idx < cells.count-1)) {
             // calculate remaining amount
             var rest:Double = amount
-            for var k=0; k<=idx; k++ {
+            
+            for k in 0...idx {
                 rest -= shares[k].amount
             }
             
             if rest >= 0 {
-                self.updateCellsWithShare(++idx, total: rest, c: cells.count-idx)
+                idx += 1
+                self.updateCellsWithShare(idx, total: rest, c: cells.count-idx)
             } else {
                 updateAmountLabel()
             }
@@ -133,10 +135,10 @@ class ExpenseShareViewController: UIViewController {
             let firstAmount = part+diff
             shares[idx] = (user: shares[idx].user, amount: firstAmount)
             cells[idx].updateCell(Float(firstAmount))
-            idx++
+            idx += 1
         }
         
-        for (var i=idx; i<cells.count; i++) {
+        for i in idx ..< cells.count {
             shares[i] = (user: shares[i].user, amount: part)
             cells[i].updateCell(Float(part))
         }

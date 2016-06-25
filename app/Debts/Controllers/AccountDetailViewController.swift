@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
-
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var expenseTable: UITableView!
     @IBOutlet weak var accStatusLabel: UILabel!
@@ -77,11 +77,11 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) 
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
         let expense = self.expenses[indexPath.row]
         cell.textLabel?.text = expense.generateConclusion()
         return cell
-    }    
+    }
     
     @IBAction func paymentPressed(sender: UIButton) {
         if currentPersonIsCreditor {
@@ -114,7 +114,7 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
     }
     
     func paymentDone() {
-        self.account?.status++
+        self.account?.status += 1
         self.displayStatus()
         RequestHelper.updateAccount(self.account, callback: { (acc) -> Void in
             self.account = acc
@@ -138,14 +138,15 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
         payment.intent = PayPalPaymentIntent.Sale
         
         if payment.processable {
-            let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: config, delegate: self)
-            self.presentViewController(paymentViewController, animated: true, completion: nil)
+            if let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: config, delegate: self) {
+                self.presentViewController(paymentViewController, animated: true, completion: nil)
+            }
         } else {
             print("payment is not processable")
         }
-
+        
     }
-
+    
     
     func verifyCompletedPayment(completedPayment: PayPalPayment) {
         let conf = completedPayment.confirmation
@@ -156,21 +157,21 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
         // (1) get access token
         
         /*
-        curl -v https://api.sandbox.paypal.com/v1/oauth2/token \
-        -H "Accept: application/json" \
-        -H "Accept-Language: en_US" \
-        -u "<ClientId>:<SecretKey>" \
-        -d "grant_type=client_credentials"
-        
-        */
+         curl -v https://api.sandbox.paypal.com/v1/oauth2/token \
+         -H "Accept: application/json" \
+         -H "Accept-Language: en_US" \
+         -u "<ClientId>:<SecretKey>" \
+         -d "grant_type=client_credentials"
+         
+         */
         
         // (2) get payment from server
         
         /*
-        curl -v -X GET https://api.sandbox.paypal.com/v1/payments/payment \
-        -H "Content-Type:application/json" \
-        -H "Authorization: Bearer <AccessToken>"
-        */
+         curl -v -X GET https://api.sandbox.paypal.com/v1/payments/payment \
+         -H "Content-Type:application/json" \
+         -H "Authorization: Bearer <AccessToken>"
+         */
     }
     
     func setupPayPal() -> PayPalConfiguration {
@@ -195,17 +196,17 @@ class AccountDetailViewController: UIViewController, PayPalPaymentDelegate {
         
         return payPalConfig
     }
-
+    
     
     // PayPalPaymentDelegate
-    func payPalPaymentDidCancel(paymentViewController: PayPalPaymentViewController!) {
+    func payPalPaymentDidCancel(paymentViewController: PayPalPaymentViewController) {
         print("payment Cancelled")
-    
-        paymentViewController?.dismissViewControllerAnimated(true, completion: nil)
+        
+        paymentViewController.dismissViewControllerAnimated(true, completion: nil)
     }
-    func payPalPaymentViewController(paymentViewController: PayPalPaymentViewController!, didCompletePayment completedPayment: PayPalPayment!) {
+    func payPalPaymentViewController(paymentViewController: PayPalPaymentViewController, didCompletePayment completedPayment: PayPalPayment) {
         print("payment success")
-        paymentViewController?.dismissViewControllerAnimated(true, completion: { () -> Void in
+        paymentViewController.dismissViewControllerAnimated(true, completion: { () -> Void in
             self.verifyCompletedPayment(completedPayment)
             self.paymentDone()
         })
